@@ -5,6 +5,7 @@
 #include <string>
 #include <exception>
 #include <algorithm>
+#include <array>
 
 namespace ns_test
 {
@@ -180,6 +181,7 @@ namespace ns_test
     {
     public:
         using value_type = _Ty;
+        using ary_type = std::array<_Ty, 2>;
 
     private:
         value_type _x;
@@ -188,6 +190,8 @@ namespace ns_test
     public:
         Point2() = default;
         Point2(value_type x, value_type y) : _x(x), _y(y) {}
+        Point2(const ary_type &p) : _x(p[0]), _y(p[1]) {}
+        operator ary_type() const;
         value_type &x();
         value_type &y();
         const value_type &x() const;
@@ -198,8 +202,14 @@ namespace ns_test
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const Point2<_Ty> &p)
     {
-        os << "Point(" << p.x() << ',' << p.y() << ')';
+        os << '[' << p.x() << ',' << p.y() << ']';
         return os;
+    }
+
+    template <typename _Ty>
+    Point2<_Ty>::operator ary_type() const
+    {
+        return ary_type{this->_x, this->_y};
     }
 
     template <typename _Ty>
@@ -233,6 +243,7 @@ namespace ns_test
     {
     public:
         using value_type = _Ty;
+        using ary_type = std::array<_Ty, 3>;
 
     private:
         value_type _x;
@@ -242,6 +253,8 @@ namespace ns_test
     public:
         Point3() = default;
         Point3(value_type x, value_type y, value_type z) : _x(x), _y(y), _z(z) {}
+        Point3(const ary_type &p) : _x(p[0]), _y(p[1]), _z(p[2]) {}
+        operator ary_type() const;
         value_type &x();
         value_type &y();
         value_type &z();
@@ -254,7 +267,7 @@ namespace ns_test
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const Point3<_Ty> &p)
     {
-        os << "Point(" << p.x() << ',' << p.y() << ',' << p.z() << ')';
+        os << '[' << p.x() << ',' << p.y() << ',' << p.z() << ']';
         return os;
     }
 
@@ -262,6 +275,12 @@ namespace ns_test
     _Ty &Point3<_Ty>::x()
     {
         return this->_x;
+    }
+
+    template <typename _Ty>
+    Point3<_Ty>::operator ary_type() const
+    {
+        return ary_type{this->_x, this->_y, this->_z};
     }
 
     template <typename _Ty>
@@ -293,11 +312,5 @@ namespace ns_test
     {
         return this->_z;
     }
-#pragma endregion
-
-#pragma region test foos
-    void foo_point2();
-    void foo_point3();
-
 #pragma endregion
 } // namespace ns_test
