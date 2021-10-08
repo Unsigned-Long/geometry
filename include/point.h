@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <array>
 
-namespace ns_test
+namespace ns_point
 {
 #pragma region global
     constexpr double PI = 3.1415926535;
@@ -70,7 +70,7 @@ namespace ns_test
             throw std::ios_base::failure("File Open Failed");
         if (std::ios::binary == (mode & std::ios::binary))
         {
-            ns_test::writeBinaryData(points, file);
+            ns_point::writeBinaryData(points, file);
         }
         else
         {
@@ -89,7 +89,7 @@ namespace ns_test
             throw std::ios_base::failure("File Open Failed");
         if (std::ios::binary == (mode & std::ios::binary))
         {
-            ns_test::readBinaryData(points, file);
+            ns_point::readBinaryData(points, file);
         }
         else
         {
@@ -133,7 +133,7 @@ namespace ns_test
             throw std::ios_base::failure("File Open Failed");
         if (std::ios::binary == (mode & std::ios::binary))
         {
-            ns_test::writeBinaryData(points, file);
+            ns_point::writeBinaryData(points, file);
         }
         else
         {
@@ -152,7 +152,7 @@ namespace ns_test
             throw std::ios_base::failure("File Open Failed");
         if (std::ios::binary == (mode & std::ios::binary))
         {
-            ns_test::readBinaryData(points, file);
+            ns_point::readBinaryData(points, file);
         }
         else
         {
@@ -315,4 +315,4 @@ namespace ns_test
         return this->_z;
     }
 #pragma endregion
-} // namespace ns_test
+} // namespace ns_point
