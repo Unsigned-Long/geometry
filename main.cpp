@@ -1,6 +1,7 @@
-#include "point.h"
+#include "point.hpp"
+#include <list>
 
-using namespace ns_test;
+using namespace ns_point;
 
 void foo_point2()
 {
@@ -12,22 +13,20 @@ void foo_point2()
     try
     {
         // distance between tow points
-        std::cout << ns_test::distance(p1, p2) << std::endl;
-        // the azimuth from p3 to p4
-        std::cout << ns_test::azimuth(p3, p4) << std::endl;
+        std::cout << distance(p1, p2) << std::endl;
         // write and read point data
         // way one.
         // default write mode : std::ios::out | std::ios::binary
-        ns_test::writePoints(ls, "../output/point2.bin");
+        writePoints2(ls, "../output/point2.bin");
         ls.clear();
         // default read mode : std::ios::in | std::ios::binary
-        ns_test::readPoints(ls, "../output/point2.bin");
+        readPoints2(ls, "../output/point2.bin");
         // way two.
         // write mode : std::ios::out
-        ns_test::writePoints(ls, "../output/point2.txt", std::ios::out);
+        writePoints2(ls, "../output/point2.txt", std::ios::out);
         ls.clear();
         // read mode : std::ios::in
-        ns_test::readPoints(ls, "../output/point2.txt", std::ios::in);
+        readPoints2(ls, "../output/point2.txt", std::ios::in);
         // print points
         for (const auto &elem : ls)
         {
@@ -51,21 +50,21 @@ void foo_point3()
     try
     {
         // distance between tow points
-        std::cout << ns_test::distance(p1, p2) << std::endl;
+        std::cout << distance(p1, p2) << std::endl;
         // write and read point data
         // way one.
         // default write mode : std::ios::out | std::ios::binary
-        ns_test::writePoints(ls, "../output/point3.bin");
+        writePoints3(ls, "../output/point3.bin");
         ls.clear();
         // default read mode : std::ios::in | std::ios::binary
-        ns_test::readPoints(ls, "../output/point3.bin");
+        readPoints3(ls, "../output/point3.bin");
 
         // way two.
         // write mode : std::ios::out
-        ns_test::writePoints(ls, "../output/point3.txt", std::ios::out);
+        writePoints3(ls, "../output/point3.txt", std::ios::out);
         ls.clear();
         // read mode : std::ios::in
-        ns_test::readPoints(ls, "../output/point3.txt", std::ios::in);
+        readPoints3(ls, "../output/point3.txt", std::ios::in);
         // print points
         for (const auto &elem : ls)
         {
@@ -81,13 +80,13 @@ void foo_point3()
 
 void foo_cast_test()
 {
-    ns_test::Point3f p(1, 2, 6);
-    ns_test::Point2f p2(2, 6);
+    Point3f p(1, 2, 6);
+    Point2f p2(2, 6);
     auto ary = static_cast<Point3f::ary_type>(p);
     auto ary2 = static_cast<Point2f::ary_type>(p2);
 
     std::cout << ary[0] << ',' << ary[1] << ',' << ary[2] << std::endl;
-    std::cout << ary2[0] << ',' << ary2[1]  << std::endl;
+    std::cout << ary2[0] << ',' << ary2[1] << std::endl;
 
     std::cout << Point3f(ary) << std::endl;
     std::cout << Point2f(ary2) << std::endl;
@@ -97,8 +96,8 @@ void foo_cast_test()
 
 int main(int argc, char *argv[])
 {
-    // ::foo_point2();
-    // ::foo_point3();
+    ::foo_point2();
+    ::foo_point3();
     ::foo_cast_test();
     return 0;
 }

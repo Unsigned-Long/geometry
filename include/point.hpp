@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <cmath>
-#include <list>
 #include <fstream>
 #include <string>
 #include <exception>
@@ -12,31 +11,33 @@
 namespace ns_point
 {
 #pragma region global
-    constexpr double PI = 3.1415926535;
 
-    template <typename _Ty>
-    void writeBinaryData(const std::list<_Ty> &ls, std::ofstream &file)
+    template <typename PointContainer>
+    void writeBinaryData(const PointContainer &ls, std::ofstream &file)
     {
+        using PointType = typename PointContainer::value_type;
         for (const auto &elem : ls)
-            file.write((const char *)(&elem), sizeof(_Ty));
+            file.write((const char *)(&elem), sizeof(PointType));
         return;
     }
 
-    template <typename _Ty>
-    void readBinaryData(std::list<_Ty> &ls, std::ifstream &file)
+    template <typename PointContainer>
+    void readBinaryData(PointContainer &ls, std::ifstream &file)
     {
-        _Ty elem;
+        using PointType = typename PointContainer::value_type;
+        PointType elem;
         file.seekg(0, std::ios::end);
-        auto size = file.tellg() / sizeof(_Ty);
+        auto size = file.tellg() / sizeof(PointType);
         file.seekg(0, std::ios::beg);
         int count = 0;
         while (!file.eof() && count < size)
         {
-            file.read((char *)(&elem), sizeof(_Ty));
+            file.read((char *)(&elem), sizeof(PointType));
             ls.push_back(elem);
             ++count;
         }
     }
+
 #pragma region global for Point2 < _Ty>
     template <typename _Ty>
     class Point2;
@@ -51,19 +52,8 @@ namespace ns_point
         return static_cast<float>(std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2)));
     }
 
-    template <typename _Ty>
-    float azimuth(const Point2<_Ty> &from, const Point2<_Ty> &to)
-    {
-        auto deta_x = to.x() - from.x();
-        auto deta_y = to.y() - from.y();
-        auto azi = std::atan2(deta_y, deta_x);
-        if (deta_y < 0.0f)
-            azi += 2.0f * PI;
-        return azi;
-    }
-
-    template <typename _Ty>
-    void writePoints(const std::list<Point2<_Ty>> &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary)
+    template <typename PointContainer>
+    void writePoints2(const PointContainer &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary)
     {
         std::ofstream file(filePath, mode);
         if (!file.is_open())
@@ -81,9 +71,11 @@ namespace ns_point
         }
     }
 
-    template <typename _Ty>
-    void readPoints(std::list<Point2<_Ty>> &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
+    template <typename PointContainer>
+    void readPoints2(PointContainer &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
     {
+        using PointType = typename PointContainer::value_type;
+        using PointValueType = typename PointType::value_type;
         std::ifstream file(filePath, mode);
         if (!file.is_open())
             throw std::ios_base::failure("File Open Failed");
@@ -93,7 +85,7 @@ namespace ns_point
         }
         else
         {
-            Point2<_Ty> point;
+            Point2<PointValueType> point;
             std::string str;
             while (!file.eof())
             {
@@ -101,8 +93,8 @@ namespace ns_point
                 if (str.empty())
                     continue;
                 auto iter = std::find(str.cbegin(), str.cend(), ',');
-                point.x() = static_cast<_Ty>(std::stod(std::string(str.cbegin(), iter)));
-                point.y() = static_cast<_Ty>(std::stod(std::string(++iter, str.cend())));
+                point.x() = static_cast<PointValueType>(std::stod(std::string(str.cbegin(), iter)));
+                point.y() = static_cast<PointValueType>(std::stod(std::string(++iter, str.cend())));
                 points.push_back(point);
             }
         }
@@ -125,8 +117,8 @@ namespace ns_point
         return static_cast<float>(std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2) + std::pow(p1.z() - p2.z(), 2)));
     }
 
-    template <typename _Ty>
-    void writePoints(const std::list<Point3<_Ty>> &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary)
+    template <typename PointContainer>
+    void writePoints3(const PointContainer &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary)
     {
         std::ofstream file(filePath, mode);
         if (!file.is_open())
@@ -144,9 +136,11 @@ namespace ns_point
         }
     }
 
-    template <typename _Ty>
-    void readPoints(std::list<Point3<_Ty>> &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
+    template <typename PointContainer>
+    void readPoints3(PointContainer &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
     {
+        using PointType = typename PointContainer::value_type;
+        using PointValueType = typename PointType::value_type;
         std::ifstream file(filePath, mode);
         if (!file.is_open())
             throw std::ios_base::failure("File Open Failed");
@@ -156,7 +150,7 @@ namespace ns_point
         }
         else
         {
-            Point3<_Ty> point;
+            Point3<PointValueType> point;
             std::string str;
             while (!file.eof())
             {
@@ -164,10 +158,10 @@ namespace ns_point
                 if (str.empty())
                     continue;
                 auto iter = std::find(str.cbegin(), str.cend(), ',');
-                point.x() = static_cast<_Ty>(std::stod(std::string(str.cbegin(), iter)));
+                point.x() = static_cast<PointValueType>(std::stod(std::string(str.cbegin(), iter)));
                 auto iter2 = std::find(++iter, str.cend(), ',');
-                point.y() = static_cast<_Ty>(std::stod(std::string(iter, iter2)));
-                point.z() = static_cast<_Ty>(std::stod(std::string(++iter2, str.cend())));
+                point.y() = static_cast<PointValueType>(std::stod(std::string(iter, iter2)));
+                point.z() = static_cast<PointValueType>(std::stod(std::string(++iter2, str.cend())));
                 points.push_back(point);
             }
         }
@@ -193,11 +187,11 @@ namespace ns_point
         Point2() = default;
         Point2(value_type x, value_type y) : _x(x), _y(y) {}
         Point2(const ary_type &p) : _x(p[0]), _y(p[1]) {}
-        operator ary_type() const;
-        value_type &x();
-        value_type &y();
-        const value_type &x() const;
-        const value_type &y() const;
+        operator ary_type() const { return ary_type{this->_x, this->_y}; }
+        value_type &x() { return this->_x; }
+        value_type &y() { return this->_y; }
+        const value_type &x() const { return this->_x; }
+        const value_type &y() const { return this->_y; }
         ~Point2() {}
     };
 
@@ -207,39 +201,10 @@ namespace ns_point
         os << '[' << p.x() << ',' << p.y() << ']';
         return os;
     }
-
-    template <typename _Ty>
-    Point2<_Ty>::operator ary_type() const
-    {
-        return ary_type{this->_x, this->_y};
-    }
-
-    template <typename _Ty>
-    _Ty &Point2<_Ty>::x()
-    {
-        return this->_x;
-    }
-
-    template <typename _Ty>
-    _Ty &Point2<_Ty>::y()
-    {
-        return this->_y;
-    }
-
-    template <typename _Ty>
-    const _Ty &Point2<_Ty>::x() const
-    {
-        return this->_x;
-    }
-
-    template <typename _Ty>
-    const _Ty &Point2<_Ty>::y() const
-    {
-        return this->_y;
-    }
 #pragma endregion
 
 #pragma region class Point3 < _Ty>
+
     template <typename _Ty = float>
     class Point3
     {
@@ -256,13 +221,13 @@ namespace ns_point
         Point3() = default;
         Point3(value_type x, value_type y, value_type z) : _x(x), _y(y), _z(z) {}
         Point3(const ary_type &p) : _x(p[0]), _y(p[1]), _z(p[2]) {}
-        operator ary_type() const;
-        value_type &x();
-        value_type &y();
-        value_type &z();
-        const value_type &x() const;
-        const value_type &y() const;
-        const value_type &z() const;
+        operator ary_type() const { return ary_type{this->_x, this->_y, this->_z}; }
+        value_type &x() { return this->_x; }
+        value_type &y() { return this->_y; }
+        value_type &z() { return this->_z; }
+        const value_type &x() const { return this->_x; }
+        const value_type &y() const { return this->_y; }
+        const value_type &z() const { return this->_z; }
         ~Point3() {}
     };
 
@@ -271,48 +236,6 @@ namespace ns_point
     {
         os << '[' << p.x() << ',' << p.y() << ',' << p.z() << ']';
         return os;
-    }
-
-    template <typename _Ty>
-    _Ty &Point3<_Ty>::x()
-    {
-        return this->_x;
-    }
-
-    template <typename _Ty>
-    Point3<_Ty>::operator ary_type() const
-    {
-        return ary_type{this->_x, this->_y, this->_z};
-    }
-
-    template <typename _Ty>
-    _Ty &Point3<_Ty>::y()
-    {
-        return this->_y;
-    }
-
-    template <typename _Ty>
-    _Ty &Point3<_Ty>::z()
-    {
-        return this->_z;
-    }
-
-    template <typename _Ty>
-    const _Ty &Point3<_Ty>::x() const
-    {
-        return this->_x;
-    }
-
-    template <typename _Ty>
-    const _Ty &Point3<_Ty>::y() const
-    {
-        return this->_y;
-    }
-
-    template <typename _Ty>
-    const _Ty &Point3<_Ty>::z() const
-    {
-        return this->_z;
     }
 #pragma endregion
 } // namespace ns_point
