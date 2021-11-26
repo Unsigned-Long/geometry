@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <array>
 
-namespace ns_point
+namespace ns_geo
 {
 #pragma region global
 
@@ -42,16 +42,25 @@ namespace ns_point
     template <typename _Ty>
     class Point2;
 
+    /**
+     * \brief some commonly used 2D point classes
+     */
     using Point2f = Point2<float>;
     using Point2d = Point2<double>;
     using Point2i = Point2<int>;
 
+    /**
+     * \brief Calculate the distance between two points
+     */
     template <typename _Ty>
     float distance(const Point2<_Ty> &p1, const Point2<_Ty> &p2)
     {
         return static_cast<float>(std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2)));
     }
 
+    /**
+     * \brief Writes a 2D point set to a file
+     */
     template <typename PointContainer>
     void writePoints2(const PointContainer &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary)
     {
@@ -60,7 +69,7 @@ namespace ns_point
             throw std::ios_base::failure("File Open Failed");
         if (std::ios::binary == (mode & std::ios::binary))
         {
-            ns_point::writeBinaryData(points, file);
+            ns_geo::writeBinaryData(points, file);
         }
         else
         {
@@ -71,6 +80,9 @@ namespace ns_point
         }
     }
 
+    /**
+     * \brief Read the 2D point set from the file to the program
+     */
     template <typename PointContainer>
     void readPoints2(PointContainer &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
     {
@@ -81,7 +93,7 @@ namespace ns_point
             throw std::ios_base::failure("File Open Failed");
         if (std::ios::binary == (mode & std::ios::binary))
         {
-            ns_point::readBinaryData(points, file);
+            ns_geo::readBinaryData(points, file);
         }
         else
         {
@@ -106,17 +118,25 @@ namespace ns_point
 
     template <typename _Ty>
     class Point3;
-
+    /**
+     * \brief some commonly used 3D point classes
+     */
     using Point3f = Point3<float>;
     using Point3d = Point3<double>;
     using Point3i = Point3<int>;
 
+    /**
+     * \brief Calculate the distance between two points
+     */
     template <typename _Ty>
     float distance(const Point3<_Ty> &p1, const Point3<_Ty> &p2)
     {
         return static_cast<float>(std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2) + std::pow(p1.z() - p2.z(), 2)));
     }
 
+    /**
+     * \brief Writes a 3D point set to a file
+     */
     template <typename PointContainer>
     void writePoints3(const PointContainer &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary)
     {
@@ -125,7 +145,7 @@ namespace ns_point
             throw std::ios_base::failure("File Open Failed");
         if (std::ios::binary == (mode & std::ios::binary))
         {
-            ns_point::writeBinaryData(points, file);
+            ns_geo::writeBinaryData(points, file);
         }
         else
         {
@@ -136,6 +156,9 @@ namespace ns_point
         }
     }
 
+    /**
+     * \brief Read the 3D point set from the file to the program
+     */
     template <typename PointContainer>
     void readPoints3(PointContainer &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
     {
@@ -146,7 +169,7 @@ namespace ns_point
             throw std::ios_base::failure("File Open Failed");
         if (std::ios::binary == (mode & std::ios::binary))
         {
-            ns_point::readBinaryData(points, file);
+            ns_geo::readBinaryData(points, file);
         }
         else
         {
@@ -172,6 +195,9 @@ namespace ns_point
 #pragma endregion
 
 #pragma region class Point2 < _Ty>
+    /**
+     * \brief a sample template class to describe the 2-dime points
+     */
     template <typename _Ty = float>
     class Point2
     {
@@ -187,12 +213,15 @@ namespace ns_point
         Point2() = default;
         Point2(value_type x, value_type y) : _x(x), _y(y) {}
         Point2(const ary_type &p) : _x(p[0]), _y(p[1]) {}
+
         operator ary_type() const { return ary_type{this->_x, this->_y}; }
+
         value_type &x() { return this->_x; }
         value_type &y() { return this->_y; }
+
         const value_type &x() const { return this->_x; }
         const value_type &y() const { return this->_y; }
-        ~Point2() {}
+
     };
 
     template <typename _Ty>
@@ -204,7 +233,9 @@ namespace ns_point
 #pragma endregion
 
 #pragma region class Point3 < _Ty>
-
+    /**
+     * \brief a sample template class to describe the 3-dime points
+     */
     template <typename _Ty = float>
     class Point3
     {
@@ -221,14 +252,17 @@ namespace ns_point
         Point3() = default;
         Point3(value_type x, value_type y, value_type z) : _x(x), _y(y), _z(z) {}
         Point3(const ary_type &p) : _x(p[0]), _y(p[1]), _z(p[2]) {}
+
         operator ary_type() const { return ary_type{this->_x, this->_y, this->_z}; }
+
         value_type &x() { return this->_x; }
         value_type &y() { return this->_y; }
         value_type &z() { return this->_z; }
+
         const value_type &x() const { return this->_x; }
         const value_type &y() const { return this->_y; }
         const value_type &z() const { return this->_z; }
-        ~Point3() {}
+
     };
 
     template <typename _Ty>
@@ -238,4 +272,4 @@ namespace ns_point
         return os;
     }
 #pragma endregion
-} // namespace ns_point
+} // namespace ns_geo
