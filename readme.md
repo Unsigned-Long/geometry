@@ -27,22 +27,20 @@ void foo_point2()
     try
     {
         // distance between tow points
-        std::cout << ns_test::distance(p1, p2) << std::endl;
-        // the azimuth from p3 to p4
-        std::cout << ns_test::azimuth(p3, p4) << std::endl;
+        std::cout << distance(p1, p2) << std::endl;
         // write and read point data
         // way one.
         // default write mode : std::ios::out | std::ios::binary
-        ns_test::writePoints(ls, "../output/point2.bin");
+        writePoints2(ls, "../output/point2.bin");
         ls.clear();
         // default read mode : std::ios::in | std::ios::binary
-        ns_test::readPoints(ls, "../output/point2.bin");
+        readPoints2(ls, "../output/point2.bin");
         // way two.
         // write mode : std::ios::out
-        ns_test::writePoints(ls, "../output/point2.txt", std::ios::ou
+        writePoints2(ls, "../output/point2.txt", std::ios::out);
         ls.clear();
         // read mode : std::ios::in
-        ns_test::readPoints(ls, "../output/point2.txt", std::ios::in)
+        readPoints2(ls, "../output/point2.txt", std::ios::in);
         // print points
         for (const auto &elem : ls)
         {
@@ -69,20 +67,21 @@ void foo_point3()
     try
     {
         // distance between tow points
-        std::cout << ns_test::distance(p1, p2) << std::endl;
+        std::cout << distance(p1, p2) << std::endl;
         // write and read point data
         // way one.
         // default write mode : std::ios::out | std::ios::binary
-        ns_test::writePoints(ls, "../output/point3.bin");
+        writePoints3(ls, "../output/point3.bin");
         ls.clear();
         // default read mode : std::ios::in | std::ios::binary
-        ns_test::readPoints(ls, "../output/point3.bin");
+        readPoints3(ls, "../output/point3.bin");
+
         // way two.
         // write mode : std::ios::out
-        ns_test::writePoints(ls, "../output/point3.txt", std::ios::out);
+        writePoints3(ls, "../output/point3.txt", std::ios::out);
         ls.clear();
         // read mode : std::ios::in
-        ns_test::readPoints(ls, "../output/point3.txt", std::ios::in);
+        readPoints3(ls, "../output/point3.txt", std::ios::in);
         // print points
         for (const auto &elem : ls)
         {
@@ -97,87 +96,57 @@ void foo_point3()
 }
 ```
 
-## ***Details***
-
-### class <kbd>__Point2<_Ty>___</kbd>
-
-[___typedefs___]()
+### <kbd>__Point_cast<_Ty>___</kbd>  
 ```cpp
-template <typename _Ty>
-class Point2;
+void foo_ponitCast_test()
+{
+    Point3f p(1, 2, 6);
+    Point2f p2(2, 6);
+    auto ary = static_cast<Point3f::ary_type>(p);
+    auto ary2 = static_cast<Point2f::ary_type>(p2);
 
-using Point2f = Point2<float>;
-using Point2d = Point2<double>;
-using Point2i = Point2<int>;
-```
-[___APIs___]()
+    std::cout << ary[0] << ',' << ary[1] << ',' << ary[2] << std::endl;
+    std::cout << ary2[0] << ',' << ary2[1] << std::endl;
 
-```cpp
-// calculate the distance between two points
-template <typename _Ty>
-float distance(const Point2<_Ty> &p1, const Point2<_Ty> &p2)
+    std::cout << Point3f(ary) << std::endl;
+    std::cout << Point2f(ary2) << std::endl;
 
-// calculate the azimuth
-template <typename _Ty>
-float azimuth(const Point2<_Ty> &from, const Point2<_Ty> &to)
-
-// write points' data to file
-template <typename _Ty>
-void writePoints(const std::list<Point2<_Ty>> &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary)
-
-// read points'data from the file
-template <typename _Ty>
-void readPoints(std::list<Point2<_Ty>> &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
-
-// put point to ostream
-template <typename _Ty>
-std::ostream &operator<<(std::ostream &os, const Point2<_Ty> &p)
+    return;
+}
 ```
 
-### class <kbd>__Point3<_Ty>___</kbd>
-
-[___typedefs___]()
-```cpp
-template <typename _Ty>
-class Point3;
-
-using Point3f = Point3<float>;
-using Point3d = Point3<double>;
-using Point3i = Point3<int>;
-```
-[___APIs___]()
+### <kbd>__Triangle2<_Ty>___</kbd>  
 
 ```cpp
-// calculate the distance between two points
-template <typename _Ty>
-float distance(const Point3<_Ty> &p1, const Point3<_Ty> &p2)
-
-// write points' data to file
-template <typename _Ty>
-void writePoints(const std::list<Point3<_Ty>> &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary)
-template <typename _Ty>
-
-// read points'data from the file
-void readPoints(std::list<Point3<_Ty>> &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
-
-// put point to ostream
-template <typename _Ty>
-std::ostream &operator<<(std::ostream &os, const Point3<_Ty> &p)
+void foo_triangle2()
+{
+    ns_geo::Point2<double> points[3] = {
+        Point2d(0, 0),
+        Point2d(2, 2),
+        Point2d(2, 0)};
+    ns_geo::Triangle2d tri(points);
+    std::cout << tri << std::endl;
+    std::cout << "area : " << tri.area() << std::endl;
+    std::cout << "perimeter : " << tri.perimeter() << std::endl;
+    return;
+}
 ```
 
-## ***Others***
+### <kbd>__Triangle3<_Ty>___</kbd>  
 
 ```cpp
-// the const value of PI
-constexpr double PI = 3.1415926535;
-
-// write binary data to file
-template <typename _Ty>
-void writeBinaryData(const std::list<_Ty> &ls, std::ofstream &file)
-
-// read binary data from file
-template <typename _Ty>
-void readBinaryData(std::list<_Ty> &ls, std::ifstream &file)
+void foo_triangle3()
+{
+    ns_geo::Point3<double> points[3] = {
+        Point3d(0, 0, 0),
+        Point3d(2, 2, 2),
+        Point3d(2, 0, 0)};
+    ns_geo::Triangle3d tri(points);
+    std::cout << tri << std::endl;
+    std::cout << "area : " << tri.area() << std::endl;
+    std::cout << "perimeter : " << tri.perimeter() << std::endl;
+    return;
+}
 ```
 
 For other implementation details, please refer to the source code.
