@@ -33,6 +33,8 @@ namespace ns_geo
             : _p1(points[0]), _p2(points[1]) {}
         Line2(const std::array<point_type, 2> &points)
             : _p1(points[0]), _p2(points[1]) {}
+        Line2(value_type p1x, value_type p1y, value_type p2x, value_type p2y)
+            : _p1(p1x, p1y), _p2(p2x, p2y) {}
 
         const point_type &p1() const { return this->_p1; }
         point_type &p1() { return this->_p1; }
@@ -40,7 +42,7 @@ namespace ns_geo
         const point_type &p2() const { return this->_p2; }
         point_type &p2() { return this->_p2; }
 
-        std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->_p1, this->p2}; }
+        std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->_p1, this->_p2}; }
 
         float length() const { return ns_geo::distance(_p1, _p2); }
     };
@@ -53,6 +55,7 @@ namespace ns_geo
         os << line.p2() << '}';
         return os;
     }
+
 #pragma endregion
 
 #pragma region Line3
@@ -84,6 +87,9 @@ namespace ns_geo
             : _p1(points[0]), _p2(points[1]) {}
         Line3(const std::array<point_type, 2> &points)
             : _p1(points[0]), _p2(points[1]) {}
+        Line3(value_type p1x, value_type p1y, value_type p1z,
+              value_type p2x, value_type p2y, value_type p2z)
+            : _p1(p1x, p1y, p1z), _p2(p2x, p2y, p2x) {}
 
         const point_type &p1() const { return this->_p1; }
         point_type &p1() { return this->_p1; }

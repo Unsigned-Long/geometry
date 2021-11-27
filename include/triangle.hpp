@@ -32,8 +32,12 @@ namespace ns_geo
             : _p1(p1), _p2(p2), _p3(p3) {}
         Triangle2(const point_type points[3])
             : _p1(points[0]), _p2(points[1]), _p3(points[2]) {}
-        Triangle2(const std::array<point_type, 3>& points)
+        Triangle2(const std::array<point_type, 3> &points)
             : _p1(points[0]), _p2(points[1]), _p3(points[2]) {}
+        Triangle2(value_type p1x, value_type p1y,
+                  value_type p2x, value_type p2y,
+                  value_type p3x, value_type p3y)
+            : _p1(p1x, p1y), _p2(p2x, p2y), _p3(p3x, p3y) {}
 
         const point_type &p1() const { return this->_p1; }
         point_type &p1() { return this->_p1; }
@@ -44,7 +48,7 @@ namespace ns_geo
         const point_type &p3() const { return this->_p3; }
         point_type &p3() { return this->_p3; }
 
-        std::array<point_type, 3> points() const { return std::array<point_type, 3>{this->_p1, this->p2, this->_p3}; }
+        std::array<point_type, 3> points() const { return std::array<point_type, 3>{this->_p1, this->_p2, this->_p3}; }
 
         float area() const
         {
@@ -102,8 +106,12 @@ namespace ns_geo
             : _p1(p1), _p2(p2), _p3(p3) {}
         Triangle3(const point_type points[3])
             : _p1(points[0]), _p2(points[1]), _p3(points[2]) {}
-        Triangle3(const std::array<point_type, 3>& points)
+        Triangle3(const std::array<point_type, 3> &points)
             : _p1(points[0]), _p2(points[1]), _p3(points[2]) {}
+        Triangle3(value_type p1x, value_type p1y, value_type p1z,
+                  value_type p2x, value_type p2y, value_type p2z,
+                  value_type p3x, value_type p3y, value_type p3z)
+            : _p1(p1x, p1y, p1z), _p2(p2x, p2y, p2z), _p3(p3x, p3y, p3z) {}
 
         const point_type &p1() const { return this->_p1; }
         point_type &p1() { return this->_p1; }
@@ -114,7 +122,7 @@ namespace ns_geo
         const point_type &p3() const { return this->_p3; }
         point_type &p3() { return this->_p3; }
 
-        std::array<point_type, 3> points() const { return std::array<point_type, 3>{this->_p1, this->p2, this->_p3}; }
+        std::array<point_type, 3> points() const { return std::array<point_type, 3>{this->_p1, this->_p2, this->_p3}; }
 
         float area() const
         {
