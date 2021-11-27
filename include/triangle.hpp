@@ -32,6 +32,8 @@ namespace ns_geo
             : _p1(p1), _p2(p2), _p3(p3) {}
         Triangle2(const point_type points[3])
             : _p1(points[0]), _p2(points[1]), _p3(points[2]) {}
+        Triangle2(const std::array<point_type, 3>& points)
+            : _p1(points[0]), _p2(points[1]), _p3(points[2]) {}
 
         const point_type &p1() const { return this->_p1; }
         point_type &p1() { return this->_p1; }
@@ -44,16 +46,16 @@ namespace ns_geo
 
         std::array<point_type, 3> points() const { return std::array<point_type, 3>{this->_p1, this->p2, this->_p3}; }
 
-        double area() const
+        float area() const
         {
-            double v12_x = _p2.x() - _p1.x();
-            double v12_y = _p2.y() - _p1.y();
-            double v13_x = _p3.x() - _p1.x();
-            double v13_y = _p3.y() - _p1.y();
+            float v12_x = _p2.x() - _p1.x();
+            float v12_y = _p2.y() - _p1.y();
+            float v13_x = _p3.x() - _p1.x();
+            float v13_y = _p3.y() - _p1.y();
             return std::abs(v12_x * v13_y - v12_y * v13_x) * 0.5;
         }
 
-        double perimeter() const
+        float perimeter() const
         {
             return ns_geo::distance(_p1, _p2) +
                    ns_geo::distance(_p1, _p3) +
@@ -100,6 +102,8 @@ namespace ns_geo
             : _p1(p1), _p2(p2), _p3(p3) {}
         Triangle3(const point_type points[3])
             : _p1(points[0]), _p2(points[1]), _p3(points[2]) {}
+        Triangle3(const std::array<point_type, 3>& points)
+            : _p1(points[0]), _p2(points[1]), _p3(points[2]) {}
 
         const point_type &p1() const { return this->_p1; }
         point_type &p1() { return this->_p1; }
@@ -112,21 +116,21 @@ namespace ns_geo
 
         std::array<point_type, 3> points() const { return std::array<point_type, 3>{this->_p1, this->p2, this->_p3}; }
 
-        double area() const
+        float area() const
         {
-            double v12_x = _p2.x() - _p1.x();
-            double v12_y = _p2.y() - _p1.y();
-            double v12_z = _p2.z() - _p1.z();
-            double v13_x = _p3.x() - _p1.x();
-            double v13_y = _p3.y() - _p1.y();
-            double v13_z = _p3.z() - _p1.z();
+            float v12_x = _p2.x() - _p1.x();
+            float v12_y = _p2.y() - _p1.y();
+            float v12_z = _p2.z() - _p1.z();
+            float v13_x = _p3.x() - _p1.x();
+            float v13_y = _p3.y() - _p1.y();
+            float v13_z = _p3.z() - _p1.z();
             auto val1 = std::pow(v12_y * v13_z - v12_z * v13_y, 2);
             auto val2 = std::pow(v13_x * v12_z - v12_x * v13_z, 2);
             auto val3 = std::pow(v12_x * v13_y - v12_y * v13_x, 2);
             return std::sqrt(val1 + val2 + val3) * 0.5;
         }
 
-        double perimeter() const
+        float perimeter() const
         {
             return ns_geo::distance(_p1, _p2) +
                    ns_geo::distance(_p1, _p3) +
