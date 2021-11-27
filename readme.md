@@ -173,4 +173,16 @@ void foo_line3()
 }
 ```
 
+### <kbd>__Rectangle2<_Ty>___</kbd>  
+
+```cpp
+void foo_rectangle2()
+{
+    ns_geo::Rectangle2d rect(0, 4, 1, 0);
+    std::cout << rect << std::endl;
+    std::cout << "area : " << rect.area() << std::endl;
+    return;
+}
+```
+
 For other implementation details, please refer to the source code.
