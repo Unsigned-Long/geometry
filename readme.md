@@ -149,4 +149,28 @@ void foo_triangle3()
 }
 ```
 
+### <kbd>__Line2<_Ty>___</kbd>  
+
+```cpp
+void foo_line2()
+{
+    ns_geo::Line2d line(Point2d(0, 0), Point2d(2, 2));
+    std::cout << line << std::endl;
+    std::cout << "length : " << line.length() << std::endl;
+    return;
+}
+```
+
+### <kbd>__Line3<_Ty>___</kbd>  
+
+```cpp
+void foo_line3()
+{
+    ns_geo::Line3d line(Point3d(0, 0, 0), Point3d(2, 2, 2));
+    std::cout << line << std::endl;
+    std::cout << "length : " << line.length() << std::endl;
+    return;
+}
+```
+
 For other implementation details, please refer to the source code.
