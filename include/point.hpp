@@ -276,8 +276,9 @@ namespace ns_geo
     template <typename _PointType, typename _Alloc = std::allocator<_PointType>>
     class PointSet : public std::vector<_PointType, _Alloc>
     {
+    public:
+        using value_type = _PointType;
         using point_type = _PointType;
-        using value_type = typename _PointType::value_type;
         using container_type = std::vector<_PointType, _Alloc>;
         using container_type::container_type;
     };

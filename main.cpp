@@ -19,7 +19,10 @@ void foo_pointset()
     PointSet2f set;
     set.push_back(Point2f(1, 2));
     set.push_back(Point2f(2, 3));
-    for (const auto &point : set)
+    writePoints2(set, "../output/pointset.csv", std::ios::out);
+    set.clear();
+    readPoints2(set, "../output/pointset.csv", std::ios::in);
+        for (const auto &point : set)
         std::cout << point << std::endl;
     return;
 }
