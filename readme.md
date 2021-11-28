@@ -96,6 +96,19 @@ void foo_point3()
 }
 ```
 
+### <kbd> ___PointSet<PointType,Alloc>___</kbd> 
+```cpp
+void foo_pointset()
+{
+    PointSet<Point2f> set;
+    set.push_back(Point2f(1, 2));
+    set.push_back(Point2f(2, 3));
+    for (const auto &point : set)
+        std::cout << point << std::endl;
+    return;
+}
+```
+
 ### <kbd>__Point_cast<_Ty>___</kbd>  
 ```cpp
 void foo_ponitCast_test()

@@ -14,8 +14,18 @@ void foo_rectangle2()
     return;
 }
 
+void foo_pointset()
+{
+    PointSet2f set;
+    set.push_back(Point2f(1, 2));
+    set.push_back(Point2f(2, 3));
+    for (const auto &point : set)
+        std::cout << point << std::endl;
+    return;
+}
+
 int main(int argc, char *argv[])
 {
-    ::foo_rectangle2();
+    ::foo_pointset();
     return 0;
 }

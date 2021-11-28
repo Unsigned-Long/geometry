@@ -7,6 +7,7 @@
 #include <exception>
 #include <algorithm>
 #include <array>
+#include <vector>
 
 namespace ns_geo
 {
@@ -221,7 +222,6 @@ namespace ns_geo
 
         const value_type &x() const { return this->_x; }
         const value_type &y() const { return this->_y; }
-
     };
 
     template <typename _Ty>
@@ -262,7 +262,6 @@ namespace ns_geo
         const value_type &x() const { return this->_x; }
         const value_type &y() const { return this->_y; }
         const value_type &z() const { return this->_z; }
-
     };
 
     template <typename _Ty>
@@ -272,4 +271,23 @@ namespace ns_geo
         return os;
     }
 #pragma endregion
+
+#pragma region PointSet
+    template <typename _PointType, typename _Alloc = std::allocator<_PointType>>
+    class PointSet : public std::vector<_PointType, _Alloc>
+    {
+        using point_type = _PointType;
+        using value_type = typename _PointType::value_type;
+        using container_type = std::vector<_PointType, _Alloc>;
+        using container_type::container_type;
+    };
+
+    using PointSet2i = PointSet<Point2i>;
+    using PointSet2f = PointSet<Point2f>;
+    using PointSet2d = PointSet<Point2d>;
+    using PointSet3i = PointSet<Point3i>;
+    using PointSet3f = PointSet<Point3f>;
+    using PointSet3d = PointSet<Point3d>;
+#pragma endregion
+
 } // namespace ns_geo
