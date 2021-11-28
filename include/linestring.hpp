@@ -1,4 +1,15 @@
 #pragma once
+
+/**
+ * \brief the details
+ *       [1] class type
+ *              0. LineString<_PointType>
+ * 
+ *       [2] methods for LineString
+ *              0. length
+ *              2. operator "<<" for LineString<_PointType>
+ */
+
 #include "point.hpp"
 
 namespace ns_geo

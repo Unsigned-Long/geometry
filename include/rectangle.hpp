@@ -1,5 +1,19 @@
 #pragma once
 
+/**
+ * \brief the details
+ *       [1] class type
+ *              0. Rectangle<_Ty>
+ *              1. Rectangled
+ *              2. Rectanglef
+ *              3. Rectanglei
+ * 
+ *       [2] methods for Line
+ *              0. area
+ *              1. perimeter
+ *              2. operator "<<" for Rectangle<_Ty>
+ */
+
 #include "point.hpp"
 
 namespace ns_geo

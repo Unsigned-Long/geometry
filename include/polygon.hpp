@@ -1,4 +1,18 @@
 #pragma once
+
+/**
+ * \brief the details
+ *       [1] class type
+ *              0. Polygon<_Ty>
+ *              1. Polygond
+ *              2. Polygonf
+ *              3. Polygoni
+ * 
+ *       [2] methods for Polygon
+ *              0. perimeter
+ *              2. operator "<<" for Polygon<_Ty>
+ */
+
 #include "point.hpp"
 
 namespace ns_geo

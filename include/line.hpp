@@ -1,5 +1,19 @@
 #pragma once
 
+/**
+ * \brief the details
+ *       [1] class type
+ *              0. Line2<_Ty>, Line3<_Ty>
+ *              1. Line2f, Line3f
+ *              2. Line2d, Line3d
+ *              3. Line2i, Line3i
+ * 
+ *       [2] methods for Line
+ *              0. azimuthRHR, azimuthLHR
+ *              1. length
+ *              2. operator "<<" for Line2<_Ty>, Line3<_Ty>
+ */
+
 #include "point.hpp"
 
 namespace ns_geo

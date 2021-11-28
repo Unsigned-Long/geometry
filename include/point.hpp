@@ -1,5 +1,22 @@
 #pragma once
 
+/**
+ * \brief the details
+ *       [1] class type
+ *              0. Point2<_Ty>, Point3<_Ty>, PointSet2<_PointType>
+ *              1. Point2f, Point3f
+ *              2. Point2d, Point3d
+ *              3. Point2i, Point3i
+ * 
+ *       [2] methods
+ *              0. writeBinaryData, readBinaryData
+ *              1. azimuthRHR, azimuthLHR
+ *              2. distance
+ *              3. writePoints2, readPoints2
+ *              4. writePoints3, readPoints3
+ *              5. operator "<<" for Point2<_Ty>, Point3<_Ty>
+ */
+
 #include <iostream>
 #include <cmath>
 #include <fstream>
