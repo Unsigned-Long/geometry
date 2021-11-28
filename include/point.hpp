@@ -51,6 +51,34 @@ namespace ns_geo
     using Point2i = Point2<int>;
 
     /**
+     * \brief calculate the azimuth according the right hand rule
+     */
+    template <typename _Ty>
+    float azimuthRHR(const Point2<_Ty> &from, const Point2<_Ty> &to)
+    {
+        float detaX = to.x() - from.x();
+        float detaY = to.y() - from.y();
+        float angle = std::atan2(detaX, detaY);
+        if (detaX < 0.0)
+            angle += 2 * M_PI;
+        return angle;
+    }
+
+    /**
+     * \brief calculate the azimuth according the left hand rule
+     */
+    template <typename _Ty>
+    float azimuthLHR(const Point2<_Ty> &from, const Point2<_Ty> &to)
+    {
+        float detaX = to.x() - from.x();
+        float detaY = to.y() - from.y();
+        float angle = std::atan2(detaY, detaX);
+        if (detaY < 0.0)
+            angle += 2 * M_PI;
+        return angle;
+    }
+
+    /**
      * \brief Calculate the distance between two points
      */
     template <typename _Ty>
