@@ -216,4 +216,25 @@ void foo_polygon()
 }
 ```
 
+### <kbd>__LineString<_Ty>___</kbd>  
+
+```cpp
+void foo_lineString()
+{
+    LineString3d ls({Point3d(0, 0, 9),
+                     Point3d(0, 1, 9),
+                     Point3d(1, 1, 9),
+                     Point3d(1, 0, 9)});
+    std::cout << ls << std::endl;
+    std::cout << ls.length() << std::endl;
+    LineString2d ls2({Point2d(0, 9),
+                      Point2d(1, 9),
+                      Point2d(1, 9),
+                      Point2d(0, 9)});
+    std::cout << ls2 << std::endl;
+    std::cout << ls2.length() << std::endl;
+    return;
+}
+```
+
 For other implementation details, please refer to the source code.
