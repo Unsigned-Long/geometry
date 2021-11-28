@@ -5,16 +5,16 @@
 namespace ns_geo
 {
     template <typename _Ty>
-    class Rectangle2;
-    using Rectangle2d = Rectangle2<double>;
-    using Rectangle2f = Rectangle2<float>;
-    using Rectangle2i = Rectangle2<int>;
+    class Rectangle;
+    using Rectangled = Rectangle<double>;
+    using Rectanglef = Rectangle<float>;
+    using Rectanglei = Rectangle<int>;
 
     /**
      * \brief a sample template class to describe the 2-dime rectangles
      */
     template <typename _Ty = float>
-    class Rectangle2
+    class Rectangle
     {
     public:
         using value_type = _Ty;
@@ -27,14 +27,14 @@ namespace ns_geo
         point_type _lwrp;
 
     public:
-        Rectangle2() = default;
-        Rectangle2(const point_type &topLeft, const point_type &lowerRight)
+        Rectangle() = default;
+        Rectangle(const point_type &topLeft, const point_type &lowerRight)
             : _tplp(topLeft), _lwrp(lowerRight) {}
-        Rectangle2(const point_type points[2])
+        Rectangle(const point_type points[2])
             : _tplp(points[0]), _lwrp(points[1]) {}
-        Rectangle2(const std::array<point_type, 2> &points)
+        Rectangle(const std::array<point_type, 2> &points)
             : _tplp(points[0]), _lwrp(points[1]) {}
-        Rectangle2(value_type tlx, value_type tly, value_type lrx, value_type lry)
+        Rectangle(value_type tlx, value_type tly, value_type lrx, value_type lry)
             : _tplp(tlx, tly), _lwrp(lrx, lry) {}
 
         std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->_tplp, this->_lwrp}; }
@@ -46,10 +46,16 @@ namespace ns_geo
         point_type &lowerRight() { return this->_lwrp; }
 
         float area() const { return std::abs(this->_tplp.x() - this->_lwrp.x()) * std::abs(this->_tplp.y() - this->_lwrp.y()); }
+
+        float perimeter() const
+        {
+            return 2.0 * (ns_geo::distance(point_type(_tplp.x(), _lwrp.y()), _lwrp) +
+                          ns_geo::distance(point_type(_tplp.x(), _lwrp.y()), _tplp));
+        }
     };
 
     template <typename _Ty = float>
-    std::ostream &operator<<(std::ostream &os, const Rectangle2<_Ty> &rect)
+    std::ostream &operator<<(std::ostream &os, const Rectangle<_Ty> &rect)
     {
         os << '{';
         os << rect.topLeft() << ", ";

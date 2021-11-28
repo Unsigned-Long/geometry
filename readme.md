@@ -189,14 +189,15 @@ void foo_line3()
 }
 ```
 
-### <kbd>__Rectangle2<_Ty>___</kbd>  
+### <kbd>__Rectangle<_Ty>___</kbd>  
 
 ```cpp
-void foo_rectangle2()
+void foo_rectangle()
 {
-    ns_geo::Rectangle2d rect(0, 4, 1, 0);
+    ns_geo::Rectangled rect(0, 4, 1, 0);
     std::cout << rect << std::endl;
     std::cout << "area : " << rect.area() << std::endl;
+    std::cout << "peri : " << rect.perimeter() << std::endl;
     return;
 }
 ```

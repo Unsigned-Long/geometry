@@ -6,11 +6,12 @@
 
 using namespace ns_geo;
 
-void foo_rectangle2()
+void foo_rectangle()
 {
-    ns_geo::Rectangle2d rect(0, 4, 1, 0);
+    ns_geo::Rectangled rect(0, 4, 1, 0);
     std::cout << rect << std::endl;
     std::cout << "area : " << rect.area() << std::endl;
+    std::cout << "peri : " << rect.perimeter() << std::endl;
     return;
 }
 
@@ -29,6 +30,6 @@ void foo_pointset()
 
 int main(int argc, char *argv[])
 {
-    ::foo_pointset();
+    ::foo_rectangle();
     return 0;
 }
