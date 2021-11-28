@@ -21,6 +21,11 @@ void foo_lineString()
                       Point2d(0, 9)});
     std::cout << ls2 << std::endl;
     std::cout << ls2.length() << std::endl;
+    Polygond polygon({Point2d(0, 0),
+                      Point2d(2, 0),
+                      Point2d(2, 2),
+                      Point2d(0, 2)});
+    std::cout << polygon.perimeter() << std::endl;
     return;
 }
 

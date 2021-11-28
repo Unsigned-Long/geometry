@@ -40,9 +40,11 @@ namespace ns_geo
         std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->_tplp, this->_lwrp}; }
 
         const point_type &topLeft() const { return this->_tplp; }
+        
         point_type &topLeft() { return this->_tplp; }
 
         const point_type &lowerRight() const { return this->_lwrp; }
+        
         point_type &lowerRight() { return this->_lwrp; }
 
         float area() const { return std::abs(this->_tplp.x() - this->_lwrp.x()) * std::abs(this->_tplp.y() - this->_lwrp.y()); }
