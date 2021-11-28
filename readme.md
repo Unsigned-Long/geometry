@@ -202,4 +202,18 @@ void foo_rectangle()
 }
 ```
 
+### <kbd>__Polygon<_Ty>___</kbd>  
+
+```cpp
+void foo_polygon()
+{
+    Polygond polygon({Point2d(0, 0),
+                      Point2d(0, 1),
+                      Point2d(1, 1),
+                      Point2d(1, 0)});
+    std::cout << polygon << std::endl;
+    return;
+}
+```
+
 For other implementation details, please refer to the source code.

@@ -2,18 +2,22 @@
 #include "triangle.hpp"
 #include "line.hpp"
 #include "rectangle.hpp"
+#include "polygon.hpp"
 
 using namespace ns_geo;
 
-void foo_azimuth()
+void foo_polygon()
 {
-    ns_geo::Point2f from(0, 0), to(-1, -2);
-    std::cout << azimuthLHR(from, to) * 180.0 / M_PI << std::endl;
+    Polygond polygon({Point2d(0, 0),
+                      Point2d(0, 1),
+                      Point2d(1, 1),
+                      Point2d(1, 0)});
+    std::cout << polygon << std::endl;
     return;
 }
 
 int main(int argc, char *argv[])
 {
-    ::foo_azimuth();
+    ::foo_polygon();
     return 0;
 }

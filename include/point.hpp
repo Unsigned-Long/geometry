@@ -319,4 +319,7 @@ namespace ns_geo
     using PointSet3d = PointSet<Point3d>;
 #pragma endregion
 
+#pragma region RefPointSet
+    
+#pragma endregion
 } // namespace ns_geo
