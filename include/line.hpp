@@ -45,6 +45,10 @@ namespace ns_geo
         std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->_p1, this->_p2}; }
 
         float length() const { return ns_geo::distance(_p1, _p2); }
+
+        float azimuthRHR() const { return ns_geo::azimuthRHR(_p1, _p2); }
+
+        float azimuthLHR() const { return ns_geo::azimuthLHR(_p1, _p2); }
     };
 
     template <typename _Ty = float>
