@@ -16,7 +16,17 @@ namespace ns_geo
         using value_type = _Ty;
         using pointset_type = PointSet<Point2<_Ty>>;
         using pointset_type::pointset_type;
+
+        float perimeter() const
+        {
+            float len = 0.0;
+            for (auto iter = this->cbegin(); iter != --this->cend();)
+                len += distance(*iter, *(iter++));
+            len += distance(this->front(), this->back());
+            return len;
+        }
     };
+    
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const Polygon<_Ty> &polygon)
     {
