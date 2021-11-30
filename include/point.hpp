@@ -7,6 +7,7 @@
  *              1. Point2f, Point3f
  *              2. Point2d, Point3d
  *              3. Point2i, Point3i
+ *              4. RefPoint2<>, RefPoint3<>
  * 
  *       [2] methods
  *              0. writeBinaryData, readBinaryData
@@ -259,6 +260,7 @@ namespace ns_geo
         Point2() = default;
         Point2(value_type x, value_type y) : _x(x), _y(y) {}
         Point2(const ary_type &p) : _x(p[0]), _y(p[1]) {}
+        Point2(const value_type p[2]) : _x(p[0]), _y(p[1]) {}
 
         operator ary_type() const { return ary_type{this->_x, this->_y}; }
 
@@ -272,7 +274,7 @@ namespace ns_geo
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const Point2<_Ty> &p)
     {
-        os << '[' << p.x() << ',' << p.y() << ']';
+        os << '[' << p.x() << ", " << p.y() << ']';
         return os;
     }
 #pragma endregion
@@ -297,6 +299,7 @@ namespace ns_geo
         Point3() = default;
         Point3(value_type x, value_type y, value_type z) : _x(x), _y(y), _z(z) {}
         Point3(const ary_type &p) : _x(p[0]), _y(p[1]), _z(p[2]) {}
+        Point3(const value_type p[3]) : _x(p[0]), _y(p[1]), _z(p[2]) {}
 
         operator ary_type() const { return ary_type{this->_x, this->_y, this->_z}; }
 
@@ -312,7 +315,7 @@ namespace ns_geo
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const Point3<_Ty> &p)
     {
-        os << '[' << p.x() << ',' << p.y() << ',' << p.z() << ']';
+        os << '[' << p.x() << ", " << p.y() << ", " << p.z() << ']';
         return os;
     }
 #pragma endregion
@@ -334,5 +337,74 @@ namespace ns_geo
     using PointSet3i = PointSet<Point3i>;
     using PointSet3f = PointSet<Point3f>;
     using PointSet3d = PointSet<Point3d>;
+#pragma endregion
+
+#pragma region RefPoint
+    template <typename _Ty>
+    class RefPoint2 : public Point2<_Ty>
+    {
+    public:
+        using id_type = uint;
+        using value_type = _Ty;
+        using ary_type = std::array<_Ty, 2>;
+
+    private:
+        id_type _id;
+
+    public:
+        RefPoint2() = delete;
+        RefPoint2(id_type id, value_type x, value_type y)
+            : _id(id), Point2<_Ty>(x, y) {}
+        RefPoint2(id_type id, const ary_type &p)
+            : _id(id), Point2<_Ty>(p[0], p[1]) {}
+        RefPoint2(id_type id, const value_type p[2])
+            : _id(id), Point2<_Ty>(p[0], p[1]) {}
+        const id_type &id() const { return this->_id; }
+    };
+
+    template <typename _Ty>
+    std::ostream &operator<<(std::ostream &os, const RefPoint2<_Ty> &p)
+    {
+        os << '{' << p.id() << ": " << '[' << p.x() << ", " << p.y() << ']' << '}';
+        return os;
+    }
+
+    using RefPoint2f = RefPoint2<float>;
+    using RefPoint2d = RefPoint2<double>;
+    using RefPoint2i = RefPoint2<int>;
+
+    template <typename _Ty>
+    class RefPoint3 : public Point3<_Ty>
+    {
+    public:
+        using id_type = uint;
+        using value_type = _Ty;
+        using ary_type = std::array<_Ty, 3>;
+
+    private:
+        id_type _id;
+
+    public:
+        RefPoint3() = delete;
+        RefPoint3(id_type id, value_type x, value_type y, value_type z)
+            : _id(id), Point3<_Ty>(x, y, z) {}
+        RefPoint3(id_type id, const ary_type &p)
+            : _id(id), Point3<_Ty>(p[0], p[1], p[2]) {}
+        RefPoint3(id_type id, const value_type p[3])
+            : _id(id), Point3<_Ty>(p[0], p[1], p[2]) {}
+
+        const id_type &id() const { return this->_id; }
+    };
+
+    template <typename _Ty>
+    std::ostream &operator<<(std::ostream &os, const RefPoint3<_Ty> &p)
+    {
+        os << '{' << p.id() << ": " << '[' << p.x() << ", " << p.y() << ", " << p.z() << ']' << '}';
+        return os;
+    }
+
+    using RefPoint3f = RefPoint3<float>;
+    using RefPoint3d = RefPoint3<double>;
+    using RefPoint3i = RefPoint3<int>;
 #pragma endregion
 } // namespace ns_geo

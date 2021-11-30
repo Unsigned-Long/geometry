@@ -7,30 +7,23 @@
 
 using namespace ns_geo;
 
-void foo_lineString()
+void foo_refpoint()
 {
-    LineString3d ls({Point3d(0, 0, 9),
-                     Point3d(0, 1, 9),
-                     Point3d(1, 1, 9),
-                     Point3d(1, 0, 9)});
-    std::cout << ls << std::endl;
-    std::cout << ls.length() << std::endl;
-    LineString2d ls2({Point2d(0, 9),
-                      Point2d(1, 9),
-                      Point2d(1, 9),
-                      Point2d(0, 9)});
-    std::cout << ls2 << std::endl;
-    std::cout << ls2.length() << std::endl;
-    Polygond polygon({Point2d(0, 0),
-                      Point2d(2, 0),
-                      Point2d(2, 2),
-                      Point2d(0, 2)});
-    std::cout << polygon.perimeter() << std::endl;
-    return;
+    double ary1[3] = {1, 2, 3};
+    RefPoint3d p1(0, RefPoint3d::ary_type{0, 0, 0});
+    RefPoint3d p2(1, ary1);
+    std::cout << distance(p1, p2) << std::endl;
+    std::cout << p1 << std::endl;
+
+    double ary2[2] = {2, 3};
+    RefPoint2d p3(0, RefPoint2d::ary_type{0, 0});
+    RefPoint2d p4(1, ary2);
+    std::cout << distance(p3, p4) << std::endl;
+    std::cout << p3 << std::endl;
 }
 
 int main(int argc, char *argv[])
 {
-    ::foo_lineString();
+    ::foo_refpoint();
     return 0;
 }
