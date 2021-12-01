@@ -7,23 +7,27 @@
 
 using namespace ns_geo;
 
-void foo_refpoint()
+void foo_refpointset()
 {
-    double ary1[3] = {1, 2, 3};
-    RefPoint3d p1(0, RefPoint3d::ary_type{0, 0, 0});
-    RefPoint3d p2(1, ary1);
-    std::cout << distance(p1, p2) << std::endl;
-    std::cout << p1 << std::endl;
-
     double ary2[2] = {2, 3};
-    RefPoint2d p3(0, RefPoint2d::ary_type{0, 0});
-    RefPoint2d p4(1, ary2);
-    std::cout << distance(p3, p4) << std::endl;
-    std::cout << p3 << std::endl;
+    RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
+    RefPoint2d p2(1, ary2);
+    RefPoint2d p3(2, RefPoint2d::ary_type{0, 0});
+    RefPoint2d p4(4, ary2);
+    RefPointSet2d set;
+    auto iter = set.insert(std::make_pair(p1.id(), p1));
+    set.insertRefp(p2);
+    set.insertRefp(p4);
+    set.insertRefp(p3);
+    set.insertRefp(p3);
+
+    for (const auto &refp : set)
+        std::cout << refp.second << std::endl;
+    std::cout << set.size() << std::endl;
 }
 
 int main(int argc, char *argv[])
 {
-    ::foo_refpoint();
+    ::foo_refpointset();
     return 0;
 }
