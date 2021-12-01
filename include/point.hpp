@@ -7,7 +7,9 @@
  *              1. Point2f, Point3f
  *              2. Point2d, Point3d
  *              3. Point2i, Point3i
- *              4. RefPoint2<>, RefPoint3<>
+ *              4. PointSet<>
+ *              5. RefPoint2<>, RefPoint3<>
+ *              6. RefPointSet<>
  * 
  *       [2] methods
  *              0. writeBinaryData, readBinaryData
@@ -26,6 +28,7 @@
 #include <algorithm>
 #include <array>
 #include <vector>
+#include <unordered_map>
 
 namespace ns_geo
 {
@@ -352,7 +355,7 @@ namespace ns_geo
         id_type _id;
 
     public:
-        RefPoint2() = delete;
+        RefPoint2() = default;
         RefPoint2(id_type id, value_type x, value_type y)
             : _id(id), Point2<_Ty>(x, y) {}
         RefPoint2(id_type id, const ary_type &p)
@@ -385,7 +388,7 @@ namespace ns_geo
         id_type _id;
 
     public:
-        RefPoint3() = delete;
+        RefPoint3() = default;
         RefPoint3(id_type id, value_type x, value_type y, value_type z)
             : _id(id), Point3<_Ty>(x, y, z) {}
         RefPoint3(id_type id, const ary_type &p)
@@ -406,5 +409,36 @@ namespace ns_geo
     using RefPoint3f = RefPoint3<float>;
     using RefPoint3d = RefPoint3<double>;
     using RefPoint3i = RefPoint3<int>;
+#pragma endregion
+
+#pragma region RefPointSet
+    template <typename _PointType,
+              typename _Hash = std::hash<uint>,
+              typename _Pred = std::equal_to<uint>,
+              typename _Alloc = std::allocator<std::pair<const uint, _PointType>>>
+    class RefPointSet : public std::unordered_map<uint, _PointType, _Hash, _Pred, _Alloc>
+    {
+    public:
+        using point_type = _PointType;
+        using container_type = std::unordered_map<uint, _PointType, _Hash, _Pred, _Alloc>;
+        using container_type::container_type;
+
+        auto insertRefp(const point_type &p)
+        {
+            return this->insert(std::make_pair(p.id(), p));
+        }
+
+        /**
+         * \brief dangerous function has been deleted
+         */ 
+        _PointType &operator[](const uint &id) = delete;
+    };
+
+    using RefPointSet2i = RefPointSet<RefPoint2i>;
+    using RefPointSet2f = RefPointSet<RefPoint2f>;
+    using RefPointSet2d = RefPointSet<RefPoint2d>;
+    using RefPointSet3i = RefPointSet<RefPoint3i>;
+    using RefPointSet3f = RefPointSet<RefPoint3f>;
+    using RefPointSet3d = RefPointSet<RefPoint3d>;
 #pragma endregion
 } // namespace ns_geo
