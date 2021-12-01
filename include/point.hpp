@@ -423,14 +423,14 @@ namespace ns_geo
         using container_type = std::unordered_map<uint, _PointType, _Hash, _Pred, _Alloc>;
         using container_type::container_type;
 
-        auto insertRefp(const point_type &p)
+        auto insert(const point_type &p)
         {
-            return this->insert(std::make_pair(p.id(), p));
+            return container_type::insert(std::make_pair(p.id(), p));
         }
 
         /**
          * \brief dangerous function has been deleted
-         */ 
+         */
         _PointType &operator[](const uint &id) = delete;
     };
 

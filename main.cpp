@@ -15,11 +15,10 @@ void foo_refpointset()
     RefPoint2d p3(2, RefPoint2d::ary_type{0, 0});
     RefPoint2d p4(4, ary2);
     RefPointSet2d set;
-    auto iter = set.insert(std::make_pair(p1.id(), p1));
-    set.insertRefp(p2);
-    set.insertRefp(p4);
-    set.insertRefp(p3);
-    set.insertRefp(p3);
+    set.insert(p2);
+    set.insert(p4);
+    set.insert(p3);
+    set.insert(p1);
 
     for (const auto &refp : set)
         std::cout << refp.second << std::endl;
