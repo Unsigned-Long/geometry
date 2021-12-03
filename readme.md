@@ -1,24 +1,27 @@
-# <kbd>___Point___</kbd> cpp classes
+# <kbd>__Geometry__</kbd> 
 
-## ***Author***
+​                                            __A CPP Template Class__
+
+## ***0. Author***
 
 <kbd>___name___</kbd> csl  
 
 <kbd>___email___</kbd> 3079625093@qq.com
 
-## ***Overview***
+## ***1. Overview***
 
 ___
 The CPP library provides two dimension point template classes: <kbd>__Point2<_Ty>___</kbd> and <kbd>__Point3<_Ty>___</kbd>.It also provides related operations based on two kinds of points, such as conventional "write" operation, "read" operation and distance calculation of point set, and azimuth calculation based on point2. You can easily use it to assist development. Here are some details of this class.  
 And because it's a templat class, you can just copy the head file to your project and use it.
+
 ___
-## ***Code Structure***
+## ***2. Code Structure***
 
 <img src="./docs/struct.png">
 
-## ***Using example***
+## ***3. Using example***
 
-### <kbd>__Point2<_Ty>___</kbd>  
+### <kbd>__Point2<_Ty>__</kbd>  
 
 ```cpp
 void foo_point2()
