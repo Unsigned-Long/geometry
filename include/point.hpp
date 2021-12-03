@@ -417,6 +417,8 @@ namespace ns_geo
      */
     template <typename _Ty>
     class RefLine2;
+    template <typename _Ty>
+    class RefRectangle;
 
     template <typename _Ty,
               typename _Hash = std::hash<uint>,
@@ -439,12 +441,15 @@ namespace ns_geo
          * \brief create reference line[2d] by the reference point set
          */
         RefLine2<value_type> createRefLine2(uint pid1, uint pid2) { return RefLine2<value_type>(pid1, pid2, this); }
+        
+        RefRectangle<value_type> createRefRectangle(uint topLeftID, uint lowerRightID) { return RefRectangle<value_type>(topLeftID, lowerRightID, this); }
 
     private:
         /**
          * \brief dangerous function has been deleted
          */
-        point_type &operator[](const uint &id) = delete;
+        point_type &
+        operator[](const uint &id) = delete;
     };
 
     using RefPointSet2i = RefPointSet2<int>;

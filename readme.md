@@ -100,7 +100,7 @@ void foo_point3()
 }
 ```
 
-### <kbd> ___PointSet<PointType,Alloc>___</kbd> 
+### <kbd>__PointSet<_PointType>___</kbd>  
 ```cpp
 void foo_pointset()
 {
@@ -260,7 +260,7 @@ void foo_refpoint()
 }
 ```
 
-### <kbd>__RefPointSet<_Ty>___</kbd>  
+### <kbd>__RefPointSet23<_Ty>___</kbd>  
 
 ```cpp
 void foo_refpointset23()
@@ -282,6 +282,7 @@ void foo_refpointset23()
 }
 ```
 
+### <kbd>__RefLine23<_Ty>___</kbd>  
 ```cpp
 void foo_refline2()
 {
@@ -319,6 +320,31 @@ void foo_refline3()
     std::cout << refline << std::endl;
     std::cout << refline.length() << std::endl;
     auto ary = refline.points();
+}
+```
+
+
+### <kbd>__RefRectangle<_Ty>___</kbd>  
+
+```cpp
+void foo_refrectangle()
+{
+    double ary2[2] = {2, 3};
+    RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
+    RefPoint2d p2(1, ary2);
+    RefPoint2d p3(2, RefPoint2d::ary_type{0, 0});
+    RefPoint2d p4(4, ary2);
+    RefPointSet2d set;
+    set.insert(p2);
+    set.insert(p4);
+    set.insert(p3);
+    set.insert(p1);
+    for (const auto &refp : set)
+        std::cout << refp.second << std::endl;
+    auto rect = set.createRefRectangle(0, 1);
+    std::cout << rect << std::endl;
+    std::cout << rect.area() << std::endl;
+    std::cout << rect.perimeter() << std::endl;
 }
 ```
 

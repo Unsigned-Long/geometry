@@ -147,20 +147,21 @@ namespace ns_geo
     private:
         uint _pid1;
         uint _pid2;
-        const refpointset_type *_refpointset;
+        // thr reference point set's pointer
+        const refpointset_type *_rps;
 
     protected:
         RefLine2(uint pid1, uint pid2, const refpointset_type *refpointset)
-            : _pid1(pid1), _pid2(pid2), _refpointset(refpointset) {}
+            : _pid1(pid1), _pid2(pid2), _rps(refpointset) {}
 
     public:
         RefLine2() = delete;
 
-        const point_type &p1() const { return this->_refpointset->at(this->_pid1); }
-        point_type &p1() { return this->_refpointset->at(this->_pid1); }
+        const point_type &p1() const { return this->_rps->at(this->_pid1); }
+        point_type &p1() { return this->_rps->at(this->_pid1); }
 
-        const point_type &p2() const { return this->_refpointset->at(this->_pid2); }
-        point_type &p2() { return this->_refpointset->at(this->_pid2); }
+        const point_type &p2() const { return this->_rps->at(this->_pid2); }
+        point_type &p2() { return this->_rps->at(this->_pid2); }
 
         std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->p1(), this->p2()}; }
 

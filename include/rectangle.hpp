@@ -54,19 +54,18 @@ namespace ns_geo
         std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->_tplp, this->_lwrp}; }
 
         const point_type &topLeft() const { return this->_tplp; }
-        
+
         point_type &topLeft() { return this->_tplp; }
 
         const point_type &lowerRight() const { return this->_lwrp; }
-        
+
         point_type &lowerRight() { return this->_lwrp; }
 
         float area() const { return std::abs(this->_tplp.x() - this->_lwrp.x()) * std::abs(this->_tplp.y() - this->_lwrp.y()); }
 
         float perimeter() const
         {
-            return 2.0 * (ns_geo::distance(point_type(_tplp.x(), _lwrp.y()), _lwrp) +
-                          ns_geo::distance(point_type(_tplp.x(), _lwrp.y()), _tplp));
+            return 2.0 * (std::abs(this->_tplp.x() - this->_lwrp.x()) + std::abs(this->_tplp.y() - this->_lwrp.y()));
         }
     };
 
@@ -78,4 +77,71 @@ namespace ns_geo
         os << rect.lowerRight() << '}';
         return os;
     }
+#pragma region RefRectangle
+
+    using RefRectangled = RefRectangle<double>;
+    using RefRectanglef = RefRectangle<float>;
+    using RefRectanglei = RefRectangle<int>;
+
+    template <typename _Ty = float>
+    class RefRectangle
+    {
+    public:
+        using value_type = _Ty;
+        using point_type = ns_geo::RefPoint2<_Ty>;
+        using refpointset_type = RefPointSet2<value_type>;
+
+    public:
+        friend class RefPointSet2<value_type>;
+
+    private:
+        // top left point's id
+        uint _tplpid;
+        // lower right point's id
+        uint _lwrpid;
+        // thr reference point set's pointer 
+        const refpointset_type *_rps;
+
+    protected:
+        RefRectangle(uint topLeftID, uint lowerRightID, const refpointset_type *refpointset)
+            : _tplpid(topLeftID), _lwrpid(lowerRightID), _rps(refpointset) {}
+
+    public:
+        RefRectangle() = delete;
+
+        std::array<point_type, 2> points() const
+        {
+            return std::array<point_type, 2>{_rps->at(this->_tplpid), _rps->at(this->_lwrpid)};
+        }
+
+        const point_type &topLeft() const { return _rps->at(this->_tplpid); }
+
+        point_type &topLeft() { return _rps->at(this->_tplpid); }
+
+        const point_type &lowerRight() const { return _rps->at(this->_lwrpid); }
+
+        point_type &lowerRight() { return _rps->at(this->_lwrpid); }
+
+        float area() const
+        {
+            return std::abs(this->topLeft().x() - this->lowerRight().x()) *
+                   std::abs(this->topLeft().y() - this->lowerRight().y());
+        }
+
+        float perimeter() const
+        {
+            return 2.0 * (std::abs(this->topLeft().x() - this->lowerRight().x()) +
+                          std::abs(this->topLeft().y() - this->lowerRight().y()));
+        }
+    };
+
+    template <typename _Ty = float>
+    std::ostream &operator<<(std::ostream &os, const RefRectangle<_Ty> &rect)
+    {
+        os << '{';
+        os << rect.topLeft() << ", ";
+        os << rect.lowerRight() << '}';
+        return os;
+    }
+#pragma endregion
 } // namespace ns_geo
