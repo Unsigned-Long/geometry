@@ -4,9 +4,7 @@
  * \brief the details
  *       [1] class type
  *              0. Line2<_Ty>, Line3<_Ty>
- *              1. Line2f, Line3f
- *              2. Line2d, Line3d
- *              3. Line2i, Line3i
+ *              1. RefLine2<_Ty>, RefLine3<_Ty>
  * 
  *       [2] methods for Line
  *              0. azimuthRHR, azimuthLHR
@@ -114,7 +112,7 @@ namespace ns_geo
 
         const point_type &p2() const { return this->_p2; }
         point_type &p2() { return this->_p2; }
-        
+
         std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->_p1, this->_p2}; }
 
         float length() const { return ns_geo::distance(_p1, _p2); }
@@ -122,6 +120,108 @@ namespace ns_geo
 
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const Line3<_Ty> &line)
+    {
+        os << '{';
+        os << line.p1() << ", ";
+        os << line.p2() << '}';
+        return os;
+    }
+#pragma endregion
+
+#pragma region RefLine2
+    using RefLine2d = RefLine2<double>;
+    using RefLine2f = RefLine2<float>;
+    using RefLine2i = RefLine2<int>;
+
+    template <typename _Ty = float>
+    class RefLine2
+    {
+    public:
+        using value_type = _Ty;
+        using point_type = ns_geo::RefPoint2<value_type>;
+        using refpointset_type = RefPointSet2<value_type>;
+
+    public:
+        friend class RefPointSet2<value_type>;
+
+    private:
+        uint _pid1;
+        uint _pid2;
+        const refpointset_type *_refpointset;
+
+    protected:
+        RefLine2(uint pid1, uint pid2, const refpointset_type *refpointset)
+            : _pid1(pid1), _pid2(pid2), _refpointset(refpointset) {}
+
+    public:
+        RefLine2() = delete;
+
+        const point_type &p1() const { return this->_refpointset->at(this->_pid1); }
+        point_type &p1() { return this->_refpointset->at(this->_pid1); }
+
+        const point_type &p2() const { return this->_refpointset->at(this->_pid2); }
+        point_type &p2() { return this->_refpointset->at(this->_pid2); }
+
+        std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->p1(), this->p2()}; }
+
+        float length() const { return ns_geo::distance(p1(), p2()); }
+
+        float azimuthRHR() const { return ns_geo::azimuthRHR(p1(), p2()); }
+
+        float azimuthLHR() const { return ns_geo::azimuthLHR(p1(), p2()); }
+    };
+
+    template <typename _Ty = float>
+    std::ostream &operator<<(std::ostream &os, const RefLine2<_Ty> &line)
+    {
+        os << '{';
+        os << line.p1() << ", ";
+        os << line.p2() << '}';
+        return os;
+    }
+#pragma endregion
+
+#pragma region RefLine3
+    using RefLine3d = RefLine3<double>;
+    using RefLine3f = RefLine3<float>;
+    using RefLine3i = RefLine3<int>;
+
+    template <typename _Ty = float>
+    class RefLine3
+    {
+    public:
+        using value_type = _Ty;
+        using point_type = ns_geo::RefPoint3<value_type>;
+        using refpointset_type = RefPointSet3<value_type>;
+
+    public:
+        friend class RefPointSet3<value_type>;
+
+    private:
+        uint _pid1;
+        uint _pid2;
+        const refpointset_type *_refpointset;
+
+    protected:
+        RefLine3(uint pid1, uint pid2, const refpointset_type *refpointset)
+            : _pid1(pid1), _pid2(pid2), _refpointset(refpointset) {}
+
+    public:
+        RefLine3() = delete;
+
+        const point_type &p1() const { return this->_refpointset->at(this->_pid1); }
+        point_type &p1() { return this->_refpointset->at(this->_pid1); }
+
+        const point_type &p2() const { return this->_refpointset->at(this->_pid2); }
+        point_type &p2() { return this->_refpointset->at(this->_pid2); }
+
+        std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->p1(), this->p2()}; }
+
+        float length() const { return ns_geo::distance(p1(), p2()); }
+    };
+
+    template <typename _Ty = float>
+    std::ostream &operator<<(std::ostream &os, const RefLine3<_Ty> &line)
     {
         os << '{';
         os << line.p1() << ", ";

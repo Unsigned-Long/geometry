@@ -411,16 +411,23 @@ namespace ns_geo
     using RefPoint3i = RefPoint3<int>;
 #pragma endregion
 
-#pragma region RefPointSet
-    template <typename _PointType,
+#pragma region RefPointSet2
+    /**
+     * \brief declare here for the reference geometry objects
+     */
+    template <typename _Ty>
+    class RefLine2;
+
+    template <typename _Ty,
               typename _Hash = std::hash<uint>,
               typename _Pred = std::equal_to<uint>,
-              typename _Alloc = std::allocator<std::pair<const uint, _PointType>>>
-    class RefPointSet : public std::unordered_map<uint, _PointType, _Hash, _Pred, _Alloc>
+              typename _Alloc = std::allocator<std::pair<const uint, RefPoint2<_Ty>>>>
+    class RefPointSet2 : public std::unordered_map<uint, RefPoint2<_Ty>, _Hash, _Pred, _Alloc>
     {
     public:
-        using point_type = _PointType;
-        using container_type = std::unordered_map<uint, _PointType, _Hash, _Pred, _Alloc>;
+        using point_type = RefPoint2<_Ty>;
+        using value_type = typename point_type::value_type;
+        using container_type = std::unordered_map<uint, point_type, _Hash, _Pred, _Alloc>;
         using container_type::container_type;
 
         auto insert(const point_type &p)
@@ -429,16 +436,62 @@ namespace ns_geo
         }
 
         /**
+         * \brief create reference line[2d] by the reference point set
+         */
+        RefLine2<value_type> createRefLine2(uint pid1, uint pid2) { return RefLine2<value_type>(pid1, pid2, this); }
+
+    private:
+        /**
          * \brief dangerous function has been deleted
          */
-        _PointType &operator[](const uint &id) = delete;
+        point_type &operator[](const uint &id) = delete;
     };
 
-    using RefPointSet2i = RefPointSet<RefPoint2i>;
-    using RefPointSet2f = RefPointSet<RefPoint2f>;
-    using RefPointSet2d = RefPointSet<RefPoint2d>;
-    using RefPointSet3i = RefPointSet<RefPoint3i>;
-    using RefPointSet3f = RefPointSet<RefPoint3f>;
-    using RefPointSet3d = RefPointSet<RefPoint3d>;
+    using RefPointSet2i = RefPointSet2<int>;
+    using RefPointSet2f = RefPointSet2<float>;
+    using RefPointSet2d = RefPointSet2<double>;
+#pragma endregion
+
+#pragma region RefPointSet2
+    /**
+     * \brief declare here for the reference geometry objects
+     */
+    template <typename _Ty>
+    class RefLine2;
+    template <typename _Ty>
+    class RefLine3;
+
+    template <typename _Ty,
+              typename _Hash = std::hash<uint>,
+              typename _Pred = std::equal_to<uint>,
+              typename _Alloc = std::allocator<std::pair<const uint, RefPoint3<_Ty>>>>
+    class RefPointSet3 : public std::unordered_map<uint, RefPoint3<_Ty>, _Hash, _Pred, _Alloc>
+    {
+    public:
+        using point_type = RefPoint3<_Ty>;
+        using value_type = typename point_type::value_type;
+        using container_type = std::unordered_map<uint, point_type, _Hash, _Pred, _Alloc>;
+        using container_type::container_type;
+
+        auto insert(const point_type &p)
+        {
+            return container_type::insert(std::make_pair(p.id(), p));
+        }
+
+        /**
+         * \brief create reference line[3d] by the reference point set
+         */
+        RefLine3<value_type> createRefLine3(uint pid1, uint pid2) { return RefLine3<value_type>(pid1, pid2, this); }
+
+    private:
+        /**
+         * \brief dangerous function has been deleted
+         */
+        point_type &operator[](const uint &id) = delete;
+    };
+
+    using RefPointSet3i = RefPointSet3<int>;
+    using RefPointSet3f = RefPointSet3<float>;
+    using RefPointSet3d = RefPointSet3<double>;
 #pragma endregion
 } // namespace ns_geo
