@@ -138,9 +138,11 @@ namespace ns_geo
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const RefRectangle<_Ty> &rect)
     {
+        auto p1 = rect.topLeft();
+        auto p2 = rect.lowerRight();
         os << '{';
-        os << rect.topLeft() << ", ";
-        os << rect.lowerRight() << '}';
+        os << p1.id() << ": [" << p1.x() << ", " << p1.y() << ']' << ", ";
+        os << p2.id() << ": [" << p2.x() << ", " << p2.y() << "]}";
         return os;
     }
 #pragma endregion

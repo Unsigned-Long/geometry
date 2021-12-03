@@ -175,9 +175,11 @@ namespace ns_geo
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const RefLine2<_Ty> &line)
     {
+        auto p1 = line.p1();
+        auto p2 = line.p2();
         os << '{';
-        os << line.p1() << ", ";
-        os << line.p2() << '}';
+        os << p1.id() << ": [" << p1.x() << ", " << p1.y() << ']' << ", ";
+        os << p2.id() << ": [" << p2.x() << ", " << p2.y() << "]}";
         return os;
     }
 #pragma endregion
@@ -224,9 +226,11 @@ namespace ns_geo
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const RefLine3<_Ty> &line)
     {
+        auto p1 = line.p1();
+        auto p2 = line.p2();
         os << '{';
-        os << line.p1() << ", ";
-        os << line.p2() << '}';
+        os << p1.id() << ": [" << p1.x() << ", " << p1.y() << ", " << p1.z() << ']' << ", ";
+        os << p2.id() << ": [" << p2.x() << ", " << p2.y() << ", " << p2.z() << "]}";
         return os;
     }
 #pragma endregion
