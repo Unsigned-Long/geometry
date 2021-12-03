@@ -348,4 +348,46 @@ void foo_refrectangle()
 }
 ```
 
+### <kbd>__RefTriangle23<_Ty>___</kbd>  
+
+```cpp
+void foo_reftriangle2()
+{
+    RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
+    RefPoint2d p2(1, RefPoint2d::ary_type{1, 0});
+    RefPoint2d p3(2, RefPoint2d::ary_type{0, 2});
+    RefPoint2d p4(4, RefPoint2d::ary_type{3, 0});
+    RefPointSet2d set;
+    set.insert(p2);
+    set.insert(p4);
+    set.insert(p3);
+    set.insert(p1);
+    for (const auto &refp : set)
+        std::cout << refp.second << std::endl;
+    auto tri = set.createRefTriangle2(0, 1, 2);
+    std::cout << tri << std::endl;
+    std::cout << tri.perimeter() << std::endl;
+    std::cout << tri.area() << std::endl;
+}
+
+void foo_reftriangle3()
+{
+    RefPoint3d p1(0, RefPoint3d::ary_type{0, 0, 0});
+    RefPoint3d p2(1, RefPoint3d::ary_type{0, 1, 0});
+    RefPoint3d p3(2, RefPoint3d::ary_type{0, 0, 1});
+    RefPoint3d p4(4, RefPoint3d::ary_type{1, 0, 0});
+    RefPointSet3d set;
+    set.insert(p2);
+    set.insert(p4);
+    set.insert(p3);
+    set.insert(p1);
+    for (const auto &refp : set)
+        std::cout << refp.second << std::endl;
+    auto tri = set.createRefTriangle3(0, 1, 2);
+    std::cout << tri << std::endl;
+    std::cout << tri.area() << std::endl;
+    std::cout << tri.perimeter() << std::endl;
+}
+```
+
 For other implementation details, please refer to the source code.

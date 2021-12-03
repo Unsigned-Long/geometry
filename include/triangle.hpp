@@ -92,6 +92,88 @@ namespace ns_geo
     }
 #pragma endregion
 
+#pragma region RefTriangle2
+
+    using RefTriangle2d = RefTriangle2<double>;
+    using RefTriangle2f = RefTriangle2<float>;
+    using RefTriangle2i = RefTriangle2<int>;
+
+    /**
+     * \brief a sample template class to describe the 2-dime triangles
+     */
+    template <typename _Ty = float>
+    class RefTriangle2
+    {
+    public:
+        using value_type = _Ty;
+        using point_type = ns_geo::RefPoint2<_Ty>;
+        using refpointset_type = RefPointSet2<value_type>;
+
+    public:
+        friend class RefPointSet2<value_type>;
+
+    private:
+        uint _pid1;
+        uint _pid2;
+        uint _pid3;
+        // thr reference point set's pointer
+        const refpointset_type *_rps;
+
+    protected:
+        RefTriangle2(const uint &pid1, const uint &pid2, const uint &pid3, const refpointset_type *refpointset)
+            : _pid1(pid1), _pid2(pid2), _pid3(pid3), _rps(refpointset) {}
+
+    public:
+        RefTriangle2() = delete;
+
+        const point_type &p1() const { return this->_rps->at(_pid1); }
+        point_type &p1() { return this->_rps->at(_pid1); }
+
+        const point_type &p2() const { return this->_rps->at(_pid2); }
+        point_type &p2() { return this->_rps->at(_pid2); }
+
+        const point_type &p3() const { return this->_rps->at(_pid3); }
+        point_type &p3() { return this->_rps->at(_pid3); }
+
+        std::array<point_type, 3> points() const { return std::array<point_type, 3>{this->p1(), this->p2(), this->p3()}; }
+
+        float area() const
+        {
+            auto p1 = this->p1();
+            auto p2 = this->p2();
+            auto p3 = this->p3();
+            float v12_x = p2.x() - p1.x();
+            float v12_y = p2.y() - p1.y();
+            float v13_x = p3.x() - p1.x();
+            float v13_y = p3.y() - p1.y();
+            return std::abs(v12_x * v13_y - v12_y * v13_x) * 0.5;
+        }
+
+        float perimeter() const
+        {
+            auto p1 = this->p1();
+            auto p2 = this->p2();
+            auto p3 = this->p3();
+            return ns_geo::distance(p1, p2) +
+                   ns_geo::distance(p1, p3) +
+                   ns_geo::distance(p2, p3);
+        }
+    };
+
+    template <typename _Ty = float>
+    std::ostream &operator<<(std::ostream &os, const RefTriangle2<_Ty> &tri)
+    {
+        auto p1 = tri.p1();
+        auto p2 = tri.p2();
+        auto p3 = tri.p3();
+        os << '{';
+        os << p1.id() << ": [" << p1.x() << ", " << p1.y() << ']' << ", ";
+        os << p2.id() << ": [" << p2.x() << ", " << p2.y() << ']' << ", ";
+        os << p3.id() << ": [" << p3.x() << ", " << p3.y() << "]}";
+        return os;
+    }
+#pragma endregion
+
 #pragma region triangle3
     template <typename _Ty>
     class Triangle3;
@@ -171,4 +253,90 @@ namespace ns_geo
     }
 #pragma endregion
 
+#pragma region RefTriangle3
+
+    using RefTriangle3d = RefTriangle3<double>;
+    using RefTriangle3f = RefTriangle3<float>;
+    using RefTriangle3i = RefTriangle3<int>;
+
+    /**
+     * \brief a sample template class to describe the 3-dime triangles
+     */
+    template <typename _Ty = float>
+    class RefTriangle3
+    {
+    public:
+        using value_type = _Ty;
+        using point_type = ns_geo::RefPoint3<_Ty>;
+        using refpointset_type = RefPointSet3<value_type>;
+
+    public:
+        friend class RefPointSet3<value_type>;
+
+    private:
+        uint _pid1;
+        uint _pid2;
+        uint _pid3;
+        // thr reference point set's pointer
+        const refpointset_type *_rps;
+
+    protected:
+        RefTriangle3(const uint &pid1, const uint &pid2, const uint &pid3, const refpointset_type *refpointset)
+            : _pid1(pid1), _pid2(pid2), _pid3(pid3), _rps(refpointset) {}
+
+    public:
+        RefTriangle3() = delete;
+
+        const point_type &p1() const { return this->_rps->at(_pid1); }
+        point_type &p1() { return this->_rps->at(_pid1); }
+
+        const point_type &p2() const { return this->_rps->at(_pid2); }
+        point_type &p2() { return this->_rps->at(_pid2); }
+
+        const point_type &p3() const { return this->_rps->at(_pid3); }
+        point_type &p3() { return this->_rps->at(_pid3); }
+
+        std::array<point_type, 3> points() const { return std::array<point_type, 3>{this->p1(), this->p2(), this->p3()}; }
+
+        float area() const
+        {
+            auto p1 = this->p1();
+            auto p2 = this->p2();
+            auto p3 = this->p3();
+            float v12_x = p2.x() - p1.x();
+            float v12_y = p2.y() - p1.y();
+            float v12_z = p2.z() - p1.z();
+            float v13_x = p3.x() - p1.x();
+            float v13_y = p3.y() - p1.y();
+            float v13_z = p3.z() - p1.z();
+            auto val1 = std::pow(v12_y * v13_z - v12_z * v13_y, 2);
+            auto val2 = std::pow(v13_x * v12_z - v12_x * v13_z, 2);
+            auto val3 = std::pow(v12_x * v13_y - v12_y * v13_x, 2);
+            return std::sqrt(val1 + val2 + val3) * 0.5;
+        }
+
+        float perimeter() const
+        {
+            auto p1 = this->p1();
+            auto p2 = this->p2();
+            auto p3 = this->p3();
+            return ns_geo::distance(p1, p2) +
+                   ns_geo::distance(p1, p3) +
+                   ns_geo::distance(p2, p3);
+        }
+    };
+
+    template <typename _Ty = float>
+    std::ostream &operator<<(std::ostream &os, const RefTriangle3<_Ty> &tri)
+    {
+        auto p1 = tri.p1();
+        auto p2 = tri.p2();
+        auto p3 = tri.p3();
+        os << '{';
+        os << p1.id() << ": [" << p1.x() << ", " << p1.y() << ", " << p1.z() << ']' << ", ";
+        os << p2.id() << ": [" << p2.x() << ", " << p2.y() << ", " << p2.z() << ']' << ", ";
+        os << p3.id() << ": [" << p3.x() << ", " << p3.y() << ", " << p3.z() << "]}";
+        return os;
+    }
+#pragma endregion
 } // namespace ns_geo

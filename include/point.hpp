@@ -419,6 +419,8 @@ namespace ns_geo
     class RefLine2;
     template <typename _Ty>
     class RefRectangle;
+    template <typename _Ty>
+    class RefTriangle2;
 
     template <typename _Ty,
               typename _Hash = std::hash<uint>,
@@ -441,8 +443,10 @@ namespace ns_geo
          * \brief create reference line[2d] by the reference point set
          */
         RefLine2<value_type> createRefLine2(uint pid1, uint pid2) { return RefLine2<value_type>(pid1, pid2, this); }
-        
+
         RefRectangle<value_type> createRefRectangle(uint topLeftID, uint lowerRightID) { return RefRectangle<value_type>(topLeftID, lowerRightID, this); }
+
+        RefTriangle2<value_type> createRefTriangle2(uint pid1, uint pid2, uint pid3) { return RefTriangle2<value_type>(pid1, pid2, pid3, this); }
 
     private:
         /**
@@ -457,14 +461,14 @@ namespace ns_geo
     using RefPointSet2d = RefPointSet2<double>;
 #pragma endregion
 
-#pragma region RefPointSet2
+#pragma region RefPointSet3
     /**
      * \brief declare here for the reference geometry objects
      */
     template <typename _Ty>
-    class RefLine2;
-    template <typename _Ty>
     class RefLine3;
+    template <typename _Ty>
+    class RefTriangle3;
 
     template <typename _Ty,
               typename _Hash = std::hash<uint>,
@@ -487,6 +491,8 @@ namespace ns_geo
          * \brief create reference line[3d] by the reference point set
          */
         RefLine3<value_type> createRefLine3(uint pid1, uint pid2) { return RefLine3<value_type>(pid1, pid2, this); }
+
+        RefTriangle3<value_type> createRefTriangle3(uint pid1, uint pid2, uint pid3) { return RefTriangle3<value_type>(pid1, pid2, pid3, this); }
 
     private:
         /**
