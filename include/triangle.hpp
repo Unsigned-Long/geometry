@@ -17,9 +17,12 @@
 
 namespace ns_geo
 {
-#pragma region triangle2
+#pragma region Triangle2
     template <typename _Ty>
     class Triangle2;
+    /**
+     * \brief some Commonly used Triangle2 types
+     */
     using Triangle2d = Triangle2<double>;
     using Triangle2f = Triangle2<float>;
     using Triangle2i = Triangle2<int>;
@@ -40,6 +43,9 @@ namespace ns_geo
         point_type _p3;
 
     public:
+        /**
+         * \brief constructors
+         */
         Triangle2() = default;
         Triangle2(const point_type &p1, const point_type &p2, const point_type &p3)
             : _p1(p1), _p2(p2), _p3(p3) {}
@@ -79,7 +85,9 @@ namespace ns_geo
                    ns_geo::distance(_p2, _p3);
         }
     };
-
+    /**
+     * \brief overload operator "<<" for Triangle2
+     */
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const Triangle2<_Ty> &tri)
     {
@@ -92,7 +100,9 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefTriangle2
-
+    /**
+     * \brief some Commonly used RefTriangle2 types
+     */
     using RefTriangle2d = RefTriangle2<double>;
     using RefTriangle2f = RefTriangle2<float>;
     using RefTriangle2i = RefTriangle2<int>;
@@ -105,6 +115,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
+        using id_type = uint;
         using refpoint_type = ns_geo::RefPoint2<value_type>;
         using refpointset_type = RefPointSet2<value_type>;
 
@@ -112,19 +123,22 @@ namespace ns_geo
         friend class RefPointSet2<value_type>;
 
     private:
-        uint _pid1;
-        uint _pid2;
-        uint _pid3;
+        id_type _pid1;
+        id_type _pid2;
+        id_type _pid3;
         // thr reference point set's pointer
         const refpointset_type *_rps;
 
     protected:
-        RefTriangle2(const uint &pid1, const uint &pid2, const uint &pid3, const refpointset_type *refpointset)
+        /**
+         * \brief constructors
+         */
+        RefTriangle2(const id_type &pid1, const id_type &pid2, const id_type &pid3, const refpointset_type *refpointset)
             : _pid1(pid1), _pid2(pid2), _pid3(pid3), _rps(refpointset) {}
 
-    public:
         RefTriangle2() = delete;
 
+    public:
         const refpointset_type *refPointSet() const { return this->_rps; };
 
         const refpoint_type &p1() const { return this->_rps->at(_pid1); }
@@ -160,7 +174,9 @@ namespace ns_geo
                    ns_geo::distance(p2, p3);
         }
     };
-
+    /**
+     * \brief overload operator "<<" for RefTriangle2
+     */
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const RefTriangle2<_Ty> &tri)
     {
@@ -175,9 +191,12 @@ namespace ns_geo
     }
 #pragma endregion
 
-#pragma region triangle3
+#pragma region Triangle3
     template <typename _Ty>
     class Triangle3;
+    /**
+     * \brief some Commonly used Triangle3 types
+     */
     using Triangle3d = Triangle3<double>;
     using Triangle3f = Triangle3<float>;
     using Triangle3i = Triangle3<int>;
@@ -198,6 +217,9 @@ namespace ns_geo
         point_type _p3;
 
     public:
+        /**
+         * \brief constructors
+         */
         Triangle3() = default;
         Triangle3(const point_type &p1, const point_type &p2, const point_type &p3)
             : _p1(p1), _p2(p2), _p3(p3) {}
@@ -242,7 +264,9 @@ namespace ns_geo
                    ns_geo::distance(_p2, _p3);
         }
     };
-
+    /**
+     * \brief overload operator "<<" for Triangle3
+     */
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const Triangle3<_Ty> &tri)
     {
@@ -255,7 +279,9 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefTriangle3
-
+    /**
+     * \brief some Commonly used RefTriangle3 types
+     */
     using RefTriangle3d = RefTriangle3<double>;
     using RefTriangle3f = RefTriangle3<float>;
     using RefTriangle3i = RefTriangle3<int>;
@@ -268,6 +294,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
+        using id_type = uint;
         using refpoint_type = ns_geo::RefPoint3<value_type>;
         using refpointset_type = RefPointSet3<value_type>;
 
@@ -275,19 +302,22 @@ namespace ns_geo
         friend class RefPointSet3<value_type>;
 
     private:
-        uint _pid1;
-        uint _pid2;
-        uint _pid3;
+        id_type _pid1;
+        id_type _pid2;
+        id_type _pid3;
         // the reference point set's pointer
         const refpointset_type *_rps;
 
     protected:
-        RefTriangle3(const uint &pid1, const uint &pid2, const uint &pid3, const refpointset_type *refpointset)
+        /**
+         * \brief constructors
+         */
+        RefTriangle3(const id_type &pid1, const id_type &pid2, const id_type &pid3, const refpointset_type *refpointset)
             : _pid1(pid1), _pid2(pid2), _pid3(pid3), _rps(refpointset) {}
 
-    public:
         RefTriangle3() = delete;
 
+    public:
         const refpointset_type *refPointSet() const { return this->_rps; };
 
         const refpoint_type &p1() const { return this->_rps->at(_pid1); }
@@ -328,7 +358,9 @@ namespace ns_geo
                    ns_geo::distance(p2, p3);
         }
     };
-
+    /**
+     * \brief overload operator "<<" for RefTriangle3
+     */
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const RefTriangle3<_Ty> &tri)
     {

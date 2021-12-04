@@ -19,6 +19,9 @@ namespace ns_geo
 #pragma region LineString2
     template <typename _Ty>
     class LineString2;
+    /**
+     * \brief some Commonly used LineString2 types
+     */
     using LineString2d = LineString2<double>;
     using LineString2f = LineString2<float>;
     using LineString2i = LineString2<int>;
@@ -29,6 +32,9 @@ namespace ns_geo
     public:
         using value_type = _Ty;
         using pointset_type = PointSet2<value_type>;
+        /**
+         * \brief using pointset_type's constructors
+         */
         using pointset_type::pointset_type;
 
         float length() const
@@ -39,6 +45,9 @@ namespace ns_geo
             return len;
         }
     };
+    /**
+     * \brief overload operator "<<" for LineString2
+     */
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const LineString2<_Ty> &ls)
     {
@@ -51,7 +60,9 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefLineString2
-
+    /**
+     * \brief some Commonly used RefLineString2 types
+     */
     using RefLineString2d = RefLineString2<double>;
     using RefLineString2f = RefLineString2<float>;
     using RefLineString2i = RefLineString2<int>;
@@ -61,8 +72,9 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
+        using id_type = uint;
         using refpoint_type = RefPoint2<value_type>;
-        using pointidset_type = std::vector<uint>;
+        using pointidset_type = std::vector<id_type>;
         using refpointset_type = RefPointSet2<value_type>;
 
     public:
@@ -72,12 +84,15 @@ namespace ns_geo
         const refpointset_type *_rps;
 
     protected:
-        RefLineString2(const std::initializer_list<uint> &pidls, const refpointset_type *rps)
+        /**
+         * \brief constructors
+         */
+        RefLineString2(const std::initializer_list<id_type> &pidls, const refpointset_type *rps)
             : pointidset_type(pidls), _rps(rps) {}
 
-    public:
         RefLineString2() = delete;
 
+    public:
         const refpointset_type *refPointSet() const { return this->_rps; };
 
         float length() const
@@ -88,7 +103,9 @@ namespace ns_geo
             return len;
         }
     };
-
+    /**
+     * \brief overload operator "<<" for RefLineString2
+     */
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const RefLineString2<_Ty> &ls)
     {
@@ -105,9 +122,12 @@ namespace ns_geo
     }
 #pragma endregion
 
-#pragma region linestring3
+#pragma region LineString3
     template <typename _Ty>
     class LineString3;
+    /**
+     * \brief some Commonly used LineString3 types
+     */
     using LineString3d = LineString3<double>;
     using LineString3f = LineString3<float>;
     using LineString3i = LineString3<int>;
@@ -118,6 +138,9 @@ namespace ns_geo
     public:
         using value_type = _Ty;
         using pointset_type = PointSet3<value_type>;
+        /**
+         * \brief using pointset_type's constructors
+         */
         using pointset_type::pointset_type;
 
         float length() const
@@ -128,6 +151,9 @@ namespace ns_geo
             return len;
         }
     };
+    /**
+     * \brief overload operator "<<" for LineString3
+     */
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const LineString3<_Ty> &ls)
     {
@@ -139,8 +165,10 @@ namespace ns_geo
     }
 #pragma endregion
 
-#pragma region reflinestring3
-
+#pragma region RefLineString3
+    /**
+     * \brief some Commonly used RefLineString3 types
+     */
     using RefLineString3d = RefLineString3<double>;
     using RefLineString3f = RefLineString3<float>;
     using RefLineString3i = RefLineString3<int>;
@@ -150,8 +178,9 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
+        using id_type = uint;
         using refpoint_type = RefPoint3<value_type>;
-        using pointidset_type = std::vector<uint>;
+        using pointidset_type = std::vector<id_type>;
         using refpointset_type = RefPointSet3<value_type>;
 
     public:
@@ -161,12 +190,15 @@ namespace ns_geo
         const refpointset_type *_rps;
 
     protected:
-        RefLineString3(const std::initializer_list<uint> &pidls, const refpointset_type *rps)
+        /**
+         * \brief constructors
+         */
+        RefLineString3(const std::initializer_list<id_type> &pidls, const refpointset_type *rps)
             : pointidset_type(pidls), _rps(rps) {}
 
-    public:
         RefLineString3() = delete;
 
+    public:
         const refpointset_type *refPointSet() const { return this->_rps; };
 
         float length() const
@@ -177,7 +209,9 @@ namespace ns_geo
             return len;
         }
     };
-
+    /**
+     * \brief overload operator "<<" for RefLineString3
+     */
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const RefLineString3<_Ty> &ls)
     {

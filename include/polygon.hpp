@@ -19,6 +19,9 @@ namespace ns_geo
 #pragma region Polygon
     template <typename _Ty>
     class Polygon;
+    /**
+     * \brief some Commonly used Polygon types
+     */
     using Polygond = Polygon<double>;
     using Polygonf = Polygon<float>;
     using Polygoni = Polygon<int>;
@@ -29,6 +32,9 @@ namespace ns_geo
     public:
         using value_type = _Ty;
         using pointset_type = PointSet2<value_type>;
+        /**
+         * \brief using pointset_type's constructors
+         */
         using pointset_type::pointset_type;
 
         float perimeter() const
@@ -40,7 +46,9 @@ namespace ns_geo
             return len;
         }
     };
-
+    /**
+     * \brief overload operator "<<" for Polygon
+     */
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const Polygon<_Ty> &polygon)
     {
@@ -52,8 +60,10 @@ namespace ns_geo
     }
 #pragma endregion
 
-#pragma region RefPolgon
-
+#pragma region RefPolygon
+    /**
+     * \brief some Commonly used RefPolygon types
+     */
     using RefPolygond = RefPolygon<double>;
     using RefPolygonf = RefPolygon<float>;
     using RefPolygoni = RefPolygon<int>;
@@ -63,8 +73,9 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
+        using id_type = uint;
         using refpoint_type = RefPoint2<value_type>;
-        using pointidset_type = std::vector<uint>;
+        using pointidset_type = std::vector<id_type>;
         using refpointset_type = RefPointSet2<value_type>;
 
     public:
@@ -74,12 +85,15 @@ namespace ns_geo
         const refpointset_type *_rps;
 
     protected:
-        RefPolygon(const std::initializer_list<uint> &pidls, const refpointset_type *rps)
+        /**
+         * \brief constructors
+         */
+        RefPolygon(const std::initializer_list<id_type> &pidls, const refpointset_type *rps)
             : pointidset_type(pidls), _rps(rps) {}
 
-    public:
         RefPolygon() = delete;
 
+    public:
         const refpointset_type *refPointSet() const { return this->_rps; };
 
         float perimeter() const
@@ -97,7 +111,9 @@ namespace ns_geo
             return len;
         }
     };
-
+    /**
+     * \brief overload operator "<<" for RefPolygon
+     */
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const RefPolygon<_Ty> &polygon)
     {

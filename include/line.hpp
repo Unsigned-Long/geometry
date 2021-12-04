@@ -20,6 +20,9 @@ namespace ns_geo
 #pragma region Line2
     template <typename _Ty>
     class Line2;
+    /**
+     * \brief some Commonly used Line2 types
+     */
     using Line2d = Line2<double>;
     using Line2f = Line2<float>;
     using Line2i = Line2<int>;
@@ -39,6 +42,9 @@ namespace ns_geo
         point_type _p2;
 
     public:
+        /**
+         * \brief constructors
+         */
         Line2() = default;
         Line2(const point_type &p1, const point_type &p2)
             : _p1(p1), _p2(p2) {}
@@ -63,7 +69,9 @@ namespace ns_geo
 
         float azimuthLHR() const { return ns_geo::azimuthLHR(_p1, _p2); }
     };
-
+    /**
+     * \brief overload operator "<<" for Line2
+     */
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const Line2<_Ty> &line)
     {
@@ -78,6 +86,9 @@ namespace ns_geo
 #pragma region Line3
     template <typename _Ty>
     class Line3;
+    /**
+     * \brief some Commonly used Line3 types
+     */
     using Line3d = Line3<double>;
     using Line3f = Line3<float>;
     using Line3i = Line3<int>;
@@ -97,6 +108,9 @@ namespace ns_geo
         point_type _p2;
 
     public:
+        /**
+         * \brief constructors
+         */
         Line3() = default;
         Line3(const point_type &p1, const point_type &p2)
             : _p1(p1), _p2(p2) {}
@@ -118,7 +132,9 @@ namespace ns_geo
 
         float length() const { return ns_geo::distance(_p1, _p2); }
     };
-
+    /**
+     * \brief overload operator "<<" for Line3
+     */
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const Line3<_Ty> &line)
     {
@@ -130,6 +146,9 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefLine2
+    /**
+     * \brief some Commonly used RefLine2 types
+     */
     using RefLine2d = RefLine2<double>;
     using RefLine2f = RefLine2<float>;
     using RefLine2i = RefLine2<int>;
@@ -139,6 +158,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
+        using id_type = uint;
         using refpoint_type = ns_geo::RefPoint2<value_type>;
         using refpointset_type = RefPointSet2<value_type>;
 
@@ -146,18 +166,21 @@ namespace ns_geo
         friend class RefPointSet2<value_type>;
 
     private:
-        uint _pid1;
-        uint _pid2;
+        id_type _pid1;
+        id_type _pid2;
         // thr reference point set's pointer
         const refpointset_type *_rps;
 
     protected:
-        RefLine2(uint pid1, uint pid2, const refpointset_type *refpointset)
+        /**
+         * \brief constructors
+         */
+        RefLine2(id_type pid1, id_type pid2, const refpointset_type *refpointset)
             : _pid1(pid1), _pid2(pid2), _rps(refpointset) {}
 
-    public:
         RefLine2() = delete;
 
+    public:
         const refpointset_type *refPointSet() const { return this->_rps; };
 
         const refpoint_type &p1() const { return this->_rps->at(this->_pid1); }
@@ -174,7 +197,9 @@ namespace ns_geo
 
         float azimuthLHR() const { return ns_geo::azimuthLHR(p1(), p2()); }
     };
-
+    /**
+     * \brief overload operator "<<" for RefLine2
+     */
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const RefLine2<_Ty> &line)
     {
@@ -188,6 +213,9 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefLine3
+    /**
+     * \brief some Commonly used RefLine3 types
+     */
     using RefLine3d = RefLine3<double>;
     using RefLine3f = RefLine3<float>;
     using RefLine3i = RefLine3<int>;
@@ -197,6 +225,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
+        using id_type = uint;
         using refpoint_type = ns_geo::RefPoint3<value_type>;
         using refpointset_type = RefPointSet3<value_type>;
 
@@ -204,17 +233,20 @@ namespace ns_geo
         friend class RefPointSet3<value_type>;
 
     private:
-        uint _pid1;
-        uint _pid2;
+        id_type _pid1;
+        id_type _pid2;
         const refpointset_type *_refpointset;
 
     protected:
-        RefLine3(uint pid1, uint pid2, const refpointset_type *refpointset)
+        /**
+         * \brief constructors
+         */
+        RefLine3(id_type pid1, id_type pid2, const refpointset_type *refpointset)
             : _pid1(pid1), _pid2(pid2), _refpointset(refpointset) {}
 
-    public:
         RefLine3() = delete;
 
+    public:
         const refpointset_type *refPointSet() const { return this->_rps; };
 
         const refpoint_type &p1() const { return this->_refpointset->at(this->_pid1); }
@@ -227,7 +259,9 @@ namespace ns_geo
 
         float length() const { return ns_geo::distance(p1(), p2()); }
     };
-
+    /**
+     * \brief overload operator "<<" for RefLine3
+     */
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const RefLine3<_Ty> &line)
     {

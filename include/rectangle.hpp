@@ -17,8 +17,12 @@
 
 namespace ns_geo
 {
+#pragma region Rectangle
     template <typename _Ty>
     class Rectangle;
+    /**
+     * \brief some Commonly used Rectangle types
+     */
     using Rectangled = Rectangle<double>;
     using Rectanglef = Rectangle<float>;
     using Rectanglei = Rectangle<int>;
@@ -40,6 +44,9 @@ namespace ns_geo
         point_type _lwrp;
 
     public:
+        /**
+         * \brief constructors
+         */
         Rectangle() = default;
         Rectangle(const point_type &topLeft, const point_type &lowerRight)
             : _tplp(topLeft), _lwrp(lowerRight) {}
@@ -67,7 +74,9 @@ namespace ns_geo
             return 2.0 * (std::abs(this->_tplp.x() - this->_lwrp.x()) + std::abs(this->_tplp.y() - this->_lwrp.y()));
         }
     };
-
+    /**
+     * \brief overload operator "<<" for Rectangle
+     */
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const Rectangle<_Ty> &rect)
     {
@@ -76,8 +85,12 @@ namespace ns_geo
         os << rect.lowerRight() << '}';
         return os;
     }
-#pragma region RefRectangle
+#pragma endregion
 
+#pragma region RefRectangle
+    /**
+     * \brief some Commonly used RefRectangle types
+     */
     using RefRectangled = RefRectangle<double>;
     using RefRectanglef = RefRectangle<float>;
     using RefRectanglei = RefRectangle<int>;
@@ -87,6 +100,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
+        using id_type = uint;
         using refpoint_type = ns_geo::RefPoint2<value_type>;
         using refpointset_type = RefPointSet2<value_type>;
 
@@ -95,19 +109,22 @@ namespace ns_geo
 
     private:
         // top left point's id
-        uint _tplpid;
+        id_type _tplpid;
         // lower right point's id
-        uint _lwrpid;
-        // thr reference point set's pointer 
+        id_type _lwrpid;
+        // thr reference point set's pointer
         const refpointset_type *_rps;
 
     protected:
-        RefRectangle(uint topLeftID, uint lowerRightID, const refpointset_type *refpointset)
+        /**
+         * \brief constructors
+         */
+        RefRectangle(id_type topLeftID, id_type lowerRightID, const refpointset_type *refpointset)
             : _tplpid(topLeftID), _lwrpid(lowerRightID), _rps(refpointset) {}
 
-    public:
         RefRectangle() = delete;
-        
+
+    public:
         const refpointset_type *refPointSet() const { return this->_rps; };
 
         std::array<refpoint_type, 2> points() const
@@ -135,7 +152,9 @@ namespace ns_geo
                           std::abs(this->topLeft().y() - this->lowerRight().y()));
         }
     };
-
+    /**
+     * \brief overload operator "<<" for RefRectangle
+     */
     template <typename _Ty = float>
     std::ostream &operator<<(std::ostream &os, const RefRectangle<_Ty> &rect)
     {

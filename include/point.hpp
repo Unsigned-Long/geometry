@@ -34,7 +34,7 @@ namespace ns_geo
     class Point2;
 
     /**
-     * \brief some commonly used 2D point classes
+     * \brief some Commonly used Point2 types
      */
     using Point2f = Point2<float>;
     using Point2d = Point2<double>;
@@ -84,7 +84,7 @@ namespace ns_geo
     template <typename _Ty>
     class Point3;
     /**
-     * \brief some commonly used 3D point classes
+     * \brief some Commonly used Point3 types
      */
     using Point3f = Point3<float>;
     using Point3d = Point3<double>;
@@ -119,6 +119,9 @@ namespace ns_geo
         value_type _y;
 
     public:
+        /**
+         * \brief constructors
+         */
         Point2() = default;
         Point2(value_type x, value_type y) : _x(x), _y(y) {}
         Point2(const ary_type &p) : _x(p[0]), _y(p[1]) {}
@@ -132,7 +135,9 @@ namespace ns_geo
         const value_type &x() const { return this->_x; }
         const value_type &y() const { return this->_y; }
     };
-
+    /**
+     * \brief overload operator "<<" for Point2
+     */
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const Point2<_Ty> &p)
     {
@@ -158,6 +163,9 @@ namespace ns_geo
         value_type _z;
 
     public:
+        /**
+         * \brief constructors
+         */
         Point3() = default;
         Point3(value_type x, value_type y, value_type z) : _x(x), _y(y), _z(z) {}
         Point3(const ary_type &p) : _x(p[0]), _y(p[1]), _z(p[2]) {}
@@ -173,7 +181,9 @@ namespace ns_geo
         const value_type &y() const { return this->_y; }
         const value_type &z() const { return this->_z; }
     };
-
+    /**
+     * \brief overload operator "<<" for Point3
+     */
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const Point3<_Ty> &p)
     {
@@ -191,6 +201,9 @@ namespace ns_geo
         using value_type = _Ty;
         using point_type = Point2<value_type>;
         using container_type = std::vector<point_type, _Alloc>;
+        /**
+         * \brief using container_type's constructors
+         */
         using container_type::container_type;
 
     public:
@@ -216,19 +229,19 @@ namespace ns_geo
             if (!file.is_open())
                 throw std::ios_base::failure("File Open Failed");
             if (std::ios::binary == (mode & std::ios::binary))
-               {
-                   point_type p;
-                   file.seekg(0, std::ios::end);
-                   auto size = file.tellg() / sizeof(point_type);
-                   file.seekg(0, std::ios::beg);
-                   int count = 0;
-                   while (!file.eof() && count < size)
-                   {
-                       file.read((char *)(&p), sizeof(point_type));
-                       this->push_back(p);
-                       ++count;
-                   }
-               }
+            {
+                point_type p;
+                file.seekg(0, std::ios::end);
+                auto size = file.tellg() / sizeof(point_type);
+                file.seekg(0, std::ios::beg);
+                int count = 0;
+                while (!file.eof() && count < size)
+                {
+                    file.read((char *)(&p), sizeof(point_type));
+                    this->push_back(p);
+                    ++count;
+                }
+            }
             else
             {
                 Point2<value_type> point;
@@ -246,7 +259,9 @@ namespace ns_geo
             }
         }
     };
-
+    /**
+     * \brief some Commonly used PointSet2 types
+     */
     using PointSet2i = PointSet2<int>;
     using PointSet2f = PointSet2<float>;
     using PointSet2d = PointSet2<double>;
@@ -262,6 +277,9 @@ namespace ns_geo
         using value_type = _Ty;
         using point_type = Point3<value_type>;
         using container_type = std::vector<point_type, _Alloc>;
+        /**
+         * \brief using container_type's constructors
+         */
         using container_type::container_type;
 
     public:
@@ -287,19 +305,19 @@ namespace ns_geo
             if (!file.is_open())
                 throw std::ios_base::failure("File Open Failed");
             if (std::ios::binary == (mode & std::ios::binary))
+            {
+                point_type p;
+                file.seekg(0, std::ios::end);
+                auto size = file.tellg() / sizeof(point_type);
+                file.seekg(0, std::ios::beg);
+                int count = 0;
+                while (!file.eof() && count < size)
                 {
-                    point_type p;
-                    file.seekg(0, std::ios::end);
-                    auto size = file.tellg() / sizeof(point_type);
-                    file.seekg(0, std::ios::beg);
-                    int count = 0;
-                    while (!file.eof() && count < size)
-                    {
-                        file.read((char *)(&p), sizeof(point_type));
-                        this->push_back(p);
-                        ++count;
-                    }
+                    file.read((char *)(&p), sizeof(point_type));
+                    this->push_back(p);
+                    ++count;
                 }
+            }
             else
             {
                 Point3<value_type> point;
@@ -319,7 +337,9 @@ namespace ns_geo
             }
         }
     };
-
+    /**
+     * \brief some Commonly used PointSet3 types
+     */
     using PointSet3i = PointSet3<int>;
     using PointSet3f = PointSet3<float>;
     using PointSet3d = PointSet3<double>;
@@ -338,6 +358,9 @@ namespace ns_geo
         id_type _id;
 
     public:
+        /**
+         * \brief constructors
+         */
         RefPoint2() = default;
         RefPoint2(id_type id, value_type x, value_type y)
             : _id(id), Point2<_Ty>(x, y) {}
@@ -347,14 +370,18 @@ namespace ns_geo
             : _id(id), Point2<_Ty>(p[0], p[1]) {}
         const id_type &id() const { return this->_id; }
     };
-
+    /**
+     * \brief overload operator "<<" for RefPoint2
+     */
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const RefPoint2<_Ty> &p)
     {
         os << '{' << p.id() << ": " << '[' << p.x() << ", " << p.y() << ']' << '}';
         return os;
     }
-
+    /**
+     * \brief some Commonly used RefPoint2 types
+     */
     using RefPoint2f = RefPoint2<float>;
     using RefPoint2d = RefPoint2<double>;
     using RefPoint2i = RefPoint2<int>;
@@ -371,6 +398,9 @@ namespace ns_geo
         id_type _id;
 
     public:
+        /**
+         * \brief constructors
+         */
         RefPoint3() = default;
         RefPoint3(id_type id, value_type x, value_type y, value_type z)
             : _id(id), Point3<_Ty>(x, y, z) {}
@@ -381,14 +411,18 @@ namespace ns_geo
 
         const id_type &id() const { return this->_id; }
     };
-
+    /**
+     * \brief overload operator "<<" for RefPoint3
+     */
     template <typename _Ty>
     std::ostream &operator<<(std::ostream &os, const RefPoint3<_Ty> &p)
     {
         os << '{' << p.id() << ": " << '[' << p.x() << ", " << p.y() << ", " << p.z() << ']' << '}';
         return os;
     }
-
+    /**
+     * \brief some Commonly used RefPoint3 types
+     */
     using RefPoint3f = RefPoint3<float>;
     using RefPoint3d = RefPoint3<double>;
     using RefPoint3i = RefPoint3<int>;
@@ -417,8 +451,12 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
+        using id_type = uint;
         using refpoint_type = RefPoint2<value_type>;
-        using container_type = std::unordered_map<uint, refpoint_type, _Hash, _Pred, _Alloc>;
+        using container_type = std::unordered_map<id_type, refpoint_type, _Hash, _Pred, _Alloc>;
+        /**
+         * \brief using container_type's constructors
+         */
         using container_type::container_type;
 
     public:
@@ -470,7 +508,7 @@ namespace ns_geo
                     if (str.empty())
                         continue;
                     auto iter = std::find(str.cbegin(), str.cend(), ',');
-                    const_cast<uint &>(refp.id()) = static_cast<uint>(std::stoi(std::string(str.cbegin(), iter)));
+                    const_cast<id_type &>(refp.id()) = static_cast<id_type>(std::stoi(std::string(str.cbegin(), iter)));
                     auto iter2 = std::find(++iter, str.cend(), ',');
                     refp.x() = static_cast<value_type>(std::stod(std::string(iter, iter2)));
                     refp.y() = static_cast<value_type>(std::stod(std::string(++iter2, str.cend())));
@@ -483,26 +521,28 @@ namespace ns_geo
         /**
          * \brief create reference geometries[2d] by the reference point set
          */
-        RefLine2<value_type> createRefLine2(uint pid1, uint pid2)
+        RefLine2<value_type> createRefLine2(id_type pid1, id_type pid2)
         {
             return RefLine2<value_type>(pid1, pid2, this);
         }
 
-        RefRectangle<value_type> createRefRectangle(uint topLeftID, uint lowerRightID) { return RefRectangle<value_type>(topLeftID, lowerRightID, this); }
+        RefRectangle<value_type> createRefRectangle(id_type topLeftID, id_type lowerRightID) { return RefRectangle<value_type>(topLeftID, lowerRightID, this); }
 
-        RefTriangle2<value_type> createRefTriangle2(uint pid1, uint pid2, uint pid3) { return RefTriangle2<value_type>(pid1, pid2, pid3, this); }
+        RefTriangle2<value_type> createRefTriangle2(id_type pid1, id_type pid2, id_type pid3) { return RefTriangle2<value_type>(pid1, pid2, pid3, this); }
 
-        RefPolygon<value_type> createRefPolygon(const std::initializer_list<uint> &pidls) { return RefPolygon<value_type>(pidls, this); }
+        RefPolygon<value_type> createRefPolygon(const std::initializer_list<id_type> &pidls) { return RefPolygon<value_type>(pidls, this); }
 
-        RefLineString2<value_type> createRefLineString2(const std::initializer_list<uint> &pidls) { return RefLineString2<value_type>(pidls, this); }
+        RefLineString2<value_type> createRefLineString2(const std::initializer_list<id_type> &pidls) { return RefLineString2<value_type>(pidls, this); }
 
     private:
         /**
          * \brief dangerous function has been deleted
          */
-        refpoint_type &operator[](const uint &id) = delete;
+        refpoint_type &operator[](const id_type &id) = delete;
     };
-
+    /**
+     * \brief some Commonly used RefPointSet2 types
+     */
     using RefPointSet2i = RefPointSet2<int>;
     using RefPointSet2f = RefPointSet2<float>;
     using RefPointSet2d = RefPointSet2<double>;
@@ -527,8 +567,12 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
+        using id_type = uint;
         using refpoint_type = RefPoint3<value_type>;
-        using container_type = std::unordered_map<uint, refpoint_type, _Hash, _Pred, _Alloc>;
+        using container_type = std::unordered_map<id_type, refpoint_type, _Hash, _Pred, _Alloc>;
+        /**
+         * \brief using container_type's constructors
+         */
         using container_type::container_type;
 
     public:
@@ -597,19 +641,21 @@ namespace ns_geo
         /**
          * \brief create reference geometries[3d] by the reference point set
          */
-        RefLine3<value_type> createRefLine3(uint pid1, uint pid2) { return RefLine3<value_type>(pid1, pid2, this); }
+        RefLine3<value_type> createRefLine3(id_type pid1, id_type pid2) { return RefLine3<value_type>(pid1, pid2, this); }
 
-        RefTriangle3<value_type> createRefTriangle3(uint pid1, uint pid2, uint pid3) { return RefTriangle3<value_type>(pid1, pid2, pid3, this); }
+        RefTriangle3<value_type> createRefTriangle3(id_type pid1, id_type pid2, id_type pid3) { return RefTriangle3<value_type>(pid1, pid2, pid3, this); }
 
-        RefLineString3<value_type> createRefLineString3(const std::initializer_list<uint> &pidls) { return RefLineString3<value_type>(pidls, this); }
+        RefLineString3<value_type> createRefLineString3(const std::initializer_list<id_type> &pidls) { return RefLineString3<value_type>(pidls, this); }
 
     private:
         /**
          * \brief dangerous function has been deleted
          */
-        refpoint_type &operator[](const uint &id) = delete;
+        refpoint_type &operator[](const id_type &id) = delete;
     };
-
+    /**
+     * \brief some Commonly used RefPointSet3 types
+     */
     using RefPointSet3i = RefPointSet3<int>;
     using RefPointSet3f = RefPointSet3<float>;
     using RefPointSet3d = RefPointSet3<double>;
