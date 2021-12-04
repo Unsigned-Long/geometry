@@ -19,7 +19,11 @@ ___
 
 <img src="./docs/struct.png">
 
-## ***3. Using example***
+## ***3. Classes Belongs***
+
+<img src="./docs/belongs.png">
+
+## ***4. Using example***
 
 ### <kbd>__Point2<_Ty>___</kbd>
 
