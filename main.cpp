@@ -7,7 +7,7 @@
 
 using namespace ns_geo;
 
-void foo_refpolygon()
+void foo_reflinestring2()
 {
     RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
     RefPoint2d p2(1, RefPoint2d::ary_type{1, 0});
@@ -18,17 +18,31 @@ void foo_refpolygon()
     rps.insert(p4);
     rps.insert(p3);
     rps.insert(p1);
-    auto polygon = rps.createRefPolygon({0, 1, 2, 4});
-    std::cout << polygon << std::endl;
-    std::cout << "perimeter : " << polygon.perimeter() << std::endl;
+    auto ls = rps.createRefLineString2({0, 1, 2, 4});
+    std::cout << ls << std::endl;
+    std::cout << "length : " << ls.length() << std::endl;
 }
-
+void foo_reflinestring3()
+{
+    RefPoint3d p1(0, RefPoint3d::ary_type{0, 0, 0});
+    RefPoint3d p2(1, RefPoint3d::ary_type{0, 1, 0});
+    RefPoint3d p3(2, RefPoint3d::ary_type{0, 0, 1});
+    RefPoint3d p4(4, RefPoint3d::ary_type{1, 0, 0});
+    RefPointSet3d rps;
+    rps.insert(p2);
+    rps.insert(p4);
+    rps.insert(p3);
+    rps.insert(p1);
+    auto ls = rps.createRefLineString3({0, 1, 2, 4});
+    std::cout << ls << std::endl;
+    std::cout << "length : " << ls.length() << std::endl;
+}
 int main(int argc, char *argv[])
 {
     /** output
-     * {0: [0, 0], 1: [1, 0], 2: [1, 1], 4: [0, 1]}
-     * perimeter : 4
+     * {0: [0, 0, 0], 1: [0, 1, 0], 2: [0, 0, 1], 4: [1, 0, 0]}
+     * length : 3.82843
      */
-    ::foo_refpolygon();
+    ::foo_reflinestring3();
     return 0;
 }

@@ -402,6 +402,8 @@ namespace ns_geo
     class RefTriangle2;
     template <typename _Ty>
     class RefPolygon;
+    template <typename _Ty>
+    class RefLineString2;
 
     template <typename _Ty,
               typename _Hash = std::hash<uint>,
@@ -434,6 +436,8 @@ namespace ns_geo
 
         RefPolygon<value_type> createRefPolygon(const std::initializer_list<uint> &pidls) { return RefPolygon<value_type>(pidls, this); }
 
+        RefLineString2<value_type> createRefLineString2(const std::initializer_list<uint> &pidls) { return RefLineString2<value_type>(pidls, this); }
+
     private:
         /**
          * \brief dangerous function has been deleted
@@ -455,6 +459,8 @@ namespace ns_geo
     class RefLine3;
     template <typename _Ty>
     class RefTriangle3;
+    template <typename _Ty>
+    class RefLineString3;
 
     template <typename _Ty,
               typename _Hash = std::hash<uint>,
@@ -479,6 +485,8 @@ namespace ns_geo
         RefLine3<value_type> createRefLine3(uint pid1, uint pid2) { return RefLine3<value_type>(pid1, pid2, this); }
 
         RefTriangle3<value_type> createRefTriangle3(uint pid1, uint pid2, uint pid3) { return RefTriangle3<value_type>(pid1, pid2, pid3, this); }
+        
+        RefLineString3<value_type> createRefLineString3(const std::initializer_list<uint> &pidls) { return RefLineString3<value_type>(pidls, this); }
 
     private:
         /**

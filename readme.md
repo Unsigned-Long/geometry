@@ -537,7 +537,7 @@ void foo_reftriangle3()
  */
 ```
 
-### <kbd>__RefTriangle23<_Ty>___</kbd>  
+### <kbd>__RefPolygon<_Ty>___</kbd>  
 
 ```cpp
 void foo_refpolygon()
@@ -559,6 +559,50 @@ void foo_refpolygon()
  * {0: [0, 0], 1: [1, 0], 2: [1, 1], 4: [0, 1]}
  * perimeter : 4
  */
+```
+
+### <kbd>__RefLinestring23<_Ty>___</kbd>  
+
+```cpp
+void foo_reflinestring2()
+{
+    RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
+    RefPoint2d p2(1, RefPoint2d::ary_type{1, 0});
+    RefPoint2d p3(2, RefPoint2d::ary_type{1, 1});
+    RefPoint2d p4(4, RefPoint2d::ary_type{0, 1});
+    RefPointSet2d rps;
+    rps.insert(p2);
+    rps.insert(p4);
+    rps.insert(p3);
+    rps.insert(p1);
+    auto ls = rps.createRefLineString2({0, 1, 2, 4});
+    std::cout << ls << std::endl;
+    std::cout << "length : " << ls.length() << std::endl;
+}
+/** output
+ * {0: [0, 0], 1: [1, 0], 2: [1, 1], 4: [0, 1]}
+ * length : 3
+ */
+
+void foo_reflinestring3()
+{
+    RefPoint3d p1(0, RefPoint3d::ary_type{0, 0, 0});
+    RefPoint3d p2(1, RefPoint3d::ary_type{0, 1, 0});
+    RefPoint3d p3(2, RefPoint3d::ary_type{0, 0, 1});
+    RefPoint3d p4(4, RefPoint3d::ary_type{1, 0, 0});
+    RefPointSet3d rps;
+    rps.insert(p2);
+    rps.insert(p4);
+    rps.insert(p3);
+    rps.insert(p1);
+    auto ls = rps.createRefLineString3({0, 1, 2, 4});
+    std::cout << ls << std::endl;
+    std::cout << "length : " << ls.length() << std::endl;
+}
+ /** output
+  * {0: [0, 0, 0], 1: [0, 1, 0], 2: [0, 0, 1], 4: [1, 0, 0]}
+  * length : 3.82843
+  */
 ```
 
 For other implementation details, please refer to the source code.
