@@ -108,6 +108,8 @@ namespace ns_geo
 
     public:
         RefRectangle() = delete;
+        
+        const refpointset_type *refPointSet() const { return this->_rps; };
 
         std::array<refpoint_type, 2> points() const
         {

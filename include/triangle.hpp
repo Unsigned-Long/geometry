@@ -126,6 +126,8 @@ namespace ns_geo
     public:
         RefTriangle2() = delete;
 
+        const refpointset_type *refPointSet() const { return this->_rps; };
+
         const refpoint_type &p1() const { return this->_rps->at(_pid1); }
         refpoint_type &p1() { return this->_rps->at(_pid1); }
 
@@ -277,7 +279,7 @@ namespace ns_geo
         uint _pid1;
         uint _pid2;
         uint _pid3;
-        // thr reference point set's pointer
+        // the reference point set's pointer
         const refpointset_type *_rps;
 
     protected:
@@ -286,6 +288,8 @@ namespace ns_geo
 
     public:
         RefTriangle3() = delete;
+
+        const refpointset_type *refPointSet() const { return this->_rps; };
 
         const refpoint_type &p1() const { return this->_rps->at(_pid1); }
         refpoint_type &p1() { return this->_rps->at(_pid1); }

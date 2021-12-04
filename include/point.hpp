@@ -405,6 +405,8 @@ namespace ns_geo
     class RefRectangle;
     template <typename _Ty>
     class RefTriangle2;
+    template <typename _Ty>
+    class RefPolygon;
 
     template <typename _Ty,
               typename _Hash = std::hash<uint>,
@@ -426,11 +428,16 @@ namespace ns_geo
         /**
          * \brief create reference line[2d] by the reference point set
          */
-        RefLine2<value_type> createRefLine2(uint pid1, uint pid2) { return RefLine2<value_type>(pid1, pid2, this); }
+        RefLine2<value_type> createRefLine2(uint pid1, uint pid2)
+        {
+            return RefLine2<value_type>(pid1, pid2, this);
+        }
 
         RefRectangle<value_type> createRefRectangle(uint topLeftID, uint lowerRightID) { return RefRectangle<value_type>(topLeftID, lowerRightID, this); }
 
         RefTriangle2<value_type> createRefTriangle2(uint pid1, uint pid2, uint pid3) { return RefTriangle2<value_type>(pid1, pid2, pid3, this); }
+
+        RefPolygon<value_type> createRefPolygon(const std::initializer_list<uint> &pidls) { return RefPolygon<value_type>(pidls, this); }
 
     private:
         /**
