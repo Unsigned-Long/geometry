@@ -429,12 +429,12 @@ namespace ns_geo
     class RefPointSet2 : public std::unordered_map<uint, RefPoint2<_Ty>, _Hash, _Pred, _Alloc>
     {
     public:
-        using point_type = RefPoint2<_Ty>;
-        using value_type = typename point_type::value_type;
-        using container_type = std::unordered_map<uint, point_type, _Hash, _Pred, _Alloc>;
+        using value_type = _Ty;
+        using refpoint_type = RefPoint2<value_type>;
+        using container_type = std::unordered_map<uint, refpoint_type, _Hash, _Pred, _Alloc>;
         using container_type::container_type;
 
-        auto insert(const point_type &p)
+        auto insert(const refpoint_type &p)
         {
             return container_type::insert(std::make_pair(p.id(), p));
         }
@@ -452,7 +452,7 @@ namespace ns_geo
         /**
          * \brief dangerous function has been deleted
          */
-        point_type &
+        refpoint_type &
         operator[](const uint &id) = delete;
     };
 
@@ -477,12 +477,12 @@ namespace ns_geo
     class RefPointSet3 : public std::unordered_map<uint, RefPoint3<_Ty>, _Hash, _Pred, _Alloc>
     {
     public:
-        using point_type = RefPoint3<_Ty>;
-        using value_type = typename point_type::value_type;
-        using container_type = std::unordered_map<uint, point_type, _Hash, _Pred, _Alloc>;
+        using value_type = _Ty;
+        using refpoint_type = RefPoint3<value_type>;
+        using container_type = std::unordered_map<uint, refpoint_type, _Hash, _Pred, _Alloc>;
         using container_type::container_type;
 
-        auto insert(const point_type &p)
+        auto insert(const refpoint_type &p)
         {
             return container_type::insert(std::make_pair(p.id(), p));
         }
@@ -498,7 +498,7 @@ namespace ns_geo
         /**
          * \brief dangerous function has been deleted
          */
-        point_type &operator[](const uint &id) = delete;
+        refpoint_type &operator[](const uint &id) = delete;
     };
 
     using RefPointSet3i = RefPointSet3<int>;

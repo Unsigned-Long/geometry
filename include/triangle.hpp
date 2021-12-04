@@ -33,7 +33,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
-        using point_type = ns_geo::Point2<_Ty>;
+        using point_type = ns_geo::Point2<value_type>;
 
     private:
         point_type _p1;
@@ -106,7 +106,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
-        using point_type = ns_geo::RefPoint2<_Ty>;
+        using refpoint_type = ns_geo::RefPoint2<value_type>;
         using refpointset_type = RefPointSet2<value_type>;
 
     public:
@@ -126,16 +126,16 @@ namespace ns_geo
     public:
         RefTriangle2() = delete;
 
-        const point_type &p1() const { return this->_rps->at(_pid1); }
-        point_type &p1() { return this->_rps->at(_pid1); }
+        const refpoint_type &p1() const { return this->_rps->at(_pid1); }
+        refpoint_type &p1() { return this->_rps->at(_pid1); }
 
-        const point_type &p2() const { return this->_rps->at(_pid2); }
-        point_type &p2() { return this->_rps->at(_pid2); }
+        const refpoint_type &p2() const { return this->_rps->at(_pid2); }
+        refpoint_type &p2() { return this->_rps->at(_pid2); }
 
-        const point_type &p3() const { return this->_rps->at(_pid3); }
-        point_type &p3() { return this->_rps->at(_pid3); }
+        const refpoint_type &p3() const { return this->_rps->at(_pid3); }
+        refpoint_type &p3() { return this->_rps->at(_pid3); }
 
-        std::array<point_type, 3> points() const { return std::array<point_type, 3>{this->p1(), this->p2(), this->p3()}; }
+        std::array<refpoint_type, 3> points() const { return std::array<refpoint_type, 3>{this->p1(), this->p2(), this->p3()}; }
 
         float area() const
         {
@@ -189,7 +189,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
-        using point_type = ns_geo::Point3<_Ty>;
+        using point_type = ns_geo::Point3<value_type>;
 
     private:
         point_type _p1;
@@ -267,7 +267,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
-        using point_type = ns_geo::RefPoint3<_Ty>;
+        using refpoint_type = ns_geo::RefPoint3<value_type>;
         using refpointset_type = RefPointSet3<value_type>;
 
     public:
@@ -287,16 +287,16 @@ namespace ns_geo
     public:
         RefTriangle3() = delete;
 
-        const point_type &p1() const { return this->_rps->at(_pid1); }
-        point_type &p1() { return this->_rps->at(_pid1); }
+        const refpoint_type &p1() const { return this->_rps->at(_pid1); }
+        refpoint_type &p1() { return this->_rps->at(_pid1); }
 
-        const point_type &p2() const { return this->_rps->at(_pid2); }
-        point_type &p2() { return this->_rps->at(_pid2); }
+        const refpoint_type &p2() const { return this->_rps->at(_pid2); }
+        refpoint_type &p2() { return this->_rps->at(_pid2); }
 
-        const point_type &p3() const { return this->_rps->at(_pid3); }
-        point_type &p3() { return this->_rps->at(_pid3); }
+        const refpoint_type &p3() const { return this->_rps->at(_pid3); }
+        refpoint_type &p3() { return this->_rps->at(_pid3); }
 
-        std::array<point_type, 3> points() const { return std::array<point_type, 3>{this->p1(), this->p2(), this->p3()}; }
+        std::array<refpoint_type, 3> points() const { return std::array<refpoint_type, 3>{this->p1(), this->p2(), this->p3()}; }
 
         float area() const
         {

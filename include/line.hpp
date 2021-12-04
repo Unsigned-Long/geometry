@@ -31,7 +31,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
-        using point_type = ns_geo::Point2<_Ty>;
+        using point_type = ns_geo::Point2<value_type>;
 
     private:
         point_type _p1;
@@ -89,7 +89,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
-        using point_type = ns_geo::Point3<_Ty>;
+        using point_type = ns_geo::Point3<value_type>;
 
     private:
         point_type _p1;
@@ -138,7 +138,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
-        using point_type = ns_geo::RefPoint2<value_type>;
+        using refpoint_type = ns_geo::RefPoint2<value_type>;
         using refpointset_type = RefPointSet2<value_type>;
 
     public:
@@ -157,13 +157,13 @@ namespace ns_geo
     public:
         RefLine2() = delete;
 
-        const point_type &p1() const { return this->_rps->at(this->_pid1); }
-        point_type &p1() { return this->_rps->at(this->_pid1); }
+        const refpoint_type &p1() const { return this->_rps->at(this->_pid1); }
+        refpoint_type &p1() { return this->_rps->at(this->_pid1); }
 
-        const point_type &p2() const { return this->_rps->at(this->_pid2); }
-        point_type &p2() { return this->_rps->at(this->_pid2); }
+        const refpoint_type &p2() const { return this->_rps->at(this->_pid2); }
+        refpoint_type &p2() { return this->_rps->at(this->_pid2); }
 
-        std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->p1(), this->p2()}; }
+        std::array<refpoint_type, 2> points() const { return std::array<refpoint_type, 2>{this->p1(), this->p2()}; }
 
         float length() const { return ns_geo::distance(p1(), p2()); }
 
@@ -194,7 +194,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
-        using point_type = ns_geo::RefPoint3<value_type>;
+        using refpoint_type = ns_geo::RefPoint3<value_type>;
         using refpointset_type = RefPointSet3<value_type>;
 
     public:
@@ -212,13 +212,13 @@ namespace ns_geo
     public:
         RefLine3() = delete;
 
-        const point_type &p1() const { return this->_refpointset->at(this->_pid1); }
-        point_type &p1() { return this->_refpointset->at(this->_pid1); }
+        const refpoint_type &p1() const { return this->_refpointset->at(this->_pid1); }
+        refpoint_type &p1() { return this->_refpointset->at(this->_pid1); }
 
-        const point_type &p2() const { return this->_refpointset->at(this->_pid2); }
-        point_type &p2() { return this->_refpointset->at(this->_pid2); }
+        const refpoint_type &p2() const { return this->_refpointset->at(this->_pid2); }
+        refpoint_type &p2() { return this->_refpointset->at(this->_pid2); }
 
-        std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->p1(), this->p2()}; }
+        std::array<refpoint_type, 2> points() const { return std::array<refpoint_type, 2>{this->p1(), this->p2()}; }
 
         float length() const { return ns_geo::distance(p1(), p2()); }
     };

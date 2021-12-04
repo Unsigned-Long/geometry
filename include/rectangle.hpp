@@ -32,7 +32,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
-        using point_type = ns_geo::Point2<_Ty>;
+        using point_type = ns_geo::Point2<value_type>;
 
     private:
         // top left point
@@ -88,7 +88,7 @@ namespace ns_geo
     {
     public:
         using value_type = _Ty;
-        using point_type = ns_geo::RefPoint2<_Ty>;
+        using refpoint_type = ns_geo::RefPoint2<value_type>;
         using refpointset_type = RefPointSet2<value_type>;
 
     public:
@@ -109,18 +109,18 @@ namespace ns_geo
     public:
         RefRectangle() = delete;
 
-        std::array<point_type, 2> points() const
+        std::array<refpoint_type, 2> points() const
         {
-            return std::array<point_type, 2>{_rps->at(this->_tplpid), _rps->at(this->_lwrpid)};
+            return std::array<refpoint_type, 2>{_rps->at(this->_tplpid), _rps->at(this->_lwrpid)};
         }
 
-        const point_type &topLeft() const { return _rps->at(this->_tplpid); }
+        const refpoint_type &topLeft() const { return _rps->at(this->_tplpid); }
 
-        point_type &topLeft() { return _rps->at(this->_tplpid); }
+        refpoint_type &topLeft() { return _rps->at(this->_tplpid); }
 
-        const point_type &lowerRight() const { return _rps->at(this->_lwrpid); }
+        const refpoint_type &lowerRight() const { return _rps->at(this->_lwrpid); }
 
-        point_type &lowerRight() { return _rps->at(this->_lwrpid); }
+        refpoint_type &lowerRight() { return _rps->at(this->_lwrpid); }
 
         float area() const
         {
