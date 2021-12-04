@@ -4,13 +4,12 @@
  * \brief the details
  *       [1] class type
  *              0. Polygon<_Ty>
- *              1. Polygond
- *              2. Polygonf
- *              3. Polygoni
+ *              1. RefPolygon<_Ty>
  * 
  *       [2] methods for Polygon
  *              0. perimeter
  *              2. operator "<<" for Polygon<_Ty>
+ *              2. operator "<<" for RefPolygon<_Ty>
  */
 
 #include "point.hpp"

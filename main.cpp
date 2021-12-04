@@ -20,20 +20,14 @@ void foo_refpolygon()
     rps.insert(p1);
     auto polygon = rps.createRefPolygon({0, 1, 2, 4});
     std::cout << polygon << std::endl;
-    std::cout << polygon.perimeter() << std::endl;
-    polygon.insert(polygon.begin(), 1);
+    std::cout << "perimeter : " << polygon.perimeter() << std::endl;
 }
 
 int main(int argc, char *argv[])
 {
     /** output
-     * {0: [0, 0, 0]}
-     * {2: [0, 0, 1]}
-     * {4: [1, 0, 0]}
-     * {1: [0, 1, 0]}
-     * {0: [0, 0, 0], 1: [0, 1, 0], 2: [0, 0, 1]}
-     * 0.5
-     * 3.41421
+     * {0: [0, 0], 1: [1, 0], 2: [1, 1], 4: [0, 1]}
+     * perimeter : 4
      */
     ::foo_refpolygon();
     return 0;

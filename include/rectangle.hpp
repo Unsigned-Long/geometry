@@ -4,14 +4,13 @@
  * \brief the details
  *       [1] class type
  *              0. Rectangle<_Ty>
- *              1. Rectangled
- *              2. Rectanglef
- *              3. Rectanglei
+ *              1. RefRectangle<_Ty>
  * 
  *       [2] methods for Line
  *              0. area
  *              1. perimeter
  *              2. operator "<<" for Rectangle<_Ty>
+ *              2. operator "<<" for RefRectangle<_Ty>
  */
 
 #include "point.hpp"
