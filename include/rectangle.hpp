@@ -36,6 +36,7 @@ namespace ns_geo
     public:
         using value_type = _Ty;
         using point_type = ns_geo::Point2<value_type>;
+        using ary_type = std::array<point_type, 2>;
 
     private:
         // top left point
@@ -52,12 +53,12 @@ namespace ns_geo
             : _tplp(topLeft), _lwrp(lowerRight) {}
         Rectangle(const point_type points[2])
             : _tplp(points[0]), _lwrp(points[1]) {}
-        Rectangle(const std::array<point_type, 2> &points)
+        Rectangle(const ary_type &points)
             : _tplp(points[0]), _lwrp(points[1]) {}
         Rectangle(value_type tlx, value_type tly, value_type lrx, value_type lry)
             : _tplp(tlx, tly), _lwrp(lrx, lry) {}
 
-        std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->_tplp, this->_lwrp}; }
+        ary_type points() const { return ary_type{this->_tplp, this->_lwrp}; }
 
         const point_type &topLeft() const { return this->_tplp; }
 
@@ -103,6 +104,7 @@ namespace ns_geo
         using id_type = uint;
         using refpoint_type = ns_geo::RefPoint2<value_type>;
         using refpointset_type = RefPointSet2<value_type>;
+        using ary_type = std::array<refpoint_type, 2>;
 
     public:
         friend class RefPointSet2<value_type>;
@@ -127,10 +129,7 @@ namespace ns_geo
     public:
         const refpointset_type *refPointSet() const { return this->_rps; };
 
-        std::array<refpoint_type, 2> points() const
-        {
-            return std::array<refpoint_type, 2>{_rps->at(this->_tplpid), _rps->at(this->_lwrpid)};
-        }
+        ary_type points() const { return ary_type{_rps->at(this->_tplpid), _rps->at(this->_lwrpid)}; }
 
         const refpoint_type &topLeft() const { return _rps->at(this->_tplpid); }
 

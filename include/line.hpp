@@ -36,6 +36,7 @@ namespace ns_geo
     public:
         using value_type = _Ty;
         using point_type = ns_geo::Point2<value_type>;
+        using ary_type = std::array<point_type, 2>;
 
     private:
         point_type _p1;
@@ -50,7 +51,7 @@ namespace ns_geo
             : _p1(p1), _p2(p2) {}
         Line2(const point_type points[2])
             : _p1(points[0]), _p2(points[1]) {}
-        Line2(const std::array<point_type, 2> &points)
+        Line2(const ary_type &points)
             : _p1(points[0]), _p2(points[1]) {}
         Line2(value_type p1x, value_type p1y, value_type p2x, value_type p2y)
             : _p1(p1x, p1y), _p2(p2x, p2y) {}
@@ -61,7 +62,7 @@ namespace ns_geo
         const point_type &p2() const { return this->_p2; }
         point_type &p2() { return this->_p2; }
 
-        std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->_p1, this->_p2}; }
+        ary_type points() const { return ary_type{this->_p1, this->_p2}; }
 
         float length() const { return ns_geo::distance(_p1, _p2); }
 
@@ -102,6 +103,7 @@ namespace ns_geo
     public:
         using value_type = _Ty;
         using point_type = ns_geo::Point3<value_type>;
+        using ary_type = std::array<point_type, 2>;
 
     private:
         point_type _p1;
@@ -116,7 +118,7 @@ namespace ns_geo
             : _p1(p1), _p2(p2) {}
         Line3(const point_type points[2])
             : _p1(points[0]), _p2(points[1]) {}
-        Line3(const std::array<point_type, 2> &points)
+        Line3(const ary_type &points)
             : _p1(points[0]), _p2(points[1]) {}
         Line3(value_type p1x, value_type p1y, value_type p1z,
               value_type p2x, value_type p2y, value_type p2z)
@@ -128,7 +130,7 @@ namespace ns_geo
         const point_type &p2() const { return this->_p2; }
         point_type &p2() { return this->_p2; }
 
-        std::array<point_type, 2> points() const { return std::array<point_type, 2>{this->_p1, this->_p2}; }
+        ary_type points() const { return ary_type{this->_p1, this->_p2}; }
 
         float length() const { return ns_geo::distance(_p1, _p2); }
     };
@@ -161,6 +163,7 @@ namespace ns_geo
         using id_type = uint;
         using refpoint_type = ns_geo::RefPoint2<value_type>;
         using refpointset_type = RefPointSet2<value_type>;
+        using ary_type = std::array<refpoint_type, 2>;
 
     public:
         friend class RefPointSet2<value_type>;
@@ -189,7 +192,7 @@ namespace ns_geo
         const refpoint_type &p2() const { return this->_rps->at(this->_pid2); }
         refpoint_type &p2() { return this->_rps->at(this->_pid2); }
 
-        std::array<refpoint_type, 2> points() const { return std::array<refpoint_type, 2>{this->p1(), this->p2()}; }
+        ary_type points() const { return ary_type{this->p1(), this->p2()}; }
 
         float length() const { return ns_geo::distance(p1(), p2()); }
 
@@ -228,6 +231,7 @@ namespace ns_geo
         using id_type = uint;
         using refpoint_type = ns_geo::RefPoint3<value_type>;
         using refpointset_type = RefPointSet3<value_type>;
+        using ary_type = std::array<refpoint_type, 2>;
 
     public:
         friend class RefPointSet3<value_type>;
@@ -255,7 +259,7 @@ namespace ns_geo
         const refpoint_type &p2() const { return this->_refpointset->at(this->_pid2); }
         refpoint_type &p2() { return this->_refpointset->at(this->_pid2); }
 
-        std::array<refpoint_type, 2> points() const { return std::array<refpoint_type, 2>{this->p1(), this->p2()}; }
+        ary_type points() const { return ary_type{this->p1(), this->p2()}; }
 
         float length() const { return ns_geo::distance(p1(), p2()); }
     };

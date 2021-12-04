@@ -30,15 +30,15 @@ ___
 ```cpp
 void foo_point2()
 {
-    Point2f p1(0.6, 0.4);
-    Point2f p2(1.9, 2.7);
-    Point2f p3(0.6, 0.4);
-    Point2f p4(1.9, 2.7);
-    PointSet2f ps({p1, p2, p3, p4});
+    PointSet2f ps;
+    ps.push_back({0.6, 0.4});
+    ps.push_back({1.9, 2.7});
+    ps.push_back({0.6, 0.4});
+    ps.push_back({1.9, 2.7});
     try
     {
         // distance between tow points
-        std::cout << distance(p1, p2) << std::endl;
+        std::cout << distance(ps.front(), ps.back()) << std::endl;
         // write and read point data
         // way one.
         // default write mode : std::ios::out | std::ios::binary
@@ -77,15 +77,15 @@ void foo_point2()
 ```cpp
 void foo_point3()
 {
-    Point3f p1(0.6, 0.4, 1.1);
-    Point3f p2(1.9, 2.7, 2.3);
-    Point3f p3(0.6, 0.4, 3.5);
-    Point3f p4(1.9, 2.7, 4.6);
-    PointSet3f ps = {p1, p2, p3, p4};
+    PointSet3f ps;
+    ps.push_back({0.6, 0.4, 1.1});
+    ps.push_back({1.9, 2.7, 2.3});
+    ps.push_back({0.6, 0.4, 1.1});
+    ps.push_back({1.9, 2.7, 2.3});
     try
     {
         // distance between tow points
-        std::cout << distance(p1, p2) << std::endl;
+        std::cout << distance(ps.front(), ps.back()) << std::endl;
         // write and read point data
         // way one.
         // default write mode : std::ios::out | std::ios::binary
@@ -349,32 +349,23 @@ void foo_refpoint23()
 void foo_refpointset23()
 {
     double ary2[2] = {2, 3};
-    RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
-    RefPoint2d p2(1, ary2);
-    RefPoint2d p3(2, RefPoint2d::ary_type{0, 0});
-    RefPoint2d p4(4, ary2);
-    RefPointSet2d ps2;
-    ps2.insert(p2);
-    ps2.insert(p4);
-    ps2.insert(p3);
-    ps2.insert(p1);
-
-    for (const auto &refp : ps2)
+    RefPointSet2d rps2;
+    rps2.insert({0, RefPoint2d::ary_type{0, 0}});
+    rps2.insert({1, ary2});
+    rps2.insert({2, RefPoint2d::ary_type{0, 0}});
+    rps2.insert({4, ary2});
+    for (const auto &refp : rps2)
         std::cout << refp.second << std::endl;
-    std::cout << ps2.size() << std::endl;
+    std::cout << rps2.size() << std::endl;
 
-    RefPoint3d p5(0, RefPoint3d::ary_type{0, 0, 0});
-    RefPoint3d p6(1, RefPoint3d::ary_type{0, 1, 0});
-    RefPoint3d p7(2, RefPoint3d::ary_type{0, 0, 1});
-    RefPoint3d p8(4, RefPoint3d::ary_type{1, 0, 0});
-    RefPointSet3d ps3;
-    ps3.insert(p5);
-    ps3.insert(p6);
-    ps3.insert(p7);
-    ps3.insert(p8);
-    for (const auto &refp : ps3)
+    RefPointSet3d rps3;
+    rps3.insert({0, RefPoint3d::ary_type{0, 0, 0}});
+    rps3.insert({1, RefPoint3d::ary_type{0, 1, 0}});
+    rps3.insert({2, RefPoint3d::ary_type{0, 0, 1}});
+    rps3.insert({3, RefPoint3d::ary_type{1, 0, 0}});
+    for (const auto &refp : rps3)
         std::cout << refp.second << std::endl;
-    std::cout << ps3.size() << std::endl;
+    std::cout << rps3.size() << std::endl;
 }
 /** output
  * {0: [0, 0]}
@@ -395,18 +386,15 @@ void foo_refpointset23()
 void foo_refline2()
 {
     double ary2[2] = {2, 3};
-    RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
-    RefPoint2d p2(1, ary2);
-    RefPoint2d p3(2, RefPoint2d::ary_type{0, 0});
-    RefPoint2d p4(4, ary2);
-    RefPointSet2d ps;
-    ps.insert(p2);
-    ps.insert(p4);
-    ps.insert(p3);
-    ps.insert(p1);
+    RefPointSet2d rps;
+    rps.insert({0, RefPoint2d::ary_type{0, 0}});
+    rps.insert({1, ary2});
+    rps.insert({2, RefPoint2d::ary_type{0, 0}});
+    rps.insert({4, ary2});
     for (const auto &refp : ps)
         std::cout << refp.second << std::endl;
-    auto refline = ps.createRefLine2(0, 1);
+    
+    auto refline = rps.createRefLine2(0, 1);
     std::cout << refline << std::endl;
     std::cout << refline.length() << std::endl;
 }
@@ -421,18 +409,15 @@ void foo_refline2()
 
 void foo_refline3()
 {
-    RefPoint3d p1(0, RefPoint3d::ary_type{0, 0, 0});
-    RefPoint3d p2(1, RefPoint3d::ary_type{0, 1, 0});
-    RefPoint3d p3(2, RefPoint3d::ary_type{0, 0, 1});
-    RefPoint3d p4(4, RefPoint3d::ary_type{1, 0, 0});
-    RefPointSet3d ps;
-    ps.insert(p2);
-    ps.insert(p4);
-    ps.insert(p3);
-    ps.insert(p1);
+    RefPointSet3d rps;
+    rps.insert({0, RefPoint3d::ary_type{0, 0, 0}});
+    rps.insert({1, RefPoint3d::ary_type{0, 1, 0}});
+    rps.insert({2, RefPoint3d::ary_type{0, 0, 1}});
+    rps.insert({3, RefPoint3d::ary_type{1, 0, 0}});
     for (const auto &refp : ps)
         std::cout << refp.second << std::endl;
-    auto refline = ps.createRefLine3(0, 1);
+    
+    auto refline = rps.createRefLine3(0, 1);
     std::cout << refline << std::endl;
     std::cout << refline.length() << std::endl;
     auto ary = refline.points();
@@ -454,18 +439,15 @@ void foo_refline3()
 void foo_refrectangle()
 {
     double ary2[2] = {2, 3};
-    RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
-    RefPoint2d p2(1, ary2);
-    RefPoint2d p3(2, RefPoint2d::ary_type{0, 0});
-    RefPoint2d p4(4, ary2);
-    RefPointSet2d ps;
-    ps.insert(p2);
-    ps.insert(p4);
-    ps.insert(p3);
-    ps.insert(p1);
-    for (const auto &refp : ps)
+    RefPointSet2d rps;
+    rps.insert({0, RefPoint2d::ary_type{0, 0}});
+    rps.insert({1, ary2});
+    rps.insert({2, RefPoint2d::ary_type{0, 0}});
+    rps.insert({4, ary2});
+    for (const auto &refp : rps)
         std::cout << refp.second << std::endl;
-    auto rect = ps.createRefRectangle(0, 1);
+    
+    auto rect = rps.createRefRectangle(0, 1);
     std::cout << rect << std::endl;
     std::cout << rect.area() << std::endl;
     std::cout << rect.perimeter() << std::endl;
@@ -486,18 +468,16 @@ void foo_refrectangle()
 ```cpp
 void foo_reftriangle2()
 {
-    RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
-    RefPoint2d p2(1, RefPoint2d::ary_type{1, 0});
-    RefPoint2d p3(2, RefPoint2d::ary_type{0, 2});
-    RefPoint2d p4(4, RefPoint2d::ary_type{3, 0});
-    RefPointSet2d ps;
-    ps.insert(p2);
-    ps.insert(p4);
-    ps.insert(p3);
-    ps.insert(p1);
-    for (const auto &refp : ps)
+    double ary2[2] = {2, 3};
+    RefPointSet2d rps;
+    rps.insert({0, RefPoint2d::ary_type{0, 0}});
+    rps.insert({1, ary2});
+    rps.insert({2, RefPoint2d::ary_type{0, 0}});
+    rps.insert({4, ary2});
+    for (const auto &refp : rps)
         std::cout << refp.second << std::endl;
-    auto tri = ps.createRefTriangle2(0, 1, 2);
+    auto tri = rps.createRefTriangle2(0, 1, 2);
+    
     std::cout << tri << std::endl;
     std::cout << tri.perimeter() << std::endl;
     std::cout << tri.area() << std::endl;
@@ -514,18 +494,15 @@ void foo_reftriangle2()
 
 void foo_reftriangle3()
 {
-    RefPoint3d p1(0, RefPoint3d::ary_type{0, 0, 0});
-    RefPoint3d p2(1, RefPoint3d::ary_type{0, 1, 0});
-    RefPoint3d p3(2, RefPoint3d::ary_type{0, 0, 1});
-    RefPoint3d p4(4, RefPoint3d::ary_type{1, 0, 0});
-    RefPointSet3d ps;
-    ps.insert(p2);
-    ps.insert(p4);
-    ps.insert(p3);
-    ps.insert(p1);
-    for (const auto &refp : ps)
+    RefPointSet3d rps;
+    rps.insert({0, RefPoint3d::ary_type{0, 0, 0}});
+    rps.insert({1, RefPoint3d::ary_type{0, 1, 0}});
+    rps.insert({2, RefPoint3d::ary_type{0, 0, 1}});
+    rps.insert({3, RefPoint3d::ary_type{1, 0, 0}});
+    for (const auto &refp : rps)
         std::cout << refp.second << std::endl;
-    auto tri = ps.createRefTriangle3(0, 1, 2);
+    
+    auto tri = rps.createRefTriangle3(0, 1, 2);
     std::cout << tri << std::endl;
     std::cout << tri.area() << std::endl;
     std::cout << tri.perimeter() << std::endl;
@@ -546,15 +523,12 @@ void foo_reftriangle3()
 ```cpp
 void foo_refpolygon()
 {
-    RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
-    RefPoint2d p2(1, RefPoint2d::ary_type{1, 0});
-    RefPoint2d p3(2, RefPoint2d::ary_type{1, 1});
-    RefPoint2d p4(4, RefPoint2d::ary_type{0, 1});
     RefPointSet2d rps;
-    rps.insert(p2);
-    rps.insert(p4);
-    rps.insert(p3);
-    rps.insert(p1);
+    rps.insert({0, RefPoint2d::ary_type{0, 0}});
+    rps.insert({1, RefPoint2d::ary_type{1, 0}});
+    rps.insert({2, RefPoint2d::ary_type{1, 1}});
+    rps.insert({4, RefPoint2d::ary_type{0, 1}});
+    
     auto polygon = rps.createRefPolygon({0, 1, 2, 4});
     std::cout << polygon << std::endl;
     std::cout << "perimeter : " << polygon.perimeter() << std::endl;
@@ -570,15 +544,12 @@ void foo_refpolygon()
 ```cpp
 void foo_reflinestring2()
 {
-    RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
-    RefPoint2d p2(1, RefPoint2d::ary_type{1, 0});
-    RefPoint2d p3(2, RefPoint2d::ary_type{1, 1});
-    RefPoint2d p4(4, RefPoint2d::ary_type{0, 1});
     RefPointSet2d rps;
-    rps.insert(p2);
-    rps.insert(p4);
-    rps.insert(p3);
-    rps.insert(p1);
+    rps.insert({0, RefPoint2d::ary_type{0, 0}});
+    rps.insert({1, RefPoint2d::ary_type{1, 0}});
+    rps.insert({2, RefPoint2d::ary_type{1, 1}});
+    rps.insert({4, RefPoint2d::ary_type{0, 1}});
+    
     auto ls = rps.createRefLineString2({0, 1, 2, 4});
     std::cout << ls << std::endl;
     std::cout << "length : " << ls.length() << std::endl;
@@ -590,15 +561,12 @@ void foo_reflinestring2()
 
 void foo_reflinestring3()
 {
-    RefPoint3d p1(0, RefPoint3d::ary_type{0, 0, 0});
-    RefPoint3d p2(1, RefPoint3d::ary_type{0, 1, 0});
-    RefPoint3d p3(2, RefPoint3d::ary_type{0, 0, 1});
-    RefPoint3d p4(4, RefPoint3d::ary_type{1, 0, 0});
     RefPointSet3d rps;
-    rps.insert(p2);
-    rps.insert(p4);
-    rps.insert(p3);
-    rps.insert(p1);
+    rps.insert({0, RefPoint3d::ary_type{0, 0, 0}});
+    rps.insert({1, RefPoint3d::ary_type{0, 1, 0}});
+    rps.insert({2, RefPoint3d::ary_type{0, 0, 1}});
+    rps.insert({3, RefPoint3d::ary_type{1, 0, 0}});
+    
     auto ls = rps.createRefLineString3({0, 1, 2, 4});
     std::cout << ls << std::endl;
     std::cout << "length : " << ls.length() << std::endl;
@@ -614,15 +582,12 @@ void foo_reflinestring3()
 ```cpp
 void foo_refpointset2_write()
 {
-    RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
-    RefPoint2d p2(1, RefPoint2d::ary_type{1, 0});
-    RefPoint2d p3(2, RefPoint2d::ary_type{1, 1});
-    RefPoint2d p4(4, RefPoint2d::ary_type{0, 1});
     RefPointSet2d rps;
-    rps.insert(p2);
-    rps.insert(p4);
-    rps.insert(p3);
-    rps.insert(p1);
+    rps.insert({0, RefPoint2d::ary_type{0, 0}});
+    rps.insert({1, RefPoint2d::ary_type{1, 0}});
+    rps.insert({2, RefPoint2d::ary_type{1, 1}});
+    rps.insert({4, RefPoint2d::ary_type{0, 1}});
+    
     rps.write("../output/refpointset2.bin");
     rps.clear();
     rps.read("../output/refpointset2.bin");
@@ -637,15 +602,12 @@ void foo_refpointset2_write()
  */
 void foo_refpointset3_write()
 {
-    RefPoint3d p1(0, RefPoint3d::ary_type{0, 0, 0});
-    RefPoint3d p2(1, RefPoint3d::ary_type{0, 1, 0});
-    RefPoint3d p3(2, RefPoint3d::ary_type{0, 0, 1});
-    RefPoint3d p4(4, RefPoint3d::ary_type{1, 0, 0});
     RefPointSet3d rps;
-    rps.insert(p2);
-    rps.insert(p4);
-    rps.insert(p3);
-    rps.insert(p1);
+    rps.insert({0, RefPoint3d::ary_type{0, 0, 0}});
+    rps.insert({1, RefPoint3d::ary_type{0, 1, 0}});
+    rps.insert({2, RefPoint3d::ary_type{0, 0, 1}});
+    rps.insert({3, RefPoint3d::ary_type{1, 0, 0}});
+    
     rps.write("../output/refpointset3.bin");
     rps.clear();
     rps.read("../output/refpointset3.bin");

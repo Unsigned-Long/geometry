@@ -207,6 +207,9 @@ namespace ns_geo
         using container_type::container_type;
 
     public:
+        /**
+         * \brief write points to the file
+         */
         void write(const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary) const
         {
             std::ofstream file(filePath, mode);
@@ -222,7 +225,9 @@ namespace ns_geo
                     file << point.x() << ',' << point.y() << '\n';
             return;
         }
-
+        /**
+         * \brief read points from the file
+         */
         void read(const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
         {
             std::ifstream file(filePath, mode);
@@ -283,6 +288,9 @@ namespace ns_geo
         using container_type::container_type;
 
     public:
+        /**
+         * \brief write points to the file
+         */
         void write(const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary) const
         {
             std::ofstream file(filePath, mode);
@@ -298,7 +306,9 @@ namespace ns_geo
                     file << point.x() << ',' << point.y() << ',' << point.z() << '\n';
             return;
         }
-
+        /**
+         * \brief read points from the file
+         */
         void read(const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
         {
             std::ifstream file(filePath, mode);
@@ -460,11 +470,16 @@ namespace ns_geo
         using container_type::container_type;
 
     public:
+        /**
+         * \brief insert a reference point to the refpointset
+         */
         auto insert(const refpoint_type &p)
         {
             return container_type::insert(std::make_pair(p.id(), p));
         }
-
+        /**
+         * \brief write points to the file
+         */
         void write(const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary) const
         {
             std::ofstream file(filePath, mode);
@@ -478,7 +493,9 @@ namespace ns_geo
                     file << id << ',' << refp.x() << ',' << refp.y() << '\n';
             return;
         }
-
+        /**
+         * \brief read points from the file
+         */
         void read(const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
         {
             std::ifstream file(filePath, mode);
@@ -576,11 +593,16 @@ namespace ns_geo
         using container_type::container_type;
 
     public:
+        /**
+         * \brief insert a reference point to the refpointset
+         */
         auto insert(const refpoint_type &p)
         {
             return container_type::insert(std::make_pair(p.id(), p));
         }
-
+        /**
+         * \brief write points to the file
+         */
         void write(const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary) const
         {
             std::ofstream file(filePath, mode);
@@ -596,7 +618,9 @@ namespace ns_geo
                     file << refp.id() << ',' << refp.x() << ',' << refp.y() << ',' << refp.z() << '\n';
             return;
         }
-
+        /**
+         * \brief read points from the file
+         */
         void read(const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
         {
             std::ifstream file(filePath, mode);
