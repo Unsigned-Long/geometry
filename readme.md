@@ -21,7 +21,7 @@ ___
 
 ## ***3. Using example***
 
-### <kbd>__Point2<_Ty>__</kbd>  
+### <kbd>__Point2<_Ty>___</kbd>
 
 ```cpp
 void foo_point2()
@@ -395,14 +395,14 @@ void foo_refline2()
     RefPoint2d p2(1, ary2);
     RefPoint2d p3(2, RefPoint2d::ary_type{0, 0});
     RefPoint2d p4(4, ary2);
-    RefPointSet2d set;
-    set.insert(p2);
-    set.insert(p4);
-    set.insert(p3);
-    set.insert(p1);
-    for (const auto &refp : set)
+    RefPointSet2d ps;
+    ps.insert(p2);
+    ps.insert(p4);
+    ps.insert(p3);
+    ps.insert(p1);
+    for (const auto &refp : ps)
         std::cout << refp.second << std::endl;
-    auto refline = set.createRefLine2(0, 1);
+    auto refline = ps.createRefLine2(0, 1);
     std::cout << refline << std::endl;
     std::cout << refline.length() << std::endl;
 }
@@ -421,14 +421,14 @@ void foo_refline3()
     RefPoint3d p2(1, RefPoint3d::ary_type{0, 1, 0});
     RefPoint3d p3(2, RefPoint3d::ary_type{0, 0, 1});
     RefPoint3d p4(4, RefPoint3d::ary_type{1, 0, 0});
-    RefPointSet3d set;
-    set.insert(p2);
-    set.insert(p4);
-    set.insert(p3);
-    set.insert(p1);
-    for (const auto &refp : set)
+    RefPointSet3d ps;
+    ps.insert(p2);
+    ps.insert(p4);
+    ps.insert(p3);
+    ps.insert(p1);
+    for (const auto &refp : ps)
         std::cout << refp.second << std::endl;
-    auto refline = set.createRefLine3(0, 1);
+    auto refline = ps.createRefLine3(0, 1);
     std::cout << refline << std::endl;
     std::cout << refline.length() << std::endl;
     auto ary = refline.points();
@@ -454,14 +454,14 @@ void foo_refrectangle()
     RefPoint2d p2(1, ary2);
     RefPoint2d p3(2, RefPoint2d::ary_type{0, 0});
     RefPoint2d p4(4, ary2);
-    RefPointSet2d set;
-    set.insert(p2);
-    set.insert(p4);
-    set.insert(p3);
-    set.insert(p1);
-    for (const auto &refp : set)
+    RefPointSet2d ps;
+    ps.insert(p2);
+    ps.insert(p4);
+    ps.insert(p3);
+    ps.insert(p1);
+    for (const auto &refp : ps)
         std::cout << refp.second << std::endl;
-    auto rect = set.createRefRectangle(0, 1);
+    auto rect = ps.createRefRectangle(0, 1);
     std::cout << rect << std::endl;
     std::cout << rect.area() << std::endl;
     std::cout << rect.perimeter() << std::endl;
@@ -486,14 +486,14 @@ void foo_reftriangle2()
     RefPoint2d p2(1, RefPoint2d::ary_type{1, 0});
     RefPoint2d p3(2, RefPoint2d::ary_type{0, 2});
     RefPoint2d p4(4, RefPoint2d::ary_type{3, 0});
-    RefPointSet2d set;
-    set.insert(p2);
-    set.insert(p4);
-    set.insert(p3);
-    set.insert(p1);
-    for (const auto &refp : set)
+    RefPointSet2d ps;
+    ps.insert(p2);
+    ps.insert(p4);
+    ps.insert(p3);
+    ps.insert(p1);
+    for (const auto &refp : ps)
         std::cout << refp.second << std::endl;
-    auto tri = set.createRefTriangle2(0, 1, 2);
+    auto tri = ps.createRefTriangle2(0, 1, 2);
     std::cout << tri << std::endl;
     std::cout << tri.perimeter() << std::endl;
     std::cout << tri.area() << std::endl;
@@ -514,14 +514,14 @@ void foo_reftriangle3()
     RefPoint3d p2(1, RefPoint3d::ary_type{0, 1, 0});
     RefPoint3d p3(2, RefPoint3d::ary_type{0, 0, 1});
     RefPoint3d p4(4, RefPoint3d::ary_type{1, 0, 0});
-    RefPointSet3d set;
-    set.insert(p2);
-    set.insert(p4);
-    set.insert(p3);
-    set.insert(p1);
-    for (const auto &refp : set)
+    RefPointSet3d ps;
+    ps.insert(p2);
+    ps.insert(p4);
+    ps.insert(p3);
+    ps.insert(p1);
+    for (const auto &refp : ps)
         std::cout << refp.second << std::endl;
-    auto tri = set.createRefTriangle3(0, 1, 2);
+    auto tri = ps.createRefTriangle3(0, 1, 2);
     std::cout << tri << std::endl;
     std::cout << tri.area() << std::endl;
     std::cout << tri.perimeter() << std::endl;
