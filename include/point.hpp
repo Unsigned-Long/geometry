@@ -417,13 +417,67 @@ namespace ns_geo
         using container_type = std::unordered_map<uint, refpoint_type, _Hash, _Pred, _Alloc>;
         using container_type::container_type;
 
+    public:
         auto insert(const refpoint_type &p)
         {
             return container_type::insert(std::make_pair(p.id(), p));
         }
 
+        void write(const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary) const
+        {
+            std::ofstream file(filePath, mode);
+            if (!file.is_open())
+                throw std::ios_base::failure("File Open Failed");
+            if (std::ios::binary == (mode & std::ios::binary))
+                for (const auto &[id, refp] : *this)
+                    file.write((const char *)(&refp), sizeof(refpoint_type));
+            else
+                for (const auto &[id, refp] : *this)
+                    file << id << ',' << refp.x() << ',' << refp.y() << '\n';
+            return;
+        }
+
+        void read(const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
+        {
+            std::ifstream file(filePath, mode);
+            if (!file.is_open())
+                throw std::ios_base::failure("File Open Failed");
+            if (std::ios::binary == (mode & std::ios::binary))
+            {
+                refpoint_type refp;
+                file.seekg(0, std::ios::end);
+                auto size = file.tellg() / sizeof(refpoint_type);
+                file.seekg(0, std::ios::beg);
+                int count = 0;
+                while (!file.eof() && count < size)
+                {
+                    file.read((char *)(&refp), sizeof(refpoint_type));
+                    this->insert(refp);
+                    ++count;
+                }
+            }
+            else
+            {
+                refpoint_type refp;
+                std::string str;
+                while (!file.eof())
+                {
+                    std::getline(file, str);
+                    if (str.empty())
+                        continue;
+                    auto iter = std::find(str.cbegin(), str.cend(), ',');
+                    const_cast<uint &>(refp.id()) = static_cast<uint>(std::stoi(std::string(str.cbegin(), iter)));
+                    auto iter2 = std::find(++iter, str.cend(), ',');
+                    refp.x() = static_cast<value_type>(std::stod(std::string(iter, iter2)));
+                    refp.y() = static_cast<value_type>(std::stod(std::string(++iter2, str.cend())));
+                    this->insert(refp);
+                }
+            }
+        }
+
+    public:
         /**
-         * \brief create reference line[2d] by the reference point set
+         * \brief create reference geometries[2d] by the reference point set
          */
         RefLine2<value_type> createRefLine2(uint pid1, uint pid2)
         {
@@ -442,8 +496,7 @@ namespace ns_geo
         /**
          * \brief dangerous function has been deleted
          */
-        refpoint_type &
-        operator[](const uint &id) = delete;
+        refpoint_type &operator[](const uint &id) = delete;
     };
 
     using RefPointSet2i = RefPointSet2<int>;
@@ -474,18 +527,76 @@ namespace ns_geo
         using container_type = std::unordered_map<uint, refpoint_type, _Hash, _Pred, _Alloc>;
         using container_type::container_type;
 
+    public:
         auto insert(const refpoint_type &p)
         {
             return container_type::insert(std::make_pair(p.id(), p));
         }
 
+        void write(const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary) const
+        {
+            std::ofstream file(filePath, mode);
+            if (!file.is_open())
+                throw std::ios_base::failure("File Open Failed");
+            if (std::ios::binary == (mode & std::ios::binary))
+            {
+                for (const auto &[id, refp] : *this)
+                    file.write((const char *)(&refp), sizeof(refpoint_type));
+            }
+            else
+                for (const auto &[id, refp] : *this)
+                    file << refp.id() << ',' << refp.x() << ',' << refp.y() << ',' << refp.z() << '\n';
+            return;
+        }
+
+        void read(const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
+        {
+            std::ifstream file(filePath, mode);
+            if (!file.is_open())
+                throw std::ios_base::failure("File Open Failed");
+            if (std::ios::binary == (mode & std::ios::binary))
+            {
+                refpoint_type refp;
+                file.seekg(0, std::ios::end);
+                auto size = file.tellg() / sizeof(refpoint_type);
+                file.seekg(0, std::ios::beg);
+                int count = 0;
+                while (!file.eof() && count < size)
+                {
+                    file.read((char *)(&refp), sizeof(refpoint_type));
+                    this->insert(refp);
+                    ++count;
+                }
+            }
+            else
+            {
+                refpoint_type refp;
+                std::string str;
+                while (!file.eof())
+                {
+                    std::getline(file, str);
+                    if (str.empty())
+                        continue;
+                    auto iter = std::find(str.cbegin(), str.cend(), ',');
+                    const_cast<uint &>(refp.id()) = static_cast<uint>(std::stoi(std::string(str.cbegin(), iter)));
+                    auto iter2 = std::find(++iter, str.cend(), ',');
+                    refp.x() = static_cast<value_type>(std::stod(std::string(iter, iter2)));
+                    auto iter3 = std::find(++iter2, str.cend(), ',');
+                    refp.y() = static_cast<value_type>(std::stod(std::string(iter2, iter3)));
+                    refp.z() = static_cast<value_type>(std::stod(std::string(++iter3, str.cend())));
+                    this->insert(refp);
+                }
+            }
+        }
+
+    public:
         /**
-         * \brief create reference line[3d] by the reference point set
+         * \brief create reference geometries[3d] by the reference point set
          */
         RefLine3<value_type> createRefLine3(uint pid1, uint pid2) { return RefLine3<value_type>(pid1, pid2, this); }
 
         RefTriangle3<value_type> createRefTriangle3(uint pid1, uint pid2, uint pid3) { return RefTriangle3<value_type>(pid1, pid2, pid3, this); }
-        
+
         RefLineString3<value_type> createRefLineString3(const std::initializer_list<uint> &pidls) { return RefLineString3<value_type>(pidls, this); }
 
     private:

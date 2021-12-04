@@ -7,7 +7,7 @@
 
 using namespace ns_geo;
 
-void foo_reflinestring2()
+void foo_refpointset2_write()
 {
     RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
     RefPoint2d p2(1, RefPoint2d::ary_type{1, 0});
@@ -18,11 +18,13 @@ void foo_reflinestring2()
     rps.insert(p4);
     rps.insert(p3);
     rps.insert(p1);
-    auto ls = rps.createRefLineString2({0, 1, 2, 4});
-    std::cout << ls << std::endl;
-    std::cout << "length : " << ls.length() << std::endl;
+    rps.write("../output/refpointset2.bin");
+    rps.clear();
+    rps.read("../output/refpointset2.bin");
+    for (const auto &[id, refp] : rps)
+        std::cout << refp << std::endl;
 }
-void foo_reflinestring3()
+void foo_refpointset3_write()
 {
     RefPoint3d p1(0, RefPoint3d::ary_type{0, 0, 0});
     RefPoint3d p2(1, RefPoint3d::ary_type{0, 1, 0});
@@ -33,16 +35,21 @@ void foo_reflinestring3()
     rps.insert(p4);
     rps.insert(p3);
     rps.insert(p1);
-    auto ls = rps.createRefLineString3({0, 1, 2, 4});
-    std::cout << ls << std::endl;
-    std::cout << "length : " << ls.length() << std::endl;
+    rps.write("../output/refpointset3.bin");
+    rps.clear();
+    rps.read("../output/refpointset3.bin");
+    for (const auto &[id, refp] : rps)
+        std::cout << refp << std::endl;
 }
 int main(int argc, char *argv[])
 {
     /** output
-     * {0: [0, 0, 0], 1: [0, 1, 0], 2: [0, 0, 1], 4: [1, 0, 0]}
-     * length : 3.82843
+     * {1: [0, 1, 0]}
+     * {4: [1, 0, 0]}
+     * {2: [0, 0, 1]}
+     * {0: [0, 0, 0]}
      */
-    ::foo_reflinestring3();
+    ::foo_refpointset2_write();
+    ::foo_refpointset3_write();
     return 0;
 }
