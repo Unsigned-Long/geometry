@@ -7,39 +7,42 @@
 
 using namespace ns_geo;
 
-void foo_refpointset2_write()
+void foo_point3()
 {
-    RefPoint2d p1(0, RefPoint2d::ary_type{0, 0});
-    RefPoint2d p2(1, RefPoint2d::ary_type{1, 0});
-    RefPoint2d p3(2, RefPoint2d::ary_type{1, 1});
-    RefPoint2d p4(4, RefPoint2d::ary_type{0, 1});
-    RefPointSet2d rps;
-    rps.insert(p2);
-    rps.insert(p4);
-    rps.insert(p3);
-    rps.insert(p1);
-    rps.write("../output/refpointset2.bin");
-    rps.clear();
-    rps.read("../output/refpointset2.bin");
-    for (const auto &[id, refp] : rps)
-        std::cout << refp << std::endl;
-}
-void foo_refpointset3_write()
-{
-    RefPoint3d p1(0, RefPoint3d::ary_type{0, 0, 0});
-    RefPoint3d p2(1, RefPoint3d::ary_type{0, 1, 0});
-    RefPoint3d p3(2, RefPoint3d::ary_type{0, 0, 1});
-    RefPoint3d p4(4, RefPoint3d::ary_type{1, 0, 0});
-    RefPointSet3d rps;
-    rps.insert(p2);
-    rps.insert(p4);
-    rps.insert(p3);
-    rps.insert(p1);
-    rps.write("../output/refpointset3.bin");
-    rps.clear();
-    rps.read("../output/refpointset3.bin");
-    for (const auto &[id, refp] : rps)
-        std::cout << refp << std::endl;
+    Point3f p1(0.6, 0.4, 1.1);
+    Point3f p2(1.9, 2.7, 2.3);
+    Point3f p3(0.6, 0.4, 3.5);
+    Point3f p4(1.9, 2.7, 4.6);
+    PointSet3f ps = {p1, p2, p3, p4};
+    try
+    {
+        // distance between tow points
+        std::cout << distance(p1, p2) << std::endl;
+        // write and read point data
+        // way one.
+        // default write mode : std::ios::out | std::ios::binary
+        ps.write("../output/point3.bin");
+        ps.clear();
+        // default read mode : std::ios::in | std::ios::binary
+        ps.read("../output/point3.bin");
+
+        // way two.
+        // write mode : std::ios::out
+        ps.write("../output/point3.txt", std::ios::out);
+        ps.clear();
+        // read mode : std::ios::in
+        ps.read("../output/point3.txt", std::ios::in);
+        // print points
+        for (const auto &elem : ps)
+        {
+            std::cout << elem << std::endl;
+        }
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    return;
 }
 int main(int argc, char *argv[])
 {
@@ -49,7 +52,6 @@ int main(int argc, char *argv[])
      * {2: [0, 0, 1]}
      * {0: [0, 0, 0]}
      */
-    ::foo_refpointset2_write();
-    ::foo_refpointset3_write();
+    ::foo_point3();
     return 0;
 }

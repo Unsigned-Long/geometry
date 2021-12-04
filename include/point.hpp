@@ -9,10 +9,10 @@
  *              6. RefPointSet2<_Ty>, RefPointSet3<_Ty>
  * 
  *       [2] methods
- *              0. writeBinaryData, readBinaryData
- *              1. azimuthRHR, azimuthLHR
- *              2. distance
- *              3. operator "<<" for Point2<_Ty>, Point3<_Ty>
+ *              0. azimuthRHR, azimuthLHR
+ *              1. distance
+ *              2. operator "<<" for Point2<_Ty>, Point3<_Ty>
+ *              3. operator "<<" for RefPoint2<_Ty>, RefPoint3<_Ty>
  */
 
 #include <iostream>
@@ -28,32 +28,6 @@
 namespace ns_geo
 {
 #pragma region global
-
-    template <typename PointContainer>
-    void writeBinaryData(const PointContainer &ls, std::ofstream &file)
-    {
-        using PointType = typename PointContainer::point_type;
-        for (const auto &elem : ls)
-            file.write((const char *)(&elem), sizeof(PointType));
-        return;
-    }
-
-    template <typename PointContainer>
-    void readBinaryData(PointContainer &ls, std::ifstream &file)
-    {
-        using PointType = typename PointContainer::point_type;
-        PointType elem;
-        file.seekg(0, std::ios::end);
-        auto size = file.tellg() / sizeof(PointType);
-        file.seekg(0, std::ios::beg);
-        int count = 0;
-        while (!file.eof() && count < size)
-        {
-            file.read((char *)(&elem), sizeof(PointType));
-            ls.push_back(elem);
-            ++count;
-        }
-    }
 
 #pragma region global for Point2 < _Ty>
     template <typename _Ty>
@@ -226,7 +200,10 @@ namespace ns_geo
             if (!file.is_open())
                 throw std::ios_base::failure("File Open Failed");
             if (std::ios::binary == (mode & std::ios::binary))
-                ns_geo::writeBinaryData(*this, file);
+            {
+                for (const auto &p : *this)
+                    file.write((const char *)(&p), sizeof(point_type));
+            }
             else
                 for (const auto &point : *this)
                     file << point.x() << ',' << point.y() << '\n';
@@ -239,7 +216,19 @@ namespace ns_geo
             if (!file.is_open())
                 throw std::ios_base::failure("File Open Failed");
             if (std::ios::binary == (mode & std::ios::binary))
-                ns_geo::readBinaryData(*this, file);
+               {
+                   point_type p;
+                   file.seekg(0, std::ios::end);
+                   auto size = file.tellg() / sizeof(point_type);
+                   file.seekg(0, std::ios::beg);
+                   int count = 0;
+                   while (!file.eof() && count < size)
+                   {
+                       file.read((char *)(&p), sizeof(point_type));
+                       this->push_back(p);
+                       ++count;
+                   }
+               }
             else
             {
                 Point2<value_type> point;
@@ -282,7 +271,10 @@ namespace ns_geo
             if (!file.is_open())
                 throw std::ios_base::failure("File Open Failed");
             if (std::ios::binary == (mode & std::ios::binary))
-                ns_geo::writeBinaryData(*this, file);
+            {
+                for (const auto &p : *this)
+                    file.write((const char *)(&p), sizeof(point_type));
+            }
             else
                 for (const auto &point : *this)
                     file << point.x() << ',' << point.y() << ',' << point.z() << '\n';
@@ -295,7 +287,19 @@ namespace ns_geo
             if (!file.is_open())
                 throw std::ios_base::failure("File Open Failed");
             if (std::ios::binary == (mode & std::ios::binary))
-                ns_geo::readBinaryData(*this, file);
+                {
+                    point_type p;
+                    file.seekg(0, std::ios::end);
+                    auto size = file.tellg() / sizeof(point_type);
+                    file.seekg(0, std::ios::beg);
+                    int count = 0;
+                    while (!file.eof() && count < size)
+                    {
+                        file.read((char *)(&p), sizeof(point_type));
+                        this->push_back(p);
+                        ++count;
+                    }
+                }
             else
             {
                 Point3<value_type> point;
