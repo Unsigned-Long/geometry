@@ -10,7 +10,7 @@
  *              0. azimuthRHR, azimuthLHR
  *              1. length
  *              2. operator "<<" for Line2<_Ty>, Line3<_Ty>
- *              2. operator "<<" for RefLine2<_Ty>, RefLine3<_Ty>
+ *              3. operator "<<" for RefLine2<_Ty>, RefLine3<_Ty>
  */
 
 #include "point.hpp"

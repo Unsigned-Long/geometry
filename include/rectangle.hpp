@@ -10,7 +10,7 @@
  *              0. area
  *              1. perimeter
  *              2. operator "<<" for Rectangle<_Ty>
- *              2. operator "<<" for RefRectangle<_Ty>
+ *              3. operator "<<" for RefRectangle<_Ty>
  */
 
 #include "point.hpp"

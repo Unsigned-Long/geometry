@@ -4,13 +4,13 @@
  * \brief the details
  *       [1] class type
  *              0. Triangle2<_Ty>, Triangle3<_Ty>
- *              0. RefTriangle2<_Ty>, RefTriangle3<_Ty>
+ *              1. RefTriangle2<_Ty>, RefTriangle3<_Ty>
  * 
  *       [2] methods for Line
  *              0. area
  *              1. perimeter
  *              2. operator "<<" for Triangle2<_Ty>, Triangle3<_Ty>
- *              2. operator "<<" for RefTriangle2<_Ty>, RefTriangle3<_Ty>
+ *              3. operator "<<" for RefTriangle2<_Ty>, RefTriangle3<_Ty>
  */
 
 #include "point.hpp"

@@ -9,7 +9,7 @@
  *       [2] methods for Polygon
  *              0. perimeter
  *              2. operator "<<" for Polygon<_Ty>
- *              2. operator "<<" for RefPolygon<_Ty>
+ *              3. operator "<<" for RefPolygon<_Ty>
  */
 
 #include "point.hpp"
