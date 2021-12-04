@@ -28,6 +28,15 @@ void foo_reftriangle3()
 
 int main(int argc, char *argv[])
 {
+    /** output
+     * {0: [0, 0, 0]}
+     * {2: [0, 0, 1]}
+     * {4: [1, 0, 0]}
+     * {1: [0, 1, 0]}
+     * {0: [0, 0, 0], 1: [0, 1, 0], 2: [0, 0, 1]}
+     * 0.5
+     * 3.41421
+     */
     ::foo_reftriangle3();
     return 0;
 }

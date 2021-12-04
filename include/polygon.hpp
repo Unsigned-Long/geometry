@@ -24,11 +24,11 @@ namespace ns_geo
     using Polygoni = Polygon<int>;
 
     template <typename _Ty>
-    class Polygon : public PointSet<Point2<_Ty>>
+    class Polygon : public PointSet2<_Ty>
     {
     public:
         using value_type = _Ty;
-        using pointset_type = PointSet<Point2<_Ty>>;
+        using pointset_type = PointSet2<value_type>;
         using pointset_type::pointset_type;
 
         float perimeter() const

@@ -37,7 +37,7 @@ namespace ns_geo
     template <typename PointContainer>
     void writeBinaryData(const PointContainer &ls, std::ofstream &file)
     {
-        using PointType = typename PointContainer::value_type;
+        using PointType = typename PointContainer::point_type;
         for (const auto &elem : ls)
             file.write((const char *)(&elem), sizeof(PointType));
         return;
@@ -46,7 +46,7 @@ namespace ns_geo
     template <typename PointContainer>
     void readBinaryData(PointContainer &ls, std::ifstream &file)
     {
-        using PointType = typename PointContainer::value_type;
+        using PointType = typename PointContainer::point_type;
         PointType elem;
         file.seekg(0, std::ios::end);
         auto size = file.tellg() / sizeof(PointType);
@@ -108,60 +108,6 @@ namespace ns_geo
         return static_cast<float>(std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2)));
     }
 
-    /**
-     * \brief Writes a 2D point set to a file
-     */
-    template <typename PointContainer>
-    void writePoints2(const PointContainer &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary)
-    {
-        std::ofstream file(filePath, mode);
-        if (!file.is_open())
-            throw std::ios_base::failure("File Open Failed");
-        if (std::ios::binary == (mode & std::ios::binary))
-        {
-            ns_geo::writeBinaryData(points, file);
-        }
-        else
-        {
-            for (const auto &point : points)
-            {
-                file << point.x() << ',' << point.y() << '\n';
-            }
-        }
-    }
-
-    /**
-     * \brief Read the 2D point set from the file to the program
-     */
-    template <typename PointContainer>
-    void readPoints2(PointContainer &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
-    {
-        using PointType = typename PointContainer::value_type;
-        using PointValueType = typename PointType::value_type;
-        std::ifstream file(filePath, mode);
-        if (!file.is_open())
-            throw std::ios_base::failure("File Open Failed");
-        if (std::ios::binary == (mode & std::ios::binary))
-        {
-            ns_geo::readBinaryData(points, file);
-        }
-        else
-        {
-            Point2<PointValueType> point;
-            std::string str;
-            while (!file.eof())
-            {
-                std::getline(file, str);
-                if (str.empty())
-                    continue;
-                auto iter = std::find(str.cbegin(), str.cend(), ',');
-                point.x() = static_cast<PointValueType>(std::stod(std::string(str.cbegin(), iter)));
-                point.y() = static_cast<PointValueType>(std::stod(std::string(++iter, str.cend())));
-                points.push_back(point);
-            }
-        }
-    }
-
 #pragma endregion
 
 #pragma region global for Point3 < _Ty>
@@ -182,62 +128,6 @@ namespace ns_geo
     float distance(const Point3<_Ty> &p1, const Point3<_Ty> &p2)
     {
         return static_cast<float>(std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2) + std::pow(p1.z() - p2.z(), 2)));
-    }
-
-    /**
-     * \brief Writes a 3D point set to a file
-     */
-    template <typename PointContainer>
-    void writePoints3(const PointContainer &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary)
-    {
-        std::ofstream file(filePath, mode);
-        if (!file.is_open())
-            throw std::ios_base::failure("File Open Failed");
-        if (std::ios::binary == (mode & std::ios::binary))
-        {
-            ns_geo::writeBinaryData(points, file);
-        }
-        else
-        {
-            for (const auto &point : points)
-            {
-                file << point.x() << ',' << point.y() << ',' << point.z() << '\n';
-            }
-        }
-    }
-
-    /**
-     * \brief Read the 3D point set from the file to the program
-     */
-    template <typename PointContainer>
-    void readPoints3(PointContainer &points, const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
-    {
-        using PointType = typename PointContainer::value_type;
-        using PointValueType = typename PointType::value_type;
-        std::ifstream file(filePath, mode);
-        if (!file.is_open())
-            throw std::ios_base::failure("File Open Failed");
-        if (std::ios::binary == (mode & std::ios::binary))
-        {
-            ns_geo::readBinaryData(points, file);
-        }
-        else
-        {
-            Point3<PointValueType> point;
-            std::string str;
-            while (!file.eof())
-            {
-                std::getline(file, str);
-                if (str.empty())
-                    continue;
-                auto iter = std::find(str.cbegin(), str.cend(), ',');
-                point.x() = static_cast<PointValueType>(std::stod(std::string(str.cbegin(), iter)));
-                auto iter2 = std::find(++iter, str.cend(), ',');
-                point.y() = static_cast<PointValueType>(std::stod(std::string(iter, iter2)));
-                point.z() = static_cast<PointValueType>(std::stod(std::string(++iter2, str.cend())));
-                points.push_back(point);
-            }
-        }
     }
 
 #pragma endregion
@@ -323,23 +213,117 @@ namespace ns_geo
     }
 #pragma endregion
 
-#pragma region PointSet
-    template <typename _PointType, typename _Alloc = std::allocator<_PointType>>
-    class PointSet : public std::vector<_PointType, _Alloc>
+#pragma region PointSet2
+
+    template <typename _Ty, typename _Alloc = std::allocator<Point2<_Ty>>>
+    class PointSet2 : public std::vector<Point2<_Ty>, _Alloc>
     {
     public:
-        using value_type = _PointType;
-        using point_type = _PointType;
-        using container_type = std::vector<_PointType, _Alloc>;
+        using value_type = _Ty;
+        using point_type = Point2<value_type>;
+        using container_type = std::vector<point_type, _Alloc>;
         using container_type::container_type;
+
+    public:
+        void write(const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary) const
+        {
+            std::ofstream file(filePath, mode);
+            if (!file.is_open())
+                throw std::ios_base::failure("File Open Failed");
+            if (std::ios::binary == (mode & std::ios::binary))
+                ns_geo::writeBinaryData(*this, file);
+            else
+                for (const auto &point : *this)
+                    file << point.x() << ',' << point.y() << '\n';
+            return;
+        }
+
+        void read(const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
+        {
+            std::ifstream file(filePath, mode);
+            if (!file.is_open())
+                throw std::ios_base::failure("File Open Failed");
+            if (std::ios::binary == (mode & std::ios::binary))
+                ns_geo::readBinaryData(*this, file);
+            else
+            {
+                Point2<value_type> point;
+                std::string str;
+                while (!file.eof())
+                {
+                    std::getline(file, str);
+                    if (str.empty())
+                        continue;
+                    auto iter = std::find(str.cbegin(), str.cend(), ',');
+                    point.x() = static_cast<value_type>(std::stod(std::string(str.cbegin(), iter)));
+                    point.y() = static_cast<value_type>(std::stod(std::string(++iter, str.cend())));
+                    this->push_back(point);
+                }
+            }
+        }
     };
 
-    using PointSet2i = PointSet<Point2i>;
-    using PointSet2f = PointSet<Point2f>;
-    using PointSet2d = PointSet<Point2d>;
-    using PointSet3i = PointSet<Point3i>;
-    using PointSet3f = PointSet<Point3f>;
-    using PointSet3d = PointSet<Point3d>;
+    using PointSet2i = PointSet2<int>;
+    using PointSet2f = PointSet2<float>;
+    using PointSet2d = PointSet2<double>;
+
+#pragma endregion
+
+#pragma region PointSet3
+
+    template <typename _Ty, typename _Alloc = std::allocator<Point3<_Ty>>>
+    class PointSet3 : public std::vector<Point3<_Ty>, _Alloc>
+    {
+    public:
+        using value_type = _Ty;
+        using point_type = Point3<value_type>;
+        using container_type = std::vector<point_type, _Alloc>;
+        using container_type::container_type;
+
+    public:
+        void write(const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary) const
+        {
+            std::ofstream file(filePath, mode);
+            if (!file.is_open())
+                throw std::ios_base::failure("File Open Failed");
+            if (std::ios::binary == (mode & std::ios::binary))
+                ns_geo::writeBinaryData(*this, file);
+            else
+                for (const auto &point : *this)
+                    file << point.x() << ',' << point.y() << ',' << point.z() << '\n';
+            return;
+        }
+
+        void read(const std::string &filePath, std::ios_base::openmode mode = std::ios::in | std::ios::binary)
+        {
+            std::ifstream file(filePath, mode);
+            if (!file.is_open())
+                throw std::ios_base::failure("File Open Failed");
+            if (std::ios::binary == (mode & std::ios::binary))
+                ns_geo::readBinaryData(*this, file);
+            else
+            {
+                Point3<value_type> point;
+                std::string str;
+                while (!file.eof())
+                {
+                    std::getline(file, str);
+                    if (str.empty())
+                        continue;
+                    auto iter = std::find(str.cbegin(), str.cend(), ',');
+                    point.x() = static_cast<value_type>(std::stod(std::string(str.cbegin(), iter)));
+                    auto iter2 = std::find(++iter, str.cend(), ',');
+                    point.y() = static_cast<value_type>(std::stod(std::string(iter, iter2)));
+                    point.z() = static_cast<value_type>(std::stod(std::string(++iter2, str.cend())));
+                    this->push_back(point);
+                }
+            }
+        }
+    };
+
+    using PointSet3i = PointSet3<int>;
+    using PointSet3f = PointSet3<float>;
+    using PointSet3d = PointSet3<double>;
 #pragma endregion
 
 #pragma region RefPoint
