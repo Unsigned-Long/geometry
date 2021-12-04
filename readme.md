@@ -17,13 +17,21 @@ And because it's a templat class, you can just copy the head file to your projec
 ___
 ## ***2. Code Structure***
 
-<img src="./docs/struct.png">
+<img src="./imgs/struct.png">
 
 ## ***3. Classes Belongs***
 
-<img src="./docs/belongs.png">
+<img src="./imgs/belongs.png">
 
-## ***4. Using example***
+## ***4. Figures***
+
+<img src="./imgs/point.png" width="50%"><img src="./imgs/line.png" width="50%">
+
+<img src="./imgs/linestring.png" width="50%"><img src="./imgs/rectangle.png" width="50%">
+
+<img src="./imgs/polygon.png" width="50%"><img src="./imgs/triangle.png" width="50%">
+
+## ***5. Using example***
 
 ### <kbd>__Point2<_Ty>___</kbd>
 
