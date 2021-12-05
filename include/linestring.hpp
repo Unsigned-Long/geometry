@@ -59,6 +59,49 @@ namespace ns_geo
     }
 #pragma endregion
 
+#pragma region LineString3
+    template <typename _Ty>
+    class LineString3;
+    /**
+     * \brief some Commonly used LineString3 types
+     */
+    using LineString3d = LineString3<double>;
+    using LineString3f = LineString3<float>;
+    using LineString3i = LineString3<int>;
+
+    template <typename _Ty>
+    class LineString3 : public PointSet3<_Ty>
+    {
+    public:
+        using value_type = _Ty;
+        using pointset_type = PointSet3<value_type>;
+        /**
+         * \brief using pointset_type's constructors
+         */
+        using pointset_type::pointset_type;
+
+        float length() const
+        {
+            float len = 0.0;
+            for (auto iter = this->cbegin(); iter != --this->cend();)
+                len += distance(*iter, *(iter++));
+            return len;
+        }
+    };
+    /**
+     * \brief overload operator "<<" for LineString3
+     */
+    template <typename _Ty>
+    std::ostream &operator<<(std::ostream &os, const LineString3<_Ty> &ls)
+    {
+        os << '{';
+        for (auto iter = ls.cbegin(); iter != --ls.cend(); ++iter)
+            os << *iter << ", ";
+        os << ls.back() << '}';
+        return os;
+    }
+#pragma endregion
+
 #pragma region RefLineString2
     /**
      * \brief some Commonly used RefLineString2 types
@@ -118,49 +161,6 @@ namespace ns_geo
         }
         auto &p = rps->at(ls.back());
         os << p.id() << ": [" << p.x() << ", " << p.y() << "]}";
-        return os;
-    }
-#pragma endregion
-
-#pragma region LineString3
-    template <typename _Ty>
-    class LineString3;
-    /**
-     * \brief some Commonly used LineString3 types
-     */
-    using LineString3d = LineString3<double>;
-    using LineString3f = LineString3<float>;
-    using LineString3i = LineString3<int>;
-
-    template <typename _Ty>
-    class LineString3 : public PointSet3<_Ty>
-    {
-    public:
-        using value_type = _Ty;
-        using pointset_type = PointSet3<value_type>;
-        /**
-         * \brief using pointset_type's constructors
-         */
-        using pointset_type::pointset_type;
-
-        float length() const
-        {
-            float len = 0.0;
-            for (auto iter = this->cbegin(); iter != --this->cend();)
-                len += distance(*iter, *(iter++));
-            return len;
-        }
-    };
-    /**
-     * \brief overload operator "<<" for LineString3
-     */
-    template <typename _Ty>
-    std::ostream &operator<<(std::ostream &os, const LineString3<_Ty> &ls)
-    {
-        os << '{';
-        for (auto iter = ls.cbegin(); iter != --ls.cend(); ++iter)
-            os << *iter << ", ";
-        os << ls.back() << '}';
         return os;
     }
 #pragma endregion

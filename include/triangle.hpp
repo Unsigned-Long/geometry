@@ -100,6 +100,94 @@ namespace ns_geo
     }
 #pragma endregion
 
+#pragma region Triangle3
+    template <typename _Ty>
+    class Triangle3;
+    /**
+     * \brief some Commonly used Triangle3 types
+     */
+    using Triangle3d = Triangle3<double>;
+    using Triangle3f = Triangle3<float>;
+    using Triangle3i = Triangle3<int>;
+
+    /**
+     * \brief a sample template class to describe the 3-dime triangles
+     */
+    template <typename _Ty = float>
+    class Triangle3
+    {
+    public:
+        using value_type = _Ty;
+        using point_type = ns_geo::Point3<value_type>;
+        using ary_type = std::array<point_type, 3>;
+
+    private:
+        point_type _p1;
+        point_type _p2;
+        point_type _p3;
+
+    public:
+        /**
+         * \brief constructors
+         */
+        Triangle3() = default;
+        Triangle3(const point_type &p1, const point_type &p2, const point_type &p3)
+            : _p1(p1), _p2(p2), _p3(p3) {}
+        Triangle3(const point_type points[3])
+            : _p1(points[0]), _p2(points[1]), _p3(points[2]) {}
+        Triangle3(const ary_type &points)
+            : _p1(points[0]), _p2(points[1]), _p3(points[2]) {}
+        Triangle3(value_type p1x, value_type p1y, value_type p1z,
+                  value_type p2x, value_type p2y, value_type p2z,
+                  value_type p3x, value_type p3y, value_type p3z)
+            : _p1(p1x, p1y, p1z), _p2(p2x, p2y, p2z), _p3(p3x, p3y, p3z) {}
+
+        const point_type &p1() const { return this->_p1; }
+        point_type &p1() { return this->_p1; }
+
+        const point_type &p2() const { return this->_p2; }
+        point_type &p2() { return this->_p2; }
+
+        const point_type &p3() const { return this->_p3; }
+        point_type &p3() { return this->_p3; }
+
+        ary_type points() const { return ary_type{this->_p1, this->_p2, this->_p3}; }
+
+        float area() const
+        {
+            float v12_x = _p2.x() - _p1.x();
+            float v12_y = _p2.y() - _p1.y();
+            float v12_z = _p2.z() - _p1.z();
+            float v13_x = _p3.x() - _p1.x();
+            float v13_y = _p3.y() - _p1.y();
+            float v13_z = _p3.z() - _p1.z();
+            auto val1 = std::pow(v12_y * v13_z - v12_z * v13_y, 2);
+            auto val2 = std::pow(v13_x * v12_z - v12_x * v13_z, 2);
+            auto val3 = std::pow(v12_x * v13_y - v12_y * v13_x, 2);
+            return std::sqrt(val1 + val2 + val3) * 0.5;
+        }
+
+        float perimeter() const
+        {
+            return ns_geo::distance(_p1, _p2) +
+                   ns_geo::distance(_p1, _p3) +
+                   ns_geo::distance(_p2, _p3);
+        }
+    };
+    /**
+     * \brief overload operator "<<" for Triangle3
+     */
+    template <typename _Ty = float>
+    std::ostream &operator<<(std::ostream &os, const Triangle3<_Ty> &tri)
+    {
+        os << '{';
+        os << tri.p1() << ", ";
+        os << tri.p2() << ", ";
+        os << tri.p3() << '}';
+        return os;
+    }
+#pragma endregion
+
 #pragma region RefTriangle2
     /**
      * \brief some Commonly used RefTriangle2 types
@@ -189,94 +277,6 @@ namespace ns_geo
         os << p1.id() << ": [" << p1.x() << ", " << p1.y() << ']' << ", ";
         os << p2.id() << ": [" << p2.x() << ", " << p2.y() << ']' << ", ";
         os << p3.id() << ": [" << p3.x() << ", " << p3.y() << "]}";
-        return os;
-    }
-#pragma endregion
-
-#pragma region Triangle3
-    template <typename _Ty>
-    class Triangle3;
-    /**
-     * \brief some Commonly used Triangle3 types
-     */
-    using Triangle3d = Triangle3<double>;
-    using Triangle3f = Triangle3<float>;
-    using Triangle3i = Triangle3<int>;
-
-    /**
-     * \brief a sample template class to describe the 3-dime triangles
-     */
-    template <typename _Ty = float>
-    class Triangle3
-    {
-    public:
-        using value_type = _Ty;
-        using point_type = ns_geo::Point3<value_type>;
-        using ary_type = std::array<point_type, 3>;
-
-    private:
-        point_type _p1;
-        point_type _p2;
-        point_type _p3;
-
-    public:
-        /**
-         * \brief constructors
-         */
-        Triangle3() = default;
-        Triangle3(const point_type &p1, const point_type &p2, const point_type &p3)
-            : _p1(p1), _p2(p2), _p3(p3) {}
-        Triangle3(const point_type points[3])
-            : _p1(points[0]), _p2(points[1]), _p3(points[2]) {}
-        Triangle3(const ary_type &points)
-            : _p1(points[0]), _p2(points[1]), _p3(points[2]) {}
-        Triangle3(value_type p1x, value_type p1y, value_type p1z,
-                  value_type p2x, value_type p2y, value_type p2z,
-                  value_type p3x, value_type p3y, value_type p3z)
-            : _p1(p1x, p1y, p1z), _p2(p2x, p2y, p2z), _p3(p3x, p3y, p3z) {}
-
-        const point_type &p1() const { return this->_p1; }
-        point_type &p1() { return this->_p1; }
-
-        const point_type &p2() const { return this->_p2; }
-        point_type &p2() { return this->_p2; }
-
-        const point_type &p3() const { return this->_p3; }
-        point_type &p3() { return this->_p3; }
-
-        ary_type points() const { return ary_type{this->_p1, this->_p2, this->_p3}; }
-
-        float area() const
-        {
-            float v12_x = _p2.x() - _p1.x();
-            float v12_y = _p2.y() - _p1.y();
-            float v12_z = _p2.z() - _p1.z();
-            float v13_x = _p3.x() - _p1.x();
-            float v13_y = _p3.y() - _p1.y();
-            float v13_z = _p3.z() - _p1.z();
-            auto val1 = std::pow(v12_y * v13_z - v12_z * v13_y, 2);
-            auto val2 = std::pow(v13_x * v12_z - v12_x * v13_z, 2);
-            auto val3 = std::pow(v12_x * v13_y - v12_y * v13_x, 2);
-            return std::sqrt(val1 + val2 + val3) * 0.5;
-        }
-
-        float perimeter() const
-        {
-            return ns_geo::distance(_p1, _p2) +
-                   ns_geo::distance(_p1, _p3) +
-                   ns_geo::distance(_p2, _p3);
-        }
-    };
-    /**
-     * \brief overload operator "<<" for Triangle3
-     */
-    template <typename _Ty = float>
-    std::ostream &operator<<(std::ostream &os, const Triangle3<_Ty> &tri)
-    {
-        os << '{';
-        os << tri.p1() << ", ";
-        os << tri.p2() << ", ";
-        os << tri.p3() << '}';
         return os;
     }
 #pragma endregion

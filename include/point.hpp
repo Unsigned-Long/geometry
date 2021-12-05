@@ -27,18 +27,11 @@
 
 namespace ns_geo
 {
-#pragma region global
-
-#pragma region global for Point2 < _Ty>
+#pragma region helpers
     template <typename _Ty>
     class Point2;
-
-    /**
-     * \brief some Commonly used Point2 types
-     */
-    using Point2f = Point2<float>;
-    using Point2d = Point2<double>;
-    using Point2i = Point2<int>;
+    template <typename _Ty>
+    class Point3;
 
     /**
      * \brief calculate the azimuth according the right hand rule
@@ -77,19 +70,6 @@ namespace ns_geo
         return static_cast<float>(std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2)));
     }
 
-#pragma endregion
-
-#pragma region global for Point3 < _Ty>
-
-    template <typename _Ty>
-    class Point3;
-    /**
-     * \brief some Commonly used Point3 types
-     */
-    using Point3f = Point3<float>;
-    using Point3d = Point3<double>;
-    using Point3i = Point3<int>;
-
     /**
      * \brief Calculate the distance between two points
      */
@@ -101,9 +81,14 @@ namespace ns_geo
 
 #pragma endregion
 
-#pragma endregion
-
 #pragma region class Point2 < _Ty>
+
+    /**
+     * \brief some Commonly used Point2 types
+     */
+    using Point2f = Point2<float>;
+    using Point2d = Point2<double>;
+    using Point2i = Point2<int>;
     /**
      * \brief a sample template class to describe the 2-dime points
      */
@@ -147,6 +132,13 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region class Point3 < _Ty>
+
+    /**
+     * \brief some Commonly used Point3 types
+     */
+    using Point3f = Point3<float>;
+    using Point3d = Point3<double>;
+    using Point3i = Point3<int>;
     /**
      * \brief a sample template class to describe the 3-dime points
      */
@@ -355,7 +347,7 @@ namespace ns_geo
     using PointSet3d = PointSet3<double>;
 #pragma endregion
 
-#pragma region RefPoint
+#pragma region RefPoint2
     template <typename _Ty>
     class RefPoint2 : public Point2<_Ty>
     {
@@ -389,6 +381,9 @@ namespace ns_geo
         os << '{' << p.id() << ": " << '[' << p.x() << ", " << p.y() << ']' << '}';
         return os;
     }
+#pragma endregion
+
+#pragma region RefPoint3
     /**
      * \brief some Commonly used RefPoint2 types
      */

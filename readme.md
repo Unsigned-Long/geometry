@@ -1,20 +1,18 @@
 # <kbd>__Geometry__</kbd> 
 
-​                                            __A CPP Template Class__
+​                                            __A CPP Template Library__
 
 ## ***0. Author***
 
-<kbd>___name___</kbd> csl  
+<kbd>___Name___</kbd> csl  
 
-<kbd>___email___</kbd> 3079625093@qq.com
+<kbd>___E-Mmail___</kbd> 3079625093@qq.com
 
 ## ***1. Overview***
 
-___
-The CPP library provides two dimension point template classes: <kbd>__Point2<_Ty>___</kbd> and <kbd>__Point3<_Ty>___</kbd>.It also provides related operations based on two kinds of points, such as conventional "write" operation, "read" operation and distance calculation of point set, and azimuth calculation based on point2. You can easily use it to assist development. Here are some details of this class.  
-And because it's a templat class, you can just copy the head file to your project and use it.
+​	This CPP library mainly provides two dimension point template classes: <kbd>__Point2<_Ty>___</kbd> and <kbd>__Point3<_Ty>___</kbd>.It also provides related geometries and operations based on two kinds of points, such as conventional "write" operation, "read" operation and distance calculation of point set, and azimuth calculation based on point2. You can easily use it to assist development. And because it's a template class, you can just copy the head file to your project and use it. 
+​	There are some details of this library below. And if you find some bugs or have some bright ideas for this library, please contact me through the E-Mail above.
 
-___
 ## ***2. Code Structure***
 
 <img src="./imgs/struct.png">
@@ -80,6 +78,7 @@ void foo_point2()
  * [1.9, 2.7]
  */
 ```
+
 ### <kbd>__Point3<_Ty>___</kbd>  
 
 ```cpp
