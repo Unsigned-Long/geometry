@@ -45,6 +45,19 @@ namespace ns_geo
             len += distance(this->front(), this->back());
             return len;
         }
+
+        float area() const
+        {
+            float S = 0.0;
+            for (int i = 0; i != this->size() - 1; ++i)
+            {
+                auto &pi = this->at(i);
+                auto &pii = this->at(i + 1);
+                S += (pi.x() * pii.y() - pii.x() * pi.y());
+            }
+            S = 0.5 * std::abs(S);
+            return S;
+        }
     };
     /**
      * \brief overload operator "<<" for Polygon

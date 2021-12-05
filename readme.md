@@ -286,15 +286,18 @@ void foo_polygon()
 {
     Polygond polygon({Point2d(0, 0),
                       Point2d(0, 1),
+                      Point2d(0.5, 2),
                       Point2d(1, 1),
                       Point2d(1, 0)});
     std::cout << polygon << std::endl;
     std::cout << "perimeter : " << polygon.perimeter() << std::endl;
+    std::cout << "area : " << polygon.area() << std::endl;
     return;
 }
 /** output
- * {[0, 0], [0, 1], [1, 1], [1, 0]}
- * perimeter : 4
+  * {[0, 0], [0, 1], [0.5, 2], [1, 1], [1, 0]}
+  * perimeter : 5.23607
+  * area : 1.5
  */
 ```
 

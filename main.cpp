@@ -7,19 +7,20 @@
 
 using namespace ns_geo;
 
-void foo()
+void foo_polygon()
 {
-    std::cout << RefPointSet3f({{0, {0, -10.0, 0.0, -1.0}},
-                                {10, {10, 50.0, 10.0, 9.0}},
-                                {22, {22, 1.0, -4.0, -4.0}},
-                                {45, {45, 2.0, -5.0, -7.0}}})
-                     .createRefTriangle3(10, 22, 45)
-                     .area()
-              << std::endl;
+    Polygond polygon({Point2d(0, 0),
+                      Point2d(0, 1),
+                      Point2d(0.5, 2),
+                      Point2d(1, 1),
+                      Point2d(1, 0)});
+    std::cout << polygon << std::endl;
+    std::cout << "perimeter : " << polygon.perimeter() << std::endl;
+    std::cout << "area : " << polygon.area() << std::endl;
     return;
 }
 int main(int argc, char *argv[])
 {
-    ::foo();
+    ::foo_polygon();
     return 0;
 }
