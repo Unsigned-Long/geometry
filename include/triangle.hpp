@@ -1,12 +1,18 @@
 #pragma once
 
 /**
- * \brief the details
- *       [1] class type
+ * @file triangle.hpp
+ * @author csl (3079625093@qq.com)
+ * @version 0.1
+ * @date 2021-12-06
+ * @copyright Copyright (c) 2021
+ * 
+ * @brief the details
+ *        [1] class type
  *              0. Triangle2<_Ty>, Triangle3<_Ty>
  *              1. RefTriangle2<_Ty>, RefTriangle3<_Ty>
  * 
- *       [2] methods for Line
+ *        [2] methods for Line
  *              0. area
  *              1. perimeter
  *              2. operator "<<" for Triangle2<_Ty>, Triangle3<_Ty>

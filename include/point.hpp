@@ -1,14 +1,20 @@
 #pragma once
 
 /**
- * \brief the details
- *       [1] class type
+ * @file point.hpp
+ * @author csl (3079625093@qq.com)
+ * @version 0.1
+ * @date 2021-12-06
+ * @copyright Copyright (c) 2021
+ * 
+ * @brief the details
+ *        [1] class type
  *              0. Point2<_Ty>, Point3<_Ty>
  *              4. PointSet2<_Ty>. PointSet3<_Ty>
  *              5. RefPoint2<_Ty>, RefPoint3<_Ty>
  *              6. RefPointSet2<_Ty>, RefPointSet3<_Ty>
  * 
- *       [2] methods
+ *        [2] methods
  *              0. azimuthRHR, azimuthLHR
  *              1. distance
  *              2. operator "<<" for Point2<_Ty>, Point3<_Ty>

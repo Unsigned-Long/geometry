@@ -1,3 +1,12 @@
+/**
+ * @file main.cpp
+ * @author csl (3079625093@qq.com)
+ * @brief main source code file
+ * @version 0.1
+ * @date 2021-12-06
+ * @copyright Copyright (c) 2021
+ */
+
 #include "point.hpp"
 #include "triangle.hpp"
 #include "line.hpp"
@@ -7,25 +16,21 @@
 
 using namespace ns_geo;
 
-void foo_polygon()
+void foo_stride()
 {
-    RefPointSet2d rps;
-    rps.insert({0, RefPoint2d::ary_type{0, 0}});
-    rps.insert({1, RefPoint2d::ary_type{1, 0}});
-    rps.insert({2, RefPoint2d::ary_type{1, 1}});
-    rps.insert({4, RefPoint2d::ary_type{0, 1}});
-
-    auto polygon = rps.createRefPolygon({2, 1, 0, 4});
-    std::cout << polygon << std::endl;
-    std::cout << "first refPoint : " << polygon.indexAt(0) << std::endl;
-    std::cout << "first refPoint : " << polygon.idAt(2) << std::endl;
-    std::cout << "perimeter : " << polygon.perimeter() << std::endl;
-    std::cout << "area : " << polygon.area() << std::endl;
+    Point2i p1(0, 0);
+    Point2i p2(5, 8);
+    auto s1 = stride(p1, p2);
+    std::cout << Point2i(s1) << std::endl;
+    Point3d p3(0.0, 0.0, 0.0);
+    Point3d p4(1.5, 8.2, 9.8);
+    auto s2 = stride(p3, p4);
+    std::cout << Point3d(s2) << std::endl;
     return;
 }
 
 int main(int argc, char *argv[])
 {
-    ::foo_polygon();
+    ::foo_stride();
     return 0;
 }
