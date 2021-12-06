@@ -16,21 +16,26 @@
 
 using namespace ns_geo;
 
-void foo_stride()
+void foo_distance()
 {
-    Point2i p1(0, 0);
-    Point2i p2(5, 8);
-    auto s1 = stride(p1, p2);
-    std::cout << Point2i(s1) << std::endl;
-    Point3d p3(0.0, 0.0, 0.0);
-    Point3d p4(1.5, 8.2, 9.8);
-    auto s2 = stride(p3, p4);
-    std::cout << Point3d(s2) << std::endl;
+    Point2d p1(1, 1);
+    Point2d p2(2, 2);
+    Line2d line({0, 0, 0, 1});
+    std::cout << "p1 -> p2 : " << distance(p1, p2) << std::endl;
+    std::cout << "p1 -> line : " << distance(p1, line) << std::endl;
+    double ary2[2] = {2, 3};
+    RefPointSet2d rps;
+    rps.insert({0, RefPoint2d::ary_type{0, 0}});
+    rps.insert({1, ary2});
+    rps.insert({2, RefPoint2d::ary_type{0, 0}});
+    rps.insert({4, ary2});
+    auto refline = rps.createRefLine2(0, 1);
+    std::cout << "p1 -> refline : " << distance(p1, Line2d(refline)) << std::endl;
     return;
 }
 
 int main(int argc, char *argv[])
 {
-    ::foo_stride();
+    ::foo_distance();
     return 0;
 }

@@ -401,7 +401,7 @@ void foo_refline2()
     rps.insert({1, ary2});
     rps.insert({2, RefPoint2d::ary_type{0, 0}});
     rps.insert({4, ary2});
-    for (const auto &refp : ps)
+    for (const auto &refp : rps)
         std::cout << refp.second << std::endl;
     
     auto refline = rps.createRefLine2(0, 1);
@@ -629,6 +629,33 @@ void foo_refpointset3_write()
  * {4: [1, 0, 0]}
  * {2: [0, 0, 1]}
  * {0: [0, 0, 0]}
+ */
+```
+
+### <kbd>__distance___</kbd>  
+
+```cpp
+void foo_distance()
+{
+    Point2d p1(1, 1);
+    Point2d p2(2, 2);
+    Line2d line({0, 0, 0, 1});
+    std::cout << "p1 -> p2 : " << distance(p1, p2) << std::endl;
+    std::cout << "p1 -> line : " << distance(p1, line) << std::endl;
+    double ary2[2] = {2, 3};
+    RefPointSet2d rps;
+    rps.insert({0, RefPoint2d::ary_type{0, 0}});
+    rps.insert({1, ary2});
+    rps.insert({2, RefPoint2d::ary_type{0, 0}});
+    rps.insert({4, ary2});
+    auto refline = rps.createRefLine2(0, 1);
+    std::cout << "p1 -> refline : " << distance(p1, Line2d(refline)) << std::endl;
+    return;
+}
+/** output
+ * p1 -> p2 : 1.41421
+ * p1 -> line : 1
+ * p1 -> refline : 0.27735
  */
 ```
 
