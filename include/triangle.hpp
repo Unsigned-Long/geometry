@@ -223,19 +223,19 @@ namespace ns_geo
         id_type _pid2;
         id_type _pid3;
         // thr reference point set's pointer
-        const refpointset_type *_rps;
+        const refpointset_type *const _rps;
 
     protected:
         /**
          * \brief constructors
          */
-        RefTriangle2(const id_type &pid1, const id_type &pid2, const id_type &pid3, const refpointset_type *refpointset)
+        RefTriangle2(const id_type &pid1, const id_type &pid2, const id_type &pid3, const refpointset_type *const refpointset)
             : _pid1(pid1), _pid2(pid2), _pid3(pid3), _rps(refpointset) {}
 
         RefTriangle2() = delete;
 
     public:
-        const refpointset_type *refPointSet() const { return this->_rps; };
+        const refpointset_type *const refPointSet() const { return this->_rps; };
 
         const refpoint_type &p1() const { return this->_rps->at(_pid1); }
         refpoint_type &p1() { return this->_rps->at(_pid1); }
@@ -316,19 +316,19 @@ namespace ns_geo
         id_type _pid2;
         id_type _pid3;
         // the reference point set's pointer
-        const refpointset_type *_rps;
+        const refpointset_type *const _rps;
 
     protected:
         /**
          * \brief constructors
          */
-        RefTriangle3(const id_type &pid1, const id_type &pid2, const id_type &pid3, const refpointset_type *refpointset)
+        RefTriangle3(const id_type &pid1, const id_type &pid2, const id_type &pid3, const refpointset_type *const refpointset)
             : _pid1(pid1), _pid2(pid2), _pid3(pid3), _rps(refpointset) {}
 
         RefTriangle3() = delete;
 
     public:
-        const refpointset_type *refPointSet() const { return this->_rps; };
+        const refpointset_type *const refPointSet() const { return this->_rps; };
 
         const refpoint_type &p1() const { return this->_rps->at(_pid1); }
         refpoint_type &p1() { return this->_rps->at(_pid1); }

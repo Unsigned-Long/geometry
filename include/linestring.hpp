@@ -130,19 +130,19 @@ namespace ns_geo
         friend class RefPointSet2<value_type>;
 
     private:
-        const refpointset_type *_rps;
+        const refpointset_type *const _rps;
 
     protected:
         /**
          * \brief constructors
          */
-        RefLineString2(const std::initializer_list<id_type> &pidls, const refpointset_type *rps)
+        RefLineString2(const std::initializer_list<id_type> &pidls, const refpointset_type *const rps)
             : pointidset_type(pidls), _rps(rps) {}
 
         RefLineString2() = delete;
 
     public:
-        const refpointset_type *refPointSet() const { return this->_rps; };
+        const refpointset_type *const refPointSet() const { return this->_rps; };
         /**
          * \brief get the 'index'st reference point in the line string
          */
@@ -201,19 +201,19 @@ namespace ns_geo
         friend class RefPointSet3<value_type>;
 
     private:
-        const refpointset_type *_rps;
+        const refpointset_type *const _rps;
 
     protected:
         /**
          * \brief constructors
          */
-        RefLineString3(const std::initializer_list<id_type> &pidls, const refpointset_type *rps)
+        RefLineString3(const std::initializer_list<id_type> &pidls, const refpointset_type *const rps)
             : pointidset_type(pidls), _rps(rps) {}
 
         RefLineString3() = delete;
 
     public:
-        const refpointset_type *refPointSet() const { return this->_rps; };
+        const refpointset_type *const refPointSet() const { return this->_rps; };
 
         /**
          * \brief get the 'index'st reference point in the line string

@@ -121,19 +121,19 @@ namespace ns_geo
         // lower right point's id
         id_type _lwrpid;
         // thr reference point set's pointer
-        const refpointset_type *_rps;
+        const refpointset_type *const _rps;
 
     protected:
         /**
          * \brief constructors
          */
-        RefRectangle(id_type topLeftID, id_type lowerRightID, const refpointset_type *refpointset)
+        RefRectangle(id_type topLeftID, id_type lowerRightID, const refpointset_type *const refpointset)
             : _tplpid(topLeftID), _lwrpid(lowerRightID), _rps(refpointset) {}
 
         RefRectangle() = delete;
 
     public:
-        const refpointset_type *refPointSet() const { return this->_rps; };
+        const refpointset_type *const refPointSet() const { return this->_rps; };
 
         ary_type refPoints() const { return ary_type{_rps->at(this->_tplpid), _rps->at(this->_lwrpid)}; }
 
