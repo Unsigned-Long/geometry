@@ -23,14 +23,6 @@
 namespace ns_geo
 {
 #pragma region Polygon
-    template <typename _Ty>
-    class Polygon;
-    /**
-     * \brief some Commonly used Polygon types
-     */
-    using Polygond = Polygon<double>;
-    using Polygonf = Polygon<float>;
-    using Polygoni = Polygon<int>;
 
     template <typename _Ty>
     class Polygon : public PointSet2<_Ty>
@@ -81,12 +73,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefPolygon
-    /**
-     * \brief some Commonly used RefPolygon types
-     */
-    using RefPolygond = RefPolygon<double>;
-    using RefPolygonf = RefPolygon<float>;
-    using RefPolygoni = RefPolygon<int>;
 
     template <typename _Ty>
     class RefPolygon : public std::vector<uint>

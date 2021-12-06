@@ -23,14 +23,6 @@
 namespace ns_geo
 {
 #pragma region LineString2
-    template <typename _Ty>
-    class LineString2;
-    /**
-     * \brief some Commonly used LineString2 types
-     */
-    using LineString2d = LineString2<double>;
-    using LineString2f = LineString2<float>;
-    using LineString2i = LineString2<int>;
 
     template <typename _Ty>
     class LineString2 : public PointSet2<_Ty>
@@ -66,14 +58,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region LineString3
-    template <typename _Ty>
-    class LineString3;
-    /**
-     * \brief some Commonly used LineString3 types
-     */
-    using LineString3d = LineString3<double>;
-    using LineString3f = LineString3<float>;
-    using LineString3i = LineString3<int>;
 
     template <typename _Ty>
     class LineString3 : public PointSet3<_Ty>
@@ -109,12 +93,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefLineString2
-    /**
-     * \brief some Commonly used RefLineString2 types
-     */
-    using RefLineString2d = RefLineString2<double>;
-    using RefLineString2f = RefLineString2<float>;
-    using RefLineString2i = RefLineString2<int>;
 
     template <typename _Ty>
     class RefLineString2 : public std::vector<uint>
@@ -180,12 +158,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefLineString3
-    /**
-     * \brief some Commonly used RefLineString3 types
-     */
-    using RefLineString3d = RefLineString3<double>;
-    using RefLineString3f = RefLineString3<float>;
-    using RefLineString3i = RefLineString3<int>;
 
     template <typename _Ty>
     class RefLineString3 : public std::vector<uint>

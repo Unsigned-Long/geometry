@@ -24,15 +24,6 @@
 namespace ns_geo
 {
 #pragma region Line2
-    template <typename _Ty>
-    class Line2;
-    /**
-     * \brief some Commonly used Line2 types
-     */
-    using Line2d = Line2<double>;
-    using Line2f = Line2<float>;
-    using Line2i = Line2<int>;
-
     /**
      * \brief a sample template class to describe the 2-dime lines
      */
@@ -91,15 +82,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region Line3
-    template <typename _Ty>
-    class Line3;
-    /**
-     * \brief some Commonly used Line3 types
-     */
-    using Line3d = Line3<double>;
-    using Line3f = Line3<float>;
-    using Line3i = Line3<int>;
-
     /**
      * \brief a sample template class to describe the 3-dime lines
      */
@@ -154,13 +136,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefLine2
-    /**
-     * \brief some Commonly used RefLine2 types
-     */
-    using RefLine2d = RefLine2<double>;
-    using RefLine2f = RefLine2<float>;
-    using RefLine2i = RefLine2<int>;
-
     template <typename _Ty = float>
     class RefLine2
     {
@@ -222,12 +197,7 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefLine3
-    /**
-     * \brief some Commonly used RefLine3 types
-     */
-    using RefLine3d = RefLine3<double>;
-    using RefLine3f = RefLine3<float>;
-    using RefLine3i = RefLine3<int>;
+
 
     template <typename _Ty = float>
     class RefLine3

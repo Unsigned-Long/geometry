@@ -24,14 +24,6 @@
 namespace ns_geo
 {
 #pragma region Triangle2
-    template <typename _Ty>
-    class Triangle2;
-    /**
-     * \brief some Commonly used Triangle2 types
-     */
-    using Triangle2d = Triangle2<double>;
-    using Triangle2f = Triangle2<float>;
-    using Triangle2i = Triangle2<int>;
 
     /**
      * \brief a sample template class to describe the 2-dime triangles
@@ -107,14 +99,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region Triangle3
-    template <typename _Ty>
-    class Triangle3;
-    /**
-     * \brief some Commonly used Triangle3 types
-     */
-    using Triangle3d = Triangle3<double>;
-    using Triangle3f = Triangle3<float>;
-    using Triangle3i = Triangle3<int>;
 
     /**
      * \brief a sample template class to describe the 3-dime triangles
@@ -195,12 +179,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefTriangle2
-    /**
-     * \brief some Commonly used RefTriangle2 types
-     */
-    using RefTriangle2d = RefTriangle2<double>;
-    using RefTriangle2f = RefTriangle2<float>;
-    using RefTriangle2i = RefTriangle2<int>;
 
     /**
      * \brief a sample template class to describe the 2-dime triangles
@@ -288,12 +266,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefTriangle3
-    /**
-     * \brief some Commonly used RefTriangle3 types
-     */
-    using RefTriangle3d = RefTriangle3<double>;
-    using RefTriangle3f = RefTriangle3<float>;
-    using RefTriangle3i = RefTriangle3<int>;
 
     /**
      * \brief a sample template class to describe the 3-dime triangles

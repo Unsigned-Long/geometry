@@ -24,14 +24,6 @@
 namespace ns_geo
 {
 #pragma region Rectangle
-    template <typename _Ty>
-    class Rectangle;
-    /**
-     * \brief some Commonly used Rectangle types
-     */
-    using Rectangled = Rectangle<double>;
-    using Rectanglef = Rectangle<float>;
-    using Rectanglei = Rectangle<int>;
 
     /**
      * \brief a sample template class to describe the 2-dime rectangles
@@ -95,12 +87,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefRectangle
-    /**
-     * \brief some Commonly used RefRectangle types
-     */
-    using RefRectangled = RefRectangle<double>;
-    using RefRectanglef = RefRectangle<float>;
-    using RefRectanglei = RefRectangle<int>;
 
     template <typename _Ty = float>
     class RefRectangle

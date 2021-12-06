@@ -26,14 +26,8 @@
 namespace ns_geo
 {
 
-#pragma region class Point2 < _Ty>
+#pragma region class Point2
 
-    /**
-     * \brief some Commonly used Point2 types
-     */
-    using Point2f = Point2<float>;
-    using Point2d = Point2<double>;
-    using Point2i = Point2<int>;
     /**
      * \brief a sample template class to describe the 2-dime points
      */
@@ -76,14 +70,8 @@ namespace ns_geo
     }
 #pragma endregion
 
-#pragma region class Point3 < _Ty>
+#pragma region class Point3
 
-    /**
-     * \brief some Commonly used Point3 types
-     */
-    using Point3f = Point3<float>;
-    using Point3d = Point3<double>;
-    using Point3i = Point3<int>;
     /**
      * \brief a sample template class to describe the 3-dime points
      */
@@ -329,13 +317,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefPoint3
-    /**
-     * \brief some Commonly used RefPoint2 types
-     */
-    using RefPoint2f = RefPoint2<float>;
-    using RefPoint2d = RefPoint2<double>;
-    using RefPoint2i = RefPoint2<int>;
-
     template <typename _Ty>
     class RefPoint3 : public Point3<_Ty>
     {
@@ -370,28 +351,10 @@ namespace ns_geo
         os << '{' << p.id() << ": " << '[' << p.x() << ", " << p.y() << ", " << p.z() << ']' << '}';
         return os;
     }
-    /**
-     * \brief some Commonly used RefPoint3 types
-     */
-    using RefPoint3f = RefPoint3<float>;
-    using RefPoint3d = RefPoint3<double>;
-    using RefPoint3i = RefPoint3<int>;
+
 #pragma endregion
 
 #pragma region RefPointSet2
-    /**
-     * \brief declare here for the reference geometry objects
-     */
-    template <typename _Ty>
-    class RefLine2;
-    template <typename _Ty>
-    class RefRectangle;
-    template <typename _Ty>
-    class RefTriangle2;
-    template <typename _Ty>
-    class RefPolygon;
-    template <typename _Ty>
-    class RefLineString2;
 
     template <typename _Ty,
               typename _Hash = std::hash<uint>,
@@ -506,16 +469,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefPointSet3
-    /**
-     * \brief declare here for the reference geometry objects
-     */
-    template <typename _Ty>
-    class RefLine3;
-    template <typename _Ty>
-    class RefTriangle3;
-    template <typename _Ty>
-    class RefLineString3;
-
     template <typename _Ty,
               typename _Hash = std::hash<uint>,
               typename _Pred = std::equal_to<uint>,
