@@ -207,6 +207,34 @@ namespace ns_geo
 
 #pragma region helpers
     /**
+     * @brief calculate the stride between the 'from' point to the 'to' point
+     * 
+     * @tparam _Ty the type of value
+     * @param from the start point
+     * @param to the end point
+     * @return std::array<_Ty, 3> return a array contains three elements
+     */
+    template <typename _Ty>
+    std::array<_Ty, 2> stride(const Point2<_Ty> &from, const Point2<_Ty> &to)
+    {
+        return std::array<_Ty, 2>{to.x() - from.x(), to.y() - from.y()};
+    }
+
+    /**
+     * @brief calculate the stride between the 'from' point to the 'to' point
+     * 
+     * @tparam _Ty the type of value
+     * @param from the start point
+     * @param to the end point
+     * @return std::array<_Ty, 3> return a array contains three elements
+     */
+    template <typename _Ty>
+    std::array<_Ty, 3> stride(const Point3<_Ty> &from, const Point3<_Ty> &to)
+    {
+        return std::array<_Ty, 3>{to.x() - from.x(), to.y() - from.y(), to.z() - from.z()};
+    }
+
+    /**
      * @brief calculate the azimuth according the left hand rule
      * 
      * @tparam _Ty the type of value
@@ -273,31 +301,45 @@ namespace ns_geo
     }
 
     /**
-     * @brief calculate the stride between the 'from' point to the 'to' point
+     * @brief calculate the distance from the point to the line
      * 
      * @tparam _Ty the type of value
-     * @param from the start point
-     * @param to the end point
-     * @return std::array<_Ty, 3> return a array contains three elements
+     * @param p the point
+     * @param l the line
+     * @return float the distance from the point to the line
      */
     template <typename _Ty>
-    std::array<_Ty, 2> stride(const Point2<_Ty> &from, const Point2<_Ty> &to)
+    float distance(const Point2<_Ty> &p, const Line2<_Ty> &l)
     {
-        return std::array<_Ty, 2>{to.x() - from.x(), to.y() - from.y()};
+        auto vec1 = stride(l.p1(), l.p2());
+        auto vec2 = stride(l.p1(), p);
+        float z = vec1[0] * vec2[1] - vec1[1] * vec2[0];
+        float dis = std::abs(z) / distance(l.p1(), l.p2());
+        return dis;
     }
 
     /**
-     * @brief calculate the stride between the 'from' point to the 'to' point
+     * @brief calculate the distance from the point to the line
      * 
      * @tparam _Ty the type of value
-     * @param from the start point
-     * @param to the end point
-     * @return std::array<_Ty, 3> return a array contains three elements
+     * @param p the point
+     * @param l the line
+     * @return float the distance from the point to the line
      */
     template <typename _Ty>
-    std::array<_Ty, 3> stride(const Point3<_Ty> &from, const Point3<_Ty> &to)
+    float distance(const Point3<_Ty> &p, const Line3<_Ty> &l)
     {
-        return std::array<_Ty, 3>{to.x() - from.x(), to.y() - from.y(), to.z() - from.z()};
+        float vec1_x = l.p2().x() - l.p1().x();
+        float vec1_y = l.p2().y() - l.p1().y();
+        float vec1_z = l.p2().z() - l.p1().z();
+        float vec2_x = p.x() - l.p1().x();
+        float vec2_y = p.y() - l.p1().y();
+        float vec2_z = p.z() - l.p1().z();
+        auto val1 = std::pow(vec1_y * vec2_z - vec1_z * vec2_y, 2);
+        auto val2 = std::pow(vec2_x * vec1_z - vec1_x * vec2_z, 2);
+        auto val3 = std::pow(vec1_x * vec2_y - vec1_y * vec2_x, 2);
+        float dis = std::sqrt(val1 + val2 + val3) / distance(l.p1(), l.p2());
+        return dis;
     }
 
 #pragma endregion
