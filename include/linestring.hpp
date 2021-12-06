@@ -137,6 +137,14 @@ namespace ns_geo
 
     public:
         const refpointset_type *refPointSet() const { return this->_rps; };
+        /**
+         * \brief get the 'index'st reference point in the line string
+         */
+        const refpoint_type &indexAt(std::size_t index) { return this->_rps->at(this->at(index)); }
+        /**
+         * \brief get the 'id' reference point in the line string's referenced refpointset
+         */
+        const refpoint_type &idAt(std::size_t id) { return this->_rps->at(id); }
 
         float length() const
         {
@@ -200,6 +208,15 @@ namespace ns_geo
 
     public:
         const refpointset_type *refPointSet() const { return this->_rps; };
+
+        /**
+         * \brief get the 'index'st reference point in the line string
+         */
+        const refpoint_type &indexAt(std::size_t index) { return this->_rps->at(this->at(index)); }
+        /**
+         * \brief get the 'id' reference point in the line string's referenced refpointset
+         */
+        const refpoint_type &idAt(std::size_t id) { return this->_rps->at(id); }
 
         float length() const
         {

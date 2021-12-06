@@ -49,10 +49,11 @@ namespace ns_geo
         float area() const
         {
             float S = 0.0;
-            for (int i = 0; i != this->size() - 1; ++i)
+            auto size = this->size();
+            for (int i = 0; i != size; ++i)
             {
-                auto &pi = this->at(i);
-                auto &pii = this->at(i + 1);
+                auto &pi = this->at(i % size);
+                auto &pii = this->at((i + 1) % size);
                 S += (pi.x() * pii.y() - pii.x() * pi.y());
             }
             S = 0.5 * std::abs(S);
@@ -108,6 +109,14 @@ namespace ns_geo
 
     public:
         const refpointset_type *refPointSet() const { return this->_rps; };
+        /**
+         * \brief get the 'index'st reference point in the polygon
+         */
+        const refpoint_type &indexAt(std::size_t index) { return this->_rps->at(this->at(index)); }
+        /**
+         * \brief get the 'id' reference point in the polygon's referenced refpointset
+         */
+        const refpoint_type &idAt(std::size_t id) { return this->_rps->at(id); }
 
         float perimeter() const
         {
@@ -122,6 +131,20 @@ namespace ns_geo
             len += distance(_rps->at(this->front()),
                             _rps->at(this->back()));
             return len;
+        }
+
+        float area() const
+        {
+            float S = 0.0;
+            auto size = this->size();
+            for (int i = 0; i != size; ++i)
+            {
+                auto &pi = _rps->at(this->at(i % size));
+                auto &pii = _rps->at(this->at((i + 1) % size));
+                S += (pi.x() * pii.y() - pii.x() * pi.y());
+            }
+            S = 0.5 * std::abs(S);
+            return S;
         }
     };
     /**
