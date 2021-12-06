@@ -129,7 +129,7 @@ namespace ns_geo
     public:
         const refpointset_type *refPointSet() const { return this->_rps; };
 
-        ary_type points() const { return ary_type{_rps->at(this->_tplpid), _rps->at(this->_lwrpid)}; }
+        ary_type refPoints() const { return ary_type{_rps->at(this->_tplpid), _rps->at(this->_lwrpid)}; }
 
         const refpoint_type &topLeft() const { return _rps->at(this->_tplpid); }
 
