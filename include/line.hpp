@@ -110,7 +110,7 @@ namespace ns_geo
             : _p1(points[0]), _p2(points[1]) {}
         Line3(value_type p1x, value_type p1y, value_type p1z,
               value_type p2x, value_type p2y, value_type p2z)
-            : _p1(p1x, p1y, p1z), _p2(p2x, p2y, p2x) {}
+            : _p1(p1x, p1y, p1z), _p2(p2x, p2y, p2z) {}
 
         const point_type &p1() const { return this->_p1; }
         point_type &p1() { return this->_p1; }
@@ -167,11 +167,11 @@ namespace ns_geo
     public:
         const refpointset_type *const refPointSet() const { return this->_rps; };
 
+        operator Line2<value_type>() { return Line2<value_type>(this->p1(), this->p2()); }
+
         const refpoint_type &p1() const { return this->_rps->at(this->_pid1); }
-        refpoint_type &p1() { return this->_rps->at(this->_pid1); }
 
         const refpoint_type &p2() const { return this->_rps->at(this->_pid2); }
-        refpoint_type &p2() { return this->_rps->at(this->_pid2); }
 
         ary_type refPoints() const { return ary_type{this->p1(), this->p2()}; }
 
@@ -197,7 +197,6 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefLine3
-
 
     template <typename _Ty = float>
     class RefLine3
@@ -229,11 +228,11 @@ namespace ns_geo
     public:
         const refpointset_type *const refPointSet() const { return this->_rps; };
 
+        operator Line3<value_type>(){return Line3<value_type>(this->p1(), this->p2());}
+
         const refpoint_type &p1() const { return this->_refpointset->at(this->_pid1); }
-        refpoint_type &p1() { return this->_refpointset->at(this->_pid1); }
 
         const refpoint_type &p2() const { return this->_refpointset->at(this->_pid2); }
-        refpoint_type &p2() { return this->_refpointset->at(this->_pid2); }
 
         ary_type refPoints() const { return ary_type{this->p1(), this->p2()}; }
 

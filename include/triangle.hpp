@@ -216,13 +216,10 @@ namespace ns_geo
         const refpointset_type *const refPointSet() const { return this->_rps; };
 
         const refpoint_type &p1() const { return this->_rps->at(_pid1); }
-        refpoint_type &p1() { return this->_rps->at(_pid1); }
 
         const refpoint_type &p2() const { return this->_rps->at(_pid2); }
-        refpoint_type &p2() { return this->_rps->at(_pid2); }
 
         const refpoint_type &p3() const { return this->_rps->at(_pid3); }
-        refpoint_type &p3() { return this->_rps->at(_pid3); }
 
         ary_type refPoints() const { return ary_type{this->p1(), this->p2(), this->p3()}; }
 
@@ -303,13 +300,10 @@ namespace ns_geo
         const refpointset_type *const refPointSet() const { return this->_rps; };
 
         const refpoint_type &p1() const { return this->_rps->at(_pid1); }
-        refpoint_type &p1() { return this->_rps->at(_pid1); }
 
         const refpoint_type &p2() const { return this->_rps->at(_pid2); }
-        refpoint_type &p2() { return this->_rps->at(_pid2); }
 
         const refpoint_type &p3() const { return this->_rps->at(_pid3); }
-        refpoint_type &p3() { return this->_rps->at(_pid3); }
 
         ary_type refPoints() const { return ary_type{this->p1(), this->p2(), this->p3()}; }
 

@@ -125,11 +125,7 @@ namespace ns_geo
 
         const refpoint_type &topLeft() const { return _rps->at(this->_tplpid); }
 
-        refpoint_type &topLeft() { return _rps->at(this->_tplpid); }
-
         const refpoint_type &lowerRight() const { return _rps->at(this->_lwrpid); }
-
-        refpoint_type &lowerRight() { return _rps->at(this->_lwrpid); }
 
         float area() const
         {
