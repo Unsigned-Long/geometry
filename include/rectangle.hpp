@@ -121,6 +121,8 @@ namespace ns_geo
     public:
         const refpointset_type *const refPointSet() const { return this->_rps; };
 
+        operator Rectangle<value_type>() { return Rectangle<value_type>(this->topLeft(), this->lowerRight()); }
+
         ary_type refPoints() const { return ary_type{_rps->at(this->_tplpid), _rps->at(this->_lwrpid)}; }
 
         const refpoint_type &topLeft() const { return _rps->at(this->_tplpid); }

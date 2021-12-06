@@ -121,10 +121,22 @@ namespace ns_geo
 
     public:
         const refpointset_type *const refPointSet() const { return this->_rps; };
+
+        operator LineString2<value_type>()
+        {
+            LineString2<value_type> linestring;
+            for (int i = 0; i != this->size(); ++i)
+                linestring.push_back(this->indexAt(i));
+            return linestring;
+        }
+
         /**
          * \brief get the 'index'st reference point in the line string
          */
-        const refpoint_type &indexAt(std::size_t index) { return this->_rps->at(this->at(index)); }
+        const refpoint_type &indexAt(std::size_t index)
+        {
+            return this->_rps->at(this->at(index));
+        }
         /**
          * \brief get the 'id' reference point in the line string's referenced refpointset
          */
@@ -186,6 +198,14 @@ namespace ns_geo
 
     public:
         const refpointset_type *const refPointSet() const { return this->_rps; };
+
+        operator LineString3<value_type>()
+        {
+            LineString3<value_type> linestring;
+            for (int i = 0; i != this->size(); ++i)
+                linestring.push_back(this->indexAt(i));
+            return linestring;
+        }
 
         /**
          * \brief get the 'index'st reference point in the line string

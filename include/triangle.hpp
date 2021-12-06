@@ -215,6 +215,8 @@ namespace ns_geo
     public:
         const refpointset_type *const refPointSet() const { return this->_rps; };
 
+        operator Triangle2<value_type>() { return Triangle2<value_type>(this->p1(), this->p2(), this->p3()); }
+
         const refpoint_type &p1() const { return this->_rps->at(_pid1); }
 
         const refpoint_type &p2() const { return this->_rps->at(_pid2); }
@@ -298,6 +300,8 @@ namespace ns_geo
 
     public:
         const refpointset_type *const refPointSet() const { return this->_rps; };
+
+        operator Triangle3<value_type>() { return Triangle3<value_type>(this->p1(), this->p2(), this->p3()); }
 
         const refpoint_type &p1() const { return this->_rps->at(_pid1); }
 

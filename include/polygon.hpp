@@ -101,10 +101,20 @@ namespace ns_geo
 
     public:
         const refpointset_type *const refPointSet() const { return this->_rps; };
+
+        operator Polygon<value_type>()
+        {
+            Polygon<value_type> polygon;
+            for (int i = 0; i != this->size(); ++i)
+                polygon.push_back(this->indexAt(i));
+            return polygon;
+        }
+
         /**
          * \brief get the 'index'st reference point in the polygon
          */
         const refpoint_type &indexAt(std::size_t index) { return this->_rps->at(this->at(index)); }
+
         /**
          * \brief get the 'id' reference point in the polygon's referenced refpointset
          */
