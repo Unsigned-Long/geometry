@@ -677,6 +677,22 @@ void foo_kdtree()
 /** output
  * [2, 4, 5]:[Y] [3, 1, 4]:[Z] [2, 0, 3]:[X] [2, 3, 7]:[X] [0, 5, 7]:[Z] [1, 4, 4]:[X]
  */
+void foo_refkdtree()
+{
+    RefPointSet3f ps;
+    ps.insert({0, 3, 1, 4});
+    ps.insert({1, 2, 3, 7});
+    ps.insert({2, 2, 0, 3});
+    ps.insert({3, 2, 4, 5});
+    ps.insert({4, 1, 4, 4});
+    ps.insert({5, 0, 5, 7});
+    RefKdTree3f kdtree(ps);
+    kdtree.printKdTree();
+    return;
+}
+/** output
+ * {4: [1, 4, 4]}:[Y] {0: [3, 1, 4]}:[Z] {2: [2, 0, 3]}:[X] {1: [2, 3, 7]}:[X] {5: [0, 5, 7]}:[Z] {3: [2, 4, 5]}:[X]
+ */
 ```
 
 For other implementation details, please refer to the source code.

@@ -17,7 +17,7 @@
 
 using namespace ns_geo;
 
-void foo_kdtree()
+void foo_refkdtree()
 {
     RefPointSet3f ps;
     ps.insert({0, 3, 1, 4});
@@ -33,6 +33,6 @@ void foo_kdtree()
 
 int main(int argc, char *argv[])
 {
-    ::foo_kdtree();
+    ::foo_refkdtree();
     return 0;
 }
