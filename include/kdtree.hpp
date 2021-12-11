@@ -1,5 +1,14 @@
 #pragma once
 
+/**
+ * @file kdtree.hpp
+ * @author csl (3079625093@qq.com)
+ * @version 0.1
+ * @date 2021-12-11
+ * 
+ * @copyright Copyright (c) 2021
+ */
+
 #include "point.hpp"
 #include <memory>
 
@@ -312,7 +321,7 @@ namespace ns_geo
 
     public:
         KdTree3() = delete;
-        
+
         KdTree3(const pointset_type &ps) : partent_type(exfDime3) { this->buildKdTree(ps); }
 
     private:

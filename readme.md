@@ -659,4 +659,24 @@ void foo_distance()
  */
 ```
 
+### <kbd>__kdtree___</kbd>  
+
+```cpp
+void foo_kdtree()
+{
+    PointSet3f ps({{3, 1, 4},
+                   {2, 3, 7},
+                   {2, 0, 3},
+                   {2, 4, 5},
+                   {1, 4, 4},
+                   {0, 5, 7}});
+    KdTree3<Point3f> kdtree(ps);
+    kdtree.printKdTree();
+    return;
+}
+/** output
+ * [2, 4, 5]:[Y] [3, 1, 4]:[Z] [2, 0, 3]:[X] [2, 3, 7]:[X] [0, 5, 7]:[Z] [1, 4, 4]:[X]
+ */
+```
+
 For other implementation details, please refer to the source code.

@@ -26,7 +26,7 @@ void foo_kdtree()
                    {1, 4, 4},
                    {0, 5, 7}});
     KdTree3<Point3f> kdtree(ps);
-    kdtree.printKdTree(1);
+    kdtree.printKdTree();
     return;
 }
 
