@@ -241,11 +241,14 @@ namespace ns_geo
 
     public:
         KdTree2() = delete;
+
         KdTree2(const pointset_type &ps) : partent_type(exfDime2) { this->buildKdTree(ps); }
 
     private:
         virtual void buildKdTree(pointset_type ps) override
         {
+            if (ps.empty())
+                return;
             // find the feature that the stdevp is the largest
             float mean_x = 0.0f, mean_y = 0.0f;
             for (const auto &elem : ps)
@@ -303,6 +306,9 @@ namespace ns_geo
         }
     };
 
+    using KdTree2i = KdTree2<Point2i>;
+    using KdTree2f = KdTree2<Point2f>;
+    using KdTree2d = KdTree2<Point2d>;
 #pragma endregion
 
 #pragma region kdtree3
@@ -327,6 +333,8 @@ namespace ns_geo
     private:
         virtual void buildKdTree(pointset_type ps) override
         {
+            if (ps.empty())
+                return;
             // find the feature that the stdevp is the greatest
             float mean_x = 0.0f, mean_y = 0.0f, mean_z = 0.0f;
             for (const auto &elem : ps)
@@ -397,5 +405,70 @@ namespace ns_geo
         }
     };
 
+    using KdTree3i = KdTree3<Point3i>;
+    using KdTree3f = KdTree3<Point3f>;
+    using KdTree3d = KdTree3<Point3d>;
+#pragma endregion
+
+#pragma region refkdtree2
+    template <typename _PointType>
+    class RefKdTree2 : public KdTree2<_PointType>
+    {
+    public:
+        using refpoint_type = _PointType;
+        using value_type = typename refpoint_type::value_type;
+        using refpointset_type = RefPointSet2<value_type>;
+        using partent_type = KdTree2<refpoint_type>;
+
+    public:
+        RefKdTree2() = delete;
+        RefKdTree2(const refpointset_type &ps)
+            : partent_type(trans(ps)) {}
+
+    protected:
+        static std::vector<refpoint_type> trans(const refpointset_type &ps)
+        {
+            std::vector<refpoint_type> rps(ps.size());
+            int index = 0;
+            for (const auto &elem : ps)
+                rps[index++] = elem.second;
+            return rps;
+        }
+    };
+
+    using RefKdTree2i = RefKdTree2<RefPoint2i>;
+    using RefKdTree2f = RefKdTree2<RefPoint2f>;
+    using RefKdTree2d = RefKdTree2<RefPoint2d>;
+#pragma endregion
+
+#pragma region refkdtree3
+    template <typename _PointType>
+    class RefKdTree3 : public KdTree3<_PointType>
+    {
+    public:
+        using refpoint_type = _PointType;
+        using value_type = typename refpoint_type::value_type;
+        using refpointset_type = RefPointSet3<value_type>;
+        using partent_type = KdTree3<refpoint_type>;
+
+    public:
+        RefKdTree3() = delete;
+        RefKdTree3(const refpointset_type &ps)
+            : partent_type(trans(ps)) {}
+
+    protected:
+        static std::vector<refpoint_type> trans(const refpointset_type &ps)
+        {
+            std::vector<refpoint_type> rps(ps.size());
+            int index = 0;
+            for (const auto &elem : ps)
+                rps[index++] = elem.second;
+            return rps;
+        }
+    };
+
+    using RefKdTree3i = RefKdTree3<RefPoint3i>;
+    using RefKdTree3f = RefKdTree3<RefPoint3f>;
+    using RefKdTree3d = RefKdTree3<RefPoint3d>;
 #pragma endregion
 } // namespace ns_geo

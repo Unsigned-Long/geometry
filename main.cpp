@@ -19,13 +19,14 @@ using namespace ns_geo;
 
 void foo_kdtree()
 {
-    PointSet3f ps({{3, 1, 4},
-                   {2, 3, 7},
-                   {2, 0, 3},
-                   {2, 4, 5},
-                   {1, 4, 4},
-                   {0, 5, 7}});
-    KdTree3<Point3f> kdtree(ps);
+    RefPointSet3f ps;
+    ps.insert({0, 3, 1, 4});
+    ps.insert({1, 2, 3, 7});
+    ps.insert({2, 2, 0, 3});
+    ps.insert({3, 2, 4, 5});
+    ps.insert({4, 1, 4, 4});
+    ps.insert({5, 0, 5, 7});
+    RefKdTree3f kdtree(ps);
     kdtree.printKdTree();
     return;
 }
