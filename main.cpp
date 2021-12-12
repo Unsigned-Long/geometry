@@ -21,25 +21,20 @@ using namespace ns_geo;
 
 void foo_kdtreeNearestKSearch()
 {
-    std::default_random_engine e;
-    std::uniform_real_distribution<float> u(-100.0f, 100.0f);
-    PointSet2f ps;
-    std::fstream file1("../pyDrawer/kdtree/nearest1.csv", std::ios::out);
-    std::fstream file2("../pyDrawer/kdtree/nearest2.csv", std::ios::out);
-    for (int i = 0; i != 50; ++i)
-    {
-        ps.push_back({u(e), u(e)});
-        file1 << ps.back().x() << ',' << ps.back().y() << std::endl;
-    }
-    KdTree2f kdtree(ps);
+    RefPointSet2f ps;
+    ps.insert({0, {2, 3}});
+    ps.insert({1, {5, 4}});
+    ps.insert({2, {9, 6}});
+    ps.insert({3, {4, 7}});
+    ps.insert({4, {8, 1}});
+    ps.insert({5, {7, 2}});
+    RefKdTree2f kdtree(ps);
+    kdtree.printKdTree();
+    std::vector<RefPoint2f> sps;
     std::vector<float> dis;
-    std::vector<Point2f> sps;
-    kdtree.nearestKSearch({0, 0}, 5, sps, dis);
-    for (int i = 0; i != dis.size(); ++i)
-        file2 << sps.at(i).x() << ',' << sps.at(i).y() << ',' << dis.at(i) << std::endl;
-    return;
+    kdtree.nearestKSearch({2, 4.5}, 1, sps, dis);
+    std::cout << sps.front() << ' ' << dis.front() << std::endl;
 }
-
 
 int main(int argc, char *argv[])
 {
