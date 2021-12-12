@@ -209,9 +209,20 @@ namespace ns_geo
             return;
         }
 
+        /**
+         * @brief get the root of the kdtree
+         * 
+         * @return const node_ptr& 
+         */
         inline const node_ptr &root() const { return this->_root; }
 
+        /**
+         * @brief get the nodes' number on the kdtree
+         * 
+         * @return std::size_t 
+         */
         inline std::size_t size() const { return this->_size; }
+
         /**
          * @brief Search nearest K points from the search on the kdtree
          * 
@@ -228,7 +239,6 @@ namespace ns_geo
             {
                 /**
                  * @brief if the K is greater than the size of the kdtree, than add all points to the 'ps'
-                 * 
                  */
                 K = _size;
                 std::vector<node_ptr> nodes;
@@ -247,6 +257,7 @@ namespace ns_geo
             std::unordered_set<node_ptr> mainPath;
             node_ptr tempNode = this->_root;
 
+            // get the nodes on the search path
             while (tempNode != nullptr)
             {
                 searchPath.push(tempNode);
@@ -258,7 +269,10 @@ namespace ns_geo
                     tempNode = tempNode->_rn;
             }
 
+            // keep the point and the distance from the search point
+            // [point, distance]
             std::vector<std::pair<point_type, float>> record;
+            // the max distance in the 'record' vector
             float furthestDis = 0.0f;
 
             while (!searchPath.empty())
@@ -269,28 +283,38 @@ namespace ns_geo
                 auto curDis = distance(curNode->_p, searchPoint);
                 if (record.size() < K)
                 {
+                    // if the size of the 'record' is less than 'K', than add the point to the 'record'
                     record.push_back(std::make_pair(curNode->_p, curDis));
+                    // update the max distance
                     if (furthestDis < curDis)
                         furthestDis = curDis;
                 }
                 else
                 {
+                    // if the size of the 'record' is equals to the 'K'
+
+                    // if the current distance if less than the max distance in the 'record'
                     if (curDis < furthestDis)
                     {
+                        // find the point whose distance is max from the search point
                         std::sort(record.begin(), record.end(), [](const auto &p1, const auto &p2)
                                   { return p1.second < p2.second; });
 
+                        // remove the max point and add the new point
                         record.back().first = curNode->_p;
                         record.back().second = curDis;
+
+                        // update the max distance
                         auto sedFurthestDis = (--(--record.cend()))->second;
                         furthestDis = std::max(sedFurthestDis, curDis);
                     }
                 }
 
-                // is the main path node
+                // if current node is the main path node and it is intersect with the [search point] judged by the max distance
                 if (mainPath.find(curNode) != mainPath.cend() &&
                     isIntersect(searchPoint, curNode->_p, furthestDis, curNode->_sf))
                 {
+                    // add nodes on the other side of the tree
                     std::vector<node_ptr> nodes;
                     if (atLeftTree(searchPoint, curNode->_p, curNode->_sf))
                         nodesOnRootNode(curNode->_rn, nodes);
@@ -301,6 +325,7 @@ namespace ns_geo
                 }
             }
 
+            // fill the 'ps' and 'dis' vectors
             ps.resize(K), dis.resize(K);
             for (int i = 0; i != K; ++i)
                 ps.at(i) = record.at(i).first, dis.at(i) = record.at(i).second;
@@ -674,6 +699,7 @@ namespace ns_geo
     public:
         using refpoint_type = _PointType;
         using value_type = typename refpoint_type::value_type;
+        using point_type = Point2<value_type>;
         using refpointset_type = RefPointSet2<value_type>;
         using partent_type = KdTree2<refpoint_type>;
 
@@ -681,6 +707,33 @@ namespace ns_geo
         RefKdTree2() = delete;
         RefKdTree2(const refpointset_type &ps)
             : partent_type(trans(ps)) {}
+
+        /**
+         * @brief Search nearest K points from the search on the kdtree
+         * 
+         * @param searchPoint the target search point
+         * @param K the number of the nearest points
+         * @param ps the point vector to save the search result
+         * @param dis the distance
+         */
+        void nearestKSearch(const point_type &searchPoint, std::size_t K, std::vector<refpoint_type> &ps, std::vector<float> &dis) const
+        {
+            return partent_type::nearestKSearch({0, searchPoint.x(), searchPoint.y()}, K, ps, dis);
+        }
+
+        /**
+         * @brief Search  points whose distance from 
+         *        the search point is less than a specified distance on the kdtree
+         * 
+         * @param searchPoint the target search point
+         * @param radius the search radius
+         * @param ps the point vector to save the search result
+         * @param dis the distance
+         */
+        void radiusSearch(const point_type &searchPoint, float radius, std::vector<refpoint_type> &ps, std::vector<float> &dis) const
+        {
+            return partent_type::radiusSearch({0, searchPoint.x(), searchPoint.y()}, radius, ps, dis);
+        }
 
     protected:
         static std::vector<refpoint_type> trans(const refpointset_type &ps)
@@ -705,13 +758,42 @@ namespace ns_geo
     public:
         using refpoint_type = _PointType;
         using value_type = typename refpoint_type::value_type;
+        using point_type = Point3<value_type>;
         using refpointset_type = RefPointSet3<value_type>;
         using partent_type = KdTree3<refpoint_type>;
 
     public:
         RefKdTree3() = delete;
+
         RefKdTree3(const refpointset_type &ps)
             : partent_type(trans(ps)) {}
+
+        /**
+         * @brief Search nearest K points from the search on the kdtree
+         * 
+         * @param searchPoint the target search point
+         * @param K the number of the nearest points
+         * @param ps the point vector to save the search result
+         * @param dis the distance
+         */
+        void nearestKSearch(const point_type &searchPoint, std::size_t K, std::vector<refpoint_type> &ps, std::vector<float> &dis) const
+        {
+            return partent_type::nearestKSearch({0, searchPoint.x(), searchPoint.y(), searchPoint.z()}, K, ps, dis);
+        }
+
+        /**
+         * @brief Search  points whose distance from 
+         *        the search point is less than a specified distance on the kdtree
+         * 
+         * @param searchPoint the target search point
+         * @param radius the search radius
+         * @param ps the point vector to save the search result
+         * @param dis the distance
+         */
+        void radiusSearch(const point_type &searchPoint, float radius, std::vector<refpoint_type> &ps, std::vector<float> &dis) const
+        {
+            return partent_type::radiusSearch({0, searchPoint.x(), searchPoint.y(), searchPoint.z()}, radius, ps, dis);
+        }
 
     protected:
         static std::vector<refpoint_type> trans(const refpointset_type &ps)
