@@ -11,6 +11,8 @@
 
 #include "point.hpp"
 #include <memory>
+#include <stack>
+#include <unordered_set>
 
 namespace ns_geo
 {
@@ -50,6 +52,87 @@ namespace ns_geo
         return os;
     }
 
+    template <typename _Ty>
+    bool atLeftTree(const Point2<_Ty> &p1, const Point2<_Ty> &p2, SplitFeature sf)
+    {
+        bool bl;
+        switch (sf)
+        {
+        case SplitFeature::X:
+            bl = p1.x() < p2.x() ? true : false;
+            break;
+        case SplitFeature::Y:
+            bl = p1.y() < p2.y() ? true : false;
+            break;
+        default:
+            bl = p1.x() < p2.x() ? true : false;
+            break;
+        }
+        return bl;
+    }
+
+    template <typename _Ty>
+    bool atLeftTree(const Point3<_Ty> &p1, const Point3<_Ty> &p2, SplitFeature sf)
+    {
+        bool bl;
+        switch (sf)
+        {
+        case SplitFeature::X:
+            bl = p1.x() < p2.x() ? true : false;
+            break;
+        case SplitFeature::Y:
+            bl = p1.y() < p2.y() ? true : false;
+            break;
+        case SplitFeature::Z:
+            bl = p1.z() < p2.z() ? true : false;
+            break;
+        default:
+            bl = p1.x() < p2.x() ? true : false;
+            break;
+        }
+        return bl;
+    }
+
+    template <typename _Ty>
+    bool isIntersect(const Point2<_Ty> &searchPoint, const Point2<_Ty> &nodePoint, float radius, SplitFeature sf)
+    {
+        bool bl;
+        switch (sf)
+        {
+        case SplitFeature::X:
+            bl = std::abs(searchPoint.x() - nodePoint.x()) < radius ? true : false;
+            break;
+        case SplitFeature::Y:
+            bl = std::abs(searchPoint.y() - nodePoint.y()) < radius ? true : false;
+            break;
+        default:
+            bl = std::abs(searchPoint.x() - nodePoint.x()) < radius ? true : false;
+            break;
+        }
+        return bl;
+    }
+
+    template <typename _Ty>
+    bool isIntersect(const Point3<_Ty> &searchPoint, const Point3<_Ty> &nodePoint, float radius, SplitFeature sf)
+    {
+        bool bl;
+        switch (sf)
+        {
+        case SplitFeature::X:
+            bl = std::abs(searchPoint.x() - nodePoint.x()) < radius ? true : false;
+            break;
+        case SplitFeature::Y:
+            bl = std::abs(searchPoint.y() - nodePoint.y()) < radius ? true : false;
+            break;
+        case SplitFeature::Z:
+            bl = std::abs(searchPoint.z() - nodePoint.z()) < radius ? true : false;
+            break;
+        default:
+            bl = std::abs(searchPoint.x() - nodePoint.x()) < radius ? true : false;
+            break;
+        }
+        return bl;
+    }
     /**
      * @brief the node used in the kdtree
      * 
@@ -108,7 +191,7 @@ namespace ns_geo
     public:
         KdTree() = delete;
 
-        KdTree(exchange_sf ef) : _ef(ef) {}
+        KdTree(exchange_sf ef) : _root(nullptr), _ef(ef) {}
 
         /**
          * @brief print the kdtree by some order
@@ -117,23 +200,72 @@ namespace ns_geo
          */
         void printKdTree(int mode = 1, std::ostream &os = std::cout, bool el = true) const
         {
-            switch (mode)
-            {
-            case 1:
-                this->printKdTree1(this->_root, os);
-                break;
-            case 2:
-                this->printKdTree2(this->_root, os);
-                break;
-            case 3:
-                this->printKdTree3(this->_root, os);
-                break;
-            default:
-                this->printKdTree1(this->_root, os);
-                break;
-            }
+            printKdTree(_root, os, mode);
             if (el)
                 os << '\n';
+            return;
+        }
+
+        const node_ptr &root() const { return this->_root; }
+
+        /**
+         * @brief Search  points whose distance from 
+         *        the search point is less than a specified distance on the kdtree
+         * 
+         * @param searchPoint the target search point
+         * @param radius the search radius
+         * @param ps the point vector to save the search result
+         * @param dis the distance
+         */
+        
+        void radiusSearch(const point_type &searchPoint, float radius, std::vector<point_type> &ps, std::vector<float> &dis) const
+        {
+            if (radius <= 0.0)
+                return;
+            // according binary search rule, get the initial seatch path
+            std::stack<node_ptr> searchPath;
+            node_ptr tempNode = this->_root;
+            while (tempNode != nullptr)
+            {
+                searchPath.push(tempNode);
+
+                if (atLeftTree(searchPoint, tempNode->_p, tempNode->_sf))
+                    tempNode = tempNode->_ln;
+                else
+                    tempNode = tempNode->_rn;
+            }
+
+            // search points
+            std::unordered_set<node_ptr> searchPathRecord;
+            while (!searchPath.empty())
+            {
+                auto curNode = searchPath.top();
+                searchPath.pop();
+
+                auto d = distance(curNode->_p, searchPoint);
+                if (d <= radius)
+                    ps.push_back(curNode->_p), dis.push_back(d);
+
+                /**
+                 * @brief if the current node is not a leaf node and 
+                 *        is intersect with the search and
+                 *        is not in the search recording set,
+                 *        than add it's sub nodes to the search path
+                 * 
+                 */
+                if (!isLeafNode(curNode) &&
+                    isIntersect(searchPoint, curNode->_p, radius, curNode->_sf) &&
+                    searchPathRecord.find(curNode) == searchPathRecord.cend())
+                {
+                    std::vector<node_ptr> nodes;
+                    if (atLeftTree(searchPoint, curNode->_p, curNode->_sf))
+                        nodesOnRootNode(curNode->_rn, nodes);
+                    else
+                        nodesOnRootNode(curNode->_ln, nodes);
+                    for (const auto &elem : nodes)
+                        searchPath.push(elem), searchPathRecord.insert(curNode);
+                }
+            }
             return;
         }
 
@@ -143,7 +275,8 @@ namespace ns_geo
          * 
          * @param ps the point set
          */
-        virtual void buildKdTree(pointset_type ps) = 0;
+        virtual void
+        buildKdTree(pointset_type ps) = 0;
 
         /**
          * @brief Sort the point set with a dimension as a reference
@@ -185,33 +318,59 @@ namespace ns_geo
             }
         }
 
-        void printKdTree1(const node_ptr &n, std::ostream &os) const
+        void printKdTree(const node_ptr &n, std::ostream &os, int mode) const
         {
             if (n == nullptr)
                 return;
-            os << n->_p << ':' << n->_sf << ' ';
-            this->printKdTree1(n->_ln, os);
-            this->printKdTree1(n->_rn, os);
+            switch (mode)
+            {
+            case 1:
+            {
+                os << n->_p << ':' << n->_sf << ' ';
+                this->printKdTree(n->_ln, os, mode);
+                this->printKdTree(n->_rn, os, mode);
+            }
+            break;
+            case 2:
+            {
+                this->printKdTree(n->_ln, os, mode);
+                os << n->_p << ':' << n->_sf << ' ';
+                this->printKdTree(n->_rn, os, mode);
+            }
+            break;
+            case 3:
+            {
+                this->printKdTree(n->_ln, os, mode);
+                this->printKdTree(n->_rn, os, mode);
+                os << n->_p << ':' << n->_sf << ' ';
+            }
+            break;
+            default:
+            {
+                os << n->_p << ':' << n->_sf << ' ';
+                this->printKdTree(n->_ln, os, mode);
+                this->printKdTree(n->_rn, os, mode);
+            }
+            break;
+            }
             return;
         }
 
-        void printKdTree2(const node_ptr &n, std::ostream &os) const
+        bool isLeafNode(const node_ptr &n) const
         {
-            if (n == nullptr)
-                return;
-            this->printKdTree2(n->_ln, os);
-            os << n->_p << ':' << n->_sf << ' ';
-            this->printKdTree2(n->_rn, os);
-            return;
+            if (n->_ln == nullptr && n->_rn == nullptr)
+                return true;
+            else
+                return false;
         }
 
-        void printKdTree3(const node_ptr &n, std::ostream &os) const
+        void nodesOnRootNode(const node_ptr &node, std::vector<node_ptr> &nodes) const
         {
-            if (n == nullptr)
+            if (node == nullptr)
                 return;
-            this->printKdTree3(n->_ln, os);
-            this->printKdTree3(n->_rn, os);
-            os << n->_p << ':' << n->_sf << ' ';
+            nodesOnRootNode(node->_ln, nodes);
+            nodesOnRootNode(node->_rn, nodes);
+            nodes.push_back(node);
             return;
         }
     };
