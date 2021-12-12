@@ -29,6 +29,8 @@
 
 <img src="./imgs/polygon.png" width="50%"><img src="./imgs/triangle.png" width="50%">
 
+<img src="./imgs/kdtree_rs_50.png" width="48.7%"><img src="./imgs/kdtree_rs_65.png" width="51.3%">
+
 ## ***5. Using example***
 
 ### <kbd>__Point2<_Ty>___</kbd>
@@ -692,6 +694,30 @@ void foo_refkdtree()
 }
 /** output
  * {4: [1, 4, 4]}:[Y] {0: [3, 1, 4]}:[Z] {2: [2, 0, 3]}:[X] {1: [2, 3, 7]}:[X] {5: [0, 5, 7]}:[Z] {3: [2, 4, 5]}:[X]
+ */
+void foo_kdtreeRadiusSearch()
+{
+    PointSet2f ps({{2, 3},
+                   {5, 4},
+                   {9, 6},
+                   {4, 7},
+                   {8, 1},
+                   {7, 2}});
+    KdTree2f Kdtree(ps);
+    Kdtree.printKdTree();
+    std::vector<float> dis;
+    std::vector<Point2f> sps;
+    Kdtree.radiusSearch({6, 5}, 4, sps, dis);
+    for (int i = 0; i != dis.size(); ++i)
+        std::cout << sps.at(i) << ' ' << dis.at(i) << std::endl;
+    return;
+}
+/** output
+ * [7, 2]:[X] [5, 4]:[Y] [2, 3]:[X] [4, 7]:[X] [9, 6]:[Y] [8, 1]:[X] 
+ * [4, 7] 2.82843
+ * [5, 4] 1.41421
+ * [7, 2] 3.16228
+ * [9, 6] 3.16228
  */
 ```
 
