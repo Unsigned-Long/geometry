@@ -31,6 +31,8 @@
 
 <img src="./imgs/kdtree_rs_50.png" width="48.7%"><img src="./imgs/kdtree_rs_65.png" width="51.3%">
 
+<img src="./imgs/kdtree_ns_5.png" width="50.2%"><img src="./imgs/kdtree_ns_10.png" width="49.8%">
+
 ## ***5. Using example***
 
 ### <kbd>__Point2<_Ty>___</kbd>
@@ -719,6 +721,26 @@ void foo_kdtreeRadiusSearch()
  * [7, 2] 3.16228
  * [9, 6] 3.16228
  */
+void foo_kdtreeNearestKSearch()
+{
+    std::default_random_engine e;
+    std::uniform_real_distribution<float> u(-100.0f, 100.0f);
+    PointSet2f ps;
+    std::fstream file1("../pyDrawer/kdtree/nearest1.csv", std::ios::out);
+    std::fstream file2("../pyDrawer/kdtree/nearest2.csv", std::ios::out);
+    for (int i = 0; i != 50; ++i)
+    {
+        ps.push_back({u(e), u(e)});
+        file1 << ps.back().x() << ',' << ps.back().y() << std::endl;
+    }
+    KdTree2f kdtree(ps);
+    std::vector<float> dis;
+    std::vector<Point2f> sps;
+    kdtree.nearestKSearch({0, 0}, 6, sps, dis);
+    for (int i = 0; i != dis.size(); ++i)
+        file2 << sps.at(i).x() << ',' << sps.at(i).y() << ',' << dis.at(i) << std::endl;
+    return;
+}
 ```
 
 For other implementation details, please refer to the source code.

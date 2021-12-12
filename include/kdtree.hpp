@@ -13,6 +13,7 @@
 #include <memory>
 #include <stack>
 #include <unordered_set>
+#include <iterator>
 
 namespace ns_geo
 {
@@ -100,13 +101,13 @@ namespace ns_geo
         switch (sf)
         {
         case SplitFeature::X:
-            bl = std::abs(searchPoint.x() - nodePoint.x()) < radius ? true : false;
+            bl = std::abs(searchPoint.x() - nodePoint.x()) > radius ? false : true;
             break;
         case SplitFeature::Y:
-            bl = std::abs(searchPoint.y() - nodePoint.y()) < radius ? true : false;
+            bl = std::abs(searchPoint.y() - nodePoint.y()) > radius ? false : true;
             break;
         default:
-            bl = std::abs(searchPoint.x() - nodePoint.x()) < radius ? true : false;
+            bl = std::abs(searchPoint.x() - nodePoint.x()) > radius ? false : true;
             break;
         }
         return bl;
@@ -119,16 +120,16 @@ namespace ns_geo
         switch (sf)
         {
         case SplitFeature::X:
-            bl = std::abs(searchPoint.x() - nodePoint.x()) < radius ? true : false;
+            bl = std::abs(searchPoint.x() - nodePoint.x()) > radius ? false : true;
             break;
         case SplitFeature::Y:
-            bl = std::abs(searchPoint.y() - nodePoint.y()) < radius ? true : false;
+            bl = std::abs(searchPoint.y() - nodePoint.y()) > radius ? false : true;
             break;
         case SplitFeature::Z:
-            bl = std::abs(searchPoint.z() - nodePoint.z()) < radius ? true : false;
+            bl = std::abs(searchPoint.z() - nodePoint.z()) > radius ? false : true;
             break;
         default:
-            bl = std::abs(searchPoint.x() - nodePoint.x()) < radius ? true : false;
+            bl = std::abs(searchPoint.x() - nodePoint.x()) < radius ? false : true;
             break;
         }
         return bl;
@@ -187,11 +188,13 @@ namespace ns_geo
         node_ptr _root;
         // the exchange feature function
         exchange_sf _ef;
+        // the nodes's number on the kdtree
+        std::size_t _size;
 
     public:
         KdTree() = delete;
 
-        KdTree(exchange_sf ef) : _root(nullptr), _ef(ef) {}
+        KdTree(exchange_sf ef, std::size_t size) : _root(nullptr), _ef(ef), _size(size) {}
 
         /**
          * @brief print the kdtree by some order
@@ -206,7 +209,104 @@ namespace ns_geo
             return;
         }
 
-        const node_ptr &root() const { return this->_root; }
+        inline const node_ptr &root() const { return this->_root; }
+
+        inline std::size_t size() const { return this->_size; }
+        /**
+         * @brief Search nearest K points from the search on the kdtree
+         * 
+         * @param searchPoint the target search point
+         * @param K the number of the nearest points
+         * @param ps the point vector to save the search result
+         * @param dis the distance
+         */
+        void nearestKSearch(const point_type &searchPoint, std::size_t K, std::vector<point_type> &ps, std::vector<float> &dis) const
+        {
+            if (K == 0 || this->_size == 0)
+                return;
+            else if (K >= _size)
+            {
+                /**
+                 * @brief if the K is greater than the size of the kdtree, than add all points to the 'ps'
+                 * 
+                 */
+                K = _size;
+                std::vector<node_ptr> nodes;
+                nodesOnRootNode(_root, nodes);
+
+                ps.resize(K), dis.resize(K);
+
+                for (int i = 0; i != K; ++i)
+                    ps.at(i) = nodes.at(i)->_p, dis.at(i) = distance(nodes.at(i)->_p, searchPoint);
+
+                return;
+            }
+
+            // according binary search rule, get the initial seatch path
+            std::stack<node_ptr> searchPath;
+            std::unordered_set<node_ptr> mainPath;
+            node_ptr tempNode = this->_root;
+
+            while (tempNode != nullptr)
+            {
+                searchPath.push(tempNode);
+                mainPath.insert(tempNode);
+
+                if (atLeftTree(searchPoint, tempNode->_p, tempNode->_sf))
+                    tempNode = tempNode->_ln;
+                else
+                    tempNode = tempNode->_rn;
+            }
+
+            std::vector<std::pair<point_type, float>> record;
+            float furthestDis = 0.0f;
+
+            while (!searchPath.empty())
+            {
+                auto curNode = searchPath.top();
+                searchPath.pop();
+
+                auto curDis = distance(curNode->_p, searchPoint);
+                if (record.size() < K)
+                {
+                    record.push_back(std::make_pair(curNode->_p, curDis));
+                    if (furthestDis < curDis)
+                        furthestDis = curDis;
+                }
+                else
+                {
+                    if (curDis < furthestDis)
+                    {
+                        std::sort(record.begin(), record.end(), [](const auto &p1, const auto &p2)
+                                  { return p1.second < p2.second; });
+
+                        record.back().first = curNode->_p;
+                        record.back().second = curDis;
+                        auto sedFurthestDis = (--(--record.cend()))->second;
+                        furthestDis = std::max(sedFurthestDis, curDis);
+                    }
+                }
+
+                // is the main path node
+                if (mainPath.find(curNode) != mainPath.cend() &&
+                    isIntersect(searchPoint, curNode->_p, furthestDis, curNode->_sf))
+                {
+                    std::vector<node_ptr> nodes;
+                    if (atLeftTree(searchPoint, curNode->_p, curNode->_sf))
+                        nodesOnRootNode(curNode->_rn, nodes);
+                    else
+                        nodesOnRootNode(curNode->_ln, nodes);
+                    for (const auto &elem : nodes)
+                        searchPath.push(elem);
+                }
+            }
+
+            ps.resize(K), dis.resize(K);
+            for (int i = 0; i != K; ++i)
+                ps.at(i) = record.at(i).first, dis.at(i) = record.at(i).second;
+
+            return;
+        }
 
         /**
          * @brief Search  points whose distance from 
@@ -217,17 +317,19 @@ namespace ns_geo
          * @param ps the point vector to save the search result
          * @param dis the distance
          */
-        
         void radiusSearch(const point_type &searchPoint, float radius, std::vector<point_type> &ps, std::vector<float> &dis) const
         {
-            if (radius <= 0.0)
+            if (radius <= 0.0 || this->_size == 0)
                 return;
             // according binary search rule, get the initial seatch path
             std::stack<node_ptr> searchPath;
+            std::unordered_set<node_ptr> mainPath;
             node_ptr tempNode = this->_root;
+
             while (tempNode != nullptr)
             {
                 searchPath.push(tempNode);
+                mainPath.insert(tempNode);
 
                 if (atLeftTree(searchPoint, tempNode->_p, tempNode->_sf))
                     tempNode = tempNode->_ln;
@@ -236,7 +338,6 @@ namespace ns_geo
             }
 
             // search points
-            std::unordered_set<node_ptr> searchPathRecord;
             while (!searchPath.empty())
             {
                 auto curNode = searchPath.top();
@@ -247,15 +348,13 @@ namespace ns_geo
                     ps.push_back(curNode->_p), dis.push_back(d);
 
                 /**
-                 * @brief if the current node is not a leaf node and 
-                 *        is intersect with the search and
-                 *        is not in the search recording set,
+                 * @brief if the current node is the main node and 
+                 *        is intersect with the search point,
                  *        than add it's sub nodes to the search path
                  * 
                  */
-                if (!isLeafNode(curNode) &&
-                    isIntersect(searchPoint, curNode->_p, radius, curNode->_sf) &&
-                    searchPathRecord.find(curNode) == searchPathRecord.cend())
+                if (mainPath.find(curNode) != mainPath.cend() &&
+                    isIntersect(searchPoint, curNode->_p, radius, curNode->_sf))
                 {
                     std::vector<node_ptr> nodes;
                     if (atLeftTree(searchPoint, curNode->_p, curNode->_sf))
@@ -263,7 +362,7 @@ namespace ns_geo
                     else
                         nodesOnRootNode(curNode->_ln, nodes);
                     for (const auto &elem : nodes)
-                        searchPath.push(elem), searchPathRecord.insert(curNode);
+                        searchPath.push(elem);
                 }
             }
             return;
@@ -275,8 +374,7 @@ namespace ns_geo
          * 
          * @param ps the point set
          */
-        virtual void
-        buildKdTree(pointset_type ps) = 0;
+        virtual void buildKdTree(pointset_type ps) = 0;
 
         /**
          * @brief Sort the point set with a dimension as a reference
@@ -401,7 +499,7 @@ namespace ns_geo
     public:
         KdTree2() = delete;
 
-        KdTree2(const pointset_type &ps) : partent_type(exfDime2) { this->buildKdTree(ps); }
+        KdTree2(const pointset_type &ps) : partent_type(exfDime2, ps.size()) { this->buildKdTree(ps); }
 
     private:
         virtual void buildKdTree(pointset_type ps) override
@@ -487,7 +585,7 @@ namespace ns_geo
     public:
         KdTree3() = delete;
 
-        KdTree3(const pointset_type &ps) : partent_type(exfDime3) { this->buildKdTree(ps); }
+        KdTree3(const pointset_type &ps) : partent_type(exfDime3, ps.size()) { this->buildKdTree(ps); }
 
     private:
         virtual void buildKdTree(pointset_type ps) override
