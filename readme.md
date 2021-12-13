@@ -33,6 +33,8 @@
 
 <img src="./imgs/kdtree_ns_5.png" width="50.2%"><img src="./imgs/kdtree_ns_10.png" width="49.8%">
 
+<img src="./imgs/convex.png" width="49.8%">
+
 ## ***5. Using example***
 
 ### <kbd>__Point2<_Ty>___</kbd>
