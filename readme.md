@@ -663,7 +663,7 @@ void foo_distance()
  */
 ```
 
-### <kbd>__kdtree___</kbd>  
+### <kbd>__kdtree__</kbd>  
 
 ```cpp
 void foo_kdtree()

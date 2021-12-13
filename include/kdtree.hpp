@@ -296,17 +296,26 @@ namespace ns_geo
                     // if the current distance if less than the max distance in the 'record'
                     if (curDis < furthestDis)
                     {
-                        // find the point whose distance is max from the search point
-                        std::sort(record.begin(), record.end(), [](const auto &p1, const auto &p2)
-                                  { return p1.second < p2.second; });
+                        // find the point whose distance is [max|sedmax] from the search point
 
-                        // remove the max point and add the new point
-                        record.back().first = curNode->_p;
-                        record.back().second = curDis;
+                        auto maxIter = record.begin();
+                        auto sedMaxIter = record.begin();
+                        for (auto iter = record.begin(); iter != record.end(); ++iter)
+                        {
+                            if (maxIter->second < iter->second)
+                                maxIter = iter;
+                            else if (sedMaxIter->second < iter->second)
+                                sedMaxIter = iter;
+                            else
+                                continue;
+                        }
+
+                        // update the point
+                        maxIter->first = curNode->_p;
+                        maxIter->second = curDis;
 
                         // update the max distance
-                        auto sedFurthestDis = (--(--record.cend()))->second;
-                        furthestDis = std::max(sedFurthestDis, curDis);
+                        furthestDis = std::max(sedMaxIter->second, curDis);
                     }
                 }
 
