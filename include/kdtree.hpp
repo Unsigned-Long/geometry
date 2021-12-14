@@ -597,9 +597,6 @@ namespace ns_geo
         }
     };
 
-    using KdTree2i = KdTree2<Point2i>;
-    using KdTree2f = KdTree2<Point2f>;
-    using KdTree2d = KdTree2<Point2d>;
 #pragma endregion
 
 #pragma region kdtree3
@@ -696,9 +693,6 @@ namespace ns_geo
         }
     };
 
-    using KdTree3i = KdTree3<Point3i>;
-    using KdTree3f = KdTree3<Point3f>;
-    using KdTree3d = KdTree3<Point3d>;
 #pragma endregion
 
 #pragma region refkdtree2
@@ -755,9 +749,7 @@ namespace ns_geo
         }
     };
 
-    using RefKdTree2i = RefKdTree2<RefPoint2i>;
-    using RefKdTree2f = RefKdTree2<RefPoint2f>;
-    using RefKdTree2d = RefKdTree2<RefPoint2d>;
+
 #pragma endregion
 
 #pragma region refkdtree3
@@ -815,8 +807,5 @@ namespace ns_geo
         }
     };
 
-    using RefKdTree3i = RefKdTree3<RefPoint3i>;
-    using RefKdTree3f = RefKdTree3<RefPoint3f>;
-    using RefKdTree3d = RefKdTree3<RefPoint3d>;
 #pragma endregion
 } // namespace ns_geo

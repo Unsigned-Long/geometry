@@ -203,10 +203,35 @@ namespace ns_geo
     using RefLineString3d = RefLineString3<double>;
     using RefLineString3f = RefLineString3<float>;
     using RefLineString3i = RefLineString3<int>;
+
+    template <typename _PointType>
+    class KdTree2;
+    using KdTree2i = KdTree2<Point2i>;
+    using KdTree2f = KdTree2<Point2f>;
+    using KdTree2d = KdTree2<Point2d>;
+
+    template <typename _PointType>
+    class KdTree3;
+    using KdTree3i = KdTree3<Point3i>;
+    using KdTree3f = KdTree3<Point3f>;
+    using KdTree3d = KdTree3<Point3d>;
+
+    template <typename _PointType>
+    class RefKdTree2;
+    using RefKdTree2i = RefKdTree2<RefPoint2i>;
+    using RefKdTree2f = RefKdTree2<RefPoint2f>;
+    using RefKdTree2d = RefKdTree2<RefPoint2d>;
+
+    template <typename _PointType>
+    class RefKdTree3;
+    using RefKdTree3i = RefKdTree3<RefPoint3i>;
+    using RefKdTree3f = RefKdTree3<RefPoint3f>;
+    using RefKdTree3d = RefKdTree3<RefPoint3d>;
+
 #pragma endregion
 
 #pragma region helpers
-    /**
+        /**
      * @brief calculate the stride between the 'from' point to the 'to' point
      * 
      * @tparam _Ty the type of value
@@ -214,8 +239,8 @@ namespace ns_geo
      * @param to the end point
      * @return std::array<_Ty, 3> return a array contains three elements
      */
-    template <typename _Ty>
-    std::array<_Ty, 2> stride(const Point2<_Ty> &from, const Point2<_Ty> &to)
+        template <typename _Ty>
+        std::array<_Ty, 2> stride(const Point2<_Ty> &from, const Point2<_Ty> &to)
     {
         return std::array<_Ty, 2>{to.x() - from.x(), to.y() - from.y()};
     }
