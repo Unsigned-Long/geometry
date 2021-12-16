@@ -8,36 +8,20 @@
  */
 
 #include "point.hpp"
-#include "triangle.hpp"
 #include "line.hpp"
-#include "rectangle.hpp"
-#include "polygon.hpp"
-#include "linestring.hpp"
-#include "kdtree.hpp"
-#include <random>
-#include <fstream>
 
 using namespace ns_geo;
 
-void foo_kdtreeNearestKSearch()
+void foo()
 {
-    RefPointSet2f ps;
-    ps.insert({0, {2, 3}});
-    ps.insert({1, {5, 4}});
-    ps.insert({2, {9, 6}});
-    ps.insert({3, {4, 7}});
-    ps.insert({4, {8, 1}});
-    ps.insert({5, {7, 2}});
-    RefKdTree2f kdtree(ps);
-    kdtree.printKdTree();
-    std::vector<RefPoint2f> sps;
-    std::vector<float> dis;
-    kdtree.nearestKSearch({2, 4.5}, 1, sps, dis);
-    std::cout << sps.front() << ' ' << dis.front() << std::endl;
+    Point2f p1(0.0, 0.0), p2(0.0, 1.0), p3(1.0, 0.0);
+    std::cout << ns_geo::LHandRule::palleft(p3, Line2f(p1, p2)) << std::endl;
+    std::cout << ns_geo::LHandRule::palright(p3, Line2f(p1, p2)) << std::endl;
+    return;
 }
 
 int main(int argc, char *argv[])
 {
-    ::foo_kdtreeNearestKSearch();
+    ::foo();
     return 0;
 }
