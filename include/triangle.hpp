@@ -83,6 +83,22 @@ namespace ns_geo
                    ns_geo::distance(_p1, _p3) +
                    ns_geo::distance(_p2, _p3);
         }
+
+        /**
+         * @brief calculate the Circumscribed circle of the triangle
+         * 
+         * @return std::pair<Point2f, float> the center and the radius
+         */
+        std::pair<Point2f, float> circumCircle()
+        {
+            auto x1 = _p1.x(), y1 = _p1.y();
+            auto x2 = _p2.x(), y2 = _p2.y();
+            auto x3 = _p3.x(), y3 = _p3.y();
+            float a = ((y2 - y1) * (y3 * y3 - y1 * y1 + x3 * x3 - x1 * x1) - (y3 - y1) * (y2 * y2 - y1 * y1 + x2 * x2 - x1 * x1)) / (2.0 * ((x3 - x1) * (y2 - y1) - (x2 - x1) * (y3 - y1)));
+            float b = ((x2 - x1) * (x3 * x3 - x1 * x1 + y3 * y3 - y1 * y1) - (x3 - x1) * (x2 * x2 - x1 * x1 + y2 * y2 - y1 * y1)) / (2.0 * ((y3 - y1) * (x2 - x1) - (y2 - y1) * (x3 - x1)));
+            float r = std::sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b));
+            return std::make_pair(Point2f(a, b), r);
+        }
     };
     /**
      * \brief overload operator "<<" for Triangle2
@@ -245,6 +261,23 @@ namespace ns_geo
             return ns_geo::distance(p1, p2) +
                    ns_geo::distance(p1, p3) +
                    ns_geo::distance(p2, p3);
+        }
+
+        /**
+         * @brief calculate the Circumscribed circle of the triangle
+         * 
+         * @return std::pair<Point2f, float> the center and the radius
+         */
+        std::pair<Point2f, float> circumCircle()
+        {
+            auto p1 = this->p1(), p2 = this->p2(), p3 = this->p3();
+            auto x1 = p1.x(), y1 = p1.y();
+            auto x2 = p2.x(), y2 = p2.y();
+            auto x3 = p3.x(), y3 = p3.y();
+            float a = ((y2 - y1) * (y3 * y3 - y1 * y1 + x3 * x3 - x1 * x1) - (y3 - y1) * (y2 * y2 - y1 * y1 + x2 * x2 - x1 * x1)) / (2.0 * ((x3 - x1) * (y2 - y1) - (x2 - x1) * (y3 - y1)));
+            float b = ((x2 - x1) * (x3 * x3 - x1 * x1 + y3 * y3 - y1 * y1) - (x3 - x1) * (x2 * x2 - x1 * x1 + y2 * y2 - y1 * y1)) / (2.0 * ((y3 - y1) * (x2 - x1) - (y2 - y1) * (x3 - x1)));
+            float r = std::sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b));
+            return std::make_pair(Point2f(a, b), r);
         }
     };
     /**
