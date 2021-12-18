@@ -89,7 +89,7 @@ namespace ns_geo
          * 
          * @return std::pair<Point2f, float> the center and the radius
          */
-        std::pair<Point2f, float> circumCircle()
+        std::pair<Point2f, float> circumCircle() const
         {
             auto x1 = _p1.x(), y1 = _p1.y();
             auto x2 = _p2.x(), y2 = _p2.y();
@@ -268,7 +268,7 @@ namespace ns_geo
          * 
          * @return std::pair<Point2f, float> the center and the radius
          */
-        std::pair<Point2f, float> circumCircle()
+        std::pair<Point2f, float> circumCircle() const
         {
             auto p1 = this->p1(), p2 = this->p2(), p3 = this->p3();
             auto x1 = p1.x(), y1 = p1.y();
