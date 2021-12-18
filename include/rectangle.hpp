@@ -129,6 +129,10 @@ namespace ns_geo
 
         const refpoint_type &lowerRight() const { return _rps->at(this->_lwrpid); }
 
+        const id_type &topLeftID() const { return this->_tplpid; }
+
+        const id_type &lowerRightID() const { return this->_lwrpid; }
+
         float area() const
         {
             return std::abs(this->topLeft().x() - this->lowerRight().x()) *

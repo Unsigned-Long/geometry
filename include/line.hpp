@@ -173,6 +173,10 @@ namespace ns_geo
 
         const refpoint_type &p2() const { return this->_rps->at(this->_pid2); }
 
+        const id_type &pid1() const { return this->_pid1; }
+
+        const id_type &pid2() const { return this->_pid2; }
+
         ary_type refPoints() const { return ary_type{this->p1(), this->p2()}; }
 
         float length() const { return ns_geo::distance(p1(), p2()); }
@@ -233,6 +237,10 @@ namespace ns_geo
         const refpoint_type &p1() const { return this->_refpointset->at(this->_pid1); }
 
         const refpoint_type &p2() const { return this->_refpointset->at(this->_pid2); }
+
+        const id_type &pid1() const { return this->_pid1; }
+
+        const id_type &pid2() const { return this->_pid2; }
 
         ary_type refPoints() const { return ary_type{this->p1(), this->p2()}; }
 

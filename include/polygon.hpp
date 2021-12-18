@@ -120,6 +120,8 @@ namespace ns_geo
          */
         const refpoint_type &idAt(std::size_t id) { return this->_rps->at(id); }
 
+        const std::vector<uint> &pids() const { return *this; }
+
         float perimeter() const
         {
             float len = 0.0;

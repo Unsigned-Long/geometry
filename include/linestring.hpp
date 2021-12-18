@@ -137,10 +137,13 @@ namespace ns_geo
         {
             return this->_rps->at(this->at(index));
         }
+
         /**
          * \brief get the 'id' reference point in the line string's referenced refpointset
          */
         const refpoint_type &idAt(std::size_t id) { return this->_rps->at(id); }
+
+        const std::vector<uint> &pids() const { return *this; }
 
         float length() const
         {
@@ -211,10 +214,13 @@ namespace ns_geo
          * \brief get the 'index'st reference point in the line string
          */
         const refpoint_type &indexAt(std::size_t index) { return this->_rps->at(this->at(index)); }
+
         /**
          * \brief get the 'id' reference point in the line string's referenced refpointset
          */
         const refpoint_type &idAt(std::size_t id) { return this->_rps->at(id); }
+
+        const std::vector<uint> &pids() const { return *this; }
 
         float length() const
         {

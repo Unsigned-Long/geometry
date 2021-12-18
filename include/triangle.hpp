@@ -239,6 +239,12 @@ namespace ns_geo
 
         const refpoint_type &p3() const { return this->_rps->at(_pid3); }
 
+        const id_type &pid1() const { return this->_pid1; }
+
+        const id_type &pid2() const { return this->_pid2; }
+
+        const id_type &pid3() const { return this->_pid3; }
+
         ary_type refPoints() const { return ary_type{this->p1(), this->p2(), this->p3()}; }
 
         float area() const
@@ -341,6 +347,12 @@ namespace ns_geo
         const refpoint_type &p2() const { return this->_rps->at(_pid2); }
 
         const refpoint_type &p3() const { return this->_rps->at(_pid3); }
+
+        const id_type &pid1() const { return this->_pid1; }
+
+        const id_type &pid2() const { return this->_pid2; }
+
+        const id_type &pid3() const { return this->_pid3; }
 
         ary_type refPoints() const { return ary_type{this->p1(), this->p2(), this->p3()}; }
 
