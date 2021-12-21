@@ -24,7 +24,7 @@ namespace ns_geo
 {
 #pragma region Polygon
 
-    template <typename _Ty>
+    template <typename _Ty = float>
     class Polygon : public PointSet2<_Ty>, protected Geometry
     {
     public:
@@ -76,7 +76,7 @@ namespace ns_geo
 
 #pragma region RefPolygon
 
-    template <typename _Ty>
+    template <typename _Ty = float>
     class RefPolygon : public std::vector<uint>, protected RefGeometry
     {
     public:

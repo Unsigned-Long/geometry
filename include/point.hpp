@@ -420,7 +420,7 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefPoint2
-    template <typename _Ty>
+    template <typename _Ty = float>
     class RefPoint2 : public Point2<_Ty>, protected RefGeometry
     {
     public:
@@ -458,7 +458,7 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region RefPoint3
-    template <typename _Ty>
+    template <typename _Ty = float>
     class RefPoint3 : public Point3<_Ty>, protected RefGeometry
     {
     public:
