@@ -28,7 +28,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 2-dime lines
      */
     template <typename _Ty = float>
-    class Line2
+    class Line2 : protected Geometry
     {
     public:
         using value_type = _Ty;
@@ -66,6 +66,8 @@ namespace ns_geo
         float azimuthRHR() const { return ns_geo::RHandRule::azimuth(_p1, _p2); }
 
         float azimuthLHR() const { return ns_geo::LHandRule::azimuth(_p1, _p2); }
+
+        ns_geo::GeometryType type() const override { return GeometryType::LINE2D; }
     };
     /**
      * \brief overload operator "<<" for Line2
@@ -86,7 +88,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 3-dime lines
      */
     template <typename _Ty = float>
-    class Line3
+    class Line3 : protected Geometry
     {
     public:
         using value_type = _Ty;
@@ -121,6 +123,8 @@ namespace ns_geo
         ary_type points() const { return ary_type{this->_p1, this->_p2}; }
 
         float length() const { return ns_geo::distance(_p1, _p2); }
+
+        ns_geo::GeometryType type() const override { return GeometryType::LINE3D; }
     };
     /**
      * \brief overload operator "<<" for Line3
@@ -137,7 +141,7 @@ namespace ns_geo
 
 #pragma region RefLine2
     template <typename _Ty = float>
-    class RefLine2
+    class RefLine2 : protected RefGeometry
     {
     public:
         using value_type = _Ty;
@@ -184,6 +188,8 @@ namespace ns_geo
         float azimuthRHR() const { return ns_geo::RHandRule::azimuth(p1(), p2()); }
 
         float azimuthLHR() const { return ns_geo::LHandRule::azimuth(p1(), p2()); }
+
+        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFLINE2D; }
     };
     /**
      * \brief overload operator "<<" for RefLine2
@@ -203,7 +209,7 @@ namespace ns_geo
 #pragma region RefLine3
 
     template <typename _Ty = float>
-    class RefLine3
+    class RefLine3 : protected RefGeometry
     {
     public:
         using value_type = _Ty;
@@ -245,6 +251,8 @@ namespace ns_geo
         ary_type refPoints() const { return ary_type{this->p1(), this->p2()}; }
 
         float length() const { return ns_geo::distance(p1(), p2()); }
+
+        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFLINE3D; }
     };
     /**
      * \brief overload operator "<<" for RefLine3

@@ -25,7 +25,7 @@ namespace ns_geo
 #pragma region Polygon
 
     template <typename _Ty>
-    class Polygon : public PointSet2<_Ty>
+    class Polygon : public PointSet2<_Ty>, protected Geometry
     {
     public:
         using value_type = _Ty;
@@ -57,6 +57,8 @@ namespace ns_geo
             S = 0.5 * std::abs(S);
             return S;
         }
+
+        ns_geo::GeometryType type() const override { return GeometryType::POLYGON; }
     };
     /**
      * \brief overload operator "<<" for Polygon
@@ -75,7 +77,7 @@ namespace ns_geo
 #pragma region RefPolygon
 
     template <typename _Ty>
-    class RefPolygon : public std::vector<uint>
+    class RefPolygon : public std::vector<uint>, protected RefGeometry
     {
     public:
         using value_type = _Ty;
@@ -150,6 +152,8 @@ namespace ns_geo
             S = 0.5 * std::abs(S);
             return S;
         }
+
+        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFPOLYGON; }
     };
     /**
      * \brief overload operator "<<" for RefPolygon

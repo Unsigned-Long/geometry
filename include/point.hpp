@@ -25,14 +25,148 @@
 
 namespace ns_geo
 {
+#pragma region geometry
+    /**
+     * @brief the types of the geometry
+     */
+    enum class GeometryType
+    {
+        POINT2D,
+        POINT3D,
+        LINE2D,
+        LINE3D,
+        LINESTRING2D,
+        LINESTRING3D,
+        POLYGON,
+        RECTANGLE,
+        TRIANGLE2D,
+        TRIANGLE3D
+    };
 
-#pragma region class Point2
+    std::ostream &operator<<(std::ostream &os, GeometryType geoty)
+    {
+        switch (geoty)
+        {
+        case GeometryType::POINT2D:
+            os << "POINT2D";
+            break;
+        case GeometryType::POINT3D:
+            os << "POINT3D";
+            break;
+        case GeometryType::LINE2D:
+            os << "LINE2D";
+            break;
+        case GeometryType::LINE3D:
+            os << "LINE3D";
+            break;
+        case GeometryType::LINESTRING2D:
+            os << "LINESTRING2D";
+            break;
+        case GeometryType::LINESTRING3D:
+            os << "LINESTRING3D";
+            break;
+        case GeometryType::POLYGON:
+            os << "POLYGON";
+            break;
+        case GeometryType::RECTANGLE:
+            os << "RECTANGLE";
+            break;
+        case GeometryType::TRIANGLE2D:
+            os << "TRIANGLE2D";
+            break;
+        case GeometryType::TRIANGLE3D:
+            os << "TRIANGLE3D";
+            break;
+        default:
+            break;
+        }
+        return os;
+    }
+
+    /**
+     * @brief the types of the reference geometry
+     */
+    enum class RefGeometryType
+    {
+        REFPOINT2D,
+        REFPOINT3D,
+        REFLINE2D,
+        REFLINE3D,
+        REFLINESTRING2D,
+        REFLINESTRING3D,
+        REFPOLYGON,
+        REFRECTANGLE,
+        REFTRIANGLE2D,
+        REFTRIANGLE3D
+    };
+
+    std::ostream &operator<<(std::ostream &os, RefGeometryType geoty)
+    {
+        switch (geoty)
+        {
+        case RefGeometryType::REFPOINT2D:
+            os << "REFPOINT2D";
+            break;
+        case RefGeometryType::REFPOINT3D:
+            os << "REFPOINT3D";
+            break;
+        case RefGeometryType::REFLINE2D:
+            os << "REFLINE2D";
+            break;
+        case RefGeometryType::REFLINE3D:
+            os << "REFLINE3D";
+            break;
+        case RefGeometryType::REFLINESTRING2D:
+            os << "REFLINESTRING2D";
+            break;
+        case RefGeometryType::REFLINESTRING3D:
+            os << "REFLINESTRING3D";
+            break;
+        case RefGeometryType::REFPOLYGON:
+            os << "REFPOLYGON";
+            break;
+        case RefGeometryType::REFRECTANGLE:
+            os << "REFRECTANGLE";
+            break;
+        case RefGeometryType::REFTRIANGLE2D:
+            os << "REFTRIANGLE2D";
+            break;
+        case RefGeometryType::REFTRIANGLE3D:
+            os << "REFTRIANGLE3D";
+            break;
+        default:
+            break;
+        }
+        return os;
+    }
+
+    class Geometry
+    {
+    protected:
+        Geometry() = default;
+
+    public:
+        virtual GeometryType type() const = 0;
+    };
+
+    class RefGeometry
+    {
+    protected:
+        RefGeometry() = default;
+
+    public:
+        virtual RefGeometryType type() const = 0;
+    };
+
+#pragma endregion
+
+#pragma region Point2
 
     /**
      * \brief a sample template class to describe the 2-dime points
      */
     template <typename _Ty = float>
-    class Point2
+    class Point2 : protected Geometry
     {
     public:
         using value_type = _Ty;
@@ -58,6 +192,8 @@ namespace ns_geo
 
         const value_type &x() const { return this->_x; }
         const value_type &y() const { return this->_y; }
+
+        ns_geo::GeometryType type() const override { return GeometryType::POINT2D; }
     };
     /**
      * \brief overload operator "<<" for Point2
@@ -68,15 +204,16 @@ namespace ns_geo
         os << '[' << p.x() << ", " << p.y() << ']';
         return os;
     }
+
 #pragma endregion
 
-#pragma region class Point3
+#pragma region Point3
 
     /**
      * \brief a sample template class to describe the 3-dime points
      */
     template <typename _Ty = float>
-    class Point3
+    class Point3 : protected Geometry
     {
     public:
         using value_type = _Ty;
@@ -105,6 +242,8 @@ namespace ns_geo
         const value_type &x() const { return this->_x; }
         const value_type &y() const { return this->_y; }
         const value_type &z() const { return this->_z; }
+
+        ns_geo::GeometryType type() const override { return GeometryType::POINT3D; }
     };
     /**
      * \brief overload operator "<<" for Point3
@@ -282,7 +421,7 @@ namespace ns_geo
 
 #pragma region RefPoint2
     template <typename _Ty>
-    class RefPoint2 : public Point2<_Ty>
+    class RefPoint2 : public Point2<_Ty>, protected RefGeometry
     {
     public:
         using id_type = uint;
@@ -304,6 +443,8 @@ namespace ns_geo
         RefPoint2(id_type id, const value_type p[2])
             : _id(id), Point2<_Ty>(p[0], p[1]) {}
         const id_type &id() const { return this->_id; }
+
+        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFPOINT2D; }
     };
     /**
      * \brief overload operator "<<" for RefPoint2
@@ -318,7 +459,7 @@ namespace ns_geo
 
 #pragma region RefPoint3
     template <typename _Ty>
-    class RefPoint3 : public Point3<_Ty>
+    class RefPoint3 : public Point3<_Ty>, protected RefGeometry
     {
     public:
         using id_type = uint;
@@ -341,6 +482,8 @@ namespace ns_geo
             : _id(id), Point3<_Ty>(p[0], p[1], p[2]) {}
 
         const id_type &id() const { return this->_id; }
+
+        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFPOINT3D; }
     };
     /**
      * \brief overload operator "<<" for RefPoint3

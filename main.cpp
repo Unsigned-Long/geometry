@@ -10,14 +10,14 @@
 #include "point.hpp"
 #include "line.hpp"
 #include "triangle.hpp"
+#include "rectangle.hpp"
 
 using namespace ns_geo;
 
 void foo()
 {
-    Point2f p1(0.0, 0.0), p2(0.0, 1.0), p3(1.0, 0.0);
-    auto p = Triangle2f(p1, p2, p3).circumCircle();
-    std::cout << p.first << ',' << p.second << std::endl;
+    Point2f p(0.0, 0.0);
+    std::cout << p.type() << std::endl;
     return;
 }
 
