@@ -140,24 +140,6 @@ namespace ns_geo
         return os;
     }
 
-    class Geometry
-    {
-    protected:
-        Geometry() = default;
-
-    public:
-        virtual GeometryType type() const = 0;
-    };
-
-    class RefGeometry
-    {
-    protected:
-        RefGeometry() = default;
-
-    public:
-        virtual RefGeometryType type() const = 0;
-    };
-
 #pragma endregion
 
 #pragma region Point2
@@ -166,7 +148,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 2-dime points
      */
     template <typename _Ty = float>
-    class Point2 : public Geometry
+    class Point2
     {
     public:
         using value_type = _Ty;
@@ -193,7 +175,7 @@ namespace ns_geo
         const value_type &x() const { return this->_x; }
         const value_type &y() const { return this->_y; }
 
-        ns_geo::GeometryType type() const override { return GeometryType::POINT2D; }
+        ns_geo::GeometryType type() const { return GeometryType::POINT2D; }
     };
     /**
      * \brief overload operator "<<" for Point2
@@ -213,7 +195,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 3-dime points
      */
     template <typename _Ty = float>
-    class Point3 : public Geometry
+    class Point3 
     {
     public:
         using value_type = _Ty;
@@ -243,7 +225,7 @@ namespace ns_geo
         const value_type &y() const { return this->_y; }
         const value_type &z() const { return this->_z; }
 
-        ns_geo::GeometryType type() const override { return GeometryType::POINT3D; }
+        ns_geo::GeometryType type() const { return GeometryType::POINT3D; }
     };
     /**
      * \brief overload operator "<<" for Point3
@@ -258,13 +240,13 @@ namespace ns_geo
 
 #pragma region PointSet2
 
-    template <typename _Ty, typename _Alloc = std::allocator<Point2<_Ty>>>
-    class PointSet2 : public std::vector<Point2<_Ty>, _Alloc>
+    template <typename _Ty>
+    class PointSet2 : public std::vector<Point2<_Ty>>
     {
     public:
         using value_type = _Ty;
         using point_type = Point2<value_type>;
-        using container_type = std::vector<point_type, _Alloc>;
+        using container_type = std::vector<point_type>;
         /**
          * \brief using container_type's constructors
          */
@@ -339,13 +321,13 @@ namespace ns_geo
 
 #pragma region PointSet3
 
-    template <typename _Ty, typename _Alloc = std::allocator<Point3<_Ty>>>
-    class PointSet3 : public std::vector<Point3<_Ty>, _Alloc>
+    template <typename _Ty>
+    class PointSet3 : public std::vector<Point3<_Ty>>
     {
     public:
         using value_type = _Ty;
         using point_type = Point3<value_type>;
-        using container_type = std::vector<point_type, _Alloc>;
+        using container_type = std::vector<point_type>;
         /**
          * \brief using container_type's constructors
          */
@@ -421,7 +403,7 @@ namespace ns_geo
 
 #pragma region RefPoint2
     template <typename _Ty = float>
-    class RefPoint2 : public Point2<_Ty>, public RefGeometry
+    class RefPoint2 : public Point2<_Ty>
     {
     public:
         using id_type = uint;
@@ -444,7 +426,7 @@ namespace ns_geo
             : _id(id), Point2<_Ty>(p[0], p[1]) {}
         const id_type &id() const { return this->_id; }
 
-        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFPOINT2D; }
+        RefGeometryType type() const { return ns_geo::RefGeometryType::REFPOINT2D; }
     };
     /**
      * \brief overload operator "<<" for RefPoint2
@@ -459,7 +441,7 @@ namespace ns_geo
 
 #pragma region RefPoint3
     template <typename _Ty = float>
-    class RefPoint3 : public Point3<_Ty>, public RefGeometry
+    class RefPoint3 : public Point3<_Ty>
     {
     public:
         using id_type = uint;
@@ -483,7 +465,7 @@ namespace ns_geo
 
         const id_type &id() const { return this->_id; }
 
-        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFPOINT3D; }
+        RefGeometryType type() const { return ns_geo::RefGeometryType::REFPOINT3D; }
     };
     /**
      * \brief overload operator "<<" for RefPoint3
@@ -501,15 +483,14 @@ namespace ns_geo
 
     template <typename _Ty,
               typename _Hash = std::hash<uint>,
-              typename _Pred = std::equal_to<uint>,
-              typename _Alloc = std::allocator<std::pair<const uint, RefPoint2<_Ty>>>>
-    class RefPointSet2 : public std::unordered_map<uint, RefPoint2<_Ty>, _Hash, _Pred, _Alloc>
+              typename _Pred = std::equal_to<uint>>
+    class RefPointSet2 : public std::unordered_map<uint, RefPoint2<_Ty>, _Hash, _Pred>
     {
     public:
         using value_type = _Ty;
         using id_type = uint;
         using refpoint_type = RefPoint2<value_type>;
-        using container_type = std::unordered_map<id_type, refpoint_type, _Hash, _Pred, _Alloc>;
+        using container_type = std::unordered_map<id_type, refpoint_type, _Hash, _Pred>;
         /**
          * \brief using container_type's constructors
          */
@@ -614,15 +595,14 @@ namespace ns_geo
 #pragma region RefPointSet3
     template <typename _Ty,
               typename _Hash = std::hash<uint>,
-              typename _Pred = std::equal_to<uint>,
-              typename _Alloc = std::allocator<std::pair<const uint, RefPoint3<_Ty>>>>
-    class RefPointSet3 : public std::unordered_map<uint, RefPoint3<_Ty>, _Hash, _Pred, _Alloc>
+              typename _Pred = std::equal_to<uint>>
+    class RefPointSet3 : public std::unordered_map<uint, RefPoint3<_Ty>, _Hash, _Pred>
     {
     public:
         using value_type = _Ty;
         using id_type = uint;
         using refpoint_type = RefPoint3<value_type>;
-        using container_type = std::unordered_map<id_type, refpoint_type, _Hash, _Pred, _Alloc>;
+        using container_type = std::unordered_map<id_type, refpoint_type, _Hash, _Pred>;
         /**
          * \brief using container_type's constructors
          */

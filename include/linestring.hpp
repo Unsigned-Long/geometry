@@ -25,7 +25,7 @@ namespace ns_geo
 #pragma region LineString2
 
     template <typename _Ty = float>
-    class LineString2 : public PointSet2<_Ty>, public Geometry
+    class LineString2 : public PointSet2<_Ty>
     {
     public:
         using value_type = _Ty;
@@ -43,7 +43,7 @@ namespace ns_geo
             return len;
         }
 
-        ns_geo::GeometryType type() const override { return GeometryType::LINESTRING2D; }
+        ns_geo::GeometryType type() const { return GeometryType::LINESTRING2D; }
     };
     /**
      * \brief overload operator "<<" for LineString2
@@ -62,7 +62,7 @@ namespace ns_geo
 #pragma region LineString3
 
     template <typename _Ty = float>
-    class LineString3 : public PointSet3<_Ty>, public Geometry
+    class LineString3 : public PointSet3<_Ty>
     {
     public:
         using value_type = _Ty;
@@ -80,7 +80,7 @@ namespace ns_geo
             return len;
         }
 
-        ns_geo::GeometryType type() const override { return GeometryType::LINESTRING3D; }
+        ns_geo::GeometryType type() const { return GeometryType::LINESTRING3D; }
     };
     /**
      * \brief overload operator "<<" for LineString3
@@ -99,7 +99,7 @@ namespace ns_geo
 #pragma region RefLineString2
 
     template <typename _Ty = float>
-    class RefLineString2 : public std::vector<uint>, public RefGeometry
+    class RefLineString2 : public std::vector<uint>
     {
     public:
         using value_type = _Ty;
@@ -157,7 +157,7 @@ namespace ns_geo
             return len;
         }
 
-        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFLINESTRING2D; }
+        RefGeometryType type() const { return ns_geo::RefGeometryType::REFLINESTRING2D; }
     };
     /**
      * \brief overload operator "<<" for RefLineString2
@@ -181,7 +181,7 @@ namespace ns_geo
 #pragma region RefLineString3
 
     template <typename _Ty = float>
-    class RefLineString3 : public std::vector<uint>, public RefGeometry
+    class RefLineString3 : public std::vector<uint>
     {
     public:
         using value_type = _Ty;
@@ -236,7 +236,7 @@ namespace ns_geo
             return len;
         }
 
-        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFLINESTRING3D; }
+        RefGeometryType type() const { return ns_geo::RefGeometryType::REFLINESTRING3D; }
     };
     /**
      * \brief overload operator "<<" for RefLineString3

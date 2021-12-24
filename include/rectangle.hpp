@@ -29,7 +29,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 2-dime rectangles
      */
     template <typename _Ty = float>
-    class Rectangle : public Geometry
+    class Rectangle 
     {
     public:
         using value_type = _Ty;
@@ -73,7 +73,7 @@ namespace ns_geo
             return 2.0 * (std::abs(this->_tplp.x() - this->_lwrp.x()) + std::abs(this->_tplp.y() - this->_lwrp.y()));
         }
 
-        ns_geo::GeometryType type() const override { return GeometryType::RECTANGLE; }
+        ns_geo::GeometryType type() const { return GeometryType::RECTANGLE; }
     };
     /**
      * \brief overload operator "<<" for Rectangle
@@ -91,7 +91,7 @@ namespace ns_geo
 #pragma region RefRectangle
 
     template <typename _Ty = float>
-    class RefRectangle : public RefGeometry
+    class RefRectangle 
     {
     public:
         using value_type = _Ty;
@@ -147,7 +147,7 @@ namespace ns_geo
                           std::abs(this->topLeft().y() - this->lowerRight().y()));
         }
 
-        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFRECTANGLE; }
+        RefGeometryType type() const { return ns_geo::RefGeometryType::REFRECTANGLE; }
     };
     /**
      * \brief overload operator "<<" for RefRectangle

@@ -24,6 +24,10 @@
 namespace ns_geo
 {
 #pragma region gemetry types
+    enum class GeometryType;
+    
+    enum class RefGeometryType;
+
     template <typename _Ty>
     class Point2;
     /**

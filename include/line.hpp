@@ -28,7 +28,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 2-dime lines
      */
     template <typename _Ty = float>
-    class Line2 : public Geometry
+    class Line2
     {
     public:
         using value_type = _Ty;
@@ -67,7 +67,7 @@ namespace ns_geo
 
         float azimuthLHR() const { return ns_geo::LHandRule::azimuth(_p1, _p2); }
 
-        ns_geo::GeometryType type() const override { return GeometryType::LINE2D; }
+        ns_geo::GeometryType type() const { return GeometryType::LINE2D; }
     };
     /**
      * \brief overload operator "<<" for Line2
@@ -88,7 +88,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 3-dime lines
      */
     template <typename _Ty = float>
-    class Line3 : public Geometry
+    class Line3 
     {
     public:
         using value_type = _Ty;
@@ -124,7 +124,7 @@ namespace ns_geo
 
         float length() const { return ns_geo::distance(_p1, _p2); }
 
-        ns_geo::GeometryType type() const override { return GeometryType::LINE3D; }
+        ns_geo::GeometryType type() const { return GeometryType::LINE3D; }
     };
     /**
      * \brief overload operator "<<" for Line3
@@ -141,7 +141,7 @@ namespace ns_geo
 
 #pragma region RefLine2
     template <typename _Ty = float>
-    class RefLine2 : public RefGeometry
+    class RefLine2 
     {
     public:
         using value_type = _Ty;
@@ -189,7 +189,7 @@ namespace ns_geo
 
         float azimuthLHR() const { return ns_geo::LHandRule::azimuth(p1(), p2()); }
 
-        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFLINE2D; }
+        RefGeometryType type() const { return ns_geo::RefGeometryType::REFLINE2D; }
     };
     /**
      * \brief overload operator "<<" for RefLine2
@@ -209,7 +209,7 @@ namespace ns_geo
 #pragma region RefLine3
 
     template <typename _Ty = float>
-    class RefLine3 : public RefGeometry
+    class RefLine3 
     {
     public:
         using value_type = _Ty;
@@ -252,7 +252,7 @@ namespace ns_geo
 
         float length() const { return ns_geo::distance(p1(), p2()); }
 
-        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFLINE3D; }
+        RefGeometryType type() const { return ns_geo::RefGeometryType::REFLINE3D; }
     };
     /**
      * \brief overload operator "<<" for RefLine3

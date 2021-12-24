@@ -29,7 +29,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 2-dime triangles
      */
     template <typename _Ty = float>
-    class Triangle2 : public Geometry
+    class Triangle2 
     {
     public:
         using value_type = _Ty;
@@ -100,7 +100,7 @@ namespace ns_geo
             return std::make_pair(Point2f(a, b), r);
         }
 
-        ns_geo::GeometryType type() const override { return GeometryType::TRIANGLE2D; }
+        ns_geo::GeometryType type() const { return GeometryType::TRIANGLE2D; }
     };
     /**
      * \brief overload operator "<<" for Triangle2
@@ -122,7 +122,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 3-dime triangles
      */
     template <typename _Ty = float>
-    class Triangle3 : public Geometry
+    class Triangle3
     {
     public:
         using value_type = _Ty;
@@ -182,7 +182,7 @@ namespace ns_geo
                    ns_geo::distance(_p2, _p3);
         }
 
-        ns_geo::GeometryType type() const override { return GeometryType::TRIANGLE3D; }
+        ns_geo::GeometryType type() const { return GeometryType::TRIANGLE3D; }
     };
     /**
      * \brief overload operator "<<" for Triangle3
@@ -204,7 +204,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 2-dime triangles
      */
     template <typename _Ty = float>
-    class RefTriangle2 : public RefGeometry
+    class RefTriangle2 
     {
     public:
         using value_type = _Ty;
@@ -290,7 +290,7 @@ namespace ns_geo
             return std::make_pair(Point2f(a, b), r);
         }
 
-        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFTRIANGLE2D; }
+        RefGeometryType type() const { return ns_geo::RefGeometryType::REFTRIANGLE2D; }
     };
     /**
      * \brief overload operator "<<" for RefTriangle2
@@ -315,7 +315,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 3-dime triangles
      */
     template <typename _Ty = float>
-    class RefTriangle3 : public RefGeometry
+    class RefTriangle3 
     {
     public:
         using value_type = _Ty;
@@ -389,7 +389,7 @@ namespace ns_geo
                    ns_geo::distance(p2, p3);
         }
 
-        RefGeometryType type() const override { return ns_geo::RefGeometryType::REFTRIANGLE3D; }
+        RefGeometryType type() const { return ns_geo::RefGeometryType::REFTRIANGLE3D; }
     };
     /**
      * \brief overload operator "<<" for RefTriangle3
