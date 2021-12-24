@@ -166,7 +166,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 2-dime points
      */
     template <typename _Ty = float>
-    class Point2 : protected Geometry
+    class Point2 : public Geometry
     {
     public:
         using value_type = _Ty;
@@ -213,7 +213,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 3-dime points
      */
     template <typename _Ty = float>
-    class Point3 : protected Geometry
+    class Point3 : public Geometry
     {
     public:
         using value_type = _Ty;
@@ -421,7 +421,7 @@ namespace ns_geo
 
 #pragma region RefPoint2
     template <typename _Ty = float>
-    class RefPoint2 : public Point2<_Ty>, protected RefGeometry
+    class RefPoint2 : public Point2<_Ty>, public RefGeometry
     {
     public:
         using id_type = uint;
@@ -459,7 +459,7 @@ namespace ns_geo
 
 #pragma region RefPoint3
     template <typename _Ty = float>
-    class RefPoint3 : public Point3<_Ty>, protected RefGeometry
+    class RefPoint3 : public Point3<_Ty>, public RefGeometry
     {
     public:
         using id_type = uint;

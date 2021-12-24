@@ -11,13 +11,17 @@
 #include "line.hpp"
 #include "triangle.hpp"
 #include "rectangle.hpp"
+#include <memory>
 
 using namespace ns_geo;
 
 void foo()
 {
     Point2f p(0.0, 0.0);
-    std::cout << p.type() << std::endl;
+    std::cout << (p.type() == GeometryType::POINT2D) << std::endl;
+    Geometry *geo = new Point2f(0.0, 0.0);
+    std::shared_ptr<Geometry> sptr = std::make_shared<Point2f>(0.0, 0.0);
+    std::cout << sptr->type() << std::endl;
     return;
 }
 

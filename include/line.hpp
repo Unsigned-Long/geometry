@@ -28,7 +28,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 2-dime lines
      */
     template <typename _Ty = float>
-    class Line2 : protected Geometry
+    class Line2 : public Geometry
     {
     public:
         using value_type = _Ty;
@@ -88,7 +88,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 3-dime lines
      */
     template <typename _Ty = float>
-    class Line3 : protected Geometry
+    class Line3 : public Geometry
     {
     public:
         using value_type = _Ty;
@@ -141,7 +141,7 @@ namespace ns_geo
 
 #pragma region RefLine2
     template <typename _Ty = float>
-    class RefLine2 : protected RefGeometry
+    class RefLine2 : public RefGeometry
     {
     public:
         using value_type = _Ty;
@@ -209,7 +209,7 @@ namespace ns_geo
 #pragma region RefLine3
 
     template <typename _Ty = float>
-    class RefLine3 : protected RefGeometry
+    class RefLine3 : public RefGeometry
     {
     public:
         using value_type = _Ty;

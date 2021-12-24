@@ -29,7 +29,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 2-dime rectangles
      */
     template <typename _Ty = float>
-    class Rectangle : protected Geometry
+    class Rectangle : public Geometry
     {
     public:
         using value_type = _Ty;
@@ -91,7 +91,7 @@ namespace ns_geo
 #pragma region RefRectangle
 
     template <typename _Ty = float>
-    class RefRectangle : protected RefGeometry
+    class RefRectangle : public RefGeometry
     {
     public:
         using value_type = _Ty;

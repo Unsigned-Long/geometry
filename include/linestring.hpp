@@ -25,7 +25,7 @@ namespace ns_geo
 #pragma region LineString2
 
     template <typename _Ty = float>
-    class LineString2 : public PointSet2<_Ty>, protected Geometry
+    class LineString2 : public PointSet2<_Ty>, public Geometry
     {
     public:
         using value_type = _Ty;
@@ -62,7 +62,7 @@ namespace ns_geo
 #pragma region LineString3
 
     template <typename _Ty = float>
-    class LineString3 : public PointSet3<_Ty>, protected Geometry
+    class LineString3 : public PointSet3<_Ty>, public Geometry
     {
     public:
         using value_type = _Ty;
@@ -99,7 +99,7 @@ namespace ns_geo
 #pragma region RefLineString2
 
     template <typename _Ty = float>
-    class RefLineString2 : public std::vector<uint>, protected RefGeometry
+    class RefLineString2 : public std::vector<uint>, public RefGeometry
     {
     public:
         using value_type = _Ty;
@@ -181,7 +181,7 @@ namespace ns_geo
 #pragma region RefLineString3
 
     template <typename _Ty = float>
-    class RefLineString3 : public std::vector<uint>, protected RefGeometry
+    class RefLineString3 : public std::vector<uint>, public RefGeometry
     {
     public:
         using value_type = _Ty;

@@ -29,7 +29,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 2-dime triangles
      */
     template <typename _Ty = float>
-    class Triangle2 : protected Geometry
+    class Triangle2 : public Geometry
     {
     public:
         using value_type = _Ty;
@@ -122,7 +122,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 3-dime triangles
      */
     template <typename _Ty = float>
-    class Triangle3 : protected Geometry
+    class Triangle3 : public Geometry
     {
     public:
         using value_type = _Ty;
@@ -204,7 +204,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 2-dime triangles
      */
     template <typename _Ty = float>
-    class RefTriangle2 : protected RefGeometry
+    class RefTriangle2 : public RefGeometry
     {
     public:
         using value_type = _Ty;
@@ -315,7 +315,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 3-dime triangles
      */
     template <typename _Ty = float>
-    class RefTriangle3 : protected RefGeometry
+    class RefTriangle3 : public RefGeometry
     {
     public:
         using value_type = _Ty;
