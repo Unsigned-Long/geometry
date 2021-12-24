@@ -35,6 +35,7 @@ namespace ns_geo
         using value_type = _Ty;
         using point_type = ns_geo::Point2<value_type>;
         using ary_type = std::array<point_type, 2>;
+        using self_type = Rectangle<value_type>;
 
     private:
         // top left point
@@ -99,6 +100,7 @@ namespace ns_geo
         using refpoint_type = ns_geo::RefPoint2<value_type>;
         using refpointset_type = RefPointSet2<value_type>;
         using ary_type = std::array<refpoint_type, 2>;
+        using self_type = RefRectangle<value_type>;
 
     public:
         friend class RefPointSet2<value_type>;

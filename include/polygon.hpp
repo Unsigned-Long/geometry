@@ -34,6 +34,7 @@ namespace ns_geo
          * \brief using pointset_type's constructors
          */
         using pointset_type::pointset_type;
+        using self_type = Polygon<value_type>;
 
         float perimeter() const
         {
@@ -85,6 +86,7 @@ namespace ns_geo
         using refpoint_type = RefPoint2<value_type>;
         using pointidset_type = std::vector<id_type>;
         using refpointset_type = RefPointSet2<value_type>;
+        using self_type = RefPolygon<value_type>;
 
     public:
         friend class RefPointSet2<value_type>;

@@ -35,6 +35,7 @@ namespace ns_geo
         using value_type = _Ty;
         using point_type = ns_geo::Point2<value_type>;
         using ary_type = std::array<point_type, 3>;
+        using self_type = Triangle2<value_type>;
 
     private:
         point_type _p1;
@@ -128,6 +129,7 @@ namespace ns_geo
         using value_type = _Ty;
         using point_type = ns_geo::Point3<value_type>;
         using ary_type = std::array<point_type, 3>;
+        using self_type = Triangle3<value_type>;
 
     private:
         point_type _p1;
@@ -212,6 +214,7 @@ namespace ns_geo
         using refpoint_type = ns_geo::RefPoint2<value_type>;
         using refpointset_type = RefPointSet2<value_type>;
         using ary_type = std::array<refpoint_type, 3>;
+        using self_type = RefTriangle2<value_type>;
 
     public:
         friend class RefPointSet2<value_type>;
@@ -323,6 +326,7 @@ namespace ns_geo
         using refpoint_type = ns_geo::RefPoint3<value_type>;
         using refpointset_type = RefPointSet3<value_type>;
         using ary_type = std::array<refpoint_type, 3>;
+        using self_type = RefTriangle3<value_type>;
 
     public:
         friend class RefPointSet3<value_type>;

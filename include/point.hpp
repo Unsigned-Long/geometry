@@ -153,6 +153,7 @@ namespace ns_geo
     public:
         using value_type = _Ty;
         using ary_type = std::array<_Ty, 2>;
+        using self_type = Point2<value_type>;
 
     private:
         value_type _x;
@@ -200,6 +201,7 @@ namespace ns_geo
     public:
         using value_type = _Ty;
         using ary_type = std::array<_Ty, 3>;
+        using self_type = Point3<value_type>;
 
     private:
         value_type _x;
@@ -409,6 +411,7 @@ namespace ns_geo
         using id_type = uint;
         using value_type = _Ty;
         using ary_type = std::array<_Ty, 2>;
+        using self_type = RefPoint2<value_type>;
 
     private:
         id_type _id;
@@ -447,6 +450,7 @@ namespace ns_geo
         using id_type = uint;
         using value_type = _Ty;
         using ary_type = std::array<_Ty, 3>;
+        using self_type = RefPoint3<value_type>;
 
     private:
         id_type _id;

@@ -34,6 +34,7 @@ namespace ns_geo
          * \brief using pointset_type's constructors
          */
         using pointset_type::pointset_type;
+        using self_type = LineString2<value_type>;
 
         float length() const
         {
@@ -71,6 +72,7 @@ namespace ns_geo
          * \brief using pointset_type's constructors
          */
         using pointset_type::pointset_type;
+        using self_type = LineString3<value_type>;
 
         float length() const
         {
@@ -107,6 +109,7 @@ namespace ns_geo
         using refpoint_type = RefPoint2<value_type>;
         using pointidset_type = std::vector<id_type>;
         using refpointset_type = RefPointSet2<value_type>;
+        using self_type = RefLineString2<value_type>;
 
     public:
         friend class RefPointSet2<value_type>;
@@ -189,6 +192,7 @@ namespace ns_geo
         using refpoint_type = RefPoint3<value_type>;
         using pointidset_type = std::vector<id_type>;
         using refpointset_type = RefPointSet3<value_type>;
+        using self_type = RefLineString3<value_type>;
 
     public:
         friend class RefPointSet3<value_type>;
