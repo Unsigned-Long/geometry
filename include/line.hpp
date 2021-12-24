@@ -88,7 +88,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 3-dime lines
      */
     template <typename _Ty = float>
-    class Line3 
+    class Line3
     {
     public:
         using value_type = _Ty;
@@ -141,7 +141,7 @@ namespace ns_geo
 
 #pragma region RefLine2
     template <typename _Ty = float>
-    class RefLine2 
+    class RefLine2
     {
     public:
         using value_type = _Ty;
@@ -209,7 +209,7 @@ namespace ns_geo
 #pragma region RefLine3
 
     template <typename _Ty = float>
-    class RefLine3 
+    class RefLine3
     {
     public:
         using value_type = _Ty;

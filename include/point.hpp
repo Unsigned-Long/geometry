@@ -195,7 +195,7 @@ namespace ns_geo
      * \brief a sample template class to describe the 3-dime points
      */
     template <typename _Ty = float>
-    class Point3 
+    class Point3
     {
     public:
         using value_type = _Ty;

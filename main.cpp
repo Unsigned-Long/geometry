@@ -11,7 +11,6 @@
 #include "line.hpp"
 #include "triangle.hpp"
 #include "rectangle.hpp"
-#include <memory>
 
 using namespace ns_geo;
 

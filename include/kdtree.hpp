@@ -749,7 +749,6 @@ namespace ns_geo
         }
     };
 
-
 #pragma endregion
 
 #pragma region refkdtree3
