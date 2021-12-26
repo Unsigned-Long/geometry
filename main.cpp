@@ -16,12 +16,11 @@ using namespace ns_geo;
 
 void foo_polarCoor()
 {
-    Point3f p1(0.0, 0.0, 0.0);
-    Point3f p2(10.0, 40.0, -2.0);
-    std::cout << LHandRule::polarCoorMethod(p1, distance(p1, p2),
-                                            LHandRule::azimuth(p1, p2),
-                                            LHandRule::zenith(p1, p2))
-              << std::endl;
+    for (float rad = 0.0; rad < 10 * M_PI; rad += 0.5)
+    {
+        auto pos = RHandRule::polarCoorMethod(Point2f(), rad * rad * rad / 100.0, rad);
+        std::cout << pos.x() << ',' << pos.y() << std::endl;
+    }
     return;
 }
 

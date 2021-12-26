@@ -34,7 +34,8 @@
 <img src="./imgs/kdtree_ns_5.png" width="50.2%"><img src="./imgs/kdtree_ns_10.png" width="49.8%">
 
 <img src="./imgs/convex.png" width="49.8%"><img src="./imgs/tins.png" width="50.2%">
-<img src="./imgs/voronois.png" width="50.2%">
+
+<img src="./imgs/voronois.png" width="49.8%"><img src="./imgs/polarCurve.png" width="50.2%">
 
 ## ***5. Using example***
 
