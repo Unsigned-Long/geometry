@@ -6,9 +6,9 @@
  * @brief Provide operation support for point classes
  * @version 0.1
  * @date 2021-12-06
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #include <iostream>
@@ -237,7 +237,7 @@ namespace ns_geo
 #pragma region helpers
     /**
      * @brief calculate the stride between the 'from' point to the 'to' point
-     * 
+     *
      * @tparam _Ty the type of value
      * @param from the start point
      * @param to the end point
@@ -251,7 +251,7 @@ namespace ns_geo
 
     /**
      * @brief calculate the stride between the 'from' point to the 'to' point
-     * 
+     *
      * @tparam _Ty the type of value
      * @param from the start point
      * @param to the end point
@@ -265,7 +265,7 @@ namespace ns_geo
 
     /**
      * @brief Calculate the distance between two points
-     * 
+     *
      * @tparam _Ty the type of value
      * @param p1 one of two points
      * @param p2 one of two points
@@ -279,7 +279,7 @@ namespace ns_geo
 
     /**
      * @brief Calculate the distance between two points
-     * 
+     *
      * @tparam _Ty the type of value
      * @param p1 one of two points
      * @param p2 one of two points
@@ -293,7 +293,7 @@ namespace ns_geo
 
     /**
      * @brief calculate the distance from the point to the line
-     * 
+     *
      * @tparam _Ty the type of value
      * @param p the point
      * @param l the line
@@ -311,7 +311,7 @@ namespace ns_geo
 
     /**
      * @brief calculate the distance from the point to the line
-     * 
+     *
      * @tparam _Ty the type of value
      * @param p the point
      * @param l the line
@@ -337,10 +337,10 @@ namespace ns_geo
     {
         /**
          * @brief calculate the azimuth according the left hand rule
-         * 
+         *
          * @tparam _Ty the type of value
-         * @param p1 one of two points
-         * @param p2 one of two points
+         * @param from start point
+         * @param to end point
          * @return float the azimuth[radian]
          */
         template <typename _Ty>
@@ -355,13 +355,46 @@ namespace ns_geo
         }
 
         /**
-         * @brief judge whether the point is at the left of the line
+         * @brief calculate the azimuth according the left hand rule
+         *
+         * @tparam _Ty the type of value
+         * @param from start point
+         * @param to end point
+         * @return float the azimuth[radian]
+         */
+        template <typename _Ty>
+        float azimuth(const Point3<_Ty> &from, const Point3<_Ty> &to)
+        {
+            return RHandRule::azimuth(Point2<_Ty>(from.x(), from.y()), Point2<_Ty>(to.x(), to.y()));
+        }
+
+        /**
+         * @brief calculate the zenith according the left hand rule
          * 
+         * @tparam _Ty the type of value
+         * @param from start point
+         * @param to end point
+         * @return float the zenith[radian]
+         */
+        template <typename _Ty>
+        float zenith(const Point3<_Ty> &from, const Point3<_Ty> &to)
+        {
+            float prjDis = distance(Point2<_Ty>(from.x(), from.y()), Point2<_Ty>(to.x(), to.y()));
+            float detaZ = to.z() - from.z();
+            float angle = std::atan2(prjDis, detaZ);
+            if (angle < 0.0)
+                angle += M_PI;
+            return angle;
+        }
+
+        /**
+         * @brief judge whether the point is at the left of the line
+         *
          * @tparam _Ty the template type
          * @param p the point[2d]
          * @param l the line[2d]
-         * @return true 
-         * @return false 
+         * @return true
+         * @return false
          */
         template <typename _Ty>
         bool palleft(const Point2<_Ty> &p, const Line2<_Ty> &l)
@@ -373,12 +406,12 @@ namespace ns_geo
 
         /**
          * @brief judge whether the point is at the right of the line
-         * 
+         *
          * @tparam _Ty the template type
          * @param p the point[2d]
          * @param l the line[2d]
-         * @return true 
-         * @return false 
+         * @return true
+         * @return false
          */
         template <typename _Ty>
         bool palright(const Point2<_Ty> &p, const Line2<_Ty> &l)
@@ -387,13 +420,52 @@ namespace ns_geo
             auto v2 = stride(l.p1(), p);
             return static_cast<float>(v1[0] * v2[1] - v1[1] * v2[0]) < 0.0;
         }
+
+        /**
+         * @brief calculate the target pos references the center, distancee and azimuth
+         * 
+         * @tparam _Ty the template type
+         * @param center the center position 
+         * @param distance the distance from the center to the target pos
+         * @param azimuth the azimuth[radian]
+         * @return Point2<_Ty> 
+         */
+        template <typename _Ty>
+        Point2<_Ty> polarCoorMethod(const Point2<_Ty> &center, float distance, float azimuth)
+        {
+            Point2<_Ty> pos;
+            pos.x() = center.x() + distance * std::sin(azimuth);
+            pos.y() = center.y() + distance * std::cos(azimuth);
+            return pos;
+        }
+
+        /**
+         * @brief calculate the target pos references the center, distancee, azimuth and zenith
+         * 
+         * @tparam _Ty the template type
+         * @param center the center position 
+         * @param distance the distance from the center to the target pos
+         * @param azimuth the azimuth[radian]
+         * @param zenith the zenith[radian]
+         * @return Point3<_Ty> 
+         */
+        template <typename _Ty>
+        Point3<_Ty> polarCoorMethod(const Point3<_Ty> &center, float distance, float azimuth, float zenith)
+        {
+            Point3<_Ty> pos;
+            float prjDis = distance * std::sin(zenith);
+            pos.x() = center.x() + prjDis * std::sin(azimuth);
+            pos.y() = center.y() + prjDis * std::cos(azimuth);
+            pos.z() = distance * std::cos(zenith);
+            return pos;
+        }
     } // namespace RHandRule
 
     namespace LHandRule
     {
         /**
          * @brief calculate the azimuth according the left hand rule
-         * 
+         *
          * @tparam _Ty the type of value
          * @param p1 one of two points
          * @param p2 one of two points
@@ -411,13 +483,27 @@ namespace ns_geo
         }
 
         /**
+         * @brief calculate the azimuth according the left hand rule
+         *
+         * @tparam _Ty the type of value
+         * @param p1 one of two points
+         * @param p2 one of two points
+         * @return float the azimuth[radian]
+         */
+        template <typename _Ty>
+        float azimuth(const Point3<_Ty> &from, const Point3<_Ty> &to)
+        {
+            return LHandRule::azimuth(Point2<_Ty>(from.x(), from.y()), Point2<_Ty>(to.x(), to.y()));
+        }
+
+        /**
          * @brief judge whether the point is at the left of the line
-         * 
+         *
          * @tparam _Ty the template type
          * @param p the point[2d]
          * @param l the line[2d]
-         * @return true 
-         * @return false 
+         * @return true
+         * @return false
          */
         template <typename _Ty>
         bool palleft(const Point2<_Ty> &p, const Line2<_Ty> &l)
@@ -429,12 +515,12 @@ namespace ns_geo
 
         /**
          * @brief judge whether the point is at the right of the line
-         * 
+         *
          * @tparam _Ty the template type
          * @param p the point[2d]
          * @param l the line[2d]
-         * @return true 
-         * @return false 
+         * @return true
+         * @return false
          */
         template <typename _Ty>
         bool palright(const Point2<_Ty> &p, const Line2<_Ty> &l)
@@ -442,6 +528,59 @@ namespace ns_geo
             auto v1 = stride(l.p1(), l.p2());
             auto v2 = stride(l.p1(), p);
             return static_cast<float>(v1[0] * v2[1] - v1[1] * v2[0]) > 0.0;
+        }
+
+        /**
+         * @brief calculate the target pos references the center, distancee and azimuth
+         * 
+         * @tparam _Ty the template type
+         * @param center the center position 
+         * @param distance the distance from the center to the target pos
+         * @param azimuth the azimuth[radian]
+         * @return Point2<_Ty> 
+         */
+        template <typename _Ty>
+        Point2<_Ty> polarCoorMethod(const Point2<_Ty> &center, float distance, float azimuth)
+        {
+            Point2<_Ty> pos;
+            pos.x() = center.x() + distance * std::cos(azimuth);
+            pos.y() = center.y() + distance * std::sin(azimuth);
+            return pos;
+        }
+
+        /**
+         * @brief calculate the target pos references the center, distancee, azimuth and zenith
+         * 
+         * @tparam _Ty the template type
+         * @param center the center position 
+         * @param distance the distance from the center to the target pos
+         * @param azimuth the azimuth[radian]
+         * @param zenith the zenith[radian]
+         * @return Point3<_Ty> 
+         */
+        template <typename _Ty>
+        Point3<_Ty> polarCoorMethod(const Point3<_Ty> &center, float distance, float azimuth, float zenith)
+        {
+            Point3<_Ty> pos;
+            float prjDis = distance * std::sin(zenith);
+            pos.x() = center.x() + prjDis * std::cos(azimuth);
+            pos.y() = center.y() + prjDis * std::sin(azimuth);
+            pos.z() = distance * std::cos(zenith);
+            return pos;
+        }
+
+        /**
+         * @brief calculate the zenith according the left hand rule
+         * 
+         * @tparam _Ty the type of value
+         * @param from start point
+         * @param to end point
+         * @return float the zenith[radian]
+         */
+        template <typename _Ty>
+        float zenith(const Point3<_Ty> &from, const Point3<_Ty> &to)
+        {
+            return RHandRule::zenith(from, to);
         }
     } // namespace LHandRule
 
