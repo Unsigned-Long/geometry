@@ -467,8 +467,8 @@ namespace ns_geo
          * @brief calculate the azimuth according the left hand rule
          *
          * @tparam _Ty the type of value
-         * @param p1 one of two points
-         * @param p2 one of two points
+         * @param from start point
+         * @param to end point
          * @return float the azimuth[radian]
          */
         template <typename _Ty>
@@ -486,14 +486,28 @@ namespace ns_geo
          * @brief calculate the azimuth according the left hand rule
          *
          * @tparam _Ty the type of value
-         * @param p1 one of two points
-         * @param p2 one of two points
+         * @param from start point
+         * @param to end point
          * @return float the azimuth[radian]
          */
         template <typename _Ty>
         float azimuth(const Point3<_Ty> &from, const Point3<_Ty> &to)
         {
             return LHandRule::azimuth(Point2<_Ty>(from.x(), from.y()), Point2<_Ty>(to.x(), to.y()));
+        }
+
+        /**
+         * @brief calculate the zenith according the left hand rule
+         * 
+         * @tparam _Ty the type of value
+         * @param from start point
+         * @param to end point
+         * @return float the zenith[radian]
+         */
+        template <typename _Ty>
+        float zenith(const Point3<_Ty> &from, const Point3<_Ty> &to)
+        {
+            return RHandRule::zenith(from, to);
         }
 
         /**
@@ -569,19 +583,6 @@ namespace ns_geo
             return pos;
         }
 
-        /**
-         * @brief calculate the zenith according the left hand rule
-         * 
-         * @tparam _Ty the type of value
-         * @param from start point
-         * @param to end point
-         * @return float the zenith[radian]
-         */
-        template <typename _Ty>
-        float zenith(const Point3<_Ty> &from, const Point3<_Ty> &to)
-        {
-            return RHandRule::zenith(from, to);
-        }
     } // namespace LHandRule
 
 #pragma endregion
