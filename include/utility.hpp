@@ -431,7 +431,7 @@ namespace ns_geo
          * @return Point2<_Ty> 
          */
         template <typename _Ty>
-        Point2<_Ty> polarCoorMethod(const Point2<_Ty> &center, float distance, float azimuth)
+        Point2<_Ty> polarCoorMap(const Point2<_Ty> &center, float distance, float azimuth)
         {
             Point2<_Ty> pos;
             pos.x() = center.x() + distance * std::sin(azimuth);
@@ -450,7 +450,7 @@ namespace ns_geo
          * @return Point3<_Ty> 
          */
         template <typename _Ty>
-        Point3<_Ty> polarCoorMethod(const Point3<_Ty> &center, float distance, float azimuth, float zenith)
+        Point3<_Ty> polarCoorMap(const Point3<_Ty> &center, float distance, float azimuth, float zenith)
         {
             Point3<_Ty> pos;
             float prjDis = distance * std::sin(zenith);
@@ -554,7 +554,7 @@ namespace ns_geo
          * @return Point2<_Ty> 
          */
         template <typename _Ty>
-        Point2<_Ty> polarCoorMethod(const Point2<_Ty> &center, float distance, float azimuth)
+        Point2<_Ty> polarCoorMap(const Point2<_Ty> &center, float distance, float azimuth)
         {
             Point2<_Ty> pos;
             pos.x() = center.x() + distance * std::cos(azimuth);
@@ -573,7 +573,7 @@ namespace ns_geo
          * @return Point3<_Ty> 
          */
         template <typename _Ty>
-        Point3<_Ty> polarCoorMethod(const Point3<_Ty> &center, float distance, float azimuth, float zenith)
+        Point3<_Ty> polarCoorMap(const Point3<_Ty> &center, float distance, float azimuth, float zenith)
         {
             Point3<_Ty> pos;
             float prjDis = distance * std::sin(zenith);

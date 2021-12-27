@@ -18,7 +18,7 @@ void foo_polarCoor()
 {
     for (float rad = 0.0; rad < 10 * M_PI; rad += 0.5)
     {
-        auto pos = RHandRule::polarCoorMethod(Point2f(), rad * rad * rad / 100.0, rad);
+        auto pos = RHandRule::polarCoorMap(Point2f(), rad * rad * rad / 100.0, rad);
         std::cout << pos.x() << ',' << pos.y() << std::endl;
     }
     return;
