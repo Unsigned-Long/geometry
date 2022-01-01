@@ -4,6 +4,8 @@ project(geometry VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_BUILD_TYPE "Release")
+
 include_directories(./include)
 
 add_executable(geometry ./main.cpp)
