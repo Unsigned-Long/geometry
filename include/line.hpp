@@ -55,10 +55,22 @@ namespace ns_geo
             : _p1(p1x, p1y), _p2(p2x, p2y) {}
 
         const point_type &p1() const { return this->_p1; }
+
         point_type &p1() { return this->_p1; }
 
         const point_type &p2() const { return this->_p2; }
+
         point_type &p2() { return this->_p2; }
+
+        self_type &reverse()
+        {
+            auto temp = _p1;
+            _p1 = _p2;
+            _p2 = temp;
+            return *this;
+        }
+
+        self_type reversed() const { return self_type(_p2, _p1); }
 
         ary_type points() const { return ary_type{this->_p1, this->_p2}; }
 
@@ -122,11 +134,29 @@ namespace ns_geo
         const point_type &p2() const { return this->_p2; }
         point_type &p2() { return this->_p2; }
 
+        self_type &reverse()
+        {
+            auto temp = _p1;
+            _p1 = _p2;
+            _p2 = temp;
+            return *this;
+        }
+
+        self_type reversed() const { return self_type(_p2, _p1); }
+
         ary_type points() const { return ary_type{this->_p1, this->_p2}; }
 
         float length() const { return ns_geo::distance(_p1, _p2); }
 
         ns_geo::GeometryType type() const { return GeometryType::LINE3D; }
+
+        float azimuthRHR() const { return ns_geo::RHandRule::azimuth(_p1, _p2); }
+
+        float azimuthLHR() const { return ns_geo::LHandRule::azimuth(_p1, _p2); }
+
+        float zenithRHR() const { return ns_geo::RHandRule::zenith(_p1, _p2); }
+
+        float zenithLHR() const { return ns_geo::LHandRule::zenith(_p1, _p2); }
     };
     /**
      * \brief overload operator "<<" for Line3
@@ -184,6 +214,16 @@ namespace ns_geo
 
         const id_type &pid2() const { return this->_pid2; }
 
+        self_type &reverse()
+        {
+            auto temp = _pid1;
+            _pid1 = _pid2;
+            _pid2 = temp;
+            return *this;
+        }
+
+        self_type reversed() const { return self_type(_pid2, _pid1, _rps); }
+
         ary_type refPoints() const { return ary_type{this->p1(), this->p2()}; }
 
         float length() const { return ns_geo::distance(p1(), p2()); }
@@ -228,14 +268,14 @@ namespace ns_geo
     private:
         id_type _pid1;
         id_type _pid2;
-        const refpointset_type *const _refpointset;
+        const refpointset_type *const _rps;
 
     protected:
         /**
          * \brief constructors
          */
         RefLine3(id_type pid1, id_type pid2, const refpointset_type *const refpointset)
-            : _pid1(pid1), _pid2(pid2), _refpointset(refpointset) {}
+            : _pid1(pid1), _pid2(pid2), _rps(refpointset) {}
 
         RefLine3() = delete;
 
@@ -244,15 +284,33 @@ namespace ns_geo
 
         operator Line3<value_type>() { return Line3<value_type>(this->p1(), this->p2()); }
 
-        const refpoint_type &p1() const { return this->_refpointset->at(this->_pid1); }
+        const refpoint_type &p1() const { return this->_rps->at(this->_pid1); }
 
-        const refpoint_type &p2() const { return this->_refpointset->at(this->_pid2); }
+        const refpoint_type &p2() const { return this->_rps->at(this->_pid2); }
 
         const id_type &pid1() const { return this->_pid1; }
 
         const id_type &pid2() const { return this->_pid2; }
 
         ary_type refPoints() const { return ary_type{this->p1(), this->p2()}; }
+
+        float azimuthRHR() const { return ns_geo::RHandRule::azimuth(p1(), p2()); }
+
+        float azimuthLHR() const { return ns_geo::LHandRule::azimuth(p1(), p2()); }
+
+        float zenithRHR() const { return ns_geo::RHandRule::zenith(p1(), p2()); }
+
+        float zenithLHR() const { return ns_geo::LHandRule::zenith(p1(), p2()); }
+
+        self_type &reverse()
+        {
+            auto temp = _pid1;
+            _pid1 = _pid2;
+            _pid2 = temp;
+            return *this;
+        }
+
+        self_type reversed() const { return self_type(_pid2, _pid1, _rps); }
 
         float length() const { return ns_geo::distance(p1(), p2()); }
 
