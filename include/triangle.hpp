@@ -20,6 +20,7 @@
  */
 
 #include "point.hpp"
+#include "line.hpp"
 
 namespace ns_geo
 {
@@ -67,6 +68,12 @@ namespace ns_geo
         const point_type &p3() const { return this->_p3; }
         point_type &p3() { return this->_p3; }
 
+        Line2<value_type> side12() const { return Line2<value_type>(_p1, _p2); }
+
+        Line2<value_type> side13() const { return Line2<value_type>(_p1, _p3); }
+
+        Line2<value_type> side23() const { return Line2<value_type>(_p2, _p3); }
+
         ary_type points() const { return ary_type{this->_p1, this->_p2, this->_p3}; }
 
         float area() const
@@ -86,7 +93,7 @@ namespace ns_geo
         }
 
         /**
-         * @brief calculate the Circumscribed circle of the triangle
+         * @brief calculate the circumscribed circle of the triangle
          * 
          * @return std::pair<Point2f, float> the center and the radius
          */
@@ -101,7 +108,25 @@ namespace ns_geo
             return std::make_pair(Point2f(a, b), r);
         }
 
-        ns_geo::GeometryType type() const { return GeometryType::TRIANGLE2D; }
+        /**
+         * @brief calculate the inscribed circle of the triangle
+         * 
+         * @return std::pair<Point2f, float> the center and the radius
+         */
+        std::pair<Point2f, float> inscribedCircle() const
+        {
+            float a = distance(_p3, _p2), b = distance(_p1, _p3), c = distance(_p1, _p2);
+            float temp = 1.0 / (a + b + c);
+            float x = (a * _p1.x() + b * _p2.x() + c * _p3.x()) * temp;
+            float y = (a * _p1.y() + b * _p2.y() + c * _p3.y()) * temp;
+            return std::make_pair(Point2f(x, y), distance(Point2f(x, y), Line2f(_p1, _p2)));
+        }
+
+        ns_geo::GeometryType
+        type() const
+        {
+            return GeometryType::TRIANGLE2D;
+        }
     };
     /**
      * \brief overload operator "<<" for Triangle2
@@ -160,6 +185,12 @@ namespace ns_geo
 
         const point_type &p3() const { return this->_p3; }
         point_type &p3() { return this->_p3; }
+
+        Line3<value_type> side12() const { return Line3<value_type>(_p1, _p2); }
+
+        Line3<value_type> side13() const { return Line3<value_type>(_p1, _p3); }
+
+        Line3<value_type> side23() const { return Line3<value_type>(_p2, _p3); }
 
         ary_type points() const { return ary_type{this->_p1, this->_p2, this->_p3}; }
 
@@ -252,6 +283,12 @@ namespace ns_geo
 
         const id_type &pid3() const { return this->_pid3; }
 
+        Line2<value_type> side12() const { return Line2<value_type>(p1(), p2()); }
+
+        Line2<value_type> side13() const { return Line2<value_type>(p1(), p3()); }
+
+        Line2<value_type> side23() const { return Line2<value_type>(p2(), p3()); }
+
         ary_type refPoints() const { return ary_type{this->p1(), this->p2(), this->p3()}; }
 
         float area() const
@@ -283,7 +320,7 @@ namespace ns_geo
          */
         std::pair<Point2f, float> circumCircle() const
         {
-            auto p1 = this->p1(), p2 = this->p2(), p3 = this->p3();
+            auto &p1 = this->p1(), p2 = this->p2(), p3 = this->p3();
             auto x1 = p1.x(), y1 = p1.y();
             auto x2 = p2.x(), y2 = p2.y();
             auto x3 = p3.x(), y3 = p3.y();
@@ -291,6 +328,21 @@ namespace ns_geo
             float b = ((x2 - x1) * (x3 * x3 - x1 * x1 + y3 * y3 - y1 * y1) - (x3 - x1) * (x2 * x2 - x1 * x1 + y2 * y2 - y1 * y1)) / (2.0 * ((y3 - y1) * (x2 - x1) - (y2 - y1) * (x3 - x1)));
             float r = std::sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b));
             return std::make_pair(Point2f(a, b), r);
+        }
+
+        /**
+         * @brief calculate the inscribed circle of the triangle
+         * 
+         * @return std::pair<Point2f, float> the center and the radius
+         */
+        std::pair<Point2f, float> inscribedCircle() const
+        {
+            auto &p1 = this->p1(), p2 = this->p2(), p3 = this->p3();
+            float a = distance(p3, p2), b = distance(p1, p3), c = distance(p1, p2);
+            float temp = 1.0 / (a + b + c);
+            float x = (a * p1.x() + b * p2.x() + c * p3.x()) * temp;
+            float y = (a * p1.y() + b * p2.y() + c * p3.y()) * temp;
+            return std::make_pair(Point2f(x, y), distance(Point2f(x, y), Line2f(p1, p2)));
         }
 
         RefGeometryType type() const { return ns_geo::RefGeometryType::REFTRIANGLE2D; }
@@ -363,6 +415,12 @@ namespace ns_geo
         const id_type &pid2() const { return this->_pid2; }
 
         const id_type &pid3() const { return this->_pid3; }
+
+        Line3<value_type> side12() const { return Line3<value_type>(p1(), p2()); }
+
+        Line3<value_type> side13() const { return Line3<value_type>(p1(), p3()); }
+
+        Line3<value_type> side23() const { return Line3<value_type>(p2(), p3()); }
 
         ary_type refPoints() const { return ary_type{this->p1(), this->p2(), this->p3()}; }
 
