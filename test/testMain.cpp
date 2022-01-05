@@ -1,6 +1,7 @@
-#include "testPoint.h"
 #include "gtest/gtest.h"
-#include <iostream>
+
+#include "testPoint.h"
+#include "testKdtree.h"
 
 int main(int argc, char *argv[])
 {
