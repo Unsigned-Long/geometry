@@ -427,6 +427,7 @@ namespace ns_geo
             : _id(id), Point2<_Ty>(p[0], p[1]) {}
         RefPoint2(id_type id, const value_type p[2])
             : _id(id), Point2<_Ty>(p[0], p[1]) {}
+            
         const id_type &id() const { return this->_id; }
 
         RefGeometryType type() const { return ns_geo::RefGeometryType::REFPOINT2D; }
