@@ -12,7 +12,7 @@
 
 #include "helper.h"
 
-TEST(point2f, normalTesting)
+TEST(Point2f, normalTesting)
 {
     const ns_geo::Point2f p1(1.0f, 2.0f);
     EXPECT_FLOAT_EQ(1.0f, p1.x());
@@ -32,14 +32,14 @@ TEST(point2f, normalTesting)
     EXPECT_EQ(ns_geo::GeometryType::POINT2D, p1.type());
 }
 
-TEST(point2f, typeTesting)
+TEST(Point2f, typeTesting)
 {
     testing::StaticAssertTypeEq<float, ns_geo::Point2f::value_type>();
     testing::StaticAssertTypeEq<std::array<float, 2>, ns_geo::Point2f::ary_type>();
     testing::StaticAssertTypeEq<ns_geo::Point2f, ns_geo::Point2f::self_type>();
 }
 
-TEST(point3f, normalTesting)
+TEST(Point3f, normalTesting)
 {
     const ns_geo::Point3f p1(1.0f, 2.0f, 3.0f);
     EXPECT_FLOAT_EQ(1.0f, p1.x());
@@ -62,7 +62,7 @@ TEST(point3f, normalTesting)
     EXPECT_EQ(ns_geo::GeometryType::POINT3D, p1.type());
 }
 
-TEST(point3f, typeTesting)
+TEST(Point3f, typeTesting)
 {
     testing::StaticAssertTypeEq<float, ns_geo::Point3f::value_type>();
     testing::StaticAssertTypeEq<std::array<float, 3>, ns_geo::Point3f::ary_type>();
