@@ -13,6 +13,8 @@
 #include "gtest/gtest.h"
 #include "../../include/point.hpp"
 
+#pragma region help mathods
+
 void test_point2f_eq(const ns_geo::Point2f &p1, const ns_geo::Point2f &p2)
 {
     EXPECT_FLOAT_EQ(p1.x(), p2.x());
@@ -48,3 +50,66 @@ void test_refpoint3f_eq(const ns_geo::RefPoint3f &p1, const ns_geo::RefPoint3f &
     EXPECT_EQ(p1.type(), p2.type());
     return;
 }
+
+#pragma endregion
+
+#pragma region help classes
+class TestRefPointSet2f : public testing::Test
+{
+protected:
+    virtual void SetUp() override
+    {
+        ns_geo::PointSet2f ps{
+            {0.0f, 2.0f},
+            {1.0f, 1.0f},
+            {2.0f, -1.0f},
+            {-1.0f, 0.0f},
+            {3.0f, -2.0f},
+            {0.0f, -1.0f}};
+        _rps = new ns_geo::RefPointSet2f();
+        _rps->insert({0, ns_geo::RefPoint2f(0, 0.0f, 2.0f)});
+        _rps->insert({1, ns_geo::RefPoint2f(1, 1.0f, 1.0f)});
+        _rps->insert({2, ns_geo::RefPoint2f(2, 2.0f, -1.0f)});
+        _rps->insert({3, ns_geo::RefPoint2f(3, -1.0f, 0.0f)});
+        _rps->insert({4, ns_geo::RefPoint2f(4, 3.0f, -2.0f)});
+        _rps->insert({5, ns_geo::RefPoint2f(5, 0.0f, -1.0f)});
+    }
+
+    void TearDown() override
+    {
+        delete _rps;
+    }
+
+    ns_geo::RefPointSet2f *_rps;
+};
+
+class TestRefPointSet3f : public testing::Test
+{
+protected:
+    virtual void SetUp() override
+    {
+        ns_geo::PointSet3f ps{
+            {0.0f, 2.0f, 1.0f},
+            {1.0f, 1.0f, 1.0f},
+            {2.0f, -1.0f, 1.0f},
+            {-1.0f, 0.0f, 1.0f},
+            {3.0f, -2.0f, 1.0f},
+            {0.0f, -1.0f, 1.0f}};
+        _rps = new ns_geo::RefPointSet3f();
+        _rps->insert({0, ns_geo::RefPoint3f(0, 0.0f, 2.0f, 1.0f)});
+        _rps->insert({1, ns_geo::RefPoint3f(1, 1.0f, 1.0f, 1.0f)});
+        _rps->insert({2, ns_geo::RefPoint3f(2, 2.0f, -1.0f, 1.0f)});
+        _rps->insert({3, ns_geo::RefPoint3f(3, -1.0f, 0.0f, 1.0f)});
+        _rps->insert({4, ns_geo::RefPoint3f(4, 3.0f, -2.0f, 1.0f)});
+        _rps->insert({5, ns_geo::RefPoint3f(5, 0.0f, -1.0f, 1.0f)});
+    }
+
+    void TearDown() override
+    {
+        delete _rps;
+    }
+
+    ns_geo::RefPointSet3f *_rps;
+};
+
+#pragma endregion
