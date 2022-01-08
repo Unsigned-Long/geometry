@@ -235,6 +235,8 @@ namespace ns_geo
 #pragma endregion
 
 #pragma region helpers
+
+#pragma region stride
     /**
      * @brief calculate the stride between the 'from' point to the 'to' point
      *
@@ -262,7 +264,9 @@ namespace ns_geo
     {
         return std::array<_Ty, 3>{to.x() - from.x(), to.y() - from.y(), to.z() - from.z()};
     }
+#pragma endregion
 
+#pragma region distance
     /**
      * @brief Calculate the distance between two points
      *
@@ -277,6 +281,12 @@ namespace ns_geo
         return static_cast<float>(std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2)));
     }
 
+    template <typename _Ty>
+    float distance(const Point2<_Ty> &p1, const Point2<_Ty> &p2, float p)
+    {
+        return static_cast<float>(std::pow(std::pow(p1.x() - p2.x(), p) + std::pow(p1.y() - p2.y(), p), 1.0f / p));
+    }
+
     /**
      * @brief Calculate the distance between two points
      *
@@ -289,6 +299,12 @@ namespace ns_geo
     float distance(const Point3<_Ty> &p1, const Point3<_Ty> &p2)
     {
         return static_cast<float>(std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2) + std::pow(p1.z() - p2.z(), 2)));
+    }
+
+    template <typename _Ty>
+    float distance(const Point3<_Ty> &p1, const Point3<_Ty> &p2, float p)
+    {
+        return static_cast<float>(std::pow(std::pow(p1.x() - p2.x(), p) + std::pow(p1.y() - p2.y(), p) + std::pow(p1.z() - p2.z(), p), 1.0f / p));
     }
 
     /**
@@ -332,6 +348,7 @@ namespace ns_geo
         float dis = std::sqrt(val1 + val2 + val3) / distance(l.p1(), l.p2());
         return dis;
     }
+#pragma endregion
 
     namespace RHandRule
     {
