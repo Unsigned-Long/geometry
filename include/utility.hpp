@@ -456,7 +456,7 @@ namespace ns_geo
             float prjDis = distance * std::sin(zenith);
             pos.x() = center.x() + prjDis * std::sin(azimuth);
             pos.y() = center.y() + prjDis * std::cos(azimuth);
-            pos.z() = distance * std::cos(zenith);
+            pos.z() = center.z() + distance * std::cos(zenith);
             return pos;
         }
     } // namespace RHandRule
@@ -579,7 +579,7 @@ namespace ns_geo
             float prjDis = distance * std::sin(zenith);
             pos.x() = center.x() + prjDis * std::cos(azimuth);
             pos.y() = center.y() + prjDis * std::sin(azimuth);
-            pos.z() = distance * std::cos(zenith);
+            pos.z() = center.z() + distance * std::cos(zenith);
             return pos;
         }
 
