@@ -54,6 +54,7 @@ void test_refpoint3f_eq(const ns_geo::RefPoint3f &p1, const ns_geo::RefPoint3f &
 #pragma endregion
 
 #pragma region help classes
+
 class TestRefPointSet2f : public testing::Test
 {
 protected:
@@ -110,6 +111,38 @@ protected:
     }
 
     ns_geo::RefPointSet3f *_rps;
+};
+
+class TestPointSet : public testing::Test
+{
+protected:
+    virtual void SetUp() override
+    {
+        _ps2f = new ns_geo::PointSet2f();
+        _ps2f->push_back({0.0f, 2.0f});
+        _ps2f->push_back({1.0f, 1.0f});
+        _ps2f->push_back({2.0f, -1.0f});
+        _ps2f->push_back({-1.0f, 0.0f});
+        _ps2f->push_back({3.0f, -2.0f});
+        _ps2f->push_back({0.0f, -1.0f});
+
+        _ps3f = new ns_geo::PointSet3f();
+        _ps3f->push_back({0.0f, 2.0f, 1.0f});
+        _ps3f->push_back({1.0f, 1.0f, 1.0f});
+        _ps3f->push_back({2.0f, -1.0f, 1.0f});
+        _ps3f->push_back({-1.0f, 0.0f, 1.0f});
+        _ps3f->push_back({3.0f, -2.0f, 1.0f});
+        _ps3f->push_back({0.0f, -1.0f, 1.0f});
+    }
+
+    void TearDown() override
+    {
+        delete _ps2f;
+        delete _ps3f;
+    }
+
+    ns_geo::PointSet2f *_ps2f;
+    ns_geo::PointSet3f *_ps3f;
 };
 
 #pragma endregion
