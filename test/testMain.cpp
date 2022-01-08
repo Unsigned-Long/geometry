@@ -8,10 +8,11 @@
  * 
  */
 
-#include "testPoint.h"
-#include "testKdtree.h"
-#include "testLine.h"
-#include "testutility.h"
+// #include "testPoint.h"
+// #include "testKdtree.h"
+// #include "testLine.h"
+// #include "testUtility.h"
+#include "testLinestring.h"
 
 int main(int argc, char *argv[])
 {
