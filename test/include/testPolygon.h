@@ -3,7 +3,7 @@
 #include "helper.h"
 #include "../../include/polygon.hpp"
 
-TEST_F(TestPointSet, polygon_normalTestign)
+TEST_F(TestPointSet, polygonf_normalTestign)
 {
     auto polygon = ns_geo::Polygonf{
         _ps2f->at(0),
@@ -20,14 +20,14 @@ TEST_F(TestPointSet, polygon_normalTestign)
     EXPECT_EQ(polygon.type(), ns_geo::GeometryType::POLYGON);
 }
 
-TEST_F(TestPointSet, polygon_typeTestign)
+TEST_F(TestPointSet, polygonf_typeTestign)
 {
     testing::StaticAssertTypeEq<float, ns_geo::Polygonf::value_type>();
     testing::StaticAssertTypeEq<ns_geo::PointSet2f, ns_geo::Polygonf::pointset_type>();
     testing::StaticAssertTypeEq<ns_geo::Polygonf, ns_geo::Polygonf::self_type>();
 }
 
-TEST_F(TestRefPointSet2f, refpolygon_normalTestign)
+TEST_F(TestRefPointSet2f, refpolygonf_normalTestign)
 {
     auto polygon = _rps->createRefPolygon({0, 1, 5});
 
@@ -50,7 +50,7 @@ TEST_F(TestRefPointSet2f, refpolygon_normalTestign)
     EXPECT_EQ(polygon.type(), ns_geo::RefGeometryType::REFPOLYGON);
 }
 
-TEST_F(TestRefPointSet2f, refpolygon_typeTestign)
+TEST_F(TestRefPointSet2f, refpolygonf_typeTestign)
 {
     testing::StaticAssertTypeEq<float, ns_geo::RefPolygonf::value_type>();
     testing::StaticAssertTypeEq<uint, ns_geo::RefPolygonf::id_type>();
