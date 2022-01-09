@@ -15,6 +15,7 @@
 #include "testLinestring.h"
 #include "testPolygon.h"
 #include "testRectangle.h"
+#include "testTriangle.h"
 
 int main(int argc, char *argv[])
 {
