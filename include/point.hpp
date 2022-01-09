@@ -427,7 +427,7 @@ namespace ns_geo
             : _id(id), Point2<_Ty>(p[0], p[1]) {}
         RefPoint2(id_type id, const value_type p[2])
             : _id(id), Point2<_Ty>(p[0], p[1]) {}
-            
+
         const id_type &id() const { return this->_id; }
 
         RefGeometryType type() const { return ns_geo::RefGeometryType::REFPOINT2D; }
@@ -570,18 +570,30 @@ namespace ns_geo
         /**
          * \brief create reference geometries[2d] by the reference point set
          */
-        RefLine2<value_type> createRefLine2(id_type pid1, id_type pid2)
+        RefLine2<value_type> createRefLine2(id_type pid1, id_type pid2) const
         {
             return RefLine2<value_type>(pid1, pid2, this);
         }
 
-        RefRectangle<value_type> createRefRectangle(id_type topLeftID, id_type lowerRightID) { return RefRectangle<value_type>(topLeftID, lowerRightID, this); }
+        RefRectangle<value_type> createRefRectangle(id_type topLeftID, id_type lowerRightID) const
+        {
+            return RefRectangle<value_type>(topLeftID, lowerRightID, this);
+        }
 
-        RefTriangle2<value_type> createRefTriangle2(id_type pid1, id_type pid2, id_type pid3) { return RefTriangle2<value_type>(pid1, pid2, pid3, this); }
+        RefTriangle2<value_type> createRefTriangle2(id_type pid1, id_type pid2, id_type pid3) const
+        {
+            return RefTriangle2<value_type>(pid1, pid2, pid3, this);
+        }
 
-        RefPolygon<value_type> createRefPolygon(const std::initializer_list<id_type> &pidls) { return RefPolygon<value_type>(pidls, this); }
+        RefPolygon<value_type> createRefPolygon(const std::initializer_list<id_type> &pidls) const
+        {
+            return RefPolygon<value_type>(pidls, this);
+        }
 
-        RefLineString2<value_type> createRefLineString2(const std::initializer_list<id_type> &pidls) { return RefLineString2<value_type>(pidls, this); }
+        RefLineString2<value_type> createRefLineString2(const std::initializer_list<id_type> &pidls) const
+        {
+            return RefLineString2<value_type>(pidls, this);
+        }
 
     private:
         /**
@@ -686,11 +698,20 @@ namespace ns_geo
         /**
          * \brief create reference geometries[3d] by the reference point set
          */
-        RefLine3<value_type> createRefLine3(id_type pid1, id_type pid2) { return RefLine3<value_type>(pid1, pid2, this); }
+        RefLine3<value_type> createRefLine3(id_type pid1, id_type pid2) const
+        {
+            return RefLine3<value_type>(pid1, pid2, this);
+        }
 
-        RefTriangle3<value_type> createRefTriangle3(id_type pid1, id_type pid2, id_type pid3) { return RefTriangle3<value_type>(pid1, pid2, pid3, this); }
+        RefTriangle3<value_type> createRefTriangle3(id_type pid1, id_type pid2, id_type pid3) const
+        {
+            return RefTriangle3<value_type>(pid1, pid2, pid3, this);
+        }
 
-        RefLineString3<value_type> createRefLineString3(const std::initializer_list<id_type> &pidls) { return RefLineString3<value_type>(pidls, this); }
+        RefLineString3<value_type> createRefLineString3(const std::initializer_list<id_type> &pidls) const
+        {
+            return RefLineString3<value_type>(pidls, this);
+        }
 
     private:
         /**

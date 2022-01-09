@@ -122,8 +122,7 @@ namespace ns_geo
             return std::make_pair(Point2f(x, y), distance(Point2f(x, y), Line2f(_p1, _p2)));
         }
 
-        ns_geo::GeometryType
-        type() const
+        ns_geo::GeometryType type() const
         {
             return GeometryType::TRIANGLE2D;
         }
@@ -283,11 +282,11 @@ namespace ns_geo
 
         const id_type &pid3() const { return this->_pid3; }
 
-        Line2<value_type> side12() const { return Line2<value_type>(p1(), p2()); }
+        RefLine2<value_type> side12() const { return this->_rps->createRefLine2(_pid1, _pid2); }
 
-        Line2<value_type> side13() const { return Line2<value_type>(p1(), p3()); }
+        RefLine2<value_type> side13() const { return this->_rps->createRefLine2(_pid1, _pid3); }
 
-        Line2<value_type> side23() const { return Line2<value_type>(p2(), p3()); }
+        RefLine2<value_type> side23() const { return this->_rps->createRefLine2(_pid2, _pid3); }
 
         ary_type refPoints() const { return ary_type{this->p1(), this->p2(), this->p3()}; }
 
@@ -416,11 +415,11 @@ namespace ns_geo
 
         const id_type &pid3() const { return this->_pid3; }
 
-        Line3<value_type> side12() const { return Line3<value_type>(p1(), p2()); }
+        RefLine3<value_type> side12() const { return this->_rps->createRefLine3(_pid1, _pid2); }
 
-        Line3<value_type> side13() const { return Line3<value_type>(p1(), p3()); }
+        RefLine3<value_type> side13() const { return this->_rps->createRefLine3(_pid1, _pid3); }
 
-        Line3<value_type> side23() const { return Line3<value_type>(p2(), p3()); }
+        RefLine3<value_type> side23() const { return this->_rps->createRefLine3(_pid2, _pid3); }
 
         ary_type refPoints() const { return ary_type{this->p1(), this->p2(), this->p3()}; }
 
