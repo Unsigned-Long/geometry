@@ -13,6 +13,7 @@
 #include "testLine.h"
 #include "testUtility.h"
 #include "testLinestring.h"
+#include "testPolygon.h"
 
 int main(int argc, char *argv[])
 {
