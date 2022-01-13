@@ -253,6 +253,9 @@ namespace ns_geo
          * \brief using container_type's constructors
          */
         using container_type::container_type;
+        using self_type = PointSet2<value_type>;
+
+        using selector = bool (*)(const point_type &);
 
     public:
         /**
@@ -311,6 +314,25 @@ namespace ns_geo
                 }
             }
         }
+
+        static self_type randomGenerator(std::size_t num,
+                                         _Ty x_min, _Ty x_max,
+                                         _Ty y_min, _Ty y_max,
+                                         const selector &slor = nullptr)
+        {
+            std::uniform_real_distribution<> u_x(static_cast<float>(x_min), static_cast<float>(x_max));
+            std::uniform_real_distribution<> u_y(static_cast<float>(y_min), static_cast<float>(y_max));
+            self_type ps(num);
+            int count = 0;
+            while (count != num)
+            {
+                point_type p(static_cast<_Ty>(u_x(engine)),
+                             static_cast<_Ty>(u_y(engine)));
+                if (slor == nullptr || slor(p))
+                    ps.at(count++) = p;
+            }
+            return ps;
+        }
     };
     /**
      * \brief some Commonly used PointSet2 types
@@ -334,6 +356,9 @@ namespace ns_geo
          * \brief using container_type's constructors
          */
         using container_type::container_type;
+        using self_type = PointSet3<value_type>;
+
+        using selector = bool (*)(const point_type &);
 
     public:
         /**
@@ -393,6 +418,28 @@ namespace ns_geo
                     this->push_back(point);
                 }
             }
+        }
+
+        static self_type randomGenerator(std::size_t num,
+                                         _Ty x_min, _Ty x_max,
+                                         _Ty y_min, _Ty y_max,
+                                         _Ty z_min, _Ty z_max,
+                                         const selector &slor = nullptr)
+        {
+            std::uniform_real_distribution<> u_x(static_cast<float>(x_min), static_cast<float>(x_max));
+            std::uniform_real_distribution<> u_y(static_cast<float>(y_min), static_cast<float>(y_max));
+            std::uniform_real_distribution<> u_z(static_cast<float>(z_min), static_cast<float>(z_max));
+            self_type ps(num);
+            int count = 0;
+            while (count != num)
+            {
+                point_type p(static_cast<_Ty>(u_x(engine)),
+                             static_cast<_Ty>(u_y(engine)),
+                             static_cast<_Ty>(u_z(engine)));
+                if (slor == nullptr || slor(p))
+                    ps.at(count++) = p;
+            }
+            return ps;
         }
     };
     /**
@@ -500,12 +547,16 @@ namespace ns_geo
          * \brief using container_type's constructors
          */
         using container_type::container_type;
+        using selector = bool (*)(const refpoint_type &);
+
+        using self_type = RefPointSet2<value_type>;
 
     public:
         /**
          * \brief insert a reference point to the refpointset
          */
-        auto insert(const refpoint_type &p)
+        auto
+        insert(const refpoint_type &p)
         {
             return container_type::insert(std::make_pair(p.id(), p));
         }
@@ -595,6 +646,26 @@ namespace ns_geo
             return RefLineString2<value_type>(pidls, this);
         }
 
+        static self_type randomGenerator(std::size_t num,
+                                         _Ty x_min, _Ty x_max,
+                                         _Ty y_min, _Ty y_max,
+                                         const selector &slor = nullptr)
+        {
+            std::uniform_real_distribution<> u_x(static_cast<float>(x_min), static_cast<float>(x_max));
+            std::uniform_real_distribution<> u_y(static_cast<float>(y_min), static_cast<float>(y_max));
+            self_type ps;
+            int count = 0;
+            while (count != num)
+            {
+                refpoint_type p(count,
+                                static_cast<_Ty>(u_x(engine)),
+                                static_cast<_Ty>(u_y(engine)));
+                if (slor == nullptr || slor(p))
+                    ps.insert(p), ++count;
+            }
+            return ps;
+        }
+
     private:
         /**
          * \brief dangerous function has been deleted
@@ -624,6 +695,10 @@ namespace ns_geo
          * \brief using container_type's constructors
          */
         using container_type::container_type;
+
+        using selector = bool (*)(const refpoint_type &);
+
+        using self_type = RefPointSet3<value_type>;
 
     public:
         /**
@@ -711,6 +786,31 @@ namespace ns_geo
         RefLineString3<value_type> createRefLineString3(const std::initializer_list<id_type> &pidls) const
         {
             return RefLineString3<value_type>(pidls, this);
+        }
+
+        static self_type randomGenerator(std::size_t num,
+                                         _Ty x_min, _Ty x_max,
+                                         _Ty y_min, _Ty y_max,
+                                         _Ty z_min, _Ty z_max,
+                                         const selector &slor = nullptr)
+        {
+            std::uniform_real_distribution<> u_x(static_cast<float>(x_min), static_cast<float>(x_max));
+            std::uniform_real_distribution<> u_y(static_cast<float>(y_min), static_cast<float>(y_max));
+            std::uniform_real_distribution<> u_z(static_cast<float>(z_min), static_cast<float>(z_max));
+
+            self_type ps;
+            int count = 0;
+            while (count != num)
+            {
+                refpoint_type p(count,
+                                static_cast<_Ty>(u_x(engine)),
+                                static_cast<_Ty>(u_y(engine)),
+                                static_cast<_Ty>(u_z(engine)));
+
+                if (slor == nullptr || slor(p))
+                    ps.insert(p), ++count;
+            }
+            return ps;
         }
 
     private:
