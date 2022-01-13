@@ -315,6 +315,17 @@ namespace ns_geo
             }
         }
 
+        /**
+         * @brief generate eligible point randomly
+         * 
+         * @param num the number
+         * @param x_min the min x value
+         * @param x_max the max x value
+         * @param y_min the min y value
+         * @param y_max the max y value 
+         * @param slor the selector
+         * @return self_type 
+         */
         static self_type randomGenerator(std::size_t num,
                                          _Ty x_min, _Ty x_max,
                                          _Ty y_min, _Ty y_max,
@@ -420,6 +431,19 @@ namespace ns_geo
             }
         }
 
+        /**
+         * @brief generate eligible point randomly
+         * 
+         * @param num the number
+         * @param x_min the min x value
+         * @param x_max the max x value
+         * @param y_min the min y value
+         * @param y_max the max y value      
+         * @param z_min the min z value
+         * @param z_max the max z value 
+         * @param slor the selector
+         * @return self_type 
+         */
         static self_type randomGenerator(std::size_t num,
                                          _Ty x_min, _Ty x_max,
                                          _Ty y_min, _Ty y_max,
@@ -646,6 +670,17 @@ namespace ns_geo
             return RefLineString2<value_type>(pidls, this);
         }
 
+        /**
+         * @brief generate eligible point randomly
+         * 
+         * @param num the number
+         * @param x_min the min x value
+         * @param x_max the max x value
+         * @param y_min the min y value
+         * @param y_max the max y value 
+         * @param slor the selector
+         * @return self_type 
+         */
         static self_type randomGenerator(std::size_t num,
                                          _Ty x_min, _Ty x_max,
                                          _Ty y_min, _Ty y_max,
@@ -788,6 +823,19 @@ namespace ns_geo
             return RefLineString3<value_type>(pidls, this);
         }
 
+        /**
+         * @brief generate eligible point randomly
+         * 
+         * @param num the number
+         * @param x_min the min x value
+         * @param x_max the max x value
+         * @param y_min the min y value
+         * @param y_max the max y value      
+         * @param z_min the min z value
+         * @param z_max the max z value 
+         * @param slor the selector
+         * @return self_type 
+         */
         static self_type randomGenerator(std::size_t num,
                                          _Ty x_min, _Ty x_max,
                                          _Ty y_min, _Ty y_max,
