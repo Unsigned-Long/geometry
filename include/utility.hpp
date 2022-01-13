@@ -20,9 +20,14 @@
 #include <array>
 #include <vector>
 #include <unordered_map>
+#include <random>
 
 namespace ns_geo
 {
+#pragma region global params
+    static std::default_random_engine engine = std::default_random_engine();
+#pragma endregion
+
 #pragma region gemetry types
     enum class GeometryType;
 
