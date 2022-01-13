@@ -93,6 +93,19 @@ TEST(PointSet2f, writeAndRead)
         test_point2f_eq(ps1[i], ps2[i]);
 }
 
+TEST(PointSet2f, randomGenerator)
+{
+    auto foo = [](const ns_geo::Point2f &p) -> bool
+    { return p.x() > 0.5f; };
+
+    auto ps = ns_geo::PointSet2f::randomGenerator(10, 0.0f, 10.0f, 0.0f, 10.0f, foo);
+
+    EXPECT_EQ(ps.size(), 10);
+
+    for (const auto &elem : ps)
+        EXPECT_TRUE(foo(elem));
+}
+
 TEST(PointSet2f, typeTesting)
 {
     testing::StaticAssertTypeEq<float, ns_geo::PointSet2f::value_type>();
@@ -122,6 +135,19 @@ TEST(PointSet3f, writeAndRead)
 
     for (int i = 0; i != ps2.size(); ++i)
         test_point3f_eq(ps1[i], ps2[i]);
+}
+
+TEST(PointSet3f, randomGenerator)
+{
+    auto foo = [](const ns_geo::Point3f &p) -> bool
+    { return p.x() > 0.5f; };
+
+    auto ps = ns_geo::PointSet3f::randomGenerator(10, 0.0f, 10.0f, 0.0f, 10.0f, 0.0f, 10.0f, foo);
+
+    EXPECT_EQ(ps.size(), 10);
+
+    for (const auto &elem : ps)
+        EXPECT_TRUE(foo(elem));
 }
 
 TEST(PointSet3f, typeTesting)
@@ -198,6 +224,19 @@ TEST(RefPointSet2f, normalTesting)
     test_refpoint2f_eq(ns_geo::RefPoint2f(4, 2.0f, 3.0f), rps.at(4));
 }
 
+TEST(RefPointSet2f, randomGenerator)
+{
+    auto foo = [](const ns_geo::RefPoint2f &p) -> bool
+    { return p.x() > 0.5f; };
+
+    auto ps = ns_geo::RefPointSet2f::randomGenerator(10, 0.0f, 10.0f, 0.0f, 10.0f, foo);
+
+    EXPECT_EQ(ps.size(), 10);
+
+    for (const auto &elem : ps)
+        EXPECT_TRUE(foo(elem.second));
+}
+
 TEST(RefPointSet2f, typeTesting)
 {
     testing::StaticAssertTypeEq<float, ns_geo::RefPointSet2f::value_type>();
@@ -233,6 +272,19 @@ TEST(RefPointSet3f, normalTesting)
 
     test_refpoint3f_eq(ns_geo::RefPoint3f(0, 0.0f, 0.0f, 0.0f), rps.at(0));
     test_refpoint3f_eq(ns_geo::RefPoint3f(4, 2.0f, 3.0f, 1.0f), rps.at(4));
+}
+
+TEST(RefPointSet3f, randomGenerator)
+{
+    auto foo = [](const ns_geo::RefPoint3f &p) -> bool
+    { return p.x() > 0.5f; };
+
+    auto ps = ns_geo::RefPointSet3f::randomGenerator(10, 0.0f, 10.0f, 0.0f, 10.0f, 0.0f, 10.0f, foo);
+
+    EXPECT_EQ(ps.size(), 10);
+
+    for (const auto &elem : ps)
+        EXPECT_TRUE(foo(elem.second));
 }
 
 TEST(RefPointSet3f, typeTesting)
