@@ -8,24 +8,16 @@
  */
 
 #include "point.hpp"
-#include "line.hpp"
-#include "triangle.hpp"
-#include "rectangle.hpp"
 
-using namespace ns_geo;
-
-void foo_polarCoor()
+bool foo(const ns_geo::Point2f &p)
 {
-    for (float rad = 0.0; rad < 10 * M_PI; rad += 0.5)
-    {
-        auto pos = RHandRule::polarCoorMap(Point2f(), rad * rad * rad / 100.0, rad);
-        std::cout << pos.x() << ',' << pos.y() << std::endl;
-    }
-    return;
+    return (ns_geo::distance(p, {2.0f, 2.0f}) > 1.5f) && (ns_geo::distance(p, {6.0f, 8.0f}) > 3.0f);
 }
 
 int main(int argc, char *argv[])
 {
-    ::foo_polarCoor();
+    auto ps2 = ns_geo::PointSet2f::randomGenerator(1000, 0, 10, 0, 10, foo);
+    for (const auto &elem : ps2)
+        std::cout << elem.x() << ',' << elem.y() << std::endl;
     return 0;
 }
