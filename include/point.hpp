@@ -43,7 +43,7 @@ namespace ns_geo
         TRIANGLE3D
     };
 
-    std::ostream &operator<<(std::ostream &os, GeometryType geoty)
+    static std::ostream &operator<<(std::ostream &os, GeometryType geoty)
     {
         switch (geoty)
         {
@@ -100,7 +100,7 @@ namespace ns_geo
         REFTRIANGLE3D
     };
 
-    std::ostream &operator<<(std::ostream &os, RefGeometryType geoty)
+    static std::ostream &operator<<(std::ostream &os, RefGeometryType geoty)
     {
         switch (geoty)
         {
