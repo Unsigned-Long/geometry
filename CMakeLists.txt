@@ -22,4 +22,4 @@ set(CMAKE_INSTALL_PREFIX /usr/local)
 
 file(GLOB HEADERS ${CMAKE_SOURCE_DIR}/include/*)
 
-install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/geometry)
+install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/artwork/geometry)
