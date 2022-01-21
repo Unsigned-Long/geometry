@@ -23,6 +23,34 @@ TEST_F(TestPointSet, utility_2DIME)
     EXPECT_FLOAT_EQ(ns_geo::distance({0.0f, 0.0f}, line), std::sqrt(2.0f));
 }
 
+TEST(utility, vector)
+{
+    std::array<float, 3> vec1 = {1.0f, 3.0f, -5.0f};
+    std::array<float, 3> vec2 = {4.0f, -2.0f, -1.0f};
+
+    auto res = ns_geo::dot(vec1, vec2);
+
+    EXPECT_FLOAT_EQ(res, 3.0f);
+
+    std::array<float, 3> vec3 = {1.0f, 3.0f, -4.0f};
+    std::array<float, 3> vec4 = {2.0f, -5.0f, 8.0f};
+    auto res2 = ns_geo::cross(vec3, vec4);
+
+    EXPECT_FLOAT_EQ(res2[0], 4.0f);
+    EXPECT_FLOAT_EQ(res2[1], -16.0f);
+    EXPECT_FLOAT_EQ(res2[2], -11.0f);
+
+    std::array<float, 3> vec5 = {3.0f, 4.0f, 0.0f};
+    auto nor = ns_geo::norm(vec5);
+
+    EXPECT_FLOAT_EQ(nor, 5.0f);
+    auto vec6 = ns_geo::normalized(vec5);
+    EXPECT_FLOAT_EQ(ns_geo::norm(vec6), 1.0f);
+
+    ns_geo::normalize(vec5);
+    EXPECT_FLOAT_EQ(ns_geo::norm(vec5), 1.0f);
+}
+
 TEST_F(TestPointSet, utility_3DIME)
 {
     auto p1 = _ps3f->at(0);
