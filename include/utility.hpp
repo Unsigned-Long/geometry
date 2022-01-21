@@ -355,6 +355,94 @@ namespace ns_geo
     }
 #pragma endregion
 
+#pragma region vector compute
+    /**
+     * @brief calculate the dot produce of two vectors
+     * 
+     * @tparam _Ty the vaule type
+     * @tparam size the size of the vector
+     * @param vec1 the first vector
+     * @param vec2 the second vector
+     * @return _Ty the return value type
+     */
+    template <typename _Ty, std::size_t size>
+    _Ty dot(const std::array<_Ty, size> &vec1, const std::array<_Ty, size> &vec2)
+    {
+        _Ty res = _Ty(0.0f);
+        for (int i = 0; i != size; ++i)
+            res += vec1[i] * vec2[i];
+        return res;
+    }
+
+    /**
+     * @brief calculate the cross produce of two vectors
+     * 
+     * @tparam _Ty the vaule type
+     * @param vec1 the first vector
+     * @param vec2 the second vector
+     * @return std::array<_Ty, 3> 
+     */
+    template <typename _Ty>
+    std::array<_Ty, 3> cross(const std::array<_Ty, 3> &vec1, const std::array<_Ty, 3> &vec2)
+    {
+        std::array<_Ty, 3> res;
+        res[0] = vec1[1] * vec2[2] - vec1[2] * vec2[1];
+        res[1] = vec1[2] * vec2[0] - vec1[0] * vec2[2];
+        res[2] = vec1[0] * vec2[1] - vec1[1] * vec2[0];
+        return res;
+    }
+
+    /**
+     * @brief calculate the norm of the vector
+     * 
+     * @tparam _Ty the vaule type
+     * @tparam size the size of the vector
+     * @param vec the vector
+     * @return float 
+     */
+    template <typename _Ty, std::size_t size>
+    float norm(const std::array<_Ty, size> &vec)
+    {
+        float nor = 0.0f;
+        for (int i = 0; i != size; ++i)
+            nor += vec[i] * vec[i];
+        nor = std::sqrt(nor);
+        return nor;
+    }
+
+    /**
+     * @brief normalize a vector
+     * 
+     * @tparam _Ty the vaule type
+     * @tparam size the size of the vector
+     * @param vec the vector
+     * @return void 
+     */
+    template <typename _Ty, std::size_t size>
+    void normalize(std::array<_Ty, size> &vec)
+    {
+        auto nor = ns_geo::norm(vec);
+        for (int i = 0; i != size; ++i)
+            vec[i] /= nor;
+        return;
+    }
+
+    /**
+     * @brief calculate the normalized vector of a vector
+     * 
+     * @tparam _Ty the vaule type
+     * @tparam size the size of the vector
+     * @param vec the vector
+     * @return std::array<_Ty, size> 
+     */
+    template <typename _Ty, std::size_t size>
+    std::array<_Ty, size> normalized(std::array<_Ty, size> vec)
+    {
+        normalize(vec);
+        return vec;
+    }
+#pragma endregion
+
     namespace RHandRule
     {
         /**
