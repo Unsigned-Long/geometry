@@ -122,10 +122,7 @@ namespace ns_geo
             return std::make_pair(Point2f(x, y), distance(Point2f(x, y), Line2f(_p1, _p2)));
         }
 
-        ns_geo::GeometryType type() const
-        {
-            return GeometryType::TRIANGLE2D;
-        }
+        static ns_geo::GeometryType type() { return GeometryType::TRIANGLE2D; }
     };
     /**
      * \brief overload operator "<<" for Triangle2
@@ -214,7 +211,7 @@ namespace ns_geo
                    ns_geo::distance(_p2, _p3);
         }
 
-        ns_geo::GeometryType type() const { return GeometryType::TRIANGLE3D; }
+        static ns_geo::GeometryType type() { return GeometryType::TRIANGLE3D; }
     };
     /**
      * \brief overload operator "<<" for Triangle3
@@ -344,7 +341,7 @@ namespace ns_geo
             return std::make_pair(Point2f(x, y), distance(Point2f(x, y), Line2f(p1, p2)));
         }
 
-        RefGeometryType type() const { return ns_geo::RefGeometryType::REFTRIANGLE2D; }
+        static RefGeometryType type() { return ns_geo::RefGeometryType::REFTRIANGLE2D; }
     };
     /**
      * \brief overload operator "<<" for RefTriangle2
@@ -450,7 +447,7 @@ namespace ns_geo
                    ns_geo::distance(p2, p3);
         }
 
-        RefGeometryType type() const { return ns_geo::RefGeometryType::REFTRIANGLE3D; }
+        static RefGeometryType type() { return ns_geo::RefGeometryType::REFTRIANGLE3D; }
     };
     /**
      * \brief overload operator "<<" for RefTriangle3

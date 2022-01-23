@@ -176,7 +176,7 @@ namespace ns_geo
         const value_type &x() const { return this->_x; }
         const value_type &y() const { return this->_y; }
 
-        ns_geo::GeometryType type() const { return GeometryType::POINT2D; }
+        static ns_geo::GeometryType type() { return GeometryType::POINT2D; }
     };
     /**
      * \brief overload operator "<<" for Point2
@@ -227,7 +227,7 @@ namespace ns_geo
         const value_type &y() const { return this->_y; }
         const value_type &z() const { return this->_z; }
 
-        ns_geo::GeometryType type() const { return GeometryType::POINT3D; }
+        static ns_geo::GeometryType type() { return GeometryType::POINT3D; }
     };
     /**
      * \brief overload operator "<<" for Point3
@@ -501,7 +501,7 @@ namespace ns_geo
 
         const id_type &id() const { return this->_id; }
 
-        RefGeometryType type() const { return ns_geo::RefGeometryType::REFPOINT2D; }
+        static RefGeometryType type() { return ns_geo::RefGeometryType::REFPOINT2D; }
     };
     /**
      * \brief overload operator "<<" for RefPoint2
@@ -541,7 +541,7 @@ namespace ns_geo
 
         const id_type &id() const { return this->_id; }
 
-        RefGeometryType type() const { return ns_geo::RefGeometryType::REFPOINT3D; }
+        static RefGeometryType type() { return ns_geo::RefGeometryType::REFPOINT3D; }
     };
     /**
      * \brief overload operator "<<" for RefPoint3

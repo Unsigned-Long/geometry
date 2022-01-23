@@ -44,7 +44,7 @@ namespace ns_geo
             return len;
         }
 
-        ns_geo::GeometryType type() const { return GeometryType::LINESTRING2D; }
+        static ns_geo::GeometryType type() { return GeometryType::LINESTRING2D; }
     };
     /**
      * \brief overload operator "<<" for LineString2
@@ -82,7 +82,7 @@ namespace ns_geo
             return len;
         }
 
-        ns_geo::GeometryType type() const { return GeometryType::LINESTRING3D; }
+        static ns_geo::GeometryType type() { return GeometryType::LINESTRING3D; }
     };
     /**
      * \brief overload operator "<<" for LineString3
@@ -160,7 +160,7 @@ namespace ns_geo
             return len;
         }
 
-        RefGeometryType type() const { return ns_geo::RefGeometryType::REFLINESTRING2D; }
+        static RefGeometryType type() { return ns_geo::RefGeometryType::REFLINESTRING2D; }
     };
     /**
      * \brief overload operator "<<" for RefLineString2
@@ -240,7 +240,7 @@ namespace ns_geo
             return len;
         }
 
-        RefGeometryType type() const { return ns_geo::RefGeometryType::REFLINESTRING3D; }
+        static RefGeometryType type() { return ns_geo::RefGeometryType::REFLINESTRING3D; }
     };
     /**
      * \brief overload operator "<<" for RefLineString3

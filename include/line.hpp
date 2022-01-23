@@ -80,7 +80,7 @@ namespace ns_geo
 
         float azimuthLHR() const { return ns_geo::LHandRule::azimuth(_p1, _p2); }
 
-        ns_geo::GeometryType type() const { return GeometryType::LINE2D; }
+        static ns_geo::GeometryType type() { return GeometryType::LINE2D; }
     };
     /**
      * \brief overload operator "<<" for Line2
@@ -148,7 +148,7 @@ namespace ns_geo
 
         float length() const { return ns_geo::distance(_p1, _p2); }
 
-        ns_geo::GeometryType type() const { return GeometryType::LINE3D; }
+        static ns_geo::GeometryType type() { return GeometryType::LINE3D; }
 
         float azimuthRHR() const { return ns_geo::RHandRule::azimuth(_p1, _p2); }
 
@@ -232,7 +232,7 @@ namespace ns_geo
 
         float azimuthLHR() const { return ns_geo::LHandRule::azimuth(p1(), p2()); }
 
-        RefGeometryType type() const { return ns_geo::RefGeometryType::REFLINE2D; }
+        static RefGeometryType type() { return ns_geo::RefGeometryType::REFLINE2D; }
     };
     /**
      * \brief overload operator "<<" for RefLine2
@@ -314,7 +314,7 @@ namespace ns_geo
 
         float length() const { return ns_geo::distance(p1(), p2()); }
 
-        RefGeometryType type() const { return ns_geo::RefGeometryType::REFLINE3D; }
+        static RefGeometryType type() { return ns_geo::RefGeometryType::REFLINE3D; }
     };
     /**
      * \brief overload operator "<<" for RefLine3

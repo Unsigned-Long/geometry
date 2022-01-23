@@ -59,7 +59,7 @@ namespace ns_geo
             return S;
         }
 
-        ns_geo::GeometryType type() const { return GeometryType::POLYGON; }
+        static ns_geo::GeometryType type() { return GeometryType::POLYGON; }
     };
     /**
      * \brief overload operator "<<" for Polygon
@@ -155,7 +155,7 @@ namespace ns_geo
             return S;
         }
 
-        RefGeometryType type() const { return ns_geo::RefGeometryType::REFPOLYGON; }
+        static RefGeometryType type() { return ns_geo::RefGeometryType::REFPOLYGON; }
     };
     /**
      * \brief overload operator "<<" for RefPolygon

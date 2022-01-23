@@ -74,7 +74,7 @@ namespace ns_geo
             return 2.0 * (std::abs(this->_tplp.x() - this->_lwrp.x()) + std::abs(this->_tplp.y() - this->_lwrp.y()));
         }
 
-        ns_geo::GeometryType type() const { return GeometryType::RECTANGLE; }
+        static ns_geo::GeometryType type() { return GeometryType::RECTANGLE; }
     };
     /**
      * \brief overload operator "<<" for Rectangle
@@ -149,7 +149,7 @@ namespace ns_geo
                           std::abs(this->topLeft().y() - this->lowerRight().y()));
         }
 
-        RefGeometryType type() const { return ns_geo::RefGeometryType::REFRECTANGLE; }
+        static RefGeometryType type() { return ns_geo::RefGeometryType::REFRECTANGLE; }
     };
     /**
      * \brief overload operator "<<" for RefRectangle
