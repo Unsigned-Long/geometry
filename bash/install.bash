@@ -1,3 +1,1 @@
-cd ../build
-sudo cmake --install .
-cd ../bash
+cmake --install ../build/

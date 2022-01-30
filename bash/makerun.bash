@@ -1,5 +1,1 @@
-cd ../build
-make
-echo "-----------------------------"
-./geometry
-cd ../bash
+cmake --build ../build/

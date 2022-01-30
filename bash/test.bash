@@ -1,5 +1,2 @@
-cd ../test/build/
-cmake ..
-make
-./testGeometry
-cd ../../bash/
+cmake -S ../test/ -B ../test/build/
+cmake --build ../test/build/
