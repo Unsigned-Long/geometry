@@ -6,12 +6,12 @@
  * @version 0.1
  * @date 2021-12-06
  * @copyright Copyright (c) 2021
- * 
+ *
  * @brief the details
  *        [1] class type
  *              0. Triangle2<_Ty>, Triangle3<_Ty>
  *              1. RefTriangle2<_Ty>, RefTriangle3<_Ty>
- * 
+ *
  *        [2] methods for Line
  *              0. area
  *              1. perimeter
@@ -94,7 +94,7 @@ namespace ns_geo
 
         /**
          * @brief calculate the circumscribed circle of the triangle
-         * 
+         *
          * @return std::pair<Point2f, float> the center and the radius
          */
         std::pair<Point2f, float> circumCircle() const
@@ -110,7 +110,7 @@ namespace ns_geo
 
         /**
          * @brief calculate the inscribed circle of the triangle
-         * 
+         *
          * @return std::pair<Point2f, float> the center and the radius
          */
         std::pair<Point2f, float> inscribedCircle() const
@@ -311,7 +311,7 @@ namespace ns_geo
 
         /**
          * @brief calculate the Circumscribed circle of the triangle
-         * 
+         *
          * @return std::pair<Point2f, float> the center and the radius
          */
         std::pair<Point2f, float> circumCircle() const
@@ -328,7 +328,7 @@ namespace ns_geo
 
         /**
          * @brief calculate the inscribed circle of the triangle
-         * 
+         *
          * @return std::pair<Point2f, float> the center and the radius
          */
         std::pair<Point2f, float> inscribedCircle() const

@@ -1,1 +1,1 @@
-cmake --install ../build/
+sudo cmake --install ../build/

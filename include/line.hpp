@@ -6,12 +6,12 @@
  * @version 0.1
  * @date 2021-12-06
  * @copyright Copyright (c) 2021
- * 
+ *
  * @brief the details
  *        [1] class type
  *              0. Line2<_Ty>, Line3<_Ty>
  *              1. RefLine2<_Ty>, RefLine3<_Ty>
- * 
+ *
  *        [2] methods for Line
  *              0. azimuthRHR, azimuthLHR
  *              1. length

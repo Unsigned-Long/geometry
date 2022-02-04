@@ -358,7 +358,7 @@ namespace ns_geo
 #pragma region vector compute
     /**
      * @brief calculate the dot produce of two vectors
-     * 
+     *
      * @tparam _Ty the vaule type
      * @tparam size the size of the vector
      * @param vec1 the first vector
@@ -376,11 +376,11 @@ namespace ns_geo
 
     /**
      * @brief calculate the cross produce of two vectors
-     * 
+     *
      * @tparam _Ty the vaule type
      * @param vec1 the first vector
      * @param vec2 the second vector
-     * @return std::array<_Ty, 3> 
+     * @return std::array<_Ty, 3>
      */
     template <typename _Ty>
     std::array<_Ty, 3> cross(const std::array<_Ty, 3> &vec1, const std::array<_Ty, 3> &vec2)
@@ -394,11 +394,11 @@ namespace ns_geo
 
     /**
      * @brief calculate the norm of the vector
-     * 
+     *
      * @tparam _Ty the vaule type
      * @tparam size the size of the vector
      * @param vec the vector
-     * @return float 
+     * @return float
      */
     template <typename _Ty, std::size_t size>
     float norm(const std::array<_Ty, size> &vec)
@@ -412,11 +412,11 @@ namespace ns_geo
 
     /**
      * @brief normalize a vector
-     * 
+     *
      * @tparam _Ty the vaule type
      * @tparam size the size of the vector
      * @param vec the vector
-     * @return void 
+     * @return void
      */
     template <typename _Ty, std::size_t size>
     void normalize(std::array<_Ty, size> &vec)
@@ -429,11 +429,11 @@ namespace ns_geo
 
     /**
      * @brief calculate the normalized vector of a vector
-     * 
+     *
      * @tparam _Ty the vaule type
      * @tparam size the size of the vector
      * @param vec the vector
-     * @return std::array<_Ty, size> 
+     * @return std::array<_Ty, size>
      */
     template <typename _Ty, std::size_t size>
     std::array<_Ty, size> normalized(std::array<_Ty, size> vec)
@@ -480,7 +480,7 @@ namespace ns_geo
 
         /**
          * @brief calculate the zenith according the left hand rule
-         * 
+         *
          * @tparam _Ty the type of value
          * @param from start point
          * @param to end point
@@ -533,12 +533,12 @@ namespace ns_geo
 
         /**
          * @brief calculate the target pos references the center, distancee and azimuth
-         * 
+         *
          * @tparam _Ty the template type
-         * @param center the center position 
+         * @param center the center position
          * @param distance the distance from the center to the target pos
          * @param azimuth the azimuth[radian]
-         * @return Point2<_Ty> 
+         * @return Point2<_Ty>
          */
         template <typename _Ty>
         Point2<_Ty> polarCoorMap(const Point2<_Ty> &center, float distance, float azimuth)
@@ -551,13 +551,13 @@ namespace ns_geo
 
         /**
          * @brief calculate the target pos references the center, distancee, azimuth and zenith
-         * 
+         *
          * @tparam _Ty the template type
-         * @param center the center position 
+         * @param center the center position
          * @param distance the distance from the center to the target pos
          * @param azimuth the azimuth[radian]
          * @param zenith the zenith[radian]
-         * @return Point3<_Ty> 
+         * @return Point3<_Ty>
          */
         template <typename _Ty>
         Point3<_Ty> polarCoorMap(const Point3<_Ty> &center, float distance, float azimuth, float zenith)
@@ -608,7 +608,7 @@ namespace ns_geo
 
         /**
          * @brief calculate the zenith according the left hand rule
-         * 
+         *
          * @tparam _Ty the type of value
          * @param from start point
          * @param to end point
@@ -656,12 +656,12 @@ namespace ns_geo
 
         /**
          * @brief calculate the target pos references the center, distancee and azimuth
-         * 
+         *
          * @tparam _Ty the template type
-         * @param center the center position 
+         * @param center the center position
          * @param distance the distance from the center to the target pos
          * @param azimuth the azimuth[radian]
-         * @return Point2<_Ty> 
+         * @return Point2<_Ty>
          */
         template <typename _Ty>
         Point2<_Ty> polarCoorMap(const Point2<_Ty> &center, float distance, float azimuth)
@@ -674,13 +674,13 @@ namespace ns_geo
 
         /**
          * @brief calculate the target pos references the center, distancee, azimuth and zenith
-         * 
+         *
          * @tparam _Ty the template type
-         * @param center the center position 
+         * @param center the center position
          * @param distance the distance from the center to the target pos
          * @param azimuth the azimuth[radian]
          * @param zenith the zenith[radian]
-         * @return Point3<_Ty> 
+         * @return Point3<_Ty>
          */
         template <typename _Ty>
         Point3<_Ty> polarCoorMap(const Point3<_Ty> &center, float distance, float azimuth, float zenith)

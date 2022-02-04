@@ -5,7 +5,7 @@
  * @author csl (3079625093@qq.com)
  * @version 0.1
  * @date 2021-12-11
- * 
+ *
  * @copyright Copyright (c) 2021
  */
 
@@ -27,9 +27,9 @@ namespace ns_geo
 
     /**
      * @brief Orderly exchange and partition dimensions in the composition of kdtree construction for kdtree2
-     * 
+     *
      * @param sf the split feature
-     * @return SplitFeature 
+     * @return SplitFeature
      */
     SplitFeature exfDime2(SplitFeature sf)
     {
@@ -38,9 +38,9 @@ namespace ns_geo
 
     /**
      * @brief Orderly exchange and partition dimensions in the composition of kdtree construction for kdtree3
-     * 
+     *
      * @param sf the split feature
-     * @return SplitFeature 
+     * @return SplitFeature
      */
     SplitFeature exfDime3(SplitFeature sf)
     {
@@ -136,8 +136,8 @@ namespace ns_geo
     }
     /**
      * @brief the node used in the kdtree
-     * 
-     * @tparam _PointType 
+     *
+     * @tparam _PointType
      */
     template <typename _PointType>
     struct Node
@@ -169,8 +169,8 @@ namespace ns_geo
 
     /**
      * @brief the virtual base class int the kdtree system
-     * 
-     * @tparam _PointType 
+     *
+     * @tparam _PointType
      */
     template <typename _PointType>
     class KdTree
@@ -198,7 +198,7 @@ namespace ns_geo
 
         /**
          * @brief print the kdtree by some order
-         * 
+         *
          * @param mode [1]:Pre order;[2]:middle order;[3]post order
          */
         void printKdTree(int mode = 1, std::ostream &os = std::cout, bool el = true) const
@@ -211,21 +211,21 @@ namespace ns_geo
 
         /**
          * @brief get the root of the kdtree
-         * 
-         * @return const node_ptr& 
+         *
+         * @return const node_ptr&
          */
         inline const node_ptr &root() const { return this->_root; }
 
         /**
          * @brief get the nodes' number on the kdtree
-         * 
-         * @return std::size_t 
+         *
+         * @return std::size_t
          */
         inline std::size_t size() const { return this->_size; }
 
         /**
          * @brief Search nearest K points from the search on the kdtree
-         * 
+         *
          * @param searchPoint the target search point
          * @param K the number of the nearest points
          * @param ps the point vector to save the search result
@@ -343,9 +343,9 @@ namespace ns_geo
         }
 
         /**
-         * @brief Search  points whose distance from 
+         * @brief Search  points whose distance from
          *        the search point is less than a specified distance on the kdtree
-         * 
+         *
          * @param searchPoint the target search point
          * @param radius the search radius
          * @param ps the point vector to save the search result
@@ -382,10 +382,10 @@ namespace ns_geo
                     ps.push_back(curNode->_p), dis.push_back(d);
 
                 /**
-                 * @brief if the current node is the main node and 
+                 * @brief if the current node is the main node and
                  *        is intersect with the search point,
                  *        than add it's sub nodes to the search path
-                 * 
+                 *
                  */
                 if (mainPath.find(curNode) != mainPath.cend() &&
                     isIntersect(searchPoint, curNode->_p, radius, curNode->_sf))
@@ -405,14 +405,14 @@ namespace ns_geo
     protected:
         /**
          * @brief initialize the root of the kdtree
-         * 
+         *
          * @param ps the point set
          */
         virtual void buildKdTree(pointset_type ps) = 0;
 
         /**
          * @brief Sort the point set with a dimension as a reference
-         * 
+         *
          * @param sf the reference feature
          * @param lps the point set on the left tree
          * @param rps the point set on the right tree
@@ -713,7 +713,7 @@ namespace ns_geo
 
         /**
          * @brief Search nearest K points from the search on the kdtree
-         * 
+         *
          * @param searchPoint the target search point
          * @param K the number of the nearest points
          * @param ps the point vector to save the search result
@@ -725,9 +725,9 @@ namespace ns_geo
         }
 
         /**
-         * @brief Search  points whose distance from 
+         * @brief Search  points whose distance from
          *        the search point is less than a specified distance on the kdtree
-         * 
+         *
          * @param searchPoint the target search point
          * @param radius the search radius
          * @param ps the point vector to save the search result
@@ -770,7 +770,7 @@ namespace ns_geo
 
         /**
          * @brief Search nearest K points from the search on the kdtree
-         * 
+         *
          * @param searchPoint the target search point
          * @param K the number of the nearest points
          * @param ps the point vector to save the search result
@@ -782,9 +782,9 @@ namespace ns_geo
         }
 
         /**
-         * @brief Search  points whose distance from 
+         * @brief Search  points whose distance from
          *        the search point is less than a specified distance on the kdtree
-         * 
+         *
          * @param searchPoint the target search point
          * @param radius the search radius
          * @param ps the point vector to save the search result

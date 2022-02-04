@@ -6,12 +6,12 @@
  * @version 0.1
  * @date 2021-12-06
  * @copyright Copyright (c) 2021
- * 
- * \brief the details
+ *
+ * @brief the details
  *        [1] class type
  *              0. LineString2<_Ty>, LineString3<_Ty>
  *              1. RefLineString2<_Ty>, RefLineString3<_Ty>
- * 
+ *
  *        [2] methods for LineString
  *              0. length
  *              2. operator "<<" for LineString2<_Ty>, LineString3<_Ty>

@@ -6,12 +6,12 @@
  * @version 0.1
  * @date 2021-12-06
  * @copyright Copyright (c) 2021
- * 
+ *
  * @brief the details
  *       [1] class type
  *              0. Polygon<_Ty>
  *              1. RefPolygon<_Ty>
- * 
+ *
  *       [2] methods for Polygon
  *              0. perimeter
  *              2. operator "<<" for Polygon<_Ty>
