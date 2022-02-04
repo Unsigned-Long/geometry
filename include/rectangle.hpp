@@ -21,148 +21,149 @@
 
 #include "point.hpp"
 
-namespace ns_geo
-{
+namespace ns_geo {
 #pragma region Rectangle
 
-    /**
-     * \brief a sample template class to describe the 2-dime rectangles
-     */
-    template <typename _Ty = float>
-    class Rectangle
-    {
-    public:
-        using value_type = _Ty;
-        using point_type = ns_geo::Point2<value_type>;
-        using ary_type = std::array<point_type, 2>;
-        using self_type = Rectangle<value_type>;
+/**
+ * \brief a sample template class to describe the 2-dime rectangles
+ */
+template <typename _Ty = float>
+class Rectangle {
+ public:
+  using value_type = _Ty;
+  using point_type = ns_geo::Point2<value_type>;
+  using ary_type = std::array<point_type, 2>;
+  using self_type = Rectangle<value_type>;
 
-    private:
-        // top left point
-        point_type _tplp;
-        // lower right point
-        point_type _lwrp;
+ private:
+  // top left point
+  point_type _tplp;
+  // lower right point
+  point_type _lwrp;
 
-    public:
-        /**
-         * \brief constructors
-         */
-        Rectangle() = default;
-        Rectangle(const point_type &topLeft, const point_type &lowerRight)
-            : _tplp(topLeft), _lwrp(lowerRight) {}
-        Rectangle(const point_type points[2])
-            : _tplp(points[0]), _lwrp(points[1]) {}
-        Rectangle(const ary_type &points)
-            : _tplp(points[0]), _lwrp(points[1]) {}
-        Rectangle(value_type tlx, value_type tly, value_type lrx, value_type lry)
-            : _tplp(tlx, tly), _lwrp(lrx, lry) {}
+ public:
+  /**
+   * \brief constructors
+   */
+  Rectangle() = default;
+  Rectangle(const point_type &topLeft, const point_type &lowerRight)
+      : _tplp(topLeft), _lwrp(lowerRight) {}
+  Rectangle(const point_type points[2]) : _tplp(points[0]), _lwrp(points[1]) {}
+  Rectangle(const ary_type &points) : _tplp(points[0]), _lwrp(points[1]) {}
+  Rectangle(value_type tlx, value_type tly, value_type lrx, value_type lry)
+      : _tplp(tlx, tly), _lwrp(lrx, lry) {}
 
-        ary_type points() const { return ary_type{this->_tplp, this->_lwrp}; }
+  ary_type points() const { return ary_type{this->_tplp, this->_lwrp}; }
 
-        const point_type &topLeft() const { return this->_tplp; }
+  const point_type &topLeft() const { return this->_tplp; }
 
-        point_type &topLeft() { return this->_tplp; }
+  point_type &topLeft() { return this->_tplp; }
 
-        const point_type &lowerRight() const { return this->_lwrp; }
+  const point_type &lowerRight() const { return this->_lwrp; }
 
-        point_type &lowerRight() { return this->_lwrp; }
+  point_type &lowerRight() { return this->_lwrp; }
 
-        float area() const { return std::abs(this->_tplp.x() - this->_lwrp.x()) * std::abs(this->_tplp.y() - this->_lwrp.y()); }
+  float area() const {
+    return std::abs(this->_tplp.x() - this->_lwrp.x()) *
+           std::abs(this->_tplp.y() - this->_lwrp.y());
+  }
 
-        float perimeter() const
-        {
-            return 2.0 * (std::abs(this->_tplp.x() - this->_lwrp.x()) + std::abs(this->_tplp.y() - this->_lwrp.y()));
-        }
+  float perimeter() const {
+    return 2.0 * (std::abs(this->_tplp.x() - this->_lwrp.x()) +
+                  std::abs(this->_tplp.y() - this->_lwrp.y()));
+  }
 
-        static ns_geo::GeometryType type() { return GeometryType::RECTANGLE; }
-    };
-    /**
-     * \brief overload operator "<<" for Rectangle
-     */
-    template <typename _Ty = float>
-    std::ostream &operator<<(std::ostream &os, const Rectangle<_Ty> &rect)
-    {
-        os << '{';
-        os << rect.topLeft() << ", ";
-        os << rect.lowerRight() << '}';
-        return os;
-    }
+  static ns_geo::GeometryType type() { return GeometryType::RECTANGLE; }
+};
+/**
+ * \brief overload operator "<<" for Rectangle
+ */
+template <typename _Ty = float>
+std::ostream &operator<<(std::ostream &os, const Rectangle<_Ty> &rect) {
+  os << '{';
+  os << rect.topLeft() << ", ";
+  os << rect.lowerRight() << '}';
+  return os;
+}
 #pragma endregion
 
 #pragma region RefRectangle
 
-    template <typename _Ty = float>
-    class RefRectangle
-    {
-    public:
-        using value_type = _Ty;
-        using id_type = uint;
-        using refpoint_type = ns_geo::RefPoint2<value_type>;
-        using refpointset_type = RefPointSet2<value_type>;
-        using ary_type = std::array<refpoint_type, 2>;
-        using self_type = RefRectangle<value_type>;
+template <typename _Ty = float>
+class RefRectangle {
+ public:
+  using value_type = _Ty;
+  using id_type = uint;
+  using refpoint_type = ns_geo::RefPoint2<value_type>;
+  using refpointset_type = RefPointSet2<value_type>;
+  using ary_type = std::array<refpoint_type, 2>;
+  using self_type = RefRectangle<value_type>;
 
-    public:
-        friend class RefPointSet2<value_type>;
+ public:
+  friend class RefPointSet2<value_type>;
 
-    private:
-        // top left point's id
-        id_type _tplpid;
-        // lower right point's id
-        id_type _lwrpid;
-        // thr reference point set's pointer
-        const refpointset_type *const _rps;
+ private:
+  // top left point's id
+  id_type _tplpid;
+  // lower right point's id
+  id_type _lwrpid;
+  // thr reference point set's pointer
+  const refpointset_type *const _rps;
 
-    protected:
-        /**
-         * \brief constructors
-         */
-        RefRectangle(id_type topLeftID, id_type lowerRightID, const refpointset_type *const refpointset)
-            : _tplpid(topLeftID), _lwrpid(lowerRightID), _rps(refpointset) {}
+ protected:
+  /**
+   * \brief constructors
+   */
+  RefRectangle(id_type topLeftID, id_type lowerRightID,
+               const refpointset_type *const refpointset)
+      : _tplpid(topLeftID), _lwrpid(lowerRightID), _rps(refpointset) {}
 
-        RefRectangle() = delete;
+  RefRectangle() = delete;
 
-    public:
-        const refpointset_type *const refPointSet() const { return this->_rps; };
+ public:
+  const refpointset_type *const refPointSet() const { return this->_rps; };
 
-        operator Rectangle<value_type>() { return Rectangle<value_type>(this->topLeft(), this->lowerRight()); }
+  operator Rectangle<value_type>() {
+    return Rectangle<value_type>(this->topLeft(), this->lowerRight());
+  }
 
-        ary_type refPoints() const { return ary_type{_rps->at(this->_tplpid), _rps->at(this->_lwrpid)}; }
+  ary_type refPoints() const {
+    return ary_type{_rps->at(this->_tplpid), _rps->at(this->_lwrpid)};
+  }
 
-        const refpoint_type &topLeft() const { return _rps->at(this->_tplpid); }
+  const refpoint_type &topLeft() const { return _rps->at(this->_tplpid); }
 
-        const refpoint_type &lowerRight() const { return _rps->at(this->_lwrpid); }
+  const refpoint_type &lowerRight() const { return _rps->at(this->_lwrpid); }
 
-        const id_type &topLeftID() const { return this->_tplpid; }
+  const id_type &topLeftID() const { return this->_tplpid; }
 
-        const id_type &lowerRightID() const { return this->_lwrpid; }
+  const id_type &lowerRightID() const { return this->_lwrpid; }
 
-        float area() const
-        {
-            return std::abs(this->topLeft().x() - this->lowerRight().x()) *
-                   std::abs(this->topLeft().y() - this->lowerRight().y());
-        }
+  float area() const {
+    return std::abs(this->topLeft().x() - this->lowerRight().x()) *
+           std::abs(this->topLeft().y() - this->lowerRight().y());
+  }
 
-        float perimeter() const
-        {
-            return 2.0 * (std::abs(this->topLeft().x() - this->lowerRight().x()) +
-                          std::abs(this->topLeft().y() - this->lowerRight().y()));
-        }
+  float perimeter() const {
+    return 2.0 * (std::abs(this->topLeft().x() - this->lowerRight().x()) +
+                  std::abs(this->topLeft().y() - this->lowerRight().y()));
+  }
 
-        static RefGeometryType type() { return ns_geo::RefGeometryType::REFRECTANGLE; }
-    };
-    /**
-     * \brief overload operator "<<" for RefRectangle
-     */
-    template <typename _Ty = float>
-    std::ostream &operator<<(std::ostream &os, const RefRectangle<_Ty> &rect)
-    {
-        auto p1 = rect.topLeft();
-        auto p2 = rect.lowerRight();
-        os << '{';
-        os << p1.id() << ": [" << p1.x() << ", " << p1.y() << ']' << ", ";
-        os << p2.id() << ": [" << p2.x() << ", " << p2.y() << "]}";
-        return os;
-    }
+  static RefGeometryType type() {
+    return ns_geo::RefGeometryType::REFRECTANGLE;
+  }
+};
+/**
+ * \brief overload operator "<<" for RefRectangle
+ */
+template <typename _Ty = float>
+std::ostream &operator<<(std::ostream &os, const RefRectangle<_Ty> &rect) {
+  auto p1 = rect.topLeft();
+  auto p2 = rect.lowerRight();
+  os << '{';
+  os << p1.id() << ": [" << p1.x() << ", " << p1.y() << ']' << ", ";
+  os << p2.id() << ": [" << p2.x() << ", " << p2.y() << "]}";
+  return os;
+}
 #pragma endregion
-} // namespace ns_geo
+}  // namespace ns_geo

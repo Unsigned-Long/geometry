@@ -20,159 +20,146 @@
 
 #include "point.hpp"
 
-namespace ns_geo
-{
+namespace ns_geo {
 #pragma region Polygon
 
-    template <typename _Ty = float>
-    class Polygon : public PointSet2<_Ty>
-    {
-    public:
-        using value_type = _Ty;
-        using pointset_type = PointSet2<value_type>;
-        /**
-         * \brief using pointset_type's constructors
-         */
-        using pointset_type::pointset_type;
-        using self_type = Polygon<value_type>;
+template <typename _Ty = float>
+class Polygon : public PointSet2<_Ty> {
+ public:
+  using value_type = _Ty;
+  using pointset_type = PointSet2<value_type>;
+  /**
+   * \brief using pointset_type's constructors
+   */
+  using pointset_type::pointset_type;
+  using self_type = Polygon<value_type>;
 
-        float perimeter() const
-        {
-            float len = 0.0;
-            for (auto iter = this->cbegin(); iter != --this->cend();)
-                len += distance(*iter, *(iter++));
-            len += distance(this->front(), this->back());
-            return len;
-        }
+  float perimeter() const {
+    float len = 0.0;
+    for (auto iter = this->cbegin(); iter != --this->cend();)
+      len += distance(*iter, *(iter++));
+    len += distance(this->front(), this->back());
+    return len;
+  }
 
-        float area() const
-        {
-            float S = 0.0;
-            auto size = this->size();
-            for (int i = 0; i != size; ++i)
-            {
-                auto &pi = this->at(i % size);
-                auto &pii = this->at((i + 1) % size);
-                S += (pi.x() * pii.y() - pii.x() * pi.y());
-            }
-            S = 0.5 * std::abs(S);
-            return S;
-        }
-
-        static ns_geo::GeometryType type() { return GeometryType::POLYGON; }
-    };
-    /**
-     * \brief overload operator "<<" for Polygon
-     */
-    template <typename _Ty>
-    std::ostream &operator<<(std::ostream &os, const Polygon<_Ty> &polygon)
-    {
-        os << '{';
-        for (auto iter = polygon.cbegin(); iter != --polygon.cend(); ++iter)
-            os << *iter << ", ";
-        os << polygon.back() << '}';
-        return os;
+  float area() const {
+    float S = 0.0;
+    auto size = this->size();
+    for (int i = 0; i != size; ++i) {
+      auto &pi = this->at(i % size);
+      auto &pii = this->at((i + 1) % size);
+      S += (pi.x() * pii.y() - pii.x() * pi.y());
     }
+    S = 0.5 * std::abs(S);
+    return S;
+  }
+
+  static ns_geo::GeometryType type() { return GeometryType::POLYGON; }
+};
+/**
+ * \brief overload operator "<<" for Polygon
+ */
+template <typename _Ty>
+std::ostream &operator<<(std::ostream &os, const Polygon<_Ty> &polygon) {
+  os << '{';
+  for (auto iter = polygon.cbegin(); iter != --polygon.cend(); ++iter)
+    os << *iter << ", ";
+  os << polygon.back() << '}';
+  return os;
+}
 #pragma endregion
 
 #pragma region RefPolygon
 
-    template <typename _Ty = float>
-    class RefPolygon : public std::vector<uint>
-    {
-    public:
-        using value_type = _Ty;
-        using id_type = uint;
-        using refpoint_type = RefPoint2<value_type>;
-        using pointidset_type = std::vector<id_type>;
-        using refpointset_type = RefPointSet2<value_type>;
-        using self_type = RefPolygon<value_type>;
+template <typename _Ty = float>
+class RefPolygon : public std::vector<uint> {
+ public:
+  using value_type = _Ty;
+  using id_type = uint;
+  using refpoint_type = RefPoint2<value_type>;
+  using pointidset_type = std::vector<id_type>;
+  using refpointset_type = RefPointSet2<value_type>;
+  using self_type = RefPolygon<value_type>;
 
-    public:
-        friend class RefPointSet2<value_type>;
+ public:
+  friend class RefPointSet2<value_type>;
 
-    private:
-        const refpointset_type *const _rps;
+ private:
+  const refpointset_type *const _rps;
 
-    protected:
-        /**
-         * \brief constructors
-         */
-        RefPolygon(const std::initializer_list<id_type> &pidls, const refpointset_type *const rps)
-            : pointidset_type(pidls), _rps(rps) {}
+ protected:
+  /**
+   * \brief constructors
+   */
+  RefPolygon(const std::initializer_list<id_type> &pidls,
+             const refpointset_type *const rps)
+      : pointidset_type(pidls), _rps(rps) {}
 
-        RefPolygon() = delete;
+  RefPolygon() = delete;
 
-    public:
-        const refpointset_type *const refPointSet() const { return this->_rps; };
+ public:
+  const refpointset_type *const refPointSet() const { return this->_rps; };
 
-        operator Polygon<value_type>()
-        {
-            Polygon<value_type> polygon;
-            for (int i = 0; i != this->size(); ++i)
-                polygon.push_back(this->indexAt(i));
-            return polygon;
-        }
+  operator Polygon<value_type>() {
+    Polygon<value_type> polygon;
+    for (int i = 0; i != this->size(); ++i) polygon.push_back(this->indexAt(i));
+    return polygon;
+  }
 
-        /**
-         * \brief get the 'index'st reference point in the polygon
-         */
-        const refpoint_type &indexAt(std::size_t index) { return this->_rps->at(this->at(index)); }
+  /**
+   * \brief get the 'index'st reference point in the polygon
+   */
+  const refpoint_type &indexAt(std::size_t index) {
+    return this->_rps->at(this->at(index));
+  }
 
-        /**
-         * \brief get the 'id' reference point in the polygon's referenced refpointset
-         */
-        const refpoint_type &idAt(std::size_t id) { return this->_rps->at(id); }
+  /**
+   * \brief get the 'id' reference point in the polygon's referenced refpointset
+   */
+  const refpoint_type &idAt(std::size_t id) { return this->_rps->at(id); }
 
-        const std::vector<uint> &pids() const { return *this; }
+  const std::vector<uint> &pids() const { return *this; }
 
-        float perimeter() const
-        {
-            float len = 0.0;
-            int i = 0;
-            for (auto iter = this->cbegin(); iter != --this->cend();)
-            {
-                auto curPoint = _rps->at(*iter);
-                auto nextPoint = _rps->at(*(++iter));
-                len += distance(curPoint, nextPoint);
-            }
-            len += distance(_rps->at(this->front()),
-                            _rps->at(this->back()));
-            return len;
-        }
-
-        float area() const
-        {
-            float S = 0.0;
-            auto size = this->size();
-            for (int i = 0; i != size; ++i)
-            {
-                auto &pi = _rps->at(this->at(i % size));
-                auto &pii = _rps->at(this->at((i + 1) % size));
-                S += (pi.x() * pii.y() - pii.x() * pi.y());
-            }
-            S = 0.5 * std::abs(S);
-            return S;
-        }
-
-        static RefGeometryType type() { return ns_geo::RefGeometryType::REFPOLYGON; }
-    };
-    /**
-     * \brief overload operator "<<" for RefPolygon
-     */
-    template <typename _Ty>
-    std::ostream &operator<<(std::ostream &os, const RefPolygon<_Ty> &polygon)
-    {
-        auto rps = polygon.refPointSet();
-        os << '{';
-        for (auto iter = polygon.cbegin(); iter != --polygon.cend(); ++iter)
-        {
-            auto &p = rps->at(*iter);
-            os << p.id() << ": [" << p.x() << ", " << p.y() << ']' << ", ";
-        }
-        auto &p = rps->at(polygon.back());
-        os << p.id() << ": [" << p.x() << ", " << p.y() << "]}";
-        return os;
+  float perimeter() const {
+    float len = 0.0;
+    int i = 0;
+    for (auto iter = this->cbegin(); iter != --this->cend();) {
+      auto curPoint = _rps->at(*iter);
+      auto nextPoint = _rps->at(*(++iter));
+      len += distance(curPoint, nextPoint);
     }
+    len += distance(_rps->at(this->front()), _rps->at(this->back()));
+    return len;
+  }
+
+  float area() const {
+    float S = 0.0;
+    auto size = this->size();
+    for (int i = 0; i != size; ++i) {
+      auto &pi = _rps->at(this->at(i % size));
+      auto &pii = _rps->at(this->at((i + 1) % size));
+      S += (pi.x() * pii.y() - pii.x() * pi.y());
+    }
+    S = 0.5 * std::abs(S);
+    return S;
+  }
+
+  static RefGeometryType type() { return ns_geo::RefGeometryType::REFPOLYGON; }
+};
+/**
+ * \brief overload operator "<<" for RefPolygon
+ */
+template <typename _Ty>
+std::ostream &operator<<(std::ostream &os, const RefPolygon<_Ty> &polygon) {
+  auto rps = polygon.refPointSet();
+  os << '{';
+  for (auto iter = polygon.cbegin(); iter != --polygon.cend(); ++iter) {
+    auto &p = rps->at(*iter);
+    os << p.id() << ": [" << p.x() << ", " << p.y() << ']' << ", ";
+  }
+  auto &p = rps->at(polygon.back());
+  os << p.id() << ": [" << p.x() << ", " << p.y() << "]}";
+  return os;
+}
 #pragma endregion
-} // namespace ns_geo
+}  // namespace ns_geo
