@@ -168,6 +168,15 @@ class Point2 {
   const value_type &x() const { return this->_x; }
   const value_type &y() const { return this->_y; }
 
+  self_type transposed() const { return self_type(this->_y, this->_x); }
+
+  self_type &transpose() {
+    auto temp = this->_x;
+    this->_x = this->_y;
+    this->_y = temp;
+    return *this;
+  }
+
   static ns_geo::GeometryType type() { return GeometryType::POINT2D; }
 };
 /**
