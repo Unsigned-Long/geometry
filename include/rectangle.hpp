@@ -39,38 +39,38 @@ class Rectangle {
   // top left point
   point_type _tplp;
   // lower right point
-  point_type _lwrp;
+  point_type _bmrp;
 
  public:
   /**
    * \brief constructors
    */
   Rectangle() = default;
-  Rectangle(const point_type &topLeft, const point_type &lowerRight)
-      : _tplp(topLeft), _lwrp(lowerRight) {}
-  Rectangle(const point_type points[2]) : _tplp(points[0]), _lwrp(points[1]) {}
-  Rectangle(const ary_type &points) : _tplp(points[0]), _lwrp(points[1]) {}
+  Rectangle(const point_type &topLeft, const point_type &bottomRight)
+      : _tplp(topLeft), _bmrp(bottomRight) {}
+  Rectangle(const point_type points[2]) : _tplp(points[0]), _bmrp(points[1]) {}
+  Rectangle(const ary_type &points) : _tplp(points[0]), _bmrp(points[1]) {}
   Rectangle(value_type tlx, value_type tly, value_type lrx, value_type lry)
-      : _tplp(tlx, tly), _lwrp(lrx, lry) {}
+      : _tplp(tlx, tly), _bmrp(lrx, lry) {}
 
-  ary_type points() const { return ary_type{this->_tplp, this->_lwrp}; }
+  ary_type points() const { return ary_type{this->_tplp, this->_bmrp}; }
 
   const point_type &topLeft() const { return this->_tplp; }
 
   point_type &topLeft() { return this->_tplp; }
 
-  const point_type &lowerRight() const { return this->_lwrp; }
+  const point_type &bottomRight() const { return this->_bmrp; }
 
-  point_type &lowerRight() { return this->_lwrp; }
+  point_type &bottomRight() { return this->_bmrp; }
 
   float area() const {
-    return std::abs(this->_tplp.x() - this->_lwrp.x()) *
-           std::abs(this->_tplp.y() - this->_lwrp.y());
+    return std::abs(this->_tplp.x() - this->_bmrp.x()) *
+           std::abs(this->_tplp.y() - this->_bmrp.y());
   }
 
   float perimeter() const {
-    return 2.0 * (std::abs(this->_tplp.x() - this->_lwrp.x()) +
-                  std::abs(this->_tplp.y() - this->_lwrp.y()));
+    return 2.0 * (std::abs(this->_tplp.x() - this->_bmrp.x()) +
+                  std::abs(this->_tplp.y() - this->_bmrp.y()));
   }
 
   static ns_geo::GeometryType type() { return GeometryType::RECTANGLE; }
@@ -82,7 +82,7 @@ template <typename _Ty = float>
 std::ostream &operator<<(std::ostream &os, const Rectangle<_Ty> &rect) {
   os << '{';
   os << rect.topLeft() << ", ";
-  os << rect.lowerRight() << '}';
+  os << rect.bottomRight() << '}';
   return os;
 }
 #pragma endregion
@@ -106,7 +106,7 @@ class RefRectangle {
   // top left point's id
   id_type _tplpid;
   // lower right point's id
-  id_type _lwrpid;
+  id_type _bmrpid;
   // thr reference point set's pointer
   const refpointset_type *const _rps;
 
@@ -114,9 +114,9 @@ class RefRectangle {
   /**
    * \brief constructors
    */
-  RefRectangle(id_type topLeftID, id_type lowerRightID,
+  RefRectangle(id_type topLeftID, id_type bottomRightID,
                const refpointset_type *const refpointset)
-      : _tplpid(topLeftID), _lwrpid(lowerRightID), _rps(refpointset) {}
+      : _tplpid(topLeftID), _bmrpid(bottomRightID), _rps(refpointset) {}
 
   RefRectangle() = delete;
 
@@ -124,29 +124,29 @@ class RefRectangle {
   const refpointset_type *const refPointSet() const { return this->_rps; };
 
   operator Rectangle<value_type>() {
-    return Rectangle<value_type>(this->topLeft(), this->lowerRight());
+    return Rectangle<value_type>(this->topLeft(), this->bottomRight());
   }
 
   ary_type refPoints() const {
-    return ary_type{_rps->at(this->_tplpid), _rps->at(this->_lwrpid)};
+    return ary_type{_rps->at(this->_tplpid), _rps->at(this->_bmrpid)};
   }
 
   const refpoint_type &topLeft() const { return _rps->at(this->_tplpid); }
 
-  const refpoint_type &lowerRight() const { return _rps->at(this->_lwrpid); }
+  const refpoint_type &bottomRight() const { return _rps->at(this->_bmrpid); }
 
   const id_type &topLeftID() const { return this->_tplpid; }
 
-  const id_type &lowerRightID() const { return this->_lwrpid; }
+  const id_type &bottomRightID() const { return this->_bmrpid; }
 
   float area() const {
-    return std::abs(this->topLeft().x() - this->lowerRight().x()) *
-           std::abs(this->topLeft().y() - this->lowerRight().y());
+    return std::abs(this->topLeft().x() - this->bottomRight().x()) *
+           std::abs(this->topLeft().y() - this->bottomRight().y());
   }
 
   float perimeter() const {
-    return 2.0 * (std::abs(this->topLeft().x() - this->lowerRight().x()) +
-                  std::abs(this->topLeft().y() - this->lowerRight().y()));
+    return 2.0 * (std::abs(this->topLeft().x() - this->bottomRight().x()) +
+                  std::abs(this->topLeft().y() - this->bottomRight().y()));
   }
 
   static RefGeometryType type() {
@@ -159,7 +159,7 @@ class RefRectangle {
 template <typename _Ty = float>
 std::ostream &operator<<(std::ostream &os, const RefRectangle<_Ty> &rect) {
   auto p1 = rect.topLeft();
-  auto p2 = rect.lowerRight();
+  auto p2 = rect.bottomRight();
   os << '{';
   os << p1.id() << ": [" << p1.x() << ", " << p1.y() << ']' << ", ";
   os << p2.id() << ": [" << p2.x() << ", " << p2.y() << "]}";
