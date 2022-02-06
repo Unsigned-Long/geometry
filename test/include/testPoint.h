@@ -28,6 +28,11 @@ TEST(Point2f, normalTesting) {
   EXPECT_FLOAT_EQ(10.0f, ary[0]);
   EXPECT_FLOAT_EQ(4.0f, ary[1]);
 
+  auto ps = ns_geo::Point2f(1.0f, 2.0f);
+  ps.transpose();
+  EXPECT_FLOAT_EQ(ps.x(), 2.0f);
+  EXPECT_FLOAT_EQ(ps.y(), 1.0f);
+
   EXPECT_EQ(ns_geo::GeometryType::POINT2D, p1.type());
 }
 
