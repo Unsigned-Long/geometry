@@ -24,7 +24,7 @@ namespace ns_geo {
 #pragma region LineString2
 
 template <typename _Ty = float>
-class LineString2 : public PointSet2<_Ty> {
+class LineString2 : public PointSet2<_Ty>, protected Geometry {
  public:
   using value_type = _Ty;
   using pointset_type = PointSet2<value_type>;
@@ -34,14 +34,16 @@ class LineString2 : public PointSet2<_Ty> {
   using pointset_type::pointset_type;
   using self_type = LineString2<value_type>;
 
-  float length() const {
+  inline float length() const {
     float len = 0.0;
     for (auto iter = this->cbegin(); iter != --this->cend();)
       len += distance(*iter, *(iter++));
     return len;
   }
 
-  static ns_geo::GeometryType type() { return GeometryType::LINESTRING2D; }
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::LINESTRING2D;
+  }
 };
 /**
  * \brief overload operator "<<" for LineString2
@@ -59,7 +61,7 @@ std::ostream &operator<<(std::ostream &os, const LineString2<_Ty> &ls) {
 #pragma region LineString3
 
 template <typename _Ty = float>
-class LineString3 : public PointSet3<_Ty> {
+class LineString3 : public PointSet3<_Ty>, protected Geometry {
  public:
   using value_type = _Ty;
   using pointset_type = PointSet3<value_type>;
@@ -69,14 +71,16 @@ class LineString3 : public PointSet3<_Ty> {
   using pointset_type::pointset_type;
   using self_type = LineString3<value_type>;
 
-  float length() const {
+  inline float length() const {
     float len = 0.0;
     for (auto iter = this->cbegin(); iter != --this->cend();)
       len += distance(*iter, *(iter++));
     return len;
   }
 
-  static ns_geo::GeometryType type() { return GeometryType::LINESTRING3D; }
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::LINESTRING3D;
+  }
 };
 /**
  * \brief overload operator "<<" for LineString3
@@ -94,7 +98,7 @@ std::ostream &operator<<(std::ostream &os, const LineString3<_Ty> &ls) {
 #pragma region RefLineString2
 
 template <typename _Ty = float>
-class RefLineString2 : public std::vector<uint> {
+class RefLineString2 : public std::vector<uint>, protected Geometry {
  public:
   using value_type = _Ty;
   using id_type = uint;
@@ -120,7 +124,9 @@ class RefLineString2 : public std::vector<uint> {
   RefLineString2() = delete;
 
  public:
-  const refpointset_type *const refPointSet() const { return this->_rps; };
+  inline const refpointset_type *const refPointSet() const {
+    return this->_rps;
+  };
 
   operator LineString2<value_type>() {
     LineString2<value_type> linestring;
@@ -132,7 +138,7 @@ class RefLineString2 : public std::vector<uint> {
   /**
    * \brief get the 'index'st reference point in the line string
    */
-  const refpoint_type &indexAt(std::size_t index) {
+  inline const refpoint_type &indexAt(std::size_t index) {
     return this->_rps->at(this->at(index));
   }
 
@@ -140,19 +146,21 @@ class RefLineString2 : public std::vector<uint> {
    * \brief get the 'id' reference point in the line string's referenced
    * refpointset
    */
-  const refpoint_type &idAt(std::size_t id) { return this->_rps->at(id); }
+  inline const refpoint_type &idAt(std::size_t id) {
+    return this->_rps->at(id);
+  }
 
-  const std::vector<uint> &pids() const { return *this; }
+  inline const std::vector<uint> &pids() const { return *this; }
 
-  float length() const {
+  inline float length() const {
     float len = 0.0;
     for (auto iter = this->cbegin(); iter != --this->cend();)
       len += distance(_rps->at(*iter), _rps->at(*(iter++)));
     return len;
   }
 
-  static RefGeometryType type() {
-    return ns_geo::RefGeometryType::REFLINESTRING2D;
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::REFLINESTRING2D;
   }
 };
 /**
@@ -175,7 +183,7 @@ std::ostream &operator<<(std::ostream &os, const RefLineString2<_Ty> &ls) {
 #pragma region RefLineString3
 
 template <typename _Ty = float>
-class RefLineString3 : public std::vector<uint> {
+class RefLineString3 : public std::vector<uint>, protected Geometry {
  public:
   using value_type = _Ty;
   using id_type = uint;
@@ -201,7 +209,9 @@ class RefLineString3 : public std::vector<uint> {
   RefLineString3() = delete;
 
  public:
-  const refpointset_type *const refPointSet() const { return this->_rps; };
+  inline const refpointset_type *const refPointSet() const {
+    return this->_rps;
+  };
 
   operator LineString3<value_type>() {
     LineString3<value_type> linestring;
@@ -213,7 +223,7 @@ class RefLineString3 : public std::vector<uint> {
   /**
    * \brief get the 'index'st reference point in the line string
    */
-  const refpoint_type &indexAt(std::size_t index) {
+  inline const refpoint_type &indexAt(std::size_t index) {
     return this->_rps->at(this->at(index));
   }
 
@@ -221,19 +231,21 @@ class RefLineString3 : public std::vector<uint> {
    * \brief get the 'id' reference point in the line string's referenced
    * refpointset
    */
-  const refpoint_type &idAt(std::size_t id) { return this->_rps->at(id); }
+  inline const refpoint_type &idAt(std::size_t id) {
+    return this->_rps->at(id);
+  }
 
-  const std::vector<uint> &pids() const { return *this; }
+  inline const std::vector<uint> &pids() const { return *this; }
 
-  float length() const {
+  inline float length() const {
     float len = 0.0;
     for (auto iter = this->cbegin(); iter != --this->cend();)
       len += distance(_rps->at(*iter), _rps->at(*(iter++)));
     return len;
   }
 
-  static RefGeometryType type() {
-    return ns_geo::RefGeometryType::REFLINESTRING3D;
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::REFLINESTRING3D;
   }
 };
 /**

@@ -24,7 +24,7 @@ namespace ns_geo {
 #pragma region Polygon
 
 template <typename _Ty = float>
-class Polygon : public PointSet2<_Ty> {
+class Polygon : public PointSet2<_Ty>, protected Geometry {
  public:
   using value_type = _Ty;
   using pointset_type = PointSet2<value_type>;
@@ -34,7 +34,7 @@ class Polygon : public PointSet2<_Ty> {
   using pointset_type::pointset_type;
   using self_type = Polygon<value_type>;
 
-  float perimeter() const {
+  inline float perimeter() const {
     float len = 0.0;
     for (auto iter = this->cbegin(); iter != --this->cend();)
       len += distance(*iter, *(iter++));
@@ -42,7 +42,7 @@ class Polygon : public PointSet2<_Ty> {
     return len;
   }
 
-  float area() const {
+  inline float area() const {
     float S = 0.0;
     auto size = this->size();
     for (int i = 0; i != size; ++i) {
@@ -54,7 +54,9 @@ class Polygon : public PointSet2<_Ty> {
     return S;
   }
 
-  static ns_geo::GeometryType type() { return GeometryType::POLYGON; }
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::POLYGON;
+  }
 };
 /**
  * \brief overload operator "<<" for Polygon
@@ -72,7 +74,7 @@ std::ostream &operator<<(std::ostream &os, const Polygon<_Ty> &polygon) {
 #pragma region RefPolygon
 
 template <typename _Ty = float>
-class RefPolygon : public std::vector<uint> {
+class RefPolygon : public std::vector<uint>, protected Geometry {
  public:
   using value_type = _Ty;
   using id_type = uint;
@@ -98,7 +100,9 @@ class RefPolygon : public std::vector<uint> {
   RefPolygon() = delete;
 
  public:
-  const refpointset_type *const refPointSet() const { return this->_rps; };
+  inline const refpointset_type *const refPointSet() const {
+    return this->_rps;
+  };
 
   operator Polygon<value_type>() {
     Polygon<value_type> polygon;
@@ -109,18 +113,20 @@ class RefPolygon : public std::vector<uint> {
   /**
    * \brief get the 'index'st reference point in the polygon
    */
-  const refpoint_type &indexAt(std::size_t index) {
+  inline const refpoint_type &indexAt(std::size_t index) {
     return this->_rps->at(this->at(index));
   }
 
   /**
    * \brief get the 'id' reference point in the polygon's referenced refpointset
    */
-  const refpoint_type &idAt(std::size_t id) { return this->_rps->at(id); }
+  inline const refpoint_type &idAt(std::size_t id) {
+    return this->_rps->at(id);
+  }
 
-  const std::vector<uint> &pids() const { return *this; }
+  inline const std::vector<uint> &pids() const { return *this; }
 
-  float perimeter() const {
+  inline float perimeter() const {
     float len = 0.0;
     int i = 0;
     for (auto iter = this->cbegin(); iter != --this->cend();) {
@@ -132,7 +138,7 @@ class RefPolygon : public std::vector<uint> {
     return len;
   }
 
-  float area() const {
+  inline float area() const {
     float S = 0.0;
     auto size = this->size();
     for (int i = 0; i != size; ++i) {
@@ -143,8 +149,10 @@ class RefPolygon : public std::vector<uint> {
     S = 0.5 * std::abs(S);
     return S;
   }
-
-  static RefGeometryType type() { return ns_geo::RefGeometryType::REFPOLYGON; }
+  
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::REFPOLYGON;
+  }
 };
 /**
  * \brief overload operator "<<" for RefPolygon

@@ -27,7 +27,7 @@ namespace ns_geo {
  * \brief a sample template class to describe the 2-dime lines
  */
 template <typename _Ty = float>
-class Line2 {
+class Line2 : protected Geometry {
  public:
   using value_type = _Ty;
   using point_type = ns_geo::Point2<value_type>;
@@ -49,32 +49,38 @@ class Line2 {
   Line2(value_type p1x, value_type p1y, value_type p2x, value_type p2y)
       : _p1(p1x, p1y), _p2(p2x, p2y) {}
 
-  const point_type &p1() const { return this->_p1; }
+  inline const point_type &p1() const { return this->_p1; }
 
-  point_type &p1() { return this->_p1; }
+  inline point_type &p1() { return this->_p1; }
 
-  const point_type &p2() const { return this->_p2; }
+  inline const point_type &p2() const { return this->_p2; }
 
-  point_type &p2() { return this->_p2; }
+  inline point_type &p2() { return this->_p2; }
 
-  self_type &reverse() {
+  inline self_type &reverse() {
     auto temp = _p1;
     _p1 = _p2;
     _p2 = temp;
     return *this;
   }
 
-  self_type reversed() const { return self_type(_p2, _p1); }
+  inline self_type reversed() const { return self_type(_p2, _p1); }
 
-  ary_type points() const { return ary_type{this->_p1, this->_p2}; }
+  inline ary_type points() const { return ary_type{this->_p1, this->_p2}; }
 
-  float length() const { return ns_geo::distance(_p1, _p2); }
+  inline float length() const { return ns_geo::distance(_p1, _p2); }
 
-  float azimuthRHR() const { return ns_geo::RHandRule::azimuth(_p1, _p2); }
+  inline float azimuthRHR() const {
+    return ns_geo::RHandRule::azimuth(_p1, _p2);
+  }
 
-  float azimuthLHR() const { return ns_geo::LHandRule::azimuth(_p1, _p2); }
+  inline float azimuthLHR() const {
+    return ns_geo::LHandRule::azimuth(_p1, _p2);
+  }
 
-  static ns_geo::GeometryType type() { return GeometryType::LINE2D; }
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::LINE2D;
+  }
 };
 /**
  * \brief overload operator "<<" for Line2
@@ -94,7 +100,7 @@ std::ostream &operator<<(std::ostream &os, const Line2<_Ty> &line) {
  * \brief a sample template class to describe the 3-dime lines
  */
 template <typename _Ty = float>
-class Line3 {
+class Line3 : protected Geometry {
  public:
   using value_type = _Ty;
   using point_type = ns_geo::Point3<value_type>;
@@ -117,34 +123,40 @@ class Line3 {
         value_type p2y, value_type p2z)
       : _p1(p1x, p1y, p1z), _p2(p2x, p2y, p2z) {}
 
-  const point_type &p1() const { return this->_p1; }
-  point_type &p1() { return this->_p1; }
+  inline const point_type &p1() const { return this->_p1; }
+  inline point_type &p1() { return this->_p1; }
 
-  const point_type &p2() const { return this->_p2; }
-  point_type &p2() { return this->_p2; }
+  inline const point_type &p2() const { return this->_p2; }
+  inline point_type &p2() { return this->_p2; }
 
-  self_type &reverse() {
+  inline self_type &reverse() {
     auto temp = _p1;
     _p1 = _p2;
     _p2 = temp;
     return *this;
   }
 
-  self_type reversed() const { return self_type(_p2, _p1); }
+  inline self_type reversed() const { return self_type(_p2, _p1); }
 
-  ary_type points() const { return ary_type{this->_p1, this->_p2}; }
+  inline ary_type points() const { return ary_type{this->_p1, this->_p2}; }
 
-  float length() const { return ns_geo::distance(_p1, _p2); }
+  inline float length() const { return ns_geo::distance(_p1, _p2); }
 
-  static ns_geo::GeometryType type() { return GeometryType::LINE3D; }
+  inline float azimuthRHR() const {
+    return ns_geo::RHandRule::azimuth(_p1, _p2);
+  }
 
-  float azimuthRHR() const { return ns_geo::RHandRule::azimuth(_p1, _p2); }
+  inline float azimuthLHR() const {
+    return ns_geo::LHandRule::azimuth(_p1, _p2);
+  }
 
-  float azimuthLHR() const { return ns_geo::LHandRule::azimuth(_p1, _p2); }
+  inline float zenithRHR() const { return ns_geo::RHandRule::zenith(_p1, _p2); }
 
-  float zenithRHR() const { return ns_geo::RHandRule::zenith(_p1, _p2); }
+  inline float zenithLHR() const { return ns_geo::LHandRule::zenith(_p1, _p2); }
 
-  float zenithLHR() const { return ns_geo::LHandRule::zenith(_p1, _p2); }
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::LINE3D;
+  }
 };
 /**
  * \brief overload operator "<<" for Line3
@@ -160,7 +172,7 @@ std::ostream &operator<<(std::ostream &os, const Line3<_Ty> &line) {
 
 #pragma region RefLine2
 template <typename _Ty = float>
-class RefLine2 {
+class RefLine2 : protected Geometry {
  public:
   using value_type = _Ty;
   using id_type = uint;
@@ -189,38 +201,46 @@ class RefLine2 {
   RefLine2() = delete;
 
  public:
-  const refpointset_type *const refPointSet() const { return this->_rps; };
+  inline const refpointset_type *const refPointSet() const {
+    return this->_rps;
+  };
 
   operator Line2<value_type>() {
     return Line2<value_type>(this->p1(), this->p2());
   }
 
-  const refpoint_type &p1() const { return this->_rps->at(this->_pid1); }
+  inline const refpoint_type &p1() const { return this->_rps->at(this->_pid1); }
 
-  const refpoint_type &p2() const { return this->_rps->at(this->_pid2); }
+  inline const refpoint_type &p2() const { return this->_rps->at(this->_pid2); }
 
-  const id_type &pid1() const { return this->_pid1; }
+  inline const id_type &pid1() const { return this->_pid1; }
 
-  const id_type &pid2() const { return this->_pid2; }
+  inline const id_type &pid2() const { return this->_pid2; }
 
-  self_type &reverse() {
+  inline self_type &reverse() {
     auto temp = _pid1;
     _pid1 = _pid2;
     _pid2 = temp;
     return *this;
   }
 
-  self_type reversed() const { return self_type(_pid2, _pid1, _rps); }
+  inline self_type reversed() const { return self_type(_pid2, _pid1, _rps); }
 
-  ary_type refPoints() const { return ary_type{this->p1(), this->p2()}; }
+  inline ary_type refPoints() const { return ary_type{this->p1(), this->p2()}; }
 
-  float length() const { return ns_geo::distance(p1(), p2()); }
+  inline float length() const { return ns_geo::distance(p1(), p2()); }
 
-  float azimuthRHR() const { return ns_geo::RHandRule::azimuth(p1(), p2()); }
+  inline float azimuthRHR() const {
+    return ns_geo::RHandRule::azimuth(p1(), p2());
+  }
 
-  float azimuthLHR() const { return ns_geo::LHandRule::azimuth(p1(), p2()); }
+  inline float azimuthLHR() const {
+    return ns_geo::LHandRule::azimuth(p1(), p2());
+  }
 
-  static RefGeometryType type() { return ns_geo::RefGeometryType::REFLINE2D; }
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::REFLINE2D;
+  }
 };
 /**
  * \brief overload operator "<<" for RefLine2
@@ -239,7 +259,7 @@ std::ostream &operator<<(std::ostream &os, const RefLine2<_Ty> &line) {
 #pragma region RefLine3
 
 template <typename _Ty = float>
-class RefLine3 {
+class RefLine3 : protected Geometry {
  public:
   using value_type = _Ty;
   using id_type = uint;
@@ -267,42 +287,54 @@ class RefLine3 {
   RefLine3() = delete;
 
  public:
-  const refpointset_type *const refPointSet() const { return this->_rps; };
+  inline const refpointset_type *const refPointSet() const {
+    return this->_rps;
+  };
 
   operator Line3<value_type>() {
     return Line3<value_type>(this->p1(), this->p2());
   }
 
-  const refpoint_type &p1() const { return this->_rps->at(this->_pid1); }
+  inline const refpoint_type &p1() const { return this->_rps->at(this->_pid1); }
 
-  const refpoint_type &p2() const { return this->_rps->at(this->_pid2); }
+  inline const refpoint_type &p2() const { return this->_rps->at(this->_pid2); }
 
-  const id_type &pid1() const { return this->_pid1; }
+  inline const id_type &pid1() const { return this->_pid1; }
 
-  const id_type &pid2() const { return this->_pid2; }
+  inline const id_type &pid2() const { return this->_pid2; }
 
-  ary_type refPoints() const { return ary_type{this->p1(), this->p2()}; }
+  inline ary_type refPoints() const { return ary_type{this->p1(), this->p2()}; }
 
-  float azimuthRHR() const { return ns_geo::RHandRule::azimuth(p1(), p2()); }
+  inline float azimuthRHR() const {
+    return ns_geo::RHandRule::azimuth(p1(), p2());
+  }
 
-  float azimuthLHR() const { return ns_geo::LHandRule::azimuth(p1(), p2()); }
+  inline float azimuthLHR() const {
+    return ns_geo::LHandRule::azimuth(p1(), p2());
+  }
 
-  float zenithRHR() const { return ns_geo::RHandRule::zenith(p1(), p2()); }
+  inline float zenithRHR() const {
+    return ns_geo::RHandRule::zenith(p1(), p2());
+  }
 
-  float zenithLHR() const { return ns_geo::LHandRule::zenith(p1(), p2()); }
+  inline float zenithLHR() const {
+    return ns_geo::LHandRule::zenith(p1(), p2());
+  }
 
-  self_type &reverse() {
+  inline self_type &reverse() {
     auto temp = _pid1;
     _pid1 = _pid2;
     _pid2 = temp;
     return *this;
   }
 
-  self_type reversed() const { return self_type(_pid2, _pid1, _rps); }
+  inline self_type reversed() const { return self_type(_pid2, _pid1, _rps); }
 
-  float length() const { return ns_geo::distance(p1(), p2()); }
+  inline float length() const { return ns_geo::distance(p1(), p2()); }
 
-  static RefGeometryType type() { return ns_geo::RefGeometryType::REFLINE3D; }
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::REFLINE3D;
+  }
 };
 /**
  * \brief overload operator "<<" for RefLine3

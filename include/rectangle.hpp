@@ -28,7 +28,7 @@ namespace ns_geo {
  * \brief a sample template class to describe the 2-dime rectangles
  */
 template <typename _Ty = float>
-class Rectangle {
+class Rectangle : protected Geometry {
  public:
   using value_type = _Ty;
   using point_type = ns_geo::Point2<value_type>;
@@ -53,27 +53,29 @@ class Rectangle {
   Rectangle(value_type tlx, value_type tly, value_type lrx, value_type lry)
       : _tplp(tlx, tly), _bmrp(lrx, lry) {}
 
-  ary_type points() const { return ary_type{this->_tplp, this->_bmrp}; }
+  inline ary_type points() const { return ary_type{this->_tplp, this->_bmrp}; }
 
-  const point_type &topLeft() const { return this->_tplp; }
+  inline const point_type &topLeft() const { return this->_tplp; }
 
-  point_type &topLeft() { return this->_tplp; }
+  inline point_type &topLeft() { return this->_tplp; }
 
-  const point_type &bottomRight() const { return this->_bmrp; }
+  inline const point_type &bottomRight() const { return this->_bmrp; }
 
-  point_type &bottomRight() { return this->_bmrp; }
+  inline point_type &bottomRight() { return this->_bmrp; }
 
-  float area() const {
+  inline float area() const {
     return std::abs(this->_tplp.x() - this->_bmrp.x()) *
            std::abs(this->_tplp.y() - this->_bmrp.y());
   }
 
-  float perimeter() const {
+  inline float perimeter() const {
     return 2.0 * (std::abs(this->_tplp.x() - this->_bmrp.x()) +
                   std::abs(this->_tplp.y() - this->_bmrp.y()));
   }
 
-  static ns_geo::GeometryType type() { return GeometryType::RECTANGLE; }
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::RECTANGLE;
+  }
 };
 /**
  * \brief overload operator "<<" for Rectangle
@@ -90,7 +92,7 @@ std::ostream &operator<<(std::ostream &os, const Rectangle<_Ty> &rect) {
 #pragma region RefRectangle
 
 template <typename _Ty = float>
-class RefRectangle {
+class RefRectangle : protected Geometry {
  public:
   using value_type = _Ty;
   using id_type = uint;
@@ -121,36 +123,42 @@ class RefRectangle {
   RefRectangle() = delete;
 
  public:
-  const refpointset_type *const refPointSet() const { return this->_rps; };
+  inline const refpointset_type *const refPointSet() const {
+    return this->_rps;
+  };
 
   operator Rectangle<value_type>() {
     return Rectangle<value_type>(this->topLeft(), this->bottomRight());
   }
 
-  ary_type refPoints() const {
+  inline ary_type refPoints() const {
     return ary_type{_rps->at(this->_tplpid), _rps->at(this->_bmrpid)};
   }
 
-  const refpoint_type &topLeft() const { return _rps->at(this->_tplpid); }
+  inline const refpoint_type &topLeft() const {
+    return _rps->at(this->_tplpid);
+  }
 
-  const refpoint_type &bottomRight() const { return _rps->at(this->_bmrpid); }
+  inline const refpoint_type &bottomRight() const {
+    return _rps->at(this->_bmrpid);
+  }
 
-  const id_type &topLeftID() const { return this->_tplpid; }
+  inline const id_type &topLeftID() const { return this->_tplpid; }
 
-  const id_type &bottomRightID() const { return this->_bmrpid; }
+  inline const id_type &bottomRightID() const { return this->_bmrpid; }
 
-  float area() const {
+  inline float area() const {
     return std::abs(this->topLeft().x() - this->bottomRight().x()) *
            std::abs(this->topLeft().y() - this->bottomRight().y());
   }
 
-  float perimeter() const {
+  inline float perimeter() const {
     return 2.0 * (std::abs(this->topLeft().x() - this->bottomRight().x()) +
                   std::abs(this->topLeft().y() - this->bottomRight().y()));
   }
 
-  static RefGeometryType type() {
-    return ns_geo::RefGeometryType::REFRECTANGLE;
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::REFRECTANGLE;
   }
 };
 /**

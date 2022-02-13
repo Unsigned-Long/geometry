@@ -28,9 +28,9 @@ static std::default_random_engine engine = std::default_random_engine();
 #pragma endregion
 
 #pragma region gemetry types
-enum class GeometryType;
+enum class GeoType;
 
-enum class RefGeometryType;
+class Geometry;
 
 template <typename _Ty>
 class Point2;

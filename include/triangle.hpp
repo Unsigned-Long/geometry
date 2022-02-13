@@ -29,7 +29,7 @@ namespace ns_geo {
  * \brief a sample template class to describe the 2-dime triangles
  */
 template <typename _Ty = float>
-class Triangle2 {
+class Triangle2 : protected Geometry {
  public:
   using value_type = _Ty;
   using point_type = ns_geo::Point2<value_type>;
@@ -56,24 +56,32 @@ class Triangle2 {
             value_type p3x, value_type p3y)
       : _p1(p1x, p1y), _p2(p2x, p2y), _p3(p3x, p3y) {}
 
-  const point_type &p1() const { return this->_p1; }
-  point_type &p1() { return this->_p1; }
+  inline const point_type &p1() const { return this->_p1; }
+  inline point_type &p1() { return this->_p1; }
 
-  const point_type &p2() const { return this->_p2; }
-  point_type &p2() { return this->_p2; }
+  inline const point_type &p2() const { return this->_p2; }
+  inline point_type &p2() { return this->_p2; }
 
-  const point_type &p3() const { return this->_p3; }
-  point_type &p3() { return this->_p3; }
+  inline const point_type &p3() const { return this->_p3; }
+  inline point_type &p3() { return this->_p3; }
 
-  Line2<value_type> side12() const { return Line2<value_type>(_p1, _p2); }
+  inline Line2<value_type> side12() const {
+    return Line2<value_type>(_p1, _p2);
+  }
 
-  Line2<value_type> side13() const { return Line2<value_type>(_p1, _p3); }
+  inline Line2<value_type> side13() const {
+    return Line2<value_type>(_p1, _p3);
+  }
 
-  Line2<value_type> side23() const { return Line2<value_type>(_p2, _p3); }
+  inline Line2<value_type> side23() const {
+    return Line2<value_type>(_p2, _p3);
+  }
 
-  ary_type points() const { return ary_type{this->_p1, this->_p2, this->_p3}; }
+  inline ary_type points() const {
+    return ary_type{this->_p1, this->_p2, this->_p3};
+  }
 
-  float area() const {
+  inline float area() const {
     float v12_x = _p2.x() - _p1.x();
     float v12_y = _p2.y() - _p1.y();
     float v13_x = _p3.x() - _p1.x();
@@ -81,7 +89,7 @@ class Triangle2 {
     return std::abs(v12_x * v13_y - v12_y * v13_x) * 0.5;
   }
 
-  float perimeter() const {
+  inline float perimeter() const {
     return ns_geo::distance(_p1, _p2) + ns_geo::distance(_p1, _p3) +
            ns_geo::distance(_p2, _p3);
   }
@@ -120,7 +128,9 @@ class Triangle2 {
                           distance(Point2f(x, y), Line2f(_p1, _p2)));
   }
 
-  static ns_geo::GeometryType type() { return GeometryType::TRIANGLE2D; }
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::TRIANGLE2D;
+  }
 };
 /**
  * \brief overload operator "<<" for Triangle2
@@ -141,7 +151,7 @@ std::ostream &operator<<(std::ostream &os, const Triangle2<_Ty> &tri) {
  * \brief a sample template class to describe the 3-dime triangles
  */
 template <typename _Ty = float>
-class Triangle3 {
+class Triangle3 : protected Geometry {
  public:
   using value_type = _Ty;
   using point_type = ns_geo::Point3<value_type>;
@@ -169,22 +179,30 @@ class Triangle3 {
             value_type p3z)
       : _p1(p1x, p1y, p1z), _p2(p2x, p2y, p2z), _p3(p3x, p3y, p3z) {}
 
-  const point_type &p1() const { return this->_p1; }
-  point_type &p1() { return this->_p1; }
+  inline const point_type &p1() const { return this->_p1; }
+  inline point_type &p1() { return this->_p1; }
 
-  const point_type &p2() const { return this->_p2; }
-  point_type &p2() { return this->_p2; }
+  inline const point_type &p2() const { return this->_p2; }
+  inline point_type &p2() { return this->_p2; }
 
-  const point_type &p3() const { return this->_p3; }
-  point_type &p3() { return this->_p3; }
+  inline const point_type &p3() const { return this->_p3; }
+  inline point_type &p3() { return this->_p3; }
 
-  Line3<value_type> side12() const { return Line3<value_type>(_p1, _p2); }
+  inline Line3<value_type> side12() const {
+    return Line3<value_type>(_p1, _p2);
+  }
 
-  Line3<value_type> side13() const { return Line3<value_type>(_p1, _p3); }
+  inline Line3<value_type> side13() const {
+    return Line3<value_type>(_p1, _p3);
+  }
 
-  Line3<value_type> side23() const { return Line3<value_type>(_p2, _p3); }
+  inline Line3<value_type> side23() const {
+    return Line3<value_type>(_p2, _p3);
+  }
 
-  ary_type points() const { return ary_type{this->_p1, this->_p2, this->_p3}; }
+  inline ary_type points() const {
+    return ary_type{this->_p1, this->_p2, this->_p3};
+  }
 
   float area() const {
     float v12_x = _p2.x() - _p1.x();
@@ -199,12 +217,14 @@ class Triangle3 {
     return std::sqrt(val1 + val2 + val3) * 0.5;
   }
 
-  float perimeter() const {
+  inline float perimeter() const {
     return ns_geo::distance(_p1, _p2) + ns_geo::distance(_p1, _p3) +
            ns_geo::distance(_p2, _p3);
   }
 
-  static ns_geo::GeometryType type() { return GeometryType::TRIANGLE3D; }
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::TRIANGLE3D;
+  }
 };
 /**
  * \brief overload operator "<<" for Triangle3
@@ -225,7 +245,7 @@ std::ostream &operator<<(std::ostream &os, const Triangle3<_Ty> &tri) {
  * \brief a sample template class to describe the 2-dime triangles
  */
 template <typename _Ty = float>
-class RefTriangle2 {
+class RefTriangle2 : protected Geometry {
  public:
   using value_type = _Ty;
   using id_type = uint;
@@ -255,41 +275,43 @@ class RefTriangle2 {
   RefTriangle2() = delete;
 
  public:
-  const refpointset_type *const refPointSet() const { return this->_rps; };
+  inline const refpointset_type *const refPointSet() const {
+    return this->_rps;
+  };
 
   operator Triangle2<value_type>() {
     return Triangle2<value_type>(this->p1(), this->p2(), this->p3());
   }
 
-  const refpoint_type &p1() const { return this->_rps->at(_pid1); }
+  inline const refpoint_type &p1() const { return this->_rps->at(_pid1); }
 
-  const refpoint_type &p2() const { return this->_rps->at(_pid2); }
+  inline const refpoint_type &p2() const { return this->_rps->at(_pid2); }
 
-  const refpoint_type &p3() const { return this->_rps->at(_pid3); }
+  inline const refpoint_type &p3() const { return this->_rps->at(_pid3); }
 
-  const id_type &pid1() const { return this->_pid1; }
+  inline const id_type &pid1() const { return this->_pid1; }
 
-  const id_type &pid2() const { return this->_pid2; }
+  inline const id_type &pid2() const { return this->_pid2; }
 
-  const id_type &pid3() const { return this->_pid3; }
+  inline const id_type &pid3() const { return this->_pid3; }
 
-  RefLine2<value_type> side12() const {
+  inline RefLine2<value_type> side12() const {
     return this->_rps->createRefLine2(_pid1, _pid2);
   }
 
-  RefLine2<value_type> side13() const {
+  inline RefLine2<value_type> side13() const {
     return this->_rps->createRefLine2(_pid1, _pid3);
   }
 
-  RefLine2<value_type> side23() const {
+  inline RefLine2<value_type> side23() const {
     return this->_rps->createRefLine2(_pid2, _pid3);
   }
 
-  ary_type refPoints() const {
+  inline ary_type refPoints() const {
     return ary_type{this->p1(), this->p2(), this->p3()};
   }
 
-  float area() const {
+  inline float area() const {
     auto p1 = this->p1();
     auto p2 = this->p2();
     auto p3 = this->p3();
@@ -300,7 +322,7 @@ class RefTriangle2 {
     return std::abs(v12_x * v13_y - v12_y * v13_x) * 0.5;
   }
 
-  float perimeter() const {
+  inline float perimeter() const {
     auto p1 = this->p1();
     auto p2 = this->p2();
     auto p3 = this->p3();
@@ -343,8 +365,8 @@ class RefTriangle2 {
                           distance(Point2f(x, y), Line2f(p1, p2)));
   }
 
-  static RefGeometryType type() {
-    return ns_geo::RefGeometryType::REFTRIANGLE2D;
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::REFTRIANGLE2D;
   }
 };
 /**
@@ -369,7 +391,7 @@ std::ostream &operator<<(std::ostream &os, const RefTriangle2<_Ty> &tri) {
  * \brief a sample template class to describe the 3-dime triangles
  */
 template <typename _Ty = float>
-class RefTriangle3 {
+class RefTriangle3 : protected Geometry {
  public:
   using value_type = _Ty;
   using id_type = uint;
@@ -399,37 +421,39 @@ class RefTriangle3 {
   RefTriangle3() = delete;
 
  public:
-  const refpointset_type *const refPointSet() const { return this->_rps; };
+  inline const refpointset_type *const refPointSet() const {
+    return this->_rps;
+  };
 
   operator Triangle3<value_type>() {
     return Triangle3<value_type>(this->p1(), this->p2(), this->p3());
   }
 
-  const refpoint_type &p1() const { return this->_rps->at(_pid1); }
+  inline const refpoint_type &p1() const { return this->_rps->at(_pid1); }
 
-  const refpoint_type &p2() const { return this->_rps->at(_pid2); }
+  inline const refpoint_type &p2() const { return this->_rps->at(_pid2); }
 
-  const refpoint_type &p3() const { return this->_rps->at(_pid3); }
+  inline const refpoint_type &p3() const { return this->_rps->at(_pid3); }
 
-  const id_type &pid1() const { return this->_pid1; }
+  inline const id_type &pid1() const { return this->_pid1; }
 
-  const id_type &pid2() const { return this->_pid2; }
+  inline const id_type &pid2() const { return this->_pid2; }
 
-  const id_type &pid3() const { return this->_pid3; }
+  inline const id_type &pid3() const { return this->_pid3; }
 
-  RefLine3<value_type> side12() const {
+  inline RefLine3<value_type> side12() const {
     return this->_rps->createRefLine3(_pid1, _pid2);
   }
 
-  RefLine3<value_type> side13() const {
+  inline RefLine3<value_type> side13() const {
     return this->_rps->createRefLine3(_pid1, _pid3);
   }
 
-  RefLine3<value_type> side23() const {
+  inline RefLine3<value_type> side23() const {
     return this->_rps->createRefLine3(_pid2, _pid3);
   }
 
-  ary_type refPoints() const {
+  inline ary_type refPoints() const {
     return ary_type{this->p1(), this->p2(), this->p3()};
   }
 
@@ -449,7 +473,7 @@ class RefTriangle3 {
     return std::sqrt(val1 + val2 + val3) * 0.5;
   }
 
-  float perimeter() const {
+  inline float perimeter() const {
     auto p1 = this->p1();
     auto p2 = this->p2();
     auto p3 = this->p3();
@@ -457,8 +481,8 @@ class RefTriangle3 {
            ns_geo::distance(p2, p3);
   }
 
-  static RefGeometryType type() {
-    return ns_geo::RefGeometryType::REFTRIANGLE3D;
+  inline virtual ns_geo::GeoType type() const override {
+    return GeoType::REFTRIANGLE3D;
   }
 };
 /**
