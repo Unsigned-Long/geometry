@@ -33,7 +33,7 @@ TEST(Point2f, normalTesting) {
   EXPECT_FLOAT_EQ(ps.x(), 2.0f);
   EXPECT_FLOAT_EQ(ps.y(), 1.0f);
 
-  EXPECT_EQ(ns_geo::GeometryType::POINT2D, p1.type());
+  EXPECT_EQ(ns_geo::GeoType::POINT2D, p1.type());
 }
 
 TEST(Point2f, typeTesting) {
@@ -62,7 +62,7 @@ TEST(Point3f, normalTesting) {
   EXPECT_FLOAT_EQ(4.0f, ary[1]);
   EXPECT_FLOAT_EQ(5.0f, ary[2]);
 
-  EXPECT_EQ(ns_geo::GeometryType::POINT3D, p1.type());
+  EXPECT_EQ(ns_geo::GeoType::POINT3D, p1.type());
 }
 
 TEST(Point3f, typeTesting) {
@@ -166,7 +166,7 @@ TEST(RefPoint2f, normalTesting) {
   EXPECT_FLOAT_EQ(1.0f, p2.x());
   EXPECT_FLOAT_EQ(2.0f, p2.y());
 
-  EXPECT_EQ(ns_geo::RefGeometryType::REFPOINT2D, p2.type());
+  EXPECT_EQ(ns_geo::GeoType::REFPOINT2D, p2.type());
 }
 
 TEST(RefPoint2f, typeTesting) {
@@ -195,7 +195,7 @@ TEST(RefPoint3f, normalTesting) {
   EXPECT_FLOAT_EQ(2.0f, p2.y());
   EXPECT_FLOAT_EQ(3.0f, p2.z());
 
-  EXPECT_EQ(ns_geo::RefGeometryType::REFPOINT3D, p2.type());
+  EXPECT_EQ(ns_geo::GeoType::REFPOINT3D, p2.type());
 }
 
 TEST(RefPoint3f, typeTesting) {

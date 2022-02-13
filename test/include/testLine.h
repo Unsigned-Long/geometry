@@ -35,7 +35,7 @@ TEST(Line2f, normalTesting) {
   test_point2f_eq(l.p1(), ary[0]);
   test_point2f_eq(l.p2(), ary[1]);
 
-  EXPECT_EQ(l.type(), ns_geo::GeometryType::LINE2D);
+  EXPECT_EQ(l.type(), ns_geo::GeoType::LINE2D);
 }
 
 TEST(Line2f, methodsTesting) {
@@ -89,7 +89,7 @@ TEST(Line3f, normalTesting) {
   test_point3f_eq(l.p1(), ary[0]);
   test_point3f_eq(l.p2(), ary[1]);
 
-  EXPECT_EQ(l.type(), ns_geo::GeometryType::LINE3D);
+  EXPECT_EQ(l.type(), ns_geo::GeoType::LINE3D);
 }
 
 TEST(Line3f, methodsTesting) {

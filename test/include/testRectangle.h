@@ -18,7 +18,7 @@ TEST(Rectanglef, normalTesting) {
   EXPECT_FLOAT_EQ(rect.area(), 1.0f);
   EXPECT_FLOAT_EQ(rect.perimeter(), 4.0f);
 
-  EXPECT_EQ(rect.type(), ns_geo::GeometryType::RECTANGLE);
+  EXPECT_EQ(rect.type(), ns_geo::GeoType::RECTANGLE);
 }
 
 TEST(Rectanglef, typeTesting) {
@@ -49,7 +49,7 @@ TEST_F(TestRefPointSet2f, refrectangle_normalTesting) {
   EXPECT_EQ(0, rect.topLeftID());
   EXPECT_EQ(1, rect.bottomRightID());
 
-  EXPECT_EQ(rect.type(), ns_geo::RefGeometryType::REFRECTANGLE);
+  EXPECT_EQ(rect.type(), ns_geo::GeoType::REFRECTANGLE);
 }
 
 TEST_F(TestRefPointSet2f, refrectangle_typeTesting) {

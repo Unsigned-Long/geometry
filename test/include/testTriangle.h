@@ -44,7 +44,7 @@ TEST(Triangle2f, normalTesting) {
   EXPECT_FLOAT_EQ(ins.second,
                   (0.5f * std::sqrt(2.0f)) / (1.0f + std::sqrt(2.0f)));
 
-  EXPECT_EQ(tri.type(), ns_geo::GeometryType::TRIANGLE2D);
+  EXPECT_EQ(tri.type(), ns_geo::GeoType::TRIANGLE2D);
 }
 
 TEST(Triangle2f, typeTesting) {
@@ -88,7 +88,7 @@ TEST(Triangle3f, normalTesting) {
   EXPECT_FLOAT_EQ(tri.area(), 0.5f);
   EXPECT_FLOAT_EQ(tri.perimeter(), 2.0f + std::sqrt(2.0f));
 
-  EXPECT_EQ(tri.type(), ns_geo::GeometryType::TRIANGLE3D);
+  EXPECT_EQ(tri.type(), ns_geo::GeoType::TRIANGLE3D);
 }
 
 TEST(Triangle3f, typeTesting) {
@@ -131,7 +131,7 @@ TEST_F(TestRefPointSet2f, refTriangle2f_normalTesting) {
   test_refpoint2f_eq(ary[1], tri.p2());
   test_refpoint2f_eq(ary[2], tri.p3());
 
-  EXPECT_EQ(tri.type(), ns_geo::RefGeometryType::REFTRIANGLE2D);
+  EXPECT_EQ(tri.type(), ns_geo::GeoType::REFTRIANGLE2D);
 
   EXPECT_FLOAT_EQ(tri.area(), 1.5f);
   EXPECT_FLOAT_EQ(tri.perimeter(), std::sqrt(2.0f) + 3.0f + std::sqrt(5.0f));
@@ -180,7 +180,7 @@ TEST_F(TestRefPointSet3f, refTriangle3f_normalTesting) {
   test_refpoint3f_eq(ary[1], tri.p2());
   test_refpoint3f_eq(ary[2], tri.p3());
 
-  EXPECT_EQ(tri.type(), ns_geo::RefGeometryType::REFTRIANGLE3D);
+  EXPECT_EQ(tri.type(), ns_geo::GeoType::REFTRIANGLE3D);
 
   EXPECT_FLOAT_EQ(tri.area(), 1.5f);
   EXPECT_FLOAT_EQ(tri.perimeter(), std::sqrt(2.0f) + 3.0f + std::sqrt(5.0f));
