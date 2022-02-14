@@ -5,18 +5,8 @@
  * @author csl (3079625093@qq.com)
  * @version 0.1
  * @date 2021-12-06
+ *
  * @copyright Copyright (c) 2021
- *
- * @brief the details
- *        [1] class type
- *              0. Line2<_Ty>, Line3<_Ty>
- *              1. RefLine2<_Ty>, RefLine3<_Ty>
- *
- *        [2] methods for Line
- *              0. azimuthRHR, azimuthLHR
- *              1. length
- *              2. operator "<<" for Line2<_Ty>, Line3<_Ty>
- *              3. operator "<<" for RefLine2<_Ty>, RefLine3<_Ty>
  */
 
 #include "point.hpp"
@@ -24,7 +14,7 @@
 namespace ns_geo {
 #pragma region Line2
 /**
- * \brief a sample template class to describe the 2-dime lines
+ * @brief a sample template class to describe the 2-dime lines
  */
 template <typename _Ty = float>
 class Line2 : protected Geometry {
@@ -40,7 +30,7 @@ class Line2 : protected Geometry {
 
  public:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   Line2() = default;
   Line2(const point_type &p1, const point_type &p2) : _p1(p1), _p2(p2) {}
@@ -57,6 +47,11 @@ class Line2 : protected Geometry {
 
   inline point_type &p2() { return this->_p2; }
 
+  /**
+   * @brief Reverse the head and tail direction of the line
+   *
+   * @return self_type&
+   */
   inline self_type &reverse() {
     auto temp = _p1;
     _p1 = _p2;
@@ -64,16 +59,31 @@ class Line2 : protected Geometry {
     return *this;
   }
 
+  /**
+   * @brief Reverse the head and tail direction of current line
+   *
+   * @return self_type&
+   */
   inline self_type reversed() const { return self_type(_p2, _p1); }
 
   inline ary_type points() const { return ary_type{this->_p1, this->_p2}; }
 
   inline float length() const { return ns_geo::distance(_p1, _p2); }
 
+  /**
+   * @brief Calculate the azimuth of the line with the right-hand rule
+   *
+   * @return float
+   */
   inline float azimuthRHR() const {
     return ns_geo::RHandRule::azimuth(_p1, _p2);
   }
 
+  /**
+   * @brief Calculate the azimuth of the line with the left-hand rule
+   *
+   * @return float
+   */
   inline float azimuthLHR() const {
     return ns_geo::LHandRule::azimuth(_p1, _p2);
   }
@@ -83,7 +93,7 @@ class Line2 : protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for Line2
+ * @brief overload operator "<<" for Line2<_Ty>
  */
 template <typename _Ty = float>
 std::ostream &operator<<(std::ostream &os, const Line2<_Ty> &line) {
@@ -97,7 +107,7 @@ std::ostream &operator<<(std::ostream &os, const Line2<_Ty> &line) {
 
 #pragma region Line3
 /**
- * \brief a sample template class to describe the 3-dime lines
+ * @brief a sample template class to describe the 3-dime lines
  */
 template <typename _Ty = float>
 class Line3 : protected Geometry {
@@ -113,7 +123,7 @@ class Line3 : protected Geometry {
 
  public:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   Line3() = default;
   Line3(const point_type &p1, const point_type &p2) : _p1(p1), _p2(p2) {}
@@ -129,6 +139,11 @@ class Line3 : protected Geometry {
   inline const point_type &p2() const { return this->_p2; }
   inline point_type &p2() { return this->_p2; }
 
+  /**
+   * @brief Reverse the head and tail direction of the line
+   *
+   * @return self_type&
+   */
   inline self_type &reverse() {
     auto temp = _p1;
     _p1 = _p2;
@@ -136,22 +151,47 @@ class Line3 : protected Geometry {
     return *this;
   }
 
+  /**
+   * @brief Reverse the head and tail direction of current line
+   *
+   * @return self_type
+   */
   inline self_type reversed() const { return self_type(_p2, _p1); }
 
   inline ary_type points() const { return ary_type{this->_p1, this->_p2}; }
 
   inline float length() const { return ns_geo::distance(_p1, _p2); }
 
+  /**
+   * @brief Calculate the azimuth of the line with the right-hand rule
+   *
+   * @return float
+   */
   inline float azimuthRHR() const {
     return ns_geo::RHandRule::azimuth(_p1, _p2);
   }
 
+  /**
+   * @brief Calculate the azimuth of the line with the left-hand rule
+   *
+   * @return float
+   */
   inline float azimuthLHR() const {
     return ns_geo::LHandRule::azimuth(_p1, _p2);
   }
 
+  /**
+   * @brief Calculate the zenith of the line with the right-hand rule
+   *
+   * @return float
+   */
   inline float zenithRHR() const { return ns_geo::RHandRule::zenith(_p1, _p2); }
 
+  /**
+   * @brief Calculate the zenith of the line with the left-hand rule
+   *
+   * @return float
+   */
   inline float zenithLHR() const { return ns_geo::LHandRule::zenith(_p1, _p2); }
 
   inline virtual ns_geo::GeoType type() const override {
@@ -159,7 +199,7 @@ class Line3 : protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for Line3
+ * @brief overload operator "<<" for Line3<_Ty>
  */
 template <typename _Ty = float>
 std::ostream &operator<<(std::ostream &os, const Line3<_Ty> &line) {
@@ -187,12 +227,14 @@ class RefLine2 : protected Geometry {
  private:
   id_type _pid1;
   id_type _pid2;
-  // thr reference point set's pointer
+  /**
+   * @brief the pointer of reference point set
+   */
   const refpointset_type *const _rps;
 
  protected:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   RefLine2(id_type pid1, id_type pid2,
            const refpointset_type *const refpointset)
@@ -205,6 +247,11 @@ class RefLine2 : protected Geometry {
     return this->_rps;
   };
 
+  /**
+   * @brief cast from 'RefLine2<value_type>' to 'Line2<value_type>'
+   *
+   * @return Line3<value_type>
+   */
   operator Line2<value_type>() {
     return Line2<value_type>(this->p1(), this->p2());
   }
@@ -217,6 +264,11 @@ class RefLine2 : protected Geometry {
 
   inline const id_type &pid2() const { return this->_pid2; }
 
+  /**
+   * @brief Reverse the head and tail direction of current line
+   *
+   * @return self_type
+   */
   inline self_type &reverse() {
     auto temp = _pid1;
     _pid1 = _pid2;
@@ -224,6 +276,11 @@ class RefLine2 : protected Geometry {
     return *this;
   }
 
+  /**
+   * @brief Reverse the head and tail direction of current line
+   *
+   * @return self_type
+   */
   inline self_type reversed() const { return self_type(_pid2, _pid1, _rps); }
 
   inline ary_type refPoints() const { return ary_type{this->p1(), this->p2()}; }
@@ -243,7 +300,7 @@ class RefLine2 : protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for RefLine2
+ * @brief overload operator "<<" for RefLine2<_Ty>
  */
 template <typename _Ty = float>
 std::ostream &operator<<(std::ostream &os, const RefLine2<_Ty> &line) {
@@ -278,7 +335,7 @@ class RefLine3 : protected Geometry {
 
  protected:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   RefLine3(id_type pid1, id_type pid2,
            const refpointset_type *const refpointset)
@@ -291,6 +348,11 @@ class RefLine3 : protected Geometry {
     return this->_rps;
   };
 
+  /**
+   * @brief cast from 'RefLine3<value_type>' to 'Line3<value_type>'
+   *
+   * @return Line3<value_type>
+   */
   operator Line3<value_type>() {
     return Line3<value_type>(this->p1(), this->p2());
   }
@@ -321,6 +383,11 @@ class RefLine3 : protected Geometry {
     return ns_geo::LHandRule::zenith(p1(), p2());
   }
 
+  /**
+   * @brief Reverse the head and tail direction of current line
+   *
+   * @return self_type
+   */
   inline self_type &reverse() {
     auto temp = _pid1;
     _pid1 = _pid2;
@@ -328,6 +395,11 @@ class RefLine3 : protected Geometry {
     return *this;
   }
 
+  /**
+   * @brief Reverse the head and tail direction of current line
+   *
+   * @return self_type
+   */
   inline self_type reversed() const { return self_type(_pid2, _pid1, _rps); }
 
   inline float length() const { return ns_geo::distance(p1(), p2()); }
@@ -337,7 +409,7 @@ class RefLine3 : protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for RefLine3
+ * @brief overload operator "<<" for RefLine3<_Ty>
  */
 template <typename _Ty = float>
 std::ostream &operator<<(std::ostream &os, const RefLine3<_Ty> &line) {
