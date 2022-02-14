@@ -5,20 +5,9 @@
  * @author csl (3079625093@qq.com)
  * @version 0.1
  * @date 2021-12-06
+ *
  * @copyright Copyright (c) 2021
  *
- * @brief the details
- *        [1] class type
- *              0. Point2<_Ty>, Point3<_Ty>
- *              4. PointSet2<_Ty>. PointSet3<_Ty>
- *              5. RefPoint2<_Ty>, RefPoint3<_Ty>
- *              6. RefPointSet2<_Ty>, RefPointSet3<_Ty>
- *
- *        [2] methods
- *              0. azimuthRHR, azimuthLHR
- *              1. distance
- *              2. operator "<<" for Point2<_Ty>, Point3<_Ty>
- *              3. operator "<<" for RefPoint2<_Ty>, RefPoint3<_Ty>
  */
 
 #include "utility.hpp"
@@ -29,7 +18,7 @@ namespace ns_geo {
  * @brief the types of the geometry
  */
 enum class GeoType {
-  // for geometry no reference
+  // for geometry widthout reference
   POINT2D,
   POINT3D,
   LINE2D,
@@ -53,6 +42,13 @@ enum class GeoType {
   REFTRIANGLE3D
 };
 
+/**
+ * @brief overload the operator '<<' for 'GeoType'
+ *
+ * @param os the ostream
+ * @param geoty the GeoType object
+ * @return std::ostream&
+ */
 static std::ostream &operator<<(std::ostream &os, GeoType geoty) {
   switch (geoty) {
     case GeoType::POINT2D:
@@ -123,17 +119,25 @@ static std::ostream &operator<<(std::ostream &os, GeoType geoty) {
 
 #pragma endregion
 
+/**
+ * @brief the base geometry class
+ */
 class Geometry {
  public:
   virtual ~Geometry() {}
 
+  /**
+   * @brief the type of the geometry
+   *
+   * @return GeoType
+   */
   virtual GeoType type() const = 0;
 };
 
 #pragma region Point2
 
 /**
- * \brief a sample template class to describe the 2-dime points
+ * @brief a sample template class to describe the 2-dime points
  */
 template <typename _Ty = float>
 class Point2 : protected Geometry {
@@ -148,7 +152,7 @@ class Point2 : protected Geometry {
 
  public:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   Point2() = default;
   Point2(value_type x, value_type y) : _x(x), _y(y) {}
@@ -163,8 +167,18 @@ class Point2 : protected Geometry {
   inline const value_type &x() const { return this->_x; }
   inline const value_type &y() const { return this->_y; }
 
+  /**
+   * @brief Exchange the X and Y coordinates of the point based on current point
+   *
+   * @return self_type
+   */
   inline self_type transposed() const { return self_type(this->_y, this->_x); }
 
+  /**
+   * @brief Exchange the X and Y coordinates of the point
+   *
+   * @return self_type&
+   */
   inline self_type &transpose() {
     auto temp = this->_x;
     this->_x = this->_y;
@@ -177,7 +191,7 @@ class Point2 : protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for Point2
+ * @brief overload operator "<<" for Point2<_Ty>
  */
 template <typename _Ty>
 std::ostream &operator<<(std::ostream &os, const Point2<_Ty> &p) {
@@ -190,7 +204,7 @@ std::ostream &operator<<(std::ostream &os, const Point2<_Ty> &p) {
 #pragma region Point3
 
 /**
- * \brief a sample template class to describe the 3-dime points
+ * @brief a sample template class to describe the 3-dime points
  */
 template <typename _Ty = float>
 class Point3 : protected Geometry {
@@ -206,7 +220,7 @@ class Point3 : protected Geometry {
 
  public:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   Point3() = default;
   Point3(value_type x, value_type y, value_type z) : _x(x), _y(y), _z(z) {}
@@ -228,7 +242,7 @@ class Point3 : protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for Point3
+ * @brief overload operator "<<" for Point3
  */
 template <typename _Ty>
 std::ostream &operator<<(std::ostream &os, const Point3<_Ty> &p) {
@@ -239,6 +253,11 @@ std::ostream &operator<<(std::ostream &os, const Point3<_Ty> &p) {
 
 #pragma region PointSet2
 
+/**
+ * @brief Container for storage point2<_Ty>
+ *
+ * @tparam _Ty
+ */
 template <typename _Ty>
 class PointSet2 : public std::vector<Point2<_Ty>> {
  public:
@@ -246,7 +265,7 @@ class PointSet2 : public std::vector<Point2<_Ty>> {
   using point_type = Point2<value_type>;
   using container_type = std::vector<point_type>;
   /**
-   * \brief using container_type's constructors
+   * @brief using container_type's constructors
    */
   using container_type::container_type;
   using self_type = PointSet2<value_type>;
@@ -255,7 +274,10 @@ class PointSet2 : public std::vector<Point2<_Ty>> {
 
  public:
   /**
-   * \brief write points to the file
+   * @brief write points to the file
+   *
+   * @param filePath the path of the file
+   * @param mode the ios mode
    */
   void write(const std::string &filePath,
              std::ios_base::openmode mode = std::ios::out |
@@ -271,7 +293,10 @@ class PointSet2 : public std::vector<Point2<_Ty>> {
     return;
   }
   /**
-   * \brief read points from the file
+   * @brief read points from the file
+   *
+   * @param filePath the path of the file
+   * @param mode the ios mode
    */
   void read(const std::string &filePath,
             std::ios_base::openmode mode = std::ios::in | std::ios::binary) {
@@ -332,17 +357,15 @@ class PointSet2 : public std::vector<Point2<_Ty>> {
     return ps;
   }
 };
-/**
- * \brief some Commonly used PointSet2 types
- */
-using PointSet2i = PointSet2<int>;
-using PointSet2f = PointSet2<float>;
-using PointSet2d = PointSet2<double>;
 
 #pragma endregion
 
 #pragma region PointSet3
-
+/**
+ * @brief Container for storage point3<_Ty>
+ *
+ * @tparam _Ty
+ */
 template <typename _Ty>
 class PointSet3 : public std::vector<Point3<_Ty>> {
  public:
@@ -350,7 +373,7 @@ class PointSet3 : public std::vector<Point3<_Ty>> {
   using point_type = Point3<value_type>;
   using container_type = std::vector<point_type>;
   /**
-   * \brief using container_type's constructors
+   * @brief using container_type's constructors
    */
   using container_type::container_type;
   using self_type = PointSet3<value_type>;
@@ -359,7 +382,10 @@ class PointSet3 : public std::vector<Point3<_Ty>> {
 
  public:
   /**
-   * \brief write points to the file
+   * @brief write points to the file
+   *
+   * @param filePath the path of the file
+   * @param mode the ios mode
    */
   void write(const std::string &filePath,
              std::ios_base::openmode mode = std::ios::out |
@@ -374,8 +400,12 @@ class PointSet3 : public std::vector<Point3<_Ty>> {
         file << point.x() << ',' << point.y() << ',' << point.z() << '\n';
     return;
   }
+
   /**
-   * \brief read points from the file
+   * @brief read points from the file
+   *
+   * @param filePath the path of the file
+   * @param mode the ios mode
    */
   void read(const std::string &filePath,
             std::ios_base::openmode mode = std::ios::in | std::ios::binary) {
@@ -443,12 +473,6 @@ class PointSet3 : public std::vector<Point3<_Ty>> {
     return ps;
   }
 };
-/**
- * \brief some Commonly used PointSet3 types
- */
-using PointSet3i = PointSet3<int>;
-using PointSet3f = PointSet3<float>;
-using PointSet3d = PointSet3<double>;
 #pragma endregion
 
 #pragma region RefPoint2
@@ -465,7 +489,7 @@ class RefPoint2 : public Point2<_Ty> {
 
  public:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   RefPoint2() = default;
   RefPoint2(id_type id, value_type x, value_type y)
@@ -481,7 +505,7 @@ class RefPoint2 : public Point2<_Ty> {
   }
 };
 /**
- * \brief overload operator "<<" for RefPoint2
+ * @brief overload operator "<<" for RefPoint2<_Ty>
  */
 template <typename _Ty>
 std::ostream &operator<<(std::ostream &os, const RefPoint2<_Ty> &p) {
@@ -504,7 +528,7 @@ class RefPoint3 : public Point3<_Ty> {
 
  public:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   RefPoint3() = default;
   RefPoint3(id_type id, value_type x, value_type y, value_type z)
@@ -521,7 +545,7 @@ class RefPoint3 : public Point3<_Ty> {
   }
 };
 /**
- * \brief overload operator "<<" for RefPoint3
+ * @brief overload operator "<<" for RefPoint3<_Ty>
  */
 template <typename _Ty>
 std::ostream &operator<<(std::ostream &os, const RefPoint3<_Ty> &p) {
@@ -545,7 +569,7 @@ class RefPointSet2
   using container_type =
       std::unordered_map<id_type, refpoint_type, _Hash, _Pred>;
   /**
-   * \brief using container_type's constructors
+   * @brief using container_type's constructors
    */
   using container_type::container_type;
   using selector = bool (*)(const refpoint_type &);
@@ -554,13 +578,19 @@ class RefPointSet2
 
  public:
   /**
-   * \brief insert a reference point to the refpointset
+   * @brief insert a reference point to the refpointset
+   *
+   * @param p the reference point
+   * @return auto
    */
   auto insert(const refpoint_type &p) {
     return container_type::insert(std::make_pair(p.id(), p));
   }
   /**
-   * \brief write points to the file
+   * @brief write points to the file
+   *
+   * @param filePath the path of the file
+   * @param mode the ios mode
    */
   void write(const std::string &filePath,
              std::ios_base::openmode mode = std::ios::out |
@@ -576,7 +606,10 @@ class RefPointSet2
     return;
   }
   /**
-   * \brief read points from the file
+   * @brief read points from the file
+   *
+   * @param filePath the path of the file
+   * @param mode the ios mode
    */
   void read(const std::string &filePath,
             std::ios_base::openmode mode = std::ios::in | std::ios::binary) {
@@ -613,27 +646,58 @@ class RefPointSet2
 
  public:
   /**
-   * \brief create reference geometries[2d] by the reference point set
+   * @brief Create a RefLine2<_Ty> object
+   *
+   * @param pid1 the id of the 1st point
+   * @param pid2 the id of the 2nd point
+   * @return RefLine2<value_type>
    */
   RefLine2<value_type> createRefLine2(id_type pid1, id_type pid2) const {
     return RefLine2<value_type>(pid1, pid2, this);
   }
 
+  /**
+   * @brief Create a RefRectangle<_Ty> object
+   *
+   * @param topLeftID the id of the top-left point
+   * @param bottomRightID the id of the bottom-right point
+   * @return RefRectangle<value_type>
+   */
   RefRectangle<value_type> createRefRectangle(id_type topLeftID,
-                                              id_type lowerRightID) const {
-    return RefRectangle<value_type>(topLeftID, lowerRightID, this);
+                                              id_type bottomRightID) const {
+    return RefRectangle<value_type>(topLeftID, bottomRightID, this);
   }
 
+  /**
+   * @brief Create a RefTriangle2<_Ty> object
+   *
+   * @param pid1 the id of the 1st point
+   * @param pid2 the id of the 2nd point
+   * @param pid3 the id of the 3rd point
+   * @return RefTriangle2<value_type>
+   */
   RefTriangle2<value_type> createRefTriangle2(id_type pid1, id_type pid2,
                                               id_type pid3) const {
     return RefTriangle2<value_type>(pid1, pid2, pid3, this);
   }
 
+  /**
+   * @brief Create a RefPolygon<_Ty> object
+   *
+   * @param pidls the id list for points
+   * @return RefPolygon<value_type>
+   */
   RefPolygon<value_type> createRefPolygon(
       const std::initializer_list<id_type> &pidls) const {
     return RefPolygon<value_type>(pidls, this);
   }
 
+  /**
+   * @brief Create a RefLineString2<_Ty> object
+   *
+   * @param pidls the id list for points
+   * @return RefLineString2<value_type>
+   */
   RefLineString2<value_type> createRefLineString2(
       const std::initializer_list<id_type> &pidls) const {
     return RefLineString2<value_type>(pidls, this);
@@ -669,16 +733,11 @@ class RefPointSet2
 
  private:
   /**
-   * \brief dangerous function has been deleted
+   * @brief dangerous function has been deleted
    */
   refpoint_type &operator[](const id_type &id) = delete;
 };
-/**
- * \brief some Commonly used RefPointSet2 types
- */
-using RefPointSet2i = RefPointSet2<int>;
-using RefPointSet2f = RefPointSet2<float>;
-using RefPointSet2d = RefPointSet2<double>;
+
 #pragma endregion
 
 #pragma region RefPointSet3
@@ -693,7 +752,7 @@ class RefPointSet3
   using container_type =
       std::unordered_map<id_type, refpoint_type, _Hash, _Pred>;
   /**
-   * \brief using container_type's constructors
+   * @brief using container_type's constructors
    */
   using container_type::container_type;
 
@@ -703,13 +762,19 @@ class RefPointSet3
 
  public:
   /**
-   * \brief insert a reference point to the refpointset
+   * @brief insert a reference point to the refpointset
+   *
+   * @param p the reference point
+   * @return auto
    */
   auto insert(const refpoint_type &p) {
     return container_type::insert(std::make_pair(p.id(), p));
   }
   /**
-   * \brief write points to the file
+   * @brief write points to the file
+   *
+   * @param filePath the path of the file
+   * @param mode the ios mode
    */
   void write(const std::string &filePath,
              std::ios_base::openmode mode = std::ios::out |
@@ -726,7 +791,10 @@ class RefPointSet3
     return;
   }
   /**
-   * \brief read points from the file
+   * @brief read points from the file
+   *
+   * @param filePath the path of the file
+   * @param mode the ios mode
    */
   void read(const std::string &filePath,
             std::ios_base::openmode mode = std::ios::in | std::ios::binary) {
@@ -766,17 +834,34 @@ class RefPointSet3
 
  public:
   /**
-   * \brief create reference geometries[3d] by the reference point set
+   * @brief Create a RefLine3<_Ty> object
+   *
+   * @param pid1 the id of the 1st point
+   * @param pid2 the id of the 2nd point
+   * @return RefLine3<value_type>
    */
   RefLine3<value_type> createRefLine3(id_type pid1, id_type pid2) const {
     return RefLine3<value_type>(pid1, pid2, this);
   }
-
+  /**
+   * @brief Create a RefTriangle3<_Ty> object
+   *
+   * @param pid1 the id of the 1st point
+   * @param pid2 the id of the 2nd point
+   * @param pid3 the id of the 3rd point
+   * @return RefTriangle3<value_type>
+   */
   RefTriangle3<value_type> createRefTriangle3(id_type pid1, id_type pid2,
                                               id_type pid3) const {
     return RefTriangle3<value_type>(pid1, pid2, pid3, this);
   }
 
+  /**
+   * @brief Create a RefLineString3<_Ty> object
+   *
+   * @param pidls the id list for points
+   * @return RefLineString3<value_type>
+   */
   RefLineString3<value_type> createRefLineString3(
       const std::initializer_list<id_type> &pidls) const {
     return RefLineString3<value_type>(pidls, this);
@@ -819,15 +904,10 @@ class RefPointSet3
 
  private:
   /**
-   * \brief dangerous function has been deleted
+   * @brief dangerous function has been deleted
    */
   refpoint_type &operator[](const id_type &id) = delete;
 };
-/**
- * \brief some Commonly used RefPointSet3 types
- */
-using RefPointSet3i = RefPointSet3<int>;
-using RefPointSet3f = RefPointSet3<float>;
-using RefPointSet3d = RefPointSet3<double>;
+
 #pragma endregion
 }  // namespace ns_geo
