@@ -5,18 +5,8 @@
  * @author csl (3079625093@qq.com)
  * @version 0.1
  * @date 2021-12-06
+ * 
  * @copyright Copyright (c) 2021
- *
- * @brief the details
- *        [1] class type
- *              0. Triangle2<_Ty>, Triangle3<_Ty>
- *              1. RefTriangle2<_Ty>, RefTriangle3<_Ty>
- *
- *        [2] methods for Line
- *              0. area
- *              1. perimeter
- *              2. operator "<<" for Triangle2<_Ty>, Triangle3<_Ty>
- *              3. operator "<<" for RefTriangle2<_Ty>, RefTriangle3<_Ty>
  */
 
 #include "line.hpp"
@@ -26,7 +16,7 @@ namespace ns_geo {
 #pragma region Triangle2
 
 /**
- * \brief a sample template class to describe the 2-dime triangles
+ * @brief a sample template class to describe the 2-dime triangles
  */
 template <typename _Ty = float>
 class Triangle2 : protected Geometry {
@@ -43,7 +33,7 @@ class Triangle2 : protected Geometry {
 
  public:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   Triangle2() = default;
   Triangle2(const point_type &p1, const point_type &p2, const point_type &p3)
@@ -133,7 +123,7 @@ class Triangle2 : protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for Triangle2
+ * @brief overload operator "<<" for Triangle2<_Ty>
  */
 template <typename _Ty = float>
 std::ostream &operator<<(std::ostream &os, const Triangle2<_Ty> &tri) {
@@ -148,7 +138,7 @@ std::ostream &operator<<(std::ostream &os, const Triangle2<_Ty> &tri) {
 #pragma region Triangle3
 
 /**
- * \brief a sample template class to describe the 3-dime triangles
+ * @brief a sample template class to describe the 3-dime triangles
  */
 template <typename _Ty = float>
 class Triangle3 : protected Geometry {
@@ -165,7 +155,7 @@ class Triangle3 : protected Geometry {
 
  public:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   Triangle3() = default;
   Triangle3(const point_type &p1, const point_type &p2, const point_type &p3)
@@ -227,7 +217,7 @@ class Triangle3 : protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for Triangle3
+ * @brief overload operator "<<" for Triangle3<_Ty>
  */
 template <typename _Ty = float>
 std::ostream &operator<<(std::ostream &os, const Triangle3<_Ty> &tri) {
@@ -242,7 +232,7 @@ std::ostream &operator<<(std::ostream &os, const Triangle3<_Ty> &tri) {
 #pragma region RefTriangle2
 
 /**
- * \brief a sample template class to describe the 2-dime triangles
+ * @brief a sample template class to describe the 2-dime triangles
  */
 template <typename _Ty = float>
 class RefTriangle2 : protected Geometry {
@@ -266,7 +256,7 @@ class RefTriangle2 : protected Geometry {
 
  protected:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   RefTriangle2(const id_type &pid1, const id_type &pid2, const id_type &pid3,
                const refpointset_type *const refpointset)
@@ -370,7 +360,7 @@ class RefTriangle2 : protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for RefTriangle2
+ * @brief overload operator "<<" for RefTriangle2<_Ty>
  */
 template <typename _Ty = float>
 std::ostream &operator<<(std::ostream &os, const RefTriangle2<_Ty> &tri) {
@@ -388,7 +378,7 @@ std::ostream &operator<<(std::ostream &os, const RefTriangle2<_Ty> &tri) {
 #pragma region RefTriangle3
 
 /**
- * \brief a sample template class to describe the 3-dime triangles
+ * @brief a sample template class to describe the 3-dime triangles
  */
 template <typename _Ty = float>
 class RefTriangle3 : protected Geometry {
@@ -412,7 +402,7 @@ class RefTriangle3 : protected Geometry {
 
  protected:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   RefTriangle3(const id_type &pid1, const id_type &pid2, const id_type &pid3,
                const refpointset_type *const refpointset)
@@ -486,7 +476,7 @@ class RefTriangle3 : protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for RefTriangle3
+ * @brief overload operator "<<" for RefTriangle3<_Ty>
  */
 template <typename _Ty = float>
 std::ostream &operator<<(std::ostream &os, const RefTriangle3<_Ty> &tri) {

@@ -5,18 +5,8 @@
  * @author csl (3079625093@qq.com)
  * @version 0.1
  * @date 2021-12-06
+ * 
  * @copyright Copyright (c) 2021
- *
- * @brief the details
- *        [1] class type
- *              0. Rectangle<_Ty>
- *              1. RefRectangle<_Ty>
- *
- *        [2] methods for Line
- *              0. area
- *              1. perimeter
- *              2. operator "<<" for Rectangle<_Ty>
- *              3. operator "<<" for RefRectangle<_Ty>
  */
 
 #include "point.hpp"
@@ -25,7 +15,7 @@ namespace ns_geo {
 #pragma region Rectangle
 
 /**
- * \brief a sample template class to describe the 2-dime rectangles
+ * @brief a sample template class to describe the 2-dime rectangles
  */
 template <typename _Ty = float>
 class Rectangle : protected Geometry {
@@ -43,7 +33,7 @@ class Rectangle : protected Geometry {
 
  public:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   Rectangle() = default;
   Rectangle(const point_type &topLeft, const point_type &bottomRight)
@@ -78,7 +68,7 @@ class Rectangle : protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for Rectangle
+ * @brief overload operator "<<" for Rectangle<_Ty>
  */
 template <typename _Ty = float>
 std::ostream &operator<<(std::ostream &os, const Rectangle<_Ty> &rect) {
@@ -114,7 +104,7 @@ class RefRectangle : protected Geometry {
 
  protected:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   RefRectangle(id_type topLeftID, id_type bottomRightID,
                const refpointset_type *const refpointset)
@@ -162,7 +152,7 @@ class RefRectangle : protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for RefRectangle
+ * @brief overload operator "<<" for RefRectangle<_Ty>
  */
 template <typename _Ty = float>
 std::ostream &operator<<(std::ostream &os, const RefRectangle<_Ty> &rect) {
