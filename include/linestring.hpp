@@ -5,17 +5,8 @@
  * @author csl (3079625093@qq.com)
  * @version 0.1
  * @date 2021-12-06
+ * 
  * @copyright Copyright (c) 2021
- *
- * @brief the details
- *        [1] class type
- *              0. LineString2<_Ty>, LineString3<_Ty>
- *              1. RefLineString2<_Ty>, RefLineString3<_Ty>
- *
- *        [2] methods for LineString
- *              0. length
- *              2. operator "<<" for LineString2<_Ty>, LineString3<_Ty>
- *              3. operator "<<" for RefLineString2<_Ty>, RefLineString3<_Ty>
  */
 
 #include "point.hpp"
@@ -29,7 +20,7 @@ class LineString2 : public PointSet2<_Ty>, protected Geometry {
   using value_type = _Ty;
   using pointset_type = PointSet2<value_type>;
   /**
-   * \brief using pointset_type's constructors
+   * @brief using pointset_type's constructors
    */
   using pointset_type::pointset_type;
   using self_type = LineString2<value_type>;
@@ -46,7 +37,7 @@ class LineString2 : public PointSet2<_Ty>, protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for LineString2
+ * @brief overload operator "<<" for LineString2
  */
 template <typename _Ty>
 std::ostream &operator<<(std::ostream &os, const LineString2<_Ty> &ls) {
@@ -66,7 +57,7 @@ class LineString3 : public PointSet3<_Ty>, protected Geometry {
   using value_type = _Ty;
   using pointset_type = PointSet3<value_type>;
   /**
-   * \brief using pointset_type's constructors
+   * @brief using pointset_type's constructors
    */
   using pointset_type::pointset_type;
   using self_type = LineString3<value_type>;
@@ -83,7 +74,7 @@ class LineString3 : public PointSet3<_Ty>, protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for LineString3
+ * @brief overload operator "<<" for LineString3
  */
 template <typename _Ty>
 std::ostream &operator<<(std::ostream &os, const LineString3<_Ty> &ls) {
@@ -115,7 +106,7 @@ class RefLineString2 : public std::vector<uint>, protected Geometry {
 
  protected:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   RefLineString2(const std::initializer_list<id_type> &pidls,
                  const refpointset_type *const rps)
@@ -128,23 +119,33 @@ class RefLineString2 : public std::vector<uint>, protected Geometry {
     return this->_rps;
   };
 
+  /**
+   * @brief cast from 'RefLineString2<value_type>' to 'LineString2<value_type>'
+   *
+   * @return LineString2<value_type>
+   */
   operator LineString2<value_type>() {
     LineString2<value_type> linestring;
     for (int i = 0; i != this->size(); ++i)
       linestring.push_back(this->indexAt(i));
     return linestring;
   }
-
   /**
-   * \brief get the 'index'st reference point in the line string
+   * @brief get the 'index'st reference point in the line string
+   *
+   * @param index the index of the reference point's id in the line string
+   * @return const refpoint_type&
    */
   inline const refpoint_type &indexAt(std::size_t index) {
     return this->_rps->at(this->at(index));
   }
 
   /**
-   * \brief get the 'id' reference point in the line string's referenced
+   * @brief get the 'id' reference point in the line string's referenced
    * refpointset
+   *
+   * @param id the id of the reference point
+   * @return const refpoint_type&
    */
   inline const refpoint_type &idAt(std::size_t id) {
     return this->_rps->at(id);
@@ -164,7 +165,7 @@ class RefLineString2 : public std::vector<uint>, protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for RefLineString2
+ * @brief overload operator "<<" for RefLineString2<_Ty>
  */
 template <typename _Ty>
 std::ostream &operator<<(std::ostream &os, const RefLineString2<_Ty> &ls) {
@@ -200,7 +201,7 @@ class RefLineString3 : public std::vector<uint>, protected Geometry {
 
  protected:
   /**
-   * \brief constructors
+   * @brief constructors
    */
   RefLineString3(const std::initializer_list<id_type> &pidls,
                  const refpointset_type *const rps)
@@ -213,6 +214,11 @@ class RefLineString3 : public std::vector<uint>, protected Geometry {
     return this->_rps;
   };
 
+  /**
+   * @brief cast from 'RefLineString3<value_type>' to 'LineString3<value_type>'
+   *
+   * @return LineString3<value_type>
+   */
   operator LineString3<value_type>() {
     LineString3<value_type> linestring;
     for (int i = 0; i != this->size(); ++i)
@@ -221,15 +227,21 @@ class RefLineString3 : public std::vector<uint>, protected Geometry {
   }
 
   /**
-   * \brief get the 'index'st reference point in the line string
+   * @brief get the 'index'st reference point in the line string
+   *
+   * @param index the index of the reference point's id in the line string
+   * @return const refpoint_type&
    */
   inline const refpoint_type &indexAt(std::size_t index) {
     return this->_rps->at(this->at(index));
   }
 
   /**
-   * \brief get the 'id' reference point in the line string's referenced
+   * @brief get the 'id' reference point in the line string's referenced
    * refpointset
+   *
+   * @param id the id of the reference point
+   * @return const refpoint_type&
    */
   inline const refpoint_type &idAt(std::size_t id) {
     return this->_rps->at(id);
@@ -249,7 +261,7 @@ class RefLineString3 : public std::vector<uint>, protected Geometry {
   }
 };
 /**
- * \brief overload operator "<<" for RefLineString3
+ * @brief overload operator "<<" for RefLineString3<_Ty>
  */
 template <typename _Ty>
 std::ostream &operator<<(std::ostream &os, const RefLineString3<_Ty> &ls) {

@@ -250,7 +250,7 @@ class RefLine2 : protected Geometry {
   /**
    * @brief cast from 'RefLine2<value_type>' to 'Line2<value_type>'
    *
-   * @return Line3<value_type>
+   * @return Line2<value_type>
    */
   operator Line2<value_type>() {
     return Line2<value_type>(this->p1(), this->p2());
