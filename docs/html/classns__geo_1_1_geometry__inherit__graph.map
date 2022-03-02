@@ -1,0 +1,27 @@
+<map id="ns_geo::Geometry" name="ns_geo::Geometry">
+<area shape="rect" id="node1" title="the base geometry class" alt="" coords="5,600,147,627"/>
+<area shape="rect" id="node2" href="$classns__geo_1_1_line2.html" title="a sample template class to describe the 2&#45;dime lines" alt="" coords="205,5,368,32"/>
+<area shape="rect" id="node3" href="$classns__geo_1_1_line3.html" title="a sample template class to describe the 3&#45;dime lines" alt="" coords="205,56,368,83"/>
+<area shape="rect" id="node4" href="$classns__geo_1_1_line_string2.html" title=" " alt="" coords="212,107,361,149"/>
+<area shape="rect" id="node5" href="$classns__geo_1_1_line_string3.html" title=" " alt="" coords="212,173,361,214"/>
+<area shape="rect" id="node6" href="$classns__geo_1_1_point2.html" title="a sample template class to describe the 2&#45;dime points" alt="" coords="203,239,371,265"/>
+<area shape="rect" id="node7" href="$classns__geo_1_1_point3.html" title="a sample template class to describe the 3&#45;dime points" alt="" coords="203,289,371,316"/>
+<area shape="rect" id="node8" href="$classns__geo_1_1_polygon.html" title=" " alt="" coords="197,340,376,367"/>
+<area shape="rect" id="node9" href="$classns__geo_1_1_rectangle.html" title="a sample template class to describe the 2&#45;dime rectangles" alt="" coords="211,391,363,433"/>
+<area shape="rect" id="node10" href="$classns__geo_1_1_ref_line2.html" title=" " alt="" coords="195,457,379,484"/>
+<area shape="rect" id="node11" href="$classns__geo_1_1_ref_line3.html" title=" " alt="" coords="195,508,379,535"/>
+<area shape="rect" id="node12" href="$classns__geo_1_1_ref_line_string2.html" title=" " alt="" coords="201,559,372,601"/>
+<area shape="rect" id="node13" href="$classns__geo_1_1_ref_line_string3.html" title=" " alt="" coords="201,625,372,666"/>
+<area shape="rect" id="node14" href="$classns__geo_1_1_ref_polygon.html" title=" " alt="" coords="211,690,362,731"/>
+<area shape="rect" id="node15" href="$classns__geo_1_1_ref_rectangle.html" title=" " alt="" coords="205,755,368,797"/>
+<area shape="rect" id="node16" href="$classns__geo_1_1_ref_triangle2.html" title="a sample template class to describe the 2&#45;dime triangles" alt="" coords="207,821,366,862"/>
+<area shape="rect" id="node17" href="$classns__geo_1_1_ref_triangle3.html" title="a sample template class to describe the 3&#45;dime triangles" alt="" coords="207,886,366,927"/>
+<area shape="rect" id="node18" href="$classns__geo_1_1_triangle2.html" title="a sample template class to describe the 2&#45;dime triangles" alt="" coords="213,951,360,993"/>
+<area shape="rect" id="node19" href="$classns__geo_1_1_triangle3.html" title="a sample template class to describe the 3&#45;dime triangles" alt="" coords="213,1017,360,1058"/>
+<area shape="rect" id="node20" href="$classns__geo_1_1_point2.html" title=" " alt="" coords="198,1083,375,1109"/>
+<area shape="rect" id="node22" href="$classns__geo_1_1_point2.html" title=" " alt="" coords="203,1134,371,1175"/>
+<area shape="rect" id="node23" href="$classns__geo_1_1_point3.html" title=" " alt="" coords="198,1200,375,1227"/>
+<area shape="rect" id="node25" href="$classns__geo_1_1_point3.html" title=" " alt="" coords="203,1251,371,1293"/>
+<area shape="rect" id="node21" href="$classns__geo_1_1_ref_point2.html" title=" " alt="" coords="427,1075,577,1117"/>
+<area shape="rect" id="node24" href="$classns__geo_1_1_ref_point3.html" title=" " alt="" coords="427,1193,577,1234"/>
+</map>

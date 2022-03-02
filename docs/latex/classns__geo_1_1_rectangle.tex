@@ -1,0 +1,120 @@
+\hypertarget{classns__geo_1_1_rectangle}{}\doxysection{ns\+\_\+geo\+::Rectangle$<$ \+\_\+\+Ty $>$ Class Template Reference}
+\label{classns__geo_1_1_rectangle}\index{ns\_geo::Rectangle$<$ \_Ty $>$@{ns\_geo::Rectangle$<$ \_Ty $>$}}
+
+
+a sample template class to describe the 2-\/dime rectangles  
+
+
+
+
+{\ttfamily \#include $<$rectangle.\+hpp$>$}
+
+
+
+Inheritance diagram for ns\+\_\+geo\+::Rectangle$<$ \+\_\+\+Ty $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{classns__geo_1_1_rectangle__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for ns\+\_\+geo\+::Rectangle$<$ \+\_\+\+Ty $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{classns__geo_1_1_rectangle__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_aac9c0463bc6a8890d7813f6b33d354e4}\label{classns__geo_1_1_rectangle_aac9c0463bc6a8890d7813f6b33d354e4}} 
+using {\bfseries value\+\_\+type} = \+\_\+\+Ty
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_aa000a4986e3927114375aff67741a5cf}\label{classns__geo_1_1_rectangle_aa000a4986e3927114375aff67741a5cf}} 
+using {\bfseries point\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_point2}{ns\+\_\+geo\+::\+Point2}}$<$ value\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_a0515cfe480a6205ced0744f17fc0c206}\label{classns__geo_1_1_rectangle_a0515cfe480a6205ced0744f17fc0c206}} 
+using {\bfseries ary\+\_\+type} = std\+::array$<$ \mbox{\hyperlink{classns__geo_1_1_point2}{point\+\_\+type}}, 2 $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_a3a226226a35f6d56b7f2a6ec247c1624}\label{classns__geo_1_1_rectangle_a3a226226a35f6d56b7f2a6ec247c1624}} 
+using {\bfseries self\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_rectangle}{Rectangle}}$<$ value\+\_\+type $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_aabc7c3d770ac3c64868abd36ee73c847}\label{classns__geo_1_1_rectangle_aabc7c3d770ac3c64868abd36ee73c847}} 
+\mbox{\hyperlink{classns__geo_1_1_rectangle_aabc7c3d770ac3c64868abd36ee73c847}{Rectangle}} ()=default
+\begin{DoxyCompactList}\small\item\em constructors \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_a7b3936544f80baddea4fef7c44bdd01b}\label{classns__geo_1_1_rectangle_a7b3936544f80baddea4fef7c44bdd01b}} 
+{\bfseries Rectangle} (const \mbox{\hyperlink{classns__geo_1_1_point2}{point\+\_\+type}} \&top\+Left, const \mbox{\hyperlink{classns__geo_1_1_point2}{point\+\_\+type}} \&bottom\+Right)
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_a880eb167e67714b6df0f3f7e68baf255}\label{classns__geo_1_1_rectangle_a880eb167e67714b6df0f3f7e68baf255}} 
+{\bfseries Rectangle} (const \mbox{\hyperlink{classns__geo_1_1_point2}{point\+\_\+type}} points\mbox{[}2\mbox{]})
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_a71157dbc457b017f9c907e25e1251da1}\label{classns__geo_1_1_rectangle_a71157dbc457b017f9c907e25e1251da1}} 
+{\bfseries Rectangle} (const ary\+\_\+type \&points)
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_ab2f4fe6363caa462719d644b9ba00978}\label{classns__geo_1_1_rectangle_ab2f4fe6363caa462719d644b9ba00978}} 
+{\bfseries Rectangle} (value\+\_\+type tlx, value\+\_\+type tly, value\+\_\+type lrx, value\+\_\+type lry)
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_a442bf2d9e47a1b824d739d1cd4fff61e}\label{classns__geo_1_1_rectangle_a442bf2d9e47a1b824d739d1cd4fff61e}} 
+ary\+\_\+type {\bfseries points} () const
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_a81903879f9c16d8ada2d89f002ca99e4}\label{classns__geo_1_1_rectangle_a81903879f9c16d8ada2d89f002ca99e4}} 
+const \mbox{\hyperlink{classns__geo_1_1_point2}{point\+\_\+type}} \& {\bfseries top\+Left} () const
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_a8fa71c00735e70d37aeef343aa3c5a40}\label{classns__geo_1_1_rectangle_a8fa71c00735e70d37aeef343aa3c5a40}} 
+\mbox{\hyperlink{classns__geo_1_1_point2}{point\+\_\+type}} \& {\bfseries top\+Left} ()
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_a03f3dee47a9b730e671e62bc60ec6c80}\label{classns__geo_1_1_rectangle_a03f3dee47a9b730e671e62bc60ec6c80}} 
+const \mbox{\hyperlink{classns__geo_1_1_point2}{point\+\_\+type}} \& {\bfseries bottom\+Right} () const
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_afa7e9af86ff8c706896a9c4f3392e0e0}\label{classns__geo_1_1_rectangle_afa7e9af86ff8c706896a9c4f3392e0e0}} 
+\mbox{\hyperlink{classns__geo_1_1_point2}{point\+\_\+type}} \& {\bfseries bottom\+Right} ()
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_addf2f22822d0051798f2e5f331e0e479}\label{classns__geo_1_1_rectangle_addf2f22822d0051798f2e5f331e0e479}} 
+float {\bfseries area} () const
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_aa2bffff83d0a5bd33a8b3e7ad1bc0383}\label{classns__geo_1_1_rectangle_aa2bffff83d0a5bd33a8b3e7ad1bc0383}} 
+float {\bfseries perimeter} () const
+\item 
+virtual \mbox{\hyperlink{point_8hpp_a8e76382f068ebe2bf26dd84ed5d8ae06}{ns\+\_\+geo\+::\+Geo\+Type}} \mbox{\hyperlink{classns__geo_1_1_rectangle_a8de277374bf9ea476d850d16b470caef}{type}} () const override
+\begin{DoxyCompactList}\small\item\em the type of the geometry \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Ty = float$>$\newline
+class ns\+\_\+geo\+::\+Rectangle$<$ \+\_\+\+Ty $>$}
+
+a sample template class to describe the 2-\/dime rectangles 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classns__geo_1_1_rectangle_a8de277374bf9ea476d850d16b470caef}\label{classns__geo_1_1_rectangle_a8de277374bf9ea476d850d16b470caef}} 
+\index{ns\_geo::Rectangle$<$ \_Ty $>$@{ns\_geo::Rectangle$<$ \_Ty $>$}!type@{type}}
+\index{type@{type}!ns\_geo::Rectangle$<$ \_Ty $>$@{ns\_geo::Rectangle$<$ \_Ty $>$}}
+\doxysubsubsection{\texorpdfstring{type()}{type()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Ty  = float$>$ \\
+virtual \mbox{\hyperlink{point_8hpp_a8e76382f068ebe2bf26dd84ed5d8ae06}{ns\+\_\+geo\+::\+Geo\+Type}} \mbox{\hyperlink{classns__geo_1_1_rectangle}{ns\+\_\+geo\+::\+Rectangle}}$<$ \+\_\+\+Ty $>$\+::type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the type of the geometry 
+
+\begin{DoxyReturn}{Returns}
+Geo\+Type 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classns__geo_1_1_geometry_af2f2fe95c704952e617cc96080ba1cdf}{ns\+\_\+geo\+::\+Geometry}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/csl/\+Study\+C\+P\+P/artwork/geometry/include/\mbox{\hyperlink{rectangle_8hpp}{rectangle.\+hpp}}\end{DoxyCompactItemize}

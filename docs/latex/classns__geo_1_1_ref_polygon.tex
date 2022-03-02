@@ -1,0 +1,143 @@
+\hypertarget{classns__geo_1_1_ref_polygon}{}\doxysection{ns\+\_\+geo\+::Ref\+Polygon$<$ \+\_\+\+Ty $>$ Class Template Reference}
+\label{classns__geo_1_1_ref_polygon}\index{ns\_geo::RefPolygon$<$ \_Ty $>$@{ns\_geo::RefPolygon$<$ \_Ty $>$}}
+
+
+Inheritance diagram for ns\+\_\+geo\+::Ref\+Polygon$<$ \+\_\+\+Ty $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{classns__geo_1_1_ref_polygon__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for ns\+\_\+geo\+::Ref\+Polygon$<$ \+\_\+\+Ty $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{classns__geo_1_1_ref_polygon__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_aea2efbf675b9e96a1c42b8db41a45018}\label{classns__geo_1_1_ref_polygon_aea2efbf675b9e96a1c42b8db41a45018}} 
+using {\bfseries value\+\_\+type} = \+\_\+\+Ty
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_a010e558069766bc7894a5a0828f834c3}\label{classns__geo_1_1_ref_polygon_a010e558069766bc7894a5a0828f834c3}} 
+using {\bfseries id\+\_\+type} = uint
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_afc4acb3a26e0c94febd73958b6f27e44}\label{classns__geo_1_1_ref_polygon_afc4acb3a26e0c94febd73958b6f27e44}} 
+using {\bfseries refpoint\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_ref_point2}{Ref\+Point2}}$<$ value\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_a37086c9ed838dd71177c6e1faf4262a5}\label{classns__geo_1_1_ref_polygon_a37086c9ed838dd71177c6e1faf4262a5}} 
+using {\bfseries pointidset\+\_\+type} = std\+::vector$<$ id\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_ab14802638767a66a6645b74abb3d478a}\label{classns__geo_1_1_ref_polygon_ab14802638767a66a6645b74abb3d478a}} 
+using {\bfseries refpointset\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_ref_point_set2}{Ref\+Point\+Set2}}$<$ value\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_a2e0f097de47908e7fc8024cb7edaf3f1}\label{classns__geo_1_1_ref_polygon_a2e0f097de47908e7fc8024cb7edaf3f1}} 
+using {\bfseries self\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_ref_polygon}{Ref\+Polygon}}$<$ value\+\_\+type $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_a0bd8db86bd942ee50b3cd400b4201d6f}\label{classns__geo_1_1_ref_polygon_a0bd8db86bd942ee50b3cd400b4201d6f}} 
+const \mbox{\hyperlink{classns__geo_1_1_ref_point_set2}{refpointset\+\_\+type}} $\ast$const {\bfseries ref\+Point\+Set} () const
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_a92b43a7d6b922a1e607bc92b6d1c2dab}\label{classns__geo_1_1_ref_polygon_a92b43a7d6b922a1e607bc92b6d1c2dab}} 
+{\bfseries operator Polygon$<$ value\+\_\+type $>$} ()
+\item 
+const \mbox{\hyperlink{classns__geo_1_1_ref_point2}{refpoint\+\_\+type}} \& \mbox{\hyperlink{classns__geo_1_1_ref_polygon_a7d9fa4da2b19583ff67b34f7fb04b0ef}{index\+At}} (std\+::size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em get the \textquotesingle{}index\textquotesingle{}st reference point in the polygon \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classns__geo_1_1_ref_point2}{refpoint\+\_\+type}} \& \mbox{\hyperlink{classns__geo_1_1_ref_polygon_a885afeac7252f3bdfd8ff44939bb5560}{id\+At}} (std\+::size\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em get the \textquotesingle{}id\textquotesingle{} reference point in the polygon\textquotesingle{}s referenced refpointset \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_a21d919294b11dd2e876f492427be6546}\label{classns__geo_1_1_ref_polygon_a21d919294b11dd2e876f492427be6546}} 
+const std\+::vector$<$ uint $>$ \& {\bfseries pids} () const
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_ac13c639a4d078a7d7f1cf0c1d1e9501f}\label{classns__geo_1_1_ref_polygon_ac13c639a4d078a7d7f1cf0c1d1e9501f}} 
+float {\bfseries perimeter} () const
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_ace84b85376d1d0b0702e3609f056501a}\label{classns__geo_1_1_ref_polygon_ace84b85376d1d0b0702e3609f056501a}} 
+float {\bfseries area} () const
+\item 
+virtual \mbox{\hyperlink{point_8hpp_a8e76382f068ebe2bf26dd84ed5d8ae06}{ns\+\_\+geo\+::\+Geo\+Type}} \mbox{\hyperlink{classns__geo_1_1_ref_polygon_aa44eb9e38f37079243c9f86b0c2e7b4d}{type}} () const override
+\begin{DoxyCompactList}\small\item\em the type of the geometry \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_a86bbe89da54f946fa6cf17adaf8dfef4}\label{classns__geo_1_1_ref_polygon_a86bbe89da54f946fa6cf17adaf8dfef4}} 
+\mbox{\hyperlink{classns__geo_1_1_ref_polygon_a86bbe89da54f946fa6cf17adaf8dfef4}{Ref\+Polygon}} (const std\+::initializer\+\_\+list$<$ id\+\_\+type $>$ \&pidls, const \mbox{\hyperlink{classns__geo_1_1_ref_point_set2}{refpointset\+\_\+type}} $\ast$const rps)
+\begin{DoxyCompactList}\small\item\em constructors \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_ad5887d002656add5457ba6eae5a941ec}\label{classns__geo_1_1_ref_polygon_ad5887d002656add5457ba6eae5a941ec}} 
+class {\bfseries Ref\+Point\+Set2$<$ value\+\_\+type $>$}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_a885afeac7252f3bdfd8ff44939bb5560}\label{classns__geo_1_1_ref_polygon_a885afeac7252f3bdfd8ff44939bb5560}} 
+\index{ns\_geo::RefPolygon$<$ \_Ty $>$@{ns\_geo::RefPolygon$<$ \_Ty $>$}!idAt@{idAt}}
+\index{idAt@{idAt}!ns\_geo::RefPolygon$<$ \_Ty $>$@{ns\_geo::RefPolygon$<$ \_Ty $>$}}
+\doxysubsubsection{\texorpdfstring{idAt()}{idAt()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Ty  = float$>$ \\
+const \mbox{\hyperlink{classns__geo_1_1_ref_point2}{refpoint\+\_\+type}}\& \mbox{\hyperlink{classns__geo_1_1_ref_polygon}{ns\+\_\+geo\+::\+Ref\+Polygon}}$<$ \+\_\+\+Ty $>$\+::id\+At (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get the \textquotesingle{}id\textquotesingle{} reference point in the polygon\textquotesingle{}s referenced refpointset 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & the id of the reference point \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const refpoint\+\_\+type\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_a7d9fa4da2b19583ff67b34f7fb04b0ef}\label{classns__geo_1_1_ref_polygon_a7d9fa4da2b19583ff67b34f7fb04b0ef}} 
+\index{ns\_geo::RefPolygon$<$ \_Ty $>$@{ns\_geo::RefPolygon$<$ \_Ty $>$}!indexAt@{indexAt}}
+\index{indexAt@{indexAt}!ns\_geo::RefPolygon$<$ \_Ty $>$@{ns\_geo::RefPolygon$<$ \_Ty $>$}}
+\doxysubsubsection{\texorpdfstring{indexAt()}{indexAt()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Ty  = float$>$ \\
+const \mbox{\hyperlink{classns__geo_1_1_ref_point2}{refpoint\+\_\+type}}\& \mbox{\hyperlink{classns__geo_1_1_ref_polygon}{ns\+\_\+geo\+::\+Ref\+Polygon}}$<$ \+\_\+\+Ty $>$\+::index\+At (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get the \textquotesingle{}index\textquotesingle{}st reference point in the polygon 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & the index of the reference point\textquotesingle{}s id in the polygon \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const refpoint\+\_\+type\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classns__geo_1_1_ref_polygon_aa44eb9e38f37079243c9f86b0c2e7b4d}\label{classns__geo_1_1_ref_polygon_aa44eb9e38f37079243c9f86b0c2e7b4d}} 
+\index{ns\_geo::RefPolygon$<$ \_Ty $>$@{ns\_geo::RefPolygon$<$ \_Ty $>$}!type@{type}}
+\index{type@{type}!ns\_geo::RefPolygon$<$ \_Ty $>$@{ns\_geo::RefPolygon$<$ \_Ty $>$}}
+\doxysubsubsection{\texorpdfstring{type()}{type()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Ty  = float$>$ \\
+virtual \mbox{\hyperlink{point_8hpp_a8e76382f068ebe2bf26dd84ed5d8ae06}{ns\+\_\+geo\+::\+Geo\+Type}} \mbox{\hyperlink{classns__geo_1_1_ref_polygon}{ns\+\_\+geo\+::\+Ref\+Polygon}}$<$ \+\_\+\+Ty $>$\+::type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the type of the geometry 
+
+\begin{DoxyReturn}{Returns}
+Geo\+Type 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classns__geo_1_1_geometry_af2f2fe95c704952e617cc96080ba1cdf}{ns\+\_\+geo\+::\+Geometry}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/csl/\+Study\+C\+P\+P/artwork/geometry/include/\mbox{\hyperlink{polygon_8hpp}{polygon.\+hpp}}\end{DoxyCompactItemize}

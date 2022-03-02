@@ -1,0 +1,109 @@
+\hypertarget{classns__geo_1_1_ref_kd_tree2}{}\doxysection{ns\+\_\+geo\+::Ref\+Kd\+Tree2$<$ \+\_\+\+Point\+Type $>$ Class Template Reference}
+\label{classns__geo_1_1_ref_kd_tree2}\index{ns\_geo::RefKdTree2$<$ \_PointType $>$@{ns\_geo::RefKdTree2$<$ \_PointType $>$}}
+
+
+Inheritance diagram for ns\+\_\+geo\+::Ref\+Kd\+Tree2$<$ \+\_\+\+Point\+Type $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{classns__geo_1_1_ref_kd_tree2__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for ns\+\_\+geo\+::Ref\+Kd\+Tree2$<$ \+\_\+\+Point\+Type $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{classns__geo_1_1_ref_kd_tree2__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_kd_tree2_a10598bdf387976fe450466c86344f165}\label{classns__geo_1_1_ref_kd_tree2_a10598bdf387976fe450466c86344f165}} 
+using {\bfseries refpoint\+\_\+type} = \+\_\+\+Point\+Type
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_kd_tree2_af853f7f4fe01a7adfda4c2d02bdb4465}\label{classns__geo_1_1_ref_kd_tree2_af853f7f4fe01a7adfda4c2d02bdb4465}} 
+using {\bfseries value\+\_\+type} = typename refpoint\+\_\+type\+::value\+\_\+type
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_kd_tree2_a021030d2fe0f873f213447ce6522ab47}\label{classns__geo_1_1_ref_kd_tree2_a021030d2fe0f873f213447ce6522ab47}} 
+using {\bfseries point\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_point2}{Point2}}$<$ value\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_kd_tree2_ab5ef78828661ecb6d87764c27d1616ce}\label{classns__geo_1_1_ref_kd_tree2_ab5ef78828661ecb6d87764c27d1616ce}} 
+using {\bfseries refpointset\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_ref_point_set2}{Ref\+Point\+Set2}}$<$ value\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_kd_tree2_afc8c939883c8775f6d6f07beb36c39b5}\label{classns__geo_1_1_ref_kd_tree2_afc8c939883c8775f6d6f07beb36c39b5}} 
+using {\bfseries partent\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_kd_tree2}{Kd\+Tree2}}$<$ refpoint\+\_\+type $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_kd_tree2_aeb4c9a99da9bc10f4b7d685e8c1ecae7}\label{classns__geo_1_1_ref_kd_tree2_aeb4c9a99da9bc10f4b7d685e8c1ecae7}} 
+{\bfseries Ref\+Kd\+Tree2} (const \mbox{\hyperlink{classns__geo_1_1_ref_point_set2}{refpointset\+\_\+type}} \&ps)
+\item 
+void \mbox{\hyperlink{classns__geo_1_1_ref_kd_tree2_a5d8ad0538a1cdea0a36c57e3a14f5e25}{nearest\+K\+Search}} (const point\+\_\+type \&search\+Point, std\+::size\+\_\+t K, std\+::vector$<$ refpoint\+\_\+type $>$ \&ps, std\+::vector$<$ float $>$ \&dis) const
+\begin{DoxyCompactList}\small\item\em Search nearest K points from the search on the kdtree. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classns__geo_1_1_ref_kd_tree2_a1f21c5383273954ac92bfb2e9cbfb31a}{radius\+Search}} (const point\+\_\+type \&search\+Point, float radius, std\+::vector$<$ refpoint\+\_\+type $>$ \&ps, std\+::vector$<$ float $>$ \&dis) const
+\begin{DoxyCompactList}\small\item\em Search points whose distance from the search point is less than a specified distance on the kdtree. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_kd_tree2_ae03353f37d16ef970e228caddf6899d1}\label{classns__geo_1_1_ref_kd_tree2_ae03353f37d16ef970e228caddf6899d1}} 
+static std\+::vector$<$ refpoint\+\_\+type $>$ {\bfseries trans} (const \mbox{\hyperlink{classns__geo_1_1_ref_point_set2}{refpointset\+\_\+type}} \&ps)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classns__geo_1_1_ref_kd_tree2_a5d8ad0538a1cdea0a36c57e3a14f5e25}\label{classns__geo_1_1_ref_kd_tree2_a5d8ad0538a1cdea0a36c57e3a14f5e25}} 
+\index{ns\_geo::RefKdTree2$<$ \_PointType $>$@{ns\_geo::RefKdTree2$<$ \_PointType $>$}!nearestKSearch@{nearestKSearch}}
+\index{nearestKSearch@{nearestKSearch}!ns\_geo::RefKdTree2$<$ \_PointType $>$@{ns\_geo::RefKdTree2$<$ \_PointType $>$}}
+\doxysubsubsection{\texorpdfstring{nearestKSearch()}{nearestKSearch()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Point\+Type $>$ \\
+void \mbox{\hyperlink{classns__geo_1_1_ref_kd_tree2}{ns\+\_\+geo\+::\+Ref\+Kd\+Tree2}}$<$ \+\_\+\+Point\+Type $>$\+::nearest\+K\+Search (\begin{DoxyParamCaption}\item[{const point\+\_\+type \&}]{search\+Point,  }\item[{std\+::size\+\_\+t}]{K,  }\item[{std\+::vector$<$ refpoint\+\_\+type $>$ \&}]{ps,  }\item[{std\+::vector$<$ float $>$ \&}]{dis }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Search nearest K points from the search on the kdtree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em search\+Point} & the target search point \\
+\hline
+{\em K} & the number of the nearest points \\
+\hline
+{\em ps} & the point vector to save the search result \\
+\hline
+{\em dis} & the distance \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classns__geo_1_1_ref_kd_tree2_a1f21c5383273954ac92bfb2e9cbfb31a}\label{classns__geo_1_1_ref_kd_tree2_a1f21c5383273954ac92bfb2e9cbfb31a}} 
+\index{ns\_geo::RefKdTree2$<$ \_PointType $>$@{ns\_geo::RefKdTree2$<$ \_PointType $>$}!radiusSearch@{radiusSearch}}
+\index{radiusSearch@{radiusSearch}!ns\_geo::RefKdTree2$<$ \_PointType $>$@{ns\_geo::RefKdTree2$<$ \_PointType $>$}}
+\doxysubsubsection{\texorpdfstring{radiusSearch()}{radiusSearch()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Point\+Type $>$ \\
+void \mbox{\hyperlink{classns__geo_1_1_ref_kd_tree2}{ns\+\_\+geo\+::\+Ref\+Kd\+Tree2}}$<$ \+\_\+\+Point\+Type $>$\+::radius\+Search (\begin{DoxyParamCaption}\item[{const point\+\_\+type \&}]{search\+Point,  }\item[{float}]{radius,  }\item[{std\+::vector$<$ refpoint\+\_\+type $>$ \&}]{ps,  }\item[{std\+::vector$<$ float $>$ \&}]{dis }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Search points whose distance from the search point is less than a specified distance on the kdtree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em search\+Point} & the target search point \\
+\hline
+{\em radius} & the search radius \\
+\hline
+{\em ps} & the point vector to save the search result \\
+\hline
+{\em dis} & the distance \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/csl/\+Study\+C\+P\+P/artwork/geometry/include/\mbox{\hyperlink{kdtree_8hpp}{kdtree.\+hpp}}\end{DoxyCompactItemize}

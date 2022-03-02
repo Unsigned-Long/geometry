@@ -1,0 +1,118 @@
+\hypertarget{kdtree_8hpp}{}\doxysection{/home/csl/\+Study\+C\+P\+P/artwork/geometry/include/kdtree.hpp File Reference}
+\label{kdtree_8hpp}\index{/home/csl/StudyCPP/artwork/geometry/include/kdtree.hpp@{/home/csl/StudyCPP/artwork/geometry/include/kdtree.hpp}}
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$stack$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include \char`\"{}point.\+hpp\char`\"{}}\newline
+Include dependency graph for kdtree.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kdtree_8hpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structns__geo_1_1_node}{ns\+\_\+geo\+::\+Node$<$ \+\_\+\+Point\+Type $>$}}
+\begin{DoxyCompactList}\small\item\em the node used in the kdtree \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classns__geo_1_1_kd_tree}{ns\+\_\+geo\+::\+Kd\+Tree$<$ \+\_\+\+Point\+Type $>$}}
+\begin{DoxyCompactList}\small\item\em the virtual base class int the kdtree system \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classns__geo_1_1_kd_tree2}{ns\+\_\+geo\+::\+Kd\+Tree2$<$ \+\_\+\+Point\+Type $>$}}
+\item 
+class \mbox{\hyperlink{classns__geo_1_1_kd_tree3}{ns\+\_\+geo\+::\+Kd\+Tree3$<$ \+\_\+\+Point\+Type $>$}}
+\item 
+class \mbox{\hyperlink{classns__geo_1_1_ref_kd_tree2}{ns\+\_\+geo\+::\+Ref\+Kd\+Tree2$<$ \+\_\+\+Point\+Type $>$}}
+\item 
+class \mbox{\hyperlink{classns__geo_1_1_ref_kd_tree3}{ns\+\_\+geo\+::\+Ref\+Kd\+Tree3$<$ \+\_\+\+Point\+Type $>$}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{kdtree_8hpp_a60cb8565f1e98364ab156bbc595daa9f}\label{kdtree_8hpp_a60cb8565f1e98364ab156bbc595daa9f}} 
+enum {\bfseries Split\+Feature} \{ {\bfseries X}, 
+{\bfseries Y}, 
+{\bfseries Z}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Split\+Feature \mbox{\hyperlink{kdtree_8hpp_ac262d48301cc7f2d5105d0ed275fe252}{ns\+\_\+geo\+::exf\+Dime2}} (Split\+Feature sf)
+\begin{DoxyCompactList}\small\item\em Orderly exchange and partition dimensions in the composition of kdtree construction for kdtree2. \end{DoxyCompactList}\item 
+Split\+Feature \mbox{\hyperlink{kdtree_8hpp_a8cf3a380f87183c1eb31ae3c8f47e245}{ns\+\_\+geo\+::exf\+Dime3}} (Split\+Feature sf)
+\begin{DoxyCompactList}\small\item\em Orderly exchange and partition dimensions in the composition of kdtree construction for kdtree3. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{kdtree_8hpp_aa43265380ae0bea4cb1f5523e6168499}\label{kdtree_8hpp_aa43265380ae0bea4cb1f5523e6168499}} 
+std\+::ostream \& {\bfseries ns\+\_\+geo\+::operator$<$$<$} (std\+::ostream \&os, Split\+Feature sf)
+\item 
+\mbox{\Hypertarget{kdtree_8hpp_a74d1b45c95b6c4dde1e029a0596c57f0}\label{kdtree_8hpp_a74d1b45c95b6c4dde1e029a0596c57f0}} 
+{\footnotesize template$<$typename \+\_\+\+Ty $>$ }\\bool {\bfseries ns\+\_\+geo\+::at\+Left\+Tree} (const Point2$<$ \+\_\+\+Ty $>$ \&p1, const Point2$<$ \+\_\+\+Ty $>$ \&p2, Split\+Feature sf)
+\item 
+\mbox{\Hypertarget{kdtree_8hpp_a446acbbf6d52ee7682c161a63d4b5d02}\label{kdtree_8hpp_a446acbbf6d52ee7682c161a63d4b5d02}} 
+{\footnotesize template$<$typename \+\_\+\+Ty $>$ }\\bool {\bfseries ns\+\_\+geo\+::at\+Left\+Tree} (const Point3$<$ \+\_\+\+Ty $>$ \&p1, const Point3$<$ \+\_\+\+Ty $>$ \&p2, Split\+Feature sf)
+\item 
+\mbox{\Hypertarget{kdtree_8hpp_a5a2e2646d95d9e0a46a7bd8d45f20b0d}\label{kdtree_8hpp_a5a2e2646d95d9e0a46a7bd8d45f20b0d}} 
+{\footnotesize template$<$typename \+\_\+\+Ty $>$ }\\bool {\bfseries ns\+\_\+geo\+::is\+Intersect} (const Point2$<$ \+\_\+\+Ty $>$ \&search\+Point, const Point2$<$ \+\_\+\+Ty $>$ \&node\+Point, float radius, Split\+Feature sf)
+\item 
+\mbox{\Hypertarget{kdtree_8hpp_aa37595e7414ec76d00c470233df43d06}\label{kdtree_8hpp_aa37595e7414ec76d00c470233df43d06}} 
+{\footnotesize template$<$typename \+\_\+\+Ty $>$ }\\bool {\bfseries ns\+\_\+geo\+::is\+Intersect} (const Point3$<$ \+\_\+\+Ty $>$ \&search\+Point, const Point3$<$ \+\_\+\+Ty $>$ \&node\+Point, float radius, Split\+Feature sf)
+\item 
+\mbox{\Hypertarget{kdtree_8hpp_a7bc1c8d4cd744a567c9240c549f0b007}\label{kdtree_8hpp_a7bc1c8d4cd744a567c9240c549f0b007}} 
+{\footnotesize template$<$typename \+\_\+\+Point\+Type $>$ }\\std\+::ostream \& {\bfseries ns\+\_\+geo\+::operator$<$$<$} (std\+::ostream \&os, const Kd\+Tree$<$ \+\_\+\+Point\+Type $>$ \&kdtree)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+csl (\href{mailto:3079625093@qq.com}{\texttt{ 3079625093@qq.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2021-\/12-\/11
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{kdtree_8hpp_ac262d48301cc7f2d5105d0ed275fe252}\label{kdtree_8hpp_ac262d48301cc7f2d5105d0ed275fe252}} 
+\index{kdtree.hpp@{kdtree.hpp}!exfDime2@{exfDime2}}
+\index{exfDime2@{exfDime2}!kdtree.hpp@{kdtree.hpp}}
+\doxysubsubsection{\texorpdfstring{exfDime2()}{exfDime2()}}
+{\footnotesize\ttfamily Split\+Feature ns\+\_\+geo\+::exf\+Dime2 (\begin{DoxyParamCaption}\item[{Split\+Feature}]{sf }\end{DoxyParamCaption})}
+
+
+
+Orderly exchange and partition dimensions in the composition of kdtree construction for kdtree2. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sf} & the split feature \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Split\+Feature 
+\end{DoxyReturn}
+\mbox{\Hypertarget{kdtree_8hpp_a8cf3a380f87183c1eb31ae3c8f47e245}\label{kdtree_8hpp_a8cf3a380f87183c1eb31ae3c8f47e245}} 
+\index{kdtree.hpp@{kdtree.hpp}!exfDime3@{exfDime3}}
+\index{exfDime3@{exfDime3}!kdtree.hpp@{kdtree.hpp}}
+\doxysubsubsection{\texorpdfstring{exfDime3()}{exfDime3()}}
+{\footnotesize\ttfamily Split\+Feature ns\+\_\+geo\+::exf\+Dime3 (\begin{DoxyParamCaption}\item[{Split\+Feature}]{sf }\end{DoxyParamCaption})}
+
+
+
+Orderly exchange and partition dimensions in the composition of kdtree construction for kdtree3. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sf} & the split feature \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Split\+Feature 
+\end{DoxyReturn}

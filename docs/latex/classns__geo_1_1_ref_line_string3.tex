@@ -1,0 +1,153 @@
+\hypertarget{classns__geo_1_1_ref_line_string3}{}\doxysection{ns\+\_\+geo\+::Ref\+Line\+String3$<$ \+\_\+\+Ty $>$ Class Template Reference}
+\label{classns__geo_1_1_ref_line_string3}\index{ns\_geo::RefLineString3$<$ \_Ty $>$@{ns\_geo::RefLineString3$<$ \_Ty $>$}}
+
+
+Inheritance diagram for ns\+\_\+geo\+::Ref\+Line\+String3$<$ \+\_\+\+Ty $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{classns__geo_1_1_ref_line_string3__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for ns\+\_\+geo\+::Ref\+Line\+String3$<$ \+\_\+\+Ty $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{classns__geo_1_1_ref_line_string3__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_a2c727d22f48c1064917cd28f0c7ef1e3}\label{classns__geo_1_1_ref_line_string3_a2c727d22f48c1064917cd28f0c7ef1e3}} 
+using {\bfseries value\+\_\+type} = \+\_\+\+Ty
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_aa97e3fcc0f7ce2342ed01d3249c9da54}\label{classns__geo_1_1_ref_line_string3_aa97e3fcc0f7ce2342ed01d3249c9da54}} 
+using {\bfseries id\+\_\+type} = uint
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_a28f18c6659b235e02177d456acb33fd5}\label{classns__geo_1_1_ref_line_string3_a28f18c6659b235e02177d456acb33fd5}} 
+using {\bfseries refpoint\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_ref_point3}{Ref\+Point3}}$<$ value\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_a5e0fcf88ce1db1e6308ae958d81ac7e1}\label{classns__geo_1_1_ref_line_string3_a5e0fcf88ce1db1e6308ae958d81ac7e1}} 
+using {\bfseries pointidset\+\_\+type} = std\+::vector$<$ id\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_adefd82cc40a252c3b3391157eb3585c0}\label{classns__geo_1_1_ref_line_string3_adefd82cc40a252c3b3391157eb3585c0}} 
+using {\bfseries refpointset\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_ref_point_set3}{Ref\+Point\+Set3}}$<$ value\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_a01e008e3c6346979f5d09e403c1acc6a}\label{classns__geo_1_1_ref_line_string3_a01e008e3c6346979f5d09e403c1acc6a}} 
+using {\bfseries self\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_ref_line_string3}{Ref\+Line\+String3}}$<$ value\+\_\+type $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_a133f3d54a1e06b16b26f7f585cbb44ce}\label{classns__geo_1_1_ref_line_string3_a133f3d54a1e06b16b26f7f585cbb44ce}} 
+const \mbox{\hyperlink{classns__geo_1_1_ref_point_set3}{refpointset\+\_\+type}} $\ast$const {\bfseries ref\+Point\+Set} () const
+\item 
+\mbox{\hyperlink{classns__geo_1_1_ref_line_string3_a465981643c747873e39112c080b343ea}{operator Line\+String3$<$ value\+\_\+type $>$}} ()
+\begin{DoxyCompactList}\small\item\em cast from \textquotesingle{}Ref\+Line\+String3$<$value\+\_\+type$>$\textquotesingle{} to \textquotesingle{}Line\+String3$<$value\+\_\+type$>$\textquotesingle{} \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classns__geo_1_1_ref_point3}{refpoint\+\_\+type}} \& \mbox{\hyperlink{classns__geo_1_1_ref_line_string3_aacba92572be3c0fb2f6258053d51dca5}{index\+At}} (std\+::size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em get the \textquotesingle{}index\textquotesingle{}st reference point in the line string \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classns__geo_1_1_ref_point3}{refpoint\+\_\+type}} \& \mbox{\hyperlink{classns__geo_1_1_ref_line_string3_a6ea091893c70c0009b29f59aa7ab6b6a}{id\+At}} (std\+::size\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em get the \textquotesingle{}id\textquotesingle{} reference point in the line string\textquotesingle{}s referenced refpointset \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_ad11988301fe6f36ecd20226411d7aa63}\label{classns__geo_1_1_ref_line_string3_ad11988301fe6f36ecd20226411d7aa63}} 
+const std\+::vector$<$ uint $>$ \& {\bfseries pids} () const
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_a7ff18ad3877e67ce60b4cc1ca5722e2c}\label{classns__geo_1_1_ref_line_string3_a7ff18ad3877e67ce60b4cc1ca5722e2c}} 
+float {\bfseries length} () const
+\item 
+virtual \mbox{\hyperlink{point_8hpp_a8e76382f068ebe2bf26dd84ed5d8ae06}{ns\+\_\+geo\+::\+Geo\+Type}} \mbox{\hyperlink{classns__geo_1_1_ref_line_string3_a5fe8cb7fec3623c57cf69e6efcc158e0}{type}} () const override
+\begin{DoxyCompactList}\small\item\em the type of the geometry \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_a541087dbf5d7220977f778590157236d}\label{classns__geo_1_1_ref_line_string3_a541087dbf5d7220977f778590157236d}} 
+\mbox{\hyperlink{classns__geo_1_1_ref_line_string3_a541087dbf5d7220977f778590157236d}{Ref\+Line\+String3}} (const std\+::initializer\+\_\+list$<$ id\+\_\+type $>$ \&pidls, const \mbox{\hyperlink{classns__geo_1_1_ref_point_set3}{refpointset\+\_\+type}} $\ast$const rps)
+\begin{DoxyCompactList}\small\item\em constructors \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_acf7de2ff304938b251f13d309b9e2612}\label{classns__geo_1_1_ref_line_string3_acf7de2ff304938b251f13d309b9e2612}} 
+class {\bfseries Ref\+Point\+Set3$<$ value\+\_\+type $>$}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_a6ea091893c70c0009b29f59aa7ab6b6a}\label{classns__geo_1_1_ref_line_string3_a6ea091893c70c0009b29f59aa7ab6b6a}} 
+\index{ns\_geo::RefLineString3$<$ \_Ty $>$@{ns\_geo::RefLineString3$<$ \_Ty $>$}!idAt@{idAt}}
+\index{idAt@{idAt}!ns\_geo::RefLineString3$<$ \_Ty $>$@{ns\_geo::RefLineString3$<$ \_Ty $>$}}
+\doxysubsubsection{\texorpdfstring{idAt()}{idAt()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Ty  = float$>$ \\
+const \mbox{\hyperlink{classns__geo_1_1_ref_point3}{refpoint\+\_\+type}}\& \mbox{\hyperlink{classns__geo_1_1_ref_line_string3}{ns\+\_\+geo\+::\+Ref\+Line\+String3}}$<$ \+\_\+\+Ty $>$\+::id\+At (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get the \textquotesingle{}id\textquotesingle{} reference point in the line string\textquotesingle{}s referenced refpointset 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & the id of the reference point \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const refpoint\+\_\+type\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_aacba92572be3c0fb2f6258053d51dca5}\label{classns__geo_1_1_ref_line_string3_aacba92572be3c0fb2f6258053d51dca5}} 
+\index{ns\_geo::RefLineString3$<$ \_Ty $>$@{ns\_geo::RefLineString3$<$ \_Ty $>$}!indexAt@{indexAt}}
+\index{indexAt@{indexAt}!ns\_geo::RefLineString3$<$ \_Ty $>$@{ns\_geo::RefLineString3$<$ \_Ty $>$}}
+\doxysubsubsection{\texorpdfstring{indexAt()}{indexAt()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Ty  = float$>$ \\
+const \mbox{\hyperlink{classns__geo_1_1_ref_point3}{refpoint\+\_\+type}}\& \mbox{\hyperlink{classns__geo_1_1_ref_line_string3}{ns\+\_\+geo\+::\+Ref\+Line\+String3}}$<$ \+\_\+\+Ty $>$\+::index\+At (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get the \textquotesingle{}index\textquotesingle{}st reference point in the line string 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & the index of the reference point\textquotesingle{}s id in the line string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const refpoint\+\_\+type\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_a465981643c747873e39112c080b343ea}\label{classns__geo_1_1_ref_line_string3_a465981643c747873e39112c080b343ea}} 
+\index{ns\_geo::RefLineString3$<$ \_Ty $>$@{ns\_geo::RefLineString3$<$ \_Ty $>$}!operator LineString3$<$ value\_type $>$@{operator LineString3$<$ value\_type $>$}}
+\index{operator LineString3$<$ value\_type $>$@{operator LineString3$<$ value\_type $>$}!ns\_geo::RefLineString3$<$ \_Ty $>$@{ns\_geo::RefLineString3$<$ \_Ty $>$}}
+\doxysubsubsection{\texorpdfstring{operator LineString3$<$ value\_type $>$()}{operator LineString3< value\_type >()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Ty  = float$>$ \\
+\mbox{\hyperlink{classns__geo_1_1_ref_line_string3}{ns\+\_\+geo\+::\+Ref\+Line\+String3}}$<$ \+\_\+\+Ty $>$\+::operator \mbox{\hyperlink{classns__geo_1_1_line_string3}{Line\+String3}}$<$ value\+\_\+type $>$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+cast from \textquotesingle{}Ref\+Line\+String3$<$value\+\_\+type$>$\textquotesingle{} to \textquotesingle{}Line\+String3$<$value\+\_\+type$>$\textquotesingle{} 
+
+\begin{DoxyReturn}{Returns}
+Line\+String3$<$value\+\_\+type$>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classns__geo_1_1_ref_line_string3_a5fe8cb7fec3623c57cf69e6efcc158e0}\label{classns__geo_1_1_ref_line_string3_a5fe8cb7fec3623c57cf69e6efcc158e0}} 
+\index{ns\_geo::RefLineString3$<$ \_Ty $>$@{ns\_geo::RefLineString3$<$ \_Ty $>$}!type@{type}}
+\index{type@{type}!ns\_geo::RefLineString3$<$ \_Ty $>$@{ns\_geo::RefLineString3$<$ \_Ty $>$}}
+\doxysubsubsection{\texorpdfstring{type()}{type()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Ty  = float$>$ \\
+virtual \mbox{\hyperlink{point_8hpp_a8e76382f068ebe2bf26dd84ed5d8ae06}{ns\+\_\+geo\+::\+Geo\+Type}} \mbox{\hyperlink{classns__geo_1_1_ref_line_string3}{ns\+\_\+geo\+::\+Ref\+Line\+String3}}$<$ \+\_\+\+Ty $>$\+::type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+the type of the geometry 
+
+\begin{DoxyReturn}{Returns}
+Geo\+Type 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classns__geo_1_1_geometry_af2f2fe95c704952e617cc96080ba1cdf}{ns\+\_\+geo\+::\+Geometry}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/csl/\+Study\+C\+P\+P/artwork/geometry/include/\mbox{\hyperlink{linestring_8hpp}{linestring.\+hpp}}\end{DoxyCompactItemize}

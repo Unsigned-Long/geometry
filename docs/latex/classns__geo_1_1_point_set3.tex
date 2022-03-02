@@ -1,0 +1,151 @@
+\hypertarget{classns__geo_1_1_point_set3}{}\doxysection{ns\+\_\+geo\+::Point\+Set3$<$ \+\_\+\+Ty $>$ Class Template Reference}
+\label{classns__geo_1_1_point_set3}\index{ns\_geo::PointSet3$<$ \_Ty $>$@{ns\_geo::PointSet3$<$ \_Ty $>$}}
+
+
+Container for storage point3$<$\+\_\+\+Ty$>$  
+
+
+
+
+{\ttfamily \#include $<$point.\+hpp$>$}
+
+
+
+Inheritance diagram for ns\+\_\+geo\+::Point\+Set3$<$ \+\_\+\+Ty $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{classns__geo_1_1_point_set3__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for ns\+\_\+geo\+::Point\+Set3$<$ \+\_\+\+Ty $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{classns__geo_1_1_point_set3__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_point_set3_a7831f3f0b3db9c4487cf5a18959c9c43}\label{classns__geo_1_1_point_set3_a7831f3f0b3db9c4487cf5a18959c9c43}} 
+using {\bfseries value\+\_\+type} = \+\_\+\+Ty
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_point_set3_aa6f508691d9b4ea81486c438614c98e5}\label{classns__geo_1_1_point_set3_aa6f508691d9b4ea81486c438614c98e5}} 
+using {\bfseries point\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_point3}{Point3}}$<$ value\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_point_set3_a16c8371806576cde7848536aef6a0eb0}\label{classns__geo_1_1_point_set3_a16c8371806576cde7848536aef6a0eb0}} 
+using {\bfseries container\+\_\+type} = std\+::vector$<$ \mbox{\hyperlink{classns__geo_1_1_point3}{point\+\_\+type}} $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_point_set3_a78df5a9d3d83f6b8f472b3f93ef29eda}\label{classns__geo_1_1_point_set3_a78df5a9d3d83f6b8f472b3f93ef29eda}} 
+using {\bfseries self\+\_\+type} = \mbox{\hyperlink{classns__geo_1_1_point_set3}{Point\+Set3}}$<$ value\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_point_set3_a85f652993efe84a0fce776fe99c5703a}\label{classns__geo_1_1_point_set3_a85f652993efe84a0fce776fe99c5703a}} 
+using {\bfseries selector} = bool($\ast$)(const \mbox{\hyperlink{classns__geo_1_1_point3}{point\+\_\+type}} \&)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classns__geo_1_1_point_set3_acbe843778b1a1f28a598d045a5d9e1ae}{write}} (const std\+::string \&file\+Path, std\+::ios\+\_\+base\+::openmode mode=std\+::ios\+::out$\vert$std\+::ios\+::binary) const
+\begin{DoxyCompactList}\small\item\em write points to the file \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classns__geo_1_1_point_set3_afd659301be857c0abc7d526288f37f0f}{read}} (const std\+::string \&file\+Path, std\+::ios\+\_\+base\+::openmode mode=std\+::ios\+::in$\vert$std\+::ios\+::binary)
+\begin{DoxyCompactList}\small\item\em read points from the file \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classns__geo_1_1_point_set3}{self\+\_\+type}} \mbox{\hyperlink{classns__geo_1_1_point_set3_ab09742b0e808532af773d936e8bf1d8e}{random\+Generator}} (std\+::size\+\_\+t num, \+\_\+\+Ty x\+\_\+min, \+\_\+\+Ty x\+\_\+max, \+\_\+\+Ty y\+\_\+min, \+\_\+\+Ty y\+\_\+max, \+\_\+\+Ty z\+\_\+min, \+\_\+\+Ty z\+\_\+max, const selector \&slor=nullptr)
+\begin{DoxyCompactList}\small\item\em generate eligible point randomly \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Ty$>$\newline
+class ns\+\_\+geo\+::\+Point\+Set3$<$ \+\_\+\+Ty $>$}
+
+Container for storage point3$<$\+\_\+\+Ty$>$ 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em \+\_\+\+Ty} & \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classns__geo_1_1_point_set3_ab09742b0e808532af773d936e8bf1d8e}\label{classns__geo_1_1_point_set3_ab09742b0e808532af773d936e8bf1d8e}} 
+\index{ns\_geo::PointSet3$<$ \_Ty $>$@{ns\_geo::PointSet3$<$ \_Ty $>$}!randomGenerator@{randomGenerator}}
+\index{randomGenerator@{randomGenerator}!ns\_geo::PointSet3$<$ \_Ty $>$@{ns\_geo::PointSet3$<$ \_Ty $>$}}
+\doxysubsubsection{\texorpdfstring{randomGenerator()}{randomGenerator()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Ty $>$ \\
+static \mbox{\hyperlink{classns__geo_1_1_point_set3}{self\+\_\+type}} \mbox{\hyperlink{classns__geo_1_1_point_set3}{ns\+\_\+geo\+::\+Point\+Set3}}$<$ \+\_\+\+Ty $>$\+::random\+Generator (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{num,  }\item[{\+\_\+\+Ty}]{x\+\_\+min,  }\item[{\+\_\+\+Ty}]{x\+\_\+max,  }\item[{\+\_\+\+Ty}]{y\+\_\+min,  }\item[{\+\_\+\+Ty}]{y\+\_\+max,  }\item[{\+\_\+\+Ty}]{z\+\_\+min,  }\item[{\+\_\+\+Ty}]{z\+\_\+max,  }\item[{const selector \&}]{slor = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+generate eligible point randomly 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num} & the number \\
+\hline
+{\em x\+\_\+min} & the min x value \\
+\hline
+{\em x\+\_\+max} & the max x value \\
+\hline
+{\em y\+\_\+min} & the min y value \\
+\hline
+{\em y\+\_\+max} & the max y value \\
+\hline
+{\em z\+\_\+min} & the min z value \\
+\hline
+{\em z\+\_\+max} & the max z value \\
+\hline
+{\em slor} & the selector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+self\+\_\+type 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classns__geo_1_1_point_set3_afd659301be857c0abc7d526288f37f0f}\label{classns__geo_1_1_point_set3_afd659301be857c0abc7d526288f37f0f}} 
+\index{ns\_geo::PointSet3$<$ \_Ty $>$@{ns\_geo::PointSet3$<$ \_Ty $>$}!read@{read}}
+\index{read@{read}!ns\_geo::PointSet3$<$ \_Ty $>$@{ns\_geo::PointSet3$<$ \_Ty $>$}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Ty $>$ \\
+void \mbox{\hyperlink{classns__geo_1_1_point_set3}{ns\+\_\+geo\+::\+Point\+Set3}}$<$ \+\_\+\+Ty $>$\+::read (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Path,  }\item[{std\+::ios\+\_\+base\+::openmode}]{mode = {\ttfamily std\+:\+:ios\+:\+:in~$\vert$~std\+:\+:ios\+:\+:binary} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+read points from the file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & the path of the file \\
+\hline
+{\em mode} & the ios mode \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classns__geo_1_1_point_set3_acbe843778b1a1f28a598d045a5d9e1ae}\label{classns__geo_1_1_point_set3_acbe843778b1a1f28a598d045a5d9e1ae}} 
+\index{ns\_geo::PointSet3$<$ \_Ty $>$@{ns\_geo::PointSet3$<$ \_Ty $>$}!write@{write}}
+\index{write@{write}!ns\_geo::PointSet3$<$ \_Ty $>$@{ns\_geo::PointSet3$<$ \_Ty $>$}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Ty $>$ \\
+void \mbox{\hyperlink{classns__geo_1_1_point_set3}{ns\+\_\+geo\+::\+Point\+Set3}}$<$ \+\_\+\+Ty $>$\+::write (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Path,  }\item[{std\+::ios\+\_\+base\+::openmode}]{mode = {\ttfamily std\+:\+:ios\+:\+:out~$\vert$~std\+:\+:ios\+:\+:binary} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+write points to the file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & the path of the file \\
+\hline
+{\em mode} & the ios mode \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/csl/\+Study\+C\+P\+P/artwork/geometry/include/\mbox{\hyperlink{point_8hpp}{point.\+hpp}}\end{DoxyCompactItemize}

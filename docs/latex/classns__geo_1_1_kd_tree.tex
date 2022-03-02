@@ -1,0 +1,234 @@
+\hypertarget{classns__geo_1_1_kd_tree}{}\doxysection{ns\+\_\+geo\+::Kd\+Tree$<$ \+\_\+\+Point\+Type $>$ Class Template Reference}
+\label{classns__geo_1_1_kd_tree}\index{ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}}
+
+
+the virtual base class int the kdtree system  
+
+
+
+
+{\ttfamily \#include $<$kdtree.\+hpp$>$}
+
+
+
+Inheritance diagram for ns\+\_\+geo\+::Kd\+Tree$<$ \+\_\+\+Point\+Type $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classns__geo_1_1_kd_tree__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_adc8ba33c3abc3c27ed53813baa623427}\label{classns__geo_1_1_kd_tree_adc8ba33c3abc3c27ed53813baa623427}} 
+using {\bfseries point\+\_\+type} = \+\_\+\+Point\+Type
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_a9b9d254884c8cd2765394b2e085a5804}\label{classns__geo_1_1_kd_tree_a9b9d254884c8cd2765394b2e085a5804}} 
+using {\bfseries value\+\_\+type} = typename point\+\_\+type\+::value\+\_\+type
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_a905ce153a52f9ef8c293e24a99259a0e}\label{classns__geo_1_1_kd_tree_a905ce153a52f9ef8c293e24a99259a0e}} 
+using {\bfseries node\+\_\+type} = \mbox{\hyperlink{structns__geo_1_1_node}{Node}}$<$ point\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_ab5cc5fbfe2c80cd0eff3d3de13dee491}\label{classns__geo_1_1_kd_tree_ab5cc5fbfe2c80cd0eff3d3de13dee491}} 
+using {\bfseries node\+\_\+ptr} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structns__geo_1_1_node}{node\+\_\+type}} $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_a9c6c148656acc774d08a197c17bcff08}\label{classns__geo_1_1_kd_tree_a9c6c148656acc774d08a197c17bcff08}} 
+using {\bfseries pointset\+\_\+type} = std\+::vector$<$ point\+\_\+type $>$
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_acb6fb0558b5dab4ff1486db59d367b16}\label{classns__geo_1_1_kd_tree_acb6fb0558b5dab4ff1486db59d367b16}} 
+using {\bfseries exchange\+\_\+sf} = Split\+Feature($\ast$)(Split\+Feature sf)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_aefcd7aae3900411dde10fbd0b0b5b746}\label{classns__geo_1_1_kd_tree_aefcd7aae3900411dde10fbd0b0b5b746}} 
+{\bfseries Kd\+Tree} (exchange\+\_\+sf ef, std\+::size\+\_\+t \mbox{\hyperlink{classns__geo_1_1_kd_tree_a39c85825f9ce3048b213b107d436225c}{size}})
+\item 
+void \mbox{\hyperlink{classns__geo_1_1_kd_tree_a7112e5989c4dc89539a5f8bc249335ef}{print\+Kd\+Tree}} (int mode=1, std\+::ostream \&os=std\+::cout, bool el=true) const
+\begin{DoxyCompactList}\small\item\em print the kdtree by some order \end{DoxyCompactList}\item 
+const node\+\_\+ptr \& \mbox{\hyperlink{classns__geo_1_1_kd_tree_adb4e823a88e75606864a5983c39708b9}{root}} () const
+\begin{DoxyCompactList}\small\item\em get the root of the kdtree \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classns__geo_1_1_kd_tree_a39c85825f9ce3048b213b107d436225c}{size}} () const
+\begin{DoxyCompactList}\small\item\em get the nodes\textquotesingle{} number on the kdtree \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classns__geo_1_1_kd_tree_af0aae7156809cfe8db3cb7f407dc2b39}{nearest\+K\+Search}} (const point\+\_\+type \&search\+Point, std\+::size\+\_\+t K, std\+::vector$<$ point\+\_\+type $>$ \&ps, std\+::vector$<$ float $>$ \&dis) const
+\begin{DoxyCompactList}\small\item\em Search nearest K points from the search on the kdtree. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classns__geo_1_1_kd_tree_a622e5f50d0a23638c70e68d941efbf39}{radius\+Search}} (const point\+\_\+type \&search\+Point, float radius, std\+::vector$<$ point\+\_\+type $>$ \&ps, std\+::vector$<$ float $>$ \&dis) const
+\begin{DoxyCompactList}\small\item\em Search points whose distance from the search point is less than a specified distance on the kdtree. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classns__geo_1_1_kd_tree_ac44d00cd5e8004e3d3a2b3e97d7514bd}{build\+Kd\+Tree}} (pointset\+\_\+type ps)=0
+\begin{DoxyCompactList}\small\item\em initialize the root of the kdtree \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classns__geo_1_1_kd_tree_a3f8f6a05e2c3b571768209119c2dfd77}{sort\+Point\+Set}} (Split\+Feature sf, pointset\+\_\+type \&lps, pointset\+\_\+type \&rps)=0
+\begin{DoxyCompactList}\small\item\em Sort the point set with a dimension as a reference. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_a015032eb62b4a621b5f00a0464210e1e}\label{classns__geo_1_1_kd_tree_a015032eb62b4a621b5f00a0464210e1e}} 
+void {\bfseries build\+Kd\+Tree} (node\+\_\+ptr \&np, Split\+Feature sf, pointset\+\_\+type lps, pointset\+\_\+type rps)
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_ae44ce4f4f36fddbe4304a53951d4bc71}\label{classns__geo_1_1_kd_tree_ae44ce4f4f36fddbe4304a53951d4bc71}} 
+void {\bfseries print\+Kd\+Tree} (const node\+\_\+ptr \&n, std\+::ostream \&os, int mode) const
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_a20e54b999ca31561c18ac6658e5c4872}\label{classns__geo_1_1_kd_tree_a20e54b999ca31561c18ac6658e5c4872}} 
+bool {\bfseries is\+Leaf\+Node} (const node\+\_\+ptr \&n) const
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_aaec99d8c51ccb322ad6a34d334f8979e}\label{classns__geo_1_1_kd_tree_aaec99d8c51ccb322ad6a34d334f8979e}} 
+void {\bfseries nodes\+On\+Root\+Node} (const node\+\_\+ptr \&node, std\+::vector$<$ node\+\_\+ptr $>$ \&nodes) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_a5323880d327d933fb4975b01a5885a07}\label{classns__geo_1_1_kd_tree_a5323880d327d933fb4975b01a5885a07}} 
+node\+\_\+ptr {\bfseries \+\_\+root}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_adb32f62e634c2699d22cbdb9a85214fd}\label{classns__geo_1_1_kd_tree_adb32f62e634c2699d22cbdb9a85214fd}} 
+exchange\+\_\+sf {\bfseries \+\_\+ef}
+\item 
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_a035c219298bbcf505cf1f94c4c99feb7}\label{classns__geo_1_1_kd_tree_a035c219298bbcf505cf1f94c4c99feb7}} 
+std\+::size\+\_\+t {\bfseries \+\_\+size}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Point\+Type$>$\newline
+class ns\+\_\+geo\+::\+Kd\+Tree$<$ \+\_\+\+Point\+Type $>$}
+
+the virtual base class int the kdtree system 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em \+\_\+\+Point\+Type} & \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_ac44d00cd5e8004e3d3a2b3e97d7514bd}\label{classns__geo_1_1_kd_tree_ac44d00cd5e8004e3d3a2b3e97d7514bd}} 
+\index{ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}!buildKdTree@{buildKdTree}}
+\index{buildKdTree@{buildKdTree}!ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}}
+\doxysubsubsection{\texorpdfstring{buildKdTree()}{buildKdTree()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Point\+Type $>$ \\
+virtual void \mbox{\hyperlink{classns__geo_1_1_kd_tree}{ns\+\_\+geo\+::\+Kd\+Tree}}$<$ \+\_\+\+Point\+Type $>$\+::build\+Kd\+Tree (\begin{DoxyParamCaption}\item[{pointset\+\_\+type}]{ps }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+initialize the root of the kdtree 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ps} & the point set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_af0aae7156809cfe8db3cb7f407dc2b39}\label{classns__geo_1_1_kd_tree_af0aae7156809cfe8db3cb7f407dc2b39}} 
+\index{ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}!nearestKSearch@{nearestKSearch}}
+\index{nearestKSearch@{nearestKSearch}!ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}}
+\doxysubsubsection{\texorpdfstring{nearestKSearch()}{nearestKSearch()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Point\+Type $>$ \\
+void \mbox{\hyperlink{classns__geo_1_1_kd_tree}{ns\+\_\+geo\+::\+Kd\+Tree}}$<$ \+\_\+\+Point\+Type $>$\+::nearest\+K\+Search (\begin{DoxyParamCaption}\item[{const point\+\_\+type \&}]{search\+Point,  }\item[{std\+::size\+\_\+t}]{K,  }\item[{std\+::vector$<$ point\+\_\+type $>$ \&}]{ps,  }\item[{std\+::vector$<$ float $>$ \&}]{dis }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Search nearest K points from the search on the kdtree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em search\+Point} & the target search point \\
+\hline
+{\em K} & the number of the nearest points \\
+\hline
+{\em ps} & the point vector to save the search result \\
+\hline
+{\em dis} & the distance \\
+\hline
+\end{DoxyParams}
+if the K is greater than the size of the kdtree, than add all points to the \textquotesingle{}ps\textquotesingle{}\mbox{\Hypertarget{classns__geo_1_1_kd_tree_a7112e5989c4dc89539a5f8bc249335ef}\label{classns__geo_1_1_kd_tree_a7112e5989c4dc89539a5f8bc249335ef}} 
+\index{ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}!printKdTree@{printKdTree}}
+\index{printKdTree@{printKdTree}!ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}}
+\doxysubsubsection{\texorpdfstring{printKdTree()}{printKdTree()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Point\+Type $>$ \\
+void \mbox{\hyperlink{classns__geo_1_1_kd_tree}{ns\+\_\+geo\+::\+Kd\+Tree}}$<$ \+\_\+\+Point\+Type $>$\+::print\+Kd\+Tree (\begin{DoxyParamCaption}\item[{int}]{mode = {\ttfamily 1},  }\item[{std\+::ostream \&}]{os = {\ttfamily std\+:\+:cout},  }\item[{bool}]{el = {\ttfamily true} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+print the kdtree by some order 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & \mbox{[}1\mbox{]}\+:Pre order;\mbox{[}2\mbox{]}\+:middle order;\mbox{[}3\mbox{]}post order \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_a622e5f50d0a23638c70e68d941efbf39}\label{classns__geo_1_1_kd_tree_a622e5f50d0a23638c70e68d941efbf39}} 
+\index{ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}!radiusSearch@{radiusSearch}}
+\index{radiusSearch@{radiusSearch}!ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}}
+\doxysubsubsection{\texorpdfstring{radiusSearch()}{radiusSearch()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Point\+Type $>$ \\
+void \mbox{\hyperlink{classns__geo_1_1_kd_tree}{ns\+\_\+geo\+::\+Kd\+Tree}}$<$ \+\_\+\+Point\+Type $>$\+::radius\+Search (\begin{DoxyParamCaption}\item[{const point\+\_\+type \&}]{search\+Point,  }\item[{float}]{radius,  }\item[{std\+::vector$<$ point\+\_\+type $>$ \&}]{ps,  }\item[{std\+::vector$<$ float $>$ \&}]{dis }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Search points whose distance from the search point is less than a specified distance on the kdtree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em search\+Point} & the target search point \\
+\hline
+{\em radius} & the search radius \\
+\hline
+{\em ps} & the point vector to save the search result \\
+\hline
+{\em dis} & the distance \\
+\hline
+\end{DoxyParams}
+if the current node is the main node and is intersect with the search point, than add it\textquotesingle{}s sub nodes to the search path\mbox{\Hypertarget{classns__geo_1_1_kd_tree_adb4e823a88e75606864a5983c39708b9}\label{classns__geo_1_1_kd_tree_adb4e823a88e75606864a5983c39708b9}} 
+\index{ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}!root@{root}}
+\index{root@{root}!ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}}
+\doxysubsubsection{\texorpdfstring{root()}{root()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Point\+Type $>$ \\
+const node\+\_\+ptr\& \mbox{\hyperlink{classns__geo_1_1_kd_tree}{ns\+\_\+geo\+::\+Kd\+Tree}}$<$ \+\_\+\+Point\+Type $>$\+::root (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get the root of the kdtree 
+
+\begin{DoxyReturn}{Returns}
+const node\+\_\+ptr\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_a39c85825f9ce3048b213b107d436225c}\label{classns__geo_1_1_kd_tree_a39c85825f9ce3048b213b107d436225c}} 
+\index{ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}!size@{size}}
+\index{size@{size}!ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Point\+Type $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classns__geo_1_1_kd_tree}{ns\+\_\+geo\+::\+Kd\+Tree}}$<$ \+\_\+\+Point\+Type $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get the nodes\textquotesingle{} number on the kdtree 
+
+\begin{DoxyReturn}{Returns}
+std\+::size\+\_\+t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classns__geo_1_1_kd_tree_a3f8f6a05e2c3b571768209119c2dfd77}\label{classns__geo_1_1_kd_tree_a3f8f6a05e2c3b571768209119c2dfd77}} 
+\index{ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}!sortPointSet@{sortPointSet}}
+\index{sortPointSet@{sortPointSet}!ns\_geo::KdTree$<$ \_PointType $>$@{ns\_geo::KdTree$<$ \_PointType $>$}}
+\doxysubsubsection{\texorpdfstring{sortPointSet()}{sortPointSet()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Point\+Type $>$ \\
+virtual void \mbox{\hyperlink{classns__geo_1_1_kd_tree}{ns\+\_\+geo\+::\+Kd\+Tree}}$<$ \+\_\+\+Point\+Type $>$\+::sort\+Point\+Set (\begin{DoxyParamCaption}\item[{Split\+Feature}]{sf,  }\item[{pointset\+\_\+type \&}]{lps,  }\item[{pointset\+\_\+type \&}]{rps }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Sort the point set with a dimension as a reference. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sf} & the reference feature \\
+\hline
+{\em lps} & the point set on the left tree \\
+\hline
+{\em rps} & the point set on the right tree \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/csl/\+Study\+C\+P\+P/artwork/geometry/include/\mbox{\hyperlink{kdtree_8hpp}{kdtree.\+hpp}}\end{DoxyCompactItemize}
