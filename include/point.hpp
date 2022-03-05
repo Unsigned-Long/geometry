@@ -280,8 +280,7 @@ namespace ns_geo {
      * @param mode the ios mode
      */
     void write(const std::string &filePath,
-               std::ios_base::openmode mode = std::ios::out |
-                                              std::ios::binary) const {
+               std::ios_base::openmode mode = std::ios::out | std::ios::binary) const {
       std::ofstream file(filePath, mode);
       if (!file.is_open())
         throw std::ios_base::failure("File Open Failed");
@@ -309,10 +308,14 @@ namespace ns_geo {
         file.seekg(0, std::ios::end);
         auto size = file.tellg() / sizeof(point_type);
         file.seekg(0, std::ios::beg);
+        if (!this->empty()) {
+          this->clear();
+        }
+        this->resize(size);
         int count = 0;
         while (!file.eof() && count < size) {
           file.read((char *)(&p), sizeof(point_type));
-          this->push_back(p);
+          this->at(count) = p;
           ++count;
         }
       } else {
@@ -323,10 +326,8 @@ namespace ns_geo {
           if (str.empty())
             continue;
           auto iter = std::find(str.cbegin(), str.cend(), ',');
-          point.x() =
-              static_cast<value_type>(std::stod(std::string(str.cbegin(), iter)));
-          point.y() =
-              static_cast<value_type>(std::stod(std::string(++iter, str.cend())));
+          point.x() = static_cast<value_type>(std::stod(std::string(str.cbegin(), iter)));
+          point.y() = static_cast<value_type>(std::stod(std::string(++iter, str.cend())));
           this->push_back(point);
         }
       }
@@ -343,18 +344,16 @@ namespace ns_geo {
      * @param slor the selector
      * @return self_type
      */
-    static self_type randomGenerator(std::size_t num, _Ty x_min, _Ty x_max,
+    static self_type randomGenerator(std::size_t num,
+                                     _Ty x_min, _Ty x_max,
                                      _Ty y_min, _Ty y_max,
                                      const selector &slor = nullptr) {
-      std::uniform_real_distribution<> u_x(static_cast<float>(x_min),
-                                           static_cast<float>(x_max));
-      std::uniform_real_distribution<> u_y(static_cast<float>(y_min),
-                                           static_cast<float>(y_max));
+      std::uniform_real_distribution<> u_x(static_cast<float>(x_min), static_cast<float>(x_max));
+      std::uniform_real_distribution<> u_y(static_cast<float>(y_min), static_cast<float>(y_max));
       self_type ps(num);
       int count = 0;
       while (count != num) {
-        point_type p(static_cast<_Ty>(u_x(engine)),
-                     static_cast<_Ty>(u_y(engine)));
+        point_type p(static_cast<_Ty>(u_x(engine)), static_cast<_Ty>(u_y(engine)));
         if (slor == nullptr || slor(p))
           ps.at(count++) = p;
       }
@@ -392,8 +391,7 @@ namespace ns_geo {
      * @param mode the ios mode
      */
     void write(const std::string &filePath,
-               std::ios_base::openmode mode = std::ios::out |
-                                              std::ios::binary) const {
+               std::ios_base::openmode mode = std::ios::out | std::ios::binary) const {
       std::ofstream file(filePath, mode);
       if (!file.is_open())
         throw std::ios_base::failure("File Open Failed");
@@ -423,9 +421,13 @@ namespace ns_geo {
         auto size = file.tellg() / sizeof(point_type);
         file.seekg(0, std::ios::beg);
         int count = 0;
+        if (!this->empty()) {
+          this->clear();
+        }
+        this->resize(size);
         while (!file.eof() && count < size) {
           file.read((char *)(&p), sizeof(point_type));
-          this->push_back(p);
+          this->at(count) = p;
           ++count;
         }
       } else {
@@ -436,13 +438,10 @@ namespace ns_geo {
           if (str.empty())
             continue;
           auto iter = std::find(str.cbegin(), str.cend(), ',');
-          point.x() =
-              static_cast<value_type>(std::stod(std::string(str.cbegin(), iter)));
+          point.x() = static_cast<value_type>(std::stod(std::string(str.cbegin(), iter)));
           auto iter2 = std::find(++iter, str.cend(), ',');
-          point.y() =
-              static_cast<value_type>(std::stod(std::string(iter, iter2)));
-          point.z() = static_cast<value_type>(
-              std::stod(std::string(++iter2, str.cend())));
+          point.y() = static_cast<value_type>(std::stod(std::string(iter, iter2)));
+          point.z() = static_cast<value_type>(std::stod(std::string(++iter2, str.cend())));
           this->push_back(point);
         }
       }
@@ -461,8 +460,10 @@ namespace ns_geo {
      * @param slor the selector
      * @return self_type
      */
-    static self_type randomGenerator(std::size_t num, _Ty x_min, _Ty x_max,
-                                     _Ty y_min, _Ty y_max, _Ty z_min, _Ty z_max,
+    static self_type randomGenerator(std::size_t num,
+                                     _Ty x_min, _Ty x_max,
+                                     _Ty y_min, _Ty y_max,
+                                     _Ty z_min, _Ty z_max,
                                      const selector &slor = nullptr) {
       std::uniform_real_distribution<> u_x(static_cast<float>(x_min),
                                            static_cast<float>(x_max));
@@ -473,7 +474,8 @@ namespace ns_geo {
       self_type ps(num);
       int count = 0;
       while (count != num) {
-        point_type p(static_cast<_Ty>(u_x(engine)), static_cast<_Ty>(u_y(engine)),
+        point_type p(static_cast<_Ty>(u_x(engine)),
+                     static_cast<_Ty>(u_y(engine)),
                      static_cast<_Ty>(u_z(engine)));
         if (slor == nullptr || slor(p))
           ps.at(count++) = p;
@@ -557,7 +559,8 @@ namespace ns_geo {
    */
   template <typename _Ty>
   std::ostream &operator<<(std::ostream &os, const RefPoint3<_Ty> &p) {
-    os << '{' << p.id() << ": " << '[' << p.x() << ", " << p.y() << ", " << p.z()
+    os << '{' << p.id() << ": " << '['
+       << p.x() << ", " << p.y() << ", " << p.z()
        << ']' << '}';
     return os;
   }
@@ -601,8 +604,7 @@ namespace ns_geo {
      * @param mode the ios mode
      */
     void write(const std::string &filePath,
-               std::ios_base::openmode mode = std::ios::out |
-                                              std::ios::binary) const {
+               std::ios_base::openmode mode = std::ios::out | std::ios::binary) const {
       std::ofstream file(filePath, mode);
       if (!file.is_open())
         throw std::ios_base::failure("File Open Failed");
@@ -630,6 +632,9 @@ namespace ns_geo {
         file.seekg(0, std::ios::end);
         auto size = file.tellg() / sizeof(refpoint_type);
         file.seekg(0, std::ios::beg);
+        if (!this->empty()) {
+          this->clear();
+        }
         int count = 0;
         while (!file.eof() && count < size) {
           file.read((char *)(&refp), sizeof(refpoint_type));
@@ -644,8 +649,7 @@ namespace ns_geo {
           if (str.empty())
             continue;
           auto iter = std::find(str.cbegin(), str.cend(), ',');
-          const_cast<id_type &>(refp.id()) =
-              static_cast<id_type>(std::stoi(std::string(str.cbegin(), iter)));
+          const_cast<id_type &>(refp.id()) = static_cast<id_type>(std::stoi(std::string(str.cbegin(), iter)));
           auto iter2 = std::find(++iter, str.cend(), ',');
           refp.x() = static_cast<value_type>(std::stod(std::string(iter, iter2)));
           refp.y() = static_cast<value_type>(
@@ -674,8 +678,7 @@ namespace ns_geo {
      * @param bottomRightID the id of the bottom-right point
      * @return RefRectangle<value_type>
      */
-    RefRectangle<value_type> createRefRectangle(id_type topLeftID,
-                                                id_type bottomRightID) const {
+    RefRectangle<value_type> createRefRectangle(id_type topLeftID, id_type bottomRightID) const {
       return RefRectangle<value_type>(topLeftID, bottomRightID, this);
     }
 
@@ -687,8 +690,7 @@ namespace ns_geo {
      * @param pid3 the id of the 3rd point
      * @return RefTriangle2<value_type>
      */
-    RefTriangle2<value_type> createRefTriangle2(id_type pid1, id_type pid2,
-                                                id_type pid3) const {
+    RefTriangle2<value_type> createRefTriangle2(id_type pid1, id_type pid2, id_type pid3) const {
       return RefTriangle2<value_type>(pid1, pid2, pid3, this);
     }
 
@@ -698,8 +700,7 @@ namespace ns_geo {
      * @param pidls the id list for points
      * @return RefPolygon<value_type>
      */
-    RefPolygon<value_type> createRefPolygon(
-        const std::initializer_list<id_type> &pidls) const {
+    RefPolygon<value_type> createRefPolygon(const std::initializer_list<id_type> &pidls) const {
       return RefPolygon<value_type>(pidls, this);
     }
 
@@ -709,8 +710,7 @@ namespace ns_geo {
      * @param pidls the id list for points
      * @return RefLineString2<value_type>
      */
-    RefLineString2<value_type> createRefLineString2(
-        const std::initializer_list<id_type> &pidls) const {
+    RefLineString2<value_type> createRefLineString2(const std::initializer_list<id_type> &pidls) const {
       return RefLineString2<value_type>(pidls, this);
     }
 
@@ -725,7 +725,8 @@ namespace ns_geo {
      * @param slor the selector
      * @return self_type
      */
-    static self_type randomGenerator(std::size_t num, _Ty x_min, _Ty x_max,
+    static self_type randomGenerator(std::size_t num,
+                                     _Ty x_min, _Ty x_max,
                                      _Ty y_min, _Ty y_max,
                                      const selector &slor = nullptr) {
       std::uniform_real_distribution<> u_x(static_cast<float>(x_min),
@@ -735,8 +736,7 @@ namespace ns_geo {
       self_type ps;
       int count = 0;
       while (count != num) {
-        refpoint_type p(count, static_cast<_Ty>(u_x(engine)),
-                        static_cast<_Ty>(u_y(engine)));
+        refpoint_type p(count, static_cast<_Ty>(u_x(engine)), static_cast<_Ty>(u_y(engine)));
         if (slor == nullptr || slor(p))
           ps.insert(p), ++count;
       }
@@ -789,8 +789,7 @@ namespace ns_geo {
      * @param mode the ios mode
      */
     void write(const std::string &filePath,
-               std::ios_base::openmode mode = std::ios::out |
-                                              std::ios::binary) const {
+               std::ios_base::openmode mode = std::ios::out | std::ios::binary) const {
       std::ofstream file(filePath, mode);
       if (!file.is_open())
         throw std::ios_base::failure("File Open Failed");
@@ -799,8 +798,8 @@ namespace ns_geo {
           file.write((const char *)(&refp), sizeof(refpoint_type));
       } else
         for (const auto &[id, refp] : *this)
-          file << refp.id() << ',' << refp.x() << ',' << refp.y() << ','
-               << refp.z() << '\n';
+          file << refp.id() << ',' << refp.x() << ','
+               << refp.y() << ',' << refp.z() << '\n';
       return;
     }
     /**
@@ -819,6 +818,9 @@ namespace ns_geo {
         file.seekg(0, std::ios::end);
         auto size = file.tellg() / sizeof(refpoint_type);
         file.seekg(0, std::ios::beg);
+        if (!this->empty()) {
+          this->clear();
+        }
         int count = 0;
         while (!file.eof() && count < size) {
           file.read((char *)(&refp), sizeof(refpoint_type));
@@ -833,15 +835,12 @@ namespace ns_geo {
           if (str.empty())
             continue;
           auto iter = std::find(str.cbegin(), str.cend(), ',');
-          const_cast<uint &>(refp.id()) =
-              static_cast<uint>(std::stoi(std::string(str.cbegin(), iter)));
+          const_cast<uint &>(refp.id()) = static_cast<uint>(std::stoi(std::string(str.cbegin(), iter)));
           auto iter2 = std::find(++iter, str.cend(), ',');
           refp.x() = static_cast<value_type>(std::stod(std::string(iter, iter2)));
           auto iter3 = std::find(++iter2, str.cend(), ',');
-          refp.y() =
-              static_cast<value_type>(std::stod(std::string(iter2, iter3)));
-          refp.z() = static_cast<value_type>(
-              std::stod(std::string(++iter3, str.cend())));
+          refp.y() = static_cast<value_type>(std::stod(std::string(iter2, iter3)));
+          refp.z() = static_cast<value_type>(std::stod(std::string(++iter3, str.cend())));
           this->insert(refp);
         }
       }
@@ -866,7 +865,8 @@ namespace ns_geo {
      * @param pid3 the id of the 3rd point
      * @return RefTriangle3<value_type>
      */
-    RefTriangle3<value_type> createRefTriangle3(id_type pid1, id_type pid2,
+    RefTriangle3<value_type> createRefTriangle3(id_type pid1,
+                                                id_type pid2,
                                                 id_type pid3) const {
       return RefTriangle3<value_type>(pid1, pid2, pid3, this);
     }
@@ -895,8 +895,10 @@ namespace ns_geo {
      * @param slor the selector
      * @return self_type
      */
-    static self_type randomGenerator(std::size_t num, _Ty x_min, _Ty x_max,
-                                     _Ty y_min, _Ty y_max, _Ty z_min, _Ty z_max,
+    static self_type randomGenerator(std::size_t num,
+                                     _Ty x_min, _Ty x_max,
+                                     _Ty y_min, _Ty y_max,
+                                     _Ty z_min, _Ty z_max,
                                      const selector &slor = nullptr) {
       std::uniform_real_distribution<> u_x(static_cast<float>(x_min),
                                            static_cast<float>(x_max));
