@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/triangle.hpp"
+#include "include/triangle.hpp"
 #include "helper.h"
 
 TEST(Triangle2f, normalTesting) {

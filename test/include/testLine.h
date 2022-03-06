@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/line.hpp"
+#include "include/line.hpp"
 #include "helper.h"
 
 TEST(Line2f, normalTesting) {

@@ -10,7 +10,7 @@
  *
  */
 
-#include "../../include/kdtree.hpp"
+#include "include/kdtree.hpp"
 #include "helper.h"
 
 class TestKdTree2f : public testing::Test {

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../include/line.hpp"
-#include "../../include/point.hpp"
-#include "../../include/utility.hpp"
+#include "include/line.hpp"
+#include "include/point.hpp"
+#include "include/utility.hpp"
 #include "helper.h"
 
 TEST_F(TestPointSet, utility_2DIME) {

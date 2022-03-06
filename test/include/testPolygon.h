@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/polygon.hpp"
+#include "include/polygon.hpp"
 #include "helper.h"
 
 TEST_F(TestPointSet, polygonf_normalTestign) {

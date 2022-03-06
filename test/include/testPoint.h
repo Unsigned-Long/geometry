@@ -77,31 +77,33 @@ TEST(PointSet2f, writeAndRead) {
   ps1.push_back(ns_geo::Point2f(1.0f, 2.0f));
   ps1.push_back(ns_geo::Point2f(2.0f, 3.0f));
 
-  ps1.write("../../output/pointset.csv", std::ios::out);
-  ps2.read("../../output/pointset.csv", std::ios::in);
+  ps1.write("../output/pointset.csv", std::ios::out);
+  ps2.read("../output/pointset.csv", std::ios::in);
 
   EXPECT_EQ(ps1.size(), ps2.size());
 
-  for (int i = 0; i != ps2.size(); ++i) test_point2f_eq(ps1[i], ps2[i]);
+  for (int i = 0; i != ps2.size(); ++i)
+    test_point2f_eq(ps1[i], ps2[i]);
 
-  ps2.write("../../output/pointset.bin");
+  ps2.write("../output/pointset.bin");
   ps1.clear();
-  ps1.read("../../output/pointset.bin");
+  ps1.read("../output/pointset.bin");
 
   EXPECT_EQ(ps1.size(), ps2.size());
 
-  for (int i = 0; i != ps2.size(); ++i) test_point2f_eq(ps1[i], ps2[i]);
+  for (int i = 0; i != ps2.size(); ++i)
+    test_point2f_eq(ps1[i], ps2[i]);
 }
 
 TEST(PointSet2f, randomGenerator) {
   auto foo = [](const ns_geo::Point2f &p) -> bool { return p.x() > 0.5f; };
 
-  auto ps =
-      ns_geo::PointSet2f::randomGenerator(10, 0.0f, 10.0f, 0.0f, 10.0f, foo);
+  auto ps = ns_geo::PointSet2f::randomGenerator(10, 0.0f, 10.0f, 0.0f, 10.0f, foo);
 
   EXPECT_EQ(ps.size(), 10);
 
-  for (const auto &elem : ps) EXPECT_TRUE(foo(elem));
+  for (const auto &elem : ps)
+    EXPECT_TRUE(foo(elem));
 }
 
 TEST(PointSet2f, typeTesting) {
@@ -117,20 +119,22 @@ TEST(PointSet3f, writeAndRead) {
   ps1.push_back(ns_geo::Point3f(1.0f, 2.0f, 1.0f));
   ps1.push_back(ns_geo::Point3f(2.0f, 3.0f, 0.0f));
 
-  ps1.write("../../output/pointset.csv", std::ios::out);
-  ps2.read("../../output/pointset.csv", std::ios::in);
+  ps1.write("../output/pointset.csv", std::ios::out);
+  ps2.read("../output/pointset.csv", std::ios::in);
 
   EXPECT_EQ(ps1.size(), ps2.size());
 
-  for (int i = 0; i != ps2.size(); ++i) test_point3f_eq(ps1[i], ps2[i]);
+  for (int i = 0; i != ps2.size(); ++i)
+    test_point3f_eq(ps1[i], ps2[i]);
 
-  ps2.write("../../output/pointset.bin");
+  ps2.write("../output/pointset.bin");
   ps1.clear();
-  ps1.read("../../output/pointset.bin");
+  ps1.read("../output/pointset.bin");
 
   EXPECT_EQ(ps1.size(), ps2.size());
 
-  for (int i = 0; i != ps2.size(); ++i) test_point3f_eq(ps1[i], ps2[i]);
+  for (int i = 0; i != ps2.size(); ++i)
+    test_point3f_eq(ps1[i], ps2[i]);
 }
 
 TEST(PointSet3f, randomGenerator) {
@@ -141,7 +145,8 @@ TEST(PointSet3f, randomGenerator) {
 
   EXPECT_EQ(ps.size(), 10);
 
-  for (const auto &elem : ps) EXPECT_TRUE(foo(elem));
+  for (const auto &elem : ps)
+    EXPECT_TRUE(foo(elem));
 }
 
 TEST(PointSet3f, typeTesting) {
@@ -227,7 +232,8 @@ TEST(RefPointSet2f, randomGenerator) {
 
   EXPECT_EQ(ps.size(), 10);
 
-  for (const auto &elem : ps) EXPECT_TRUE(foo(elem.second));
+  for (const auto &elem : ps)
+    EXPECT_TRUE(foo(elem.second));
 }
 
 TEST(RefPointSet2f, typeTesting) {
@@ -247,10 +253,11 @@ TEST(RefPointSet2f, writeAndRead) {
   rps1.insert({2, ns_geo::RefPoint2f::ary_type{0.0f, 0.0f}});
   rps1.insert({3, ary});
 
-  rps1.write("../../output/refpointset.csv", std::ios::out);
-  rps2.read("../../output/refpointset.csv", std::ios::in);
+  rps1.write("../output/refpointset.csv", std::ios::out);
+  rps2.read("../output/refpointset.csv", std::ios::in);
 
-  for (int i = 0; i != 4; ++i) test_refpoint2f_eq(rps1.at(i), rps2.at(i));
+  for (int i = 0; i != 4; ++i)
+    test_refpoint2f_eq(rps1.at(i), rps2.at(i));
 }
 
 TEST(RefPointSet3f, normalTesting) {
@@ -273,7 +280,8 @@ TEST(RefPointSet3f, randomGenerator) {
 
   EXPECT_EQ(ps.size(), 10);
 
-  for (const auto &elem : ps) EXPECT_TRUE(foo(elem.second));
+  for (const auto &elem : ps)
+    EXPECT_TRUE(foo(elem.second));
 }
 
 TEST(RefPointSet3f, typeTesting) {
@@ -293,8 +301,9 @@ TEST(RefPointSet3f, writeAndRead) {
   rps1.insert({2, ns_geo::RefPoint3f::ary_type{0.0f, 0.0f, 0.0f}});
   rps1.insert({3, ary});
 
-  rps1.write("../../output/refpointset.csv", std::ios::out);
-  rps2.read("../../output/refpointset.csv", std::ios::in);
+  rps1.write("../output/refpointset.csv", std::ios::out);
+  rps2.read("../output/refpointset.csv", std::ios::in);
 
-  for (int i = 0; i != 4; ++i) test_refpoint3f_eq(rps1.at(i), rps2.at(i));
+  for (int i = 0; i != 4; ++i)
+    test_refpoint3f_eq(rps1.at(i), rps2.at(i));
 }

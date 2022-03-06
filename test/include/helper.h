@@ -10,7 +10,7 @@
  *
  */
 
-#include "../../include/point.hpp"
+#include "include/point.hpp"
 #include "gtest/gtest.h"
 
 #pragma region help mathods

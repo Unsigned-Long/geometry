@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/linestring.hpp"
+#include "include/linestring.hpp"
 #include "helper.h"
 
 TEST_F(TestPointSet, LineString2f_normalTesting) {

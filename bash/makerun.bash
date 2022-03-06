@@ -1,5 +1,5 @@
 cmake --build ../build/
 
-cd ../build
+cd ../bin
 ./geometry
-cd ../bash
+cd -

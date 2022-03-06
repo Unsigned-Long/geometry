@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/rectangle.hpp"
+#include "include/rectangle.hpp"
 #include "helper.h"
 
 TEST(Rectanglef, normalTesting) {
