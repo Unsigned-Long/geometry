@@ -339,7 +339,8 @@ namespace ns_geo {
    * @return _Ty the return value type
    */
   template <typename _Ty, std::size_t size>
-  _Ty dot(const std::array<_Ty, size> &vec1, const std::array<_Ty, size> &vec2) {
+  _Ty dot(const std::array<_Ty, size> &vec1,
+          const std::array<_Ty, size> &vec2) {
     _Ty res = _Ty(0.0f);
     for (int i = 0; i != size; ++i)
       res += vec1[i] * vec2[i];
@@ -441,8 +442,7 @@ namespace ns_geo {
      */
     template <typename _Ty>
     float azimuth(const Point3<_Ty> &from, const Point3<_Ty> &to) {
-      return RHandRule::azimuth(Point2<_Ty>(from.x(), from.y()),
-                                Point2<_Ty>(to.x(), to.y()));
+      return RHandRule::azimuth(Point2<_Ty>(from.x(), from.y()), Point2<_Ty>(to.x(), to.y()));
     }
 
     /**
@@ -455,8 +455,7 @@ namespace ns_geo {
      */
     template <typename _Ty>
     float zenith(const Point3<_Ty> &from, const Point3<_Ty> &to) {
-      float prjDis =
-          distance(Point2<_Ty>(from.x(), from.y()), Point2<_Ty>(to.x(), to.y()));
+      float prjDis = distance(Point2<_Ty>(from.x(), from.y()), Point2<_Ty>(to.x(), to.y()));
       float detaZ = to.z() - from.z();
       float angle = std::atan2(prjDis, detaZ);
       if (angle < 0.0)
@@ -506,8 +505,7 @@ namespace ns_geo {
      * @return Point2<_Ty>
      */
     template <typename _Ty>
-    Point2<_Ty> polarCoorMap(const Point2<_Ty> &center, float distance,
-                             float azimuth) {
+    Point2<_Ty> polarCoorMap(const Point2<_Ty> &center, float distance, float azimuth) {
       Point2<_Ty> pos;
       pos.x() = center.x() + distance * std::sin(azimuth);
       pos.y() = center.y() + distance * std::cos(azimuth);
@@ -526,8 +524,7 @@ namespace ns_geo {
      * @return Point3<_Ty>
      */
     template <typename _Ty>
-    Point3<_Ty> polarCoorMap(const Point3<_Ty> &center, float distance,
-                             float azimuth, float zenith) {
+    Point3<_Ty> polarCoorMap(const Point3<_Ty> &center, float distance, float azimuth, float zenith) {
       Point3<_Ty> pos;
       float prjDis = distance * std::sin(zenith);
       pos.x() = center.x() + prjDis * std::sin(azimuth);
@@ -566,8 +563,7 @@ namespace ns_geo {
      */
     template <typename _Ty>
     float azimuth(const Point3<_Ty> &from, const Point3<_Ty> &to) {
-      return LHandRule::azimuth(Point2<_Ty>(from.x(), from.y()),
-                                Point2<_Ty>(to.x(), to.y()));
+      return LHandRule::azimuth(Point2<_Ty>(from.x(), from.y()), Point2<_Ty>(to.x(), to.y()));
     }
 
     /**
@@ -625,8 +621,7 @@ namespace ns_geo {
      * @return Point2<_Ty>
      */
     template <typename _Ty>
-    Point2<_Ty> polarCoorMap(const Point2<_Ty> &center, float distance,
-                             float azimuth) {
+    Point2<_Ty> polarCoorMap(const Point2<_Ty> &center, float distance, float azimuth) {
       Point2<_Ty> pos;
       pos.x() = center.x() + distance * std::cos(azimuth);
       pos.y() = center.y() + distance * std::sin(azimuth);
@@ -645,8 +640,7 @@ namespace ns_geo {
      * @return Point3<_Ty>
      */
     template <typename _Ty>
-    Point3<_Ty> polarCoorMap(const Point3<_Ty> &center, float distance,
-                             float azimuth, float zenith) {
+    Point3<_Ty> polarCoorMap(const Point3<_Ty> &center, float distance, float azimuth, float zenith) {
       Point3<_Ty> pos;
       float prjDis = distance * std::sin(zenith);
       pos.x() = center.x() + prjDis * std::cos(azimuth);
