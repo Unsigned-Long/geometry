@@ -29,6 +29,8 @@ _|    _|  _|        _|    _|  _|    _|    _|  _|          _|      _|        _|  
 
 <img src="./imgs/struct.png">
 
+<img src="./imgs/rel.png">
+
 ## ***3. Classes Belongs***
 
 <img src="./imgs/belongs.png">
