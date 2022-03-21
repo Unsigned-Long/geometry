@@ -41,10 +41,6 @@ _|    _|  _|        _|    _|  _|    _|    _|  _|          _|      _|        _|  
 
 <img src="./imgs/polygon.png" width="50%"><img src="./imgs/triangle.png" width="50%">
 
-<img src="./imgs/kdtree_rs_50.png" width="48.7%"><img src="./imgs/kdtree_rs_65.png" width="51.3%">
-
-<img src="./imgs/kdtree_ns_5.png" width="50.2%"><img src="./imgs/kdtree_ns_10.png" width="49.8%">
-
 <img src="./imgs/convex.png" width="49.8%"><img src="./imgs/tins.png" width="50.2%">
 
 <img src="./imgs/randomGenerator.png" width="51.4%"><img src="./imgs/polarCurve.png" width="48.6%">
@@ -650,87 +646,6 @@ void foo_refpointset3_write()
  * {2: [0, 0, 1]}
  * {0: [0, 0, 0]}
  */
-```
-
-
-### <kbd>__kdtree__</kbd>  
-
-```cpp
-void foo_kdtree()
-{
-    PointSet3f ps({{3, 1, 4},
-                   {2, 3, 7},
-                   {2, 0, 3},
-                   {2, 4, 5},
-                   {1, 4, 4},
-                   {0, 5, 7}});
-    KdTree3<Point3f> kdtree(ps);
-    kdtree.printKdTree();
-    return;
-}
-/** output
- * [2, 4, 5]:[Y] [3, 1, 4]:[Z] [2, 0, 3]:[X] [2, 3, 7]:[X] [0, 5, 7]:[Z] [1, 4, 4]:[X]
- */
-void foo_refkdtree()
-{
-    RefPointSet3f ps;
-    ps.insert({0, 3, 1, 4});
-    ps.insert({1, 2, 3, 7});
-    ps.insert({2, 2, 0, 3});
-    ps.insert({3, 2, 4, 5});
-    ps.insert({4, 1, 4, 4});
-    ps.insert({5, 0, 5, 7});
-    RefKdTree3f kdtree(ps);
-    kdtree.printKdTree();
-    return;
-}
-/** output
- * {4: [1, 4, 4]}:[Y] {0: [3, 1, 4]}:[Z] {2: [2, 0, 3]}:[X] {1: [2, 3, 7]}:[X] {5: [0, 5, 7]}:[Z] {3: [2, 4, 5]}:[X]
- */
-void foo_kdtreeRadiusSearch()
-{
-    PointSet2f ps({{2, 3},
-                   {5, 4},
-                   {9, 6},
-                   {4, 7},
-                   {8, 1},
-                   {7, 2}});
-    KdTree2f Kdtree(ps);
-    Kdtree.printKdTree();
-    std::vector<float> dis;
-    std::vector<Point2f> sps;
-    Kdtree.radiusSearch({6, 5}, 4, sps, dis);
-    for (int i = 0; i != dis.size(); ++i)
-        std::cout << sps.at(i) << ' ' << dis.at(i) << std::endl;
-    return;
-}
-/** output
- * [7, 2]:[X] [5, 4]:[Y] [2, 3]:[X] [4, 7]:[X] [9, 6]:[Y] [8, 1]:[X] 
- * [4, 7] 2.82843
- * [5, 4] 1.41421
- * [7, 2] 3.16228
- * [9, 6] 3.16228
- */
-void foo_kdtreeNearestKSearch()
-{
-    std::default_random_engine e;
-    std::uniform_real_distribution<float> u(-100.0f, 100.0f);
-    PointSet2f ps;
-    std::fstream file1("../pyDrawer/kdtree/nearest1.csv", std::ios::out);
-    std::fstream file2("../pyDrawer/kdtree/nearest2.csv", std::ios::out);
-    for (int i = 0; i != 50; ++i)
-    {
-        ps.push_back({u(e), u(e)});
-        file1 << ps.back().x() << ',' << ps.back().y() << std::endl;
-    }
-    KdTree2f kdtree(ps);
-    std::vector<float> dis;
-    std::vector<Point2f> sps;
-    kdtree.nearestKSearch({0, 0}, 6, sps, dis);
-    for (int i = 0; i != dis.size(); ++i)
-        file2 << sps.at(i).x() << ',' << sps.at(i).y() << ',' << dis.at(i) << std::endl;
-    return;
-}
 ```
 
 ### <kbd>__utility__</kbd>  

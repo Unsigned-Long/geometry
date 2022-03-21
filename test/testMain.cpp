@@ -9,7 +9,6 @@
  */
 
 #include "testPoint.h"
-#include "testKdtree.h"
 #include "testLine.h"
 #include "testUtility.h"
 #include "testLinestring.h"
