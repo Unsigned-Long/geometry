@@ -16,6 +16,6 @@ bool foo(const ns_geo::Point2f &p) {
 int main(int argc, char *argv[]) {
   auto ps2 = ns_geo::PointSet2f::randomGenerator(10, 0, 10, 0, 10, foo);
   for (const auto &elem : ps2)
-    std::cout << elem.x() << ',' << elem.y() << std::endl;
+    std::cout << elem.x << ',' << elem.y << std::endl;
   return 0;
 }

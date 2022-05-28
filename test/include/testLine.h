@@ -7,35 +7,35 @@ TEST(Line2f, normalTesting) {
   ns_geo::Point2f p1(0.0f, 1.0f), p2(2.0f, 3.0f);
   ns_geo::Line2f line(0.0f, 1.0f, 2.0f, 3.0f);
 
-  test_point2f_eq(line.p1(), p1);
-  test_point2f_eq(line.p2(), p2);
+  test_point2f_eq(line.p1, p1);
+  test_point2f_eq(line.p2, p2);
 
   ns_geo::Point2f ps[2] = {{0.0f, 1.0f}, {2.0f, 3.0f}};
 
   line = ns_geo::Line2f(ps);
-  test_point2f_eq(line.p1(), ps[0]);
-  test_point2f_eq(line.p2(), ps[1]);
+  test_point2f_eq(line.p1, ps[0]);
+  test_point2f_eq(line.p2, ps[1]);
 
   std::array<ns_geo::Point2f, 2> ary;
   ary[0] = {0.0f, 1.0f}, ary[1] = {2.0f, 3.0f};
 
   line = ns_geo::Line2f(ary);
-  test_point2f_eq(line.p1(), p1);
-  test_point2f_eq(line.p2(), p2);
+  test_point2f_eq(line.p1, p1);
+  test_point2f_eq(line.p2, p2);
 
   auto points = line.points();
   test_point2f_eq(points[0], ary[0]);
   test_point2f_eq(points[1], ary[1]);
 
   line.reverse();
-  test_point2f_eq(line.p1(), ary[1]);
-  test_point2f_eq(line.p2(), ary[0]);
+  test_point2f_eq(line.p1, ary[1]);
+  test_point2f_eq(line.p2, ary[0]);
 
   auto l = line.reversed();
-  test_point2f_eq(l.p1(), ary[0]);
-  test_point2f_eq(l.p2(), ary[1]);
+  test_point2f_eq(l.p1, ary[0]);
+  test_point2f_eq(l.p2, ary[1]);
 
-  EXPECT_EQ(l.type(), ns_geo::GeoType::LINE2D);
+  EXPECT_EQ(l.type(), ns_geo::GeoType::LINE2);
 }
 
 TEST(Line2f, methodsTesting) {
@@ -61,35 +61,35 @@ TEST(Line3f, normalTesting) {
   ns_geo::Point3f p1(0.0f, 1.0f, 1.0f), p2(2.0f, 3.0f, 1.0f);
   ns_geo::Line3f line(0.0f, 1.0f, 1.0f, 2.0f, 3.0f, 1.0f);
 
-  test_point3f_eq(line.p1(), p1);
-  test_point3f_eq(line.p2(), p2);
+  test_point3f_eq(line.p1, p1);
+  test_point3f_eq(line.p2, p2);
 
   ns_geo::Point3f ps[2] = {{0.0f, 1.0f, 1.0f}, {2.0f, 3.0f, 1.0f}};
 
   line = ns_geo::Line3f(ps);
-  test_point3f_eq(line.p1(), ps[0]);
-  test_point3f_eq(line.p2(), ps[1]);
+  test_point3f_eq(line.p1, ps[0]);
+  test_point3f_eq(line.p2, ps[1]);
 
   std::array<ns_geo::Point3f, 2> ary;
   ary[0] = {0.0f, 1.0f, 1.0f}, ary[1] = {2.0f, 3.0f, 1.0f};
 
   line = ns_geo::Line3f(ary);
-  test_point3f_eq(line.p1(), p1);
-  test_point3f_eq(line.p2(), p2);
+  test_point3f_eq(line.p1, p1);
+  test_point3f_eq(line.p2, p2);
 
   auto points = line.points();
   test_point3f_eq(points[0], ary[0]);
   test_point3f_eq(points[1], ary[1]);
 
   line.reverse();
-  test_point3f_eq(line.p1(), ary[1]);
-  test_point3f_eq(line.p2(), ary[0]);
+  test_point3f_eq(line.p1, ary[1]);
+  test_point3f_eq(line.p2, ary[0]);
 
   auto l = line.reversed();
-  test_point3f_eq(l.p1(), ary[0]);
-  test_point3f_eq(l.p2(), ary[1]);
+  test_point3f_eq(l.p1, ary[0]);
+  test_point3f_eq(l.p2, ary[1]);
 
-  EXPECT_EQ(l.type(), ns_geo::GeoType::LINE3D);
+  EXPECT_EQ(l.type(), ns_geo::GeoType::LINE3);
 }
 
 TEST(Line3f, methodsTesting) {
@@ -120,16 +120,16 @@ TEST_F(TestRefPointSet2f, RefLine2f_normalTesting) {
   test_point2f_eq(rl.p1(), _rps->at(0));
   test_point2f_eq(rl.p2(), _rps->at(1));
 
-  EXPECT_EQ(rl.pid1(), 0);
-  EXPECT_EQ(rl.pid2(), 1);
+  EXPECT_EQ(rl.pid1, 0);
+  EXPECT_EQ(rl.pid2, 1);
 
   EXPECT_EQ(_rps, rl.refPointSet());
 
   ns_geo::Line2f l(_rps->at(0), _rps->at(1));
   auto tl = static_cast<ns_geo::Line2f>(rl);
 
-  test_point2f_eq(l.p1(), tl.p1());
-  test_point2f_eq(l.p2(), tl.p2());
+  test_point2f_eq(l.p1, tl.p1);
+  test_point2f_eq(l.p2, tl.p2);
 
   rl.reverse();
   test_point2f_eq(rl.p1(), _rps->at(1));
@@ -170,16 +170,16 @@ TEST_F(TestRefPointSet3f, RefLine3f_normalTesting) {
   test_point3f_eq(rl.p1(), _rps->at(0));
   test_point3f_eq(rl.p2(), _rps->at(1));
 
-  EXPECT_EQ(rl.pid1(), 0);
-  EXPECT_EQ(rl.pid2(), 1);
+  EXPECT_EQ(rl.pid1, 0);
+  EXPECT_EQ(rl.pid2, 1);
 
   EXPECT_EQ(_rps, rl.refPointSet());
 
   ns_geo::Line3f l(_rps->at(0), _rps->at(1));
   auto tl = static_cast<ns_geo::Line3f>(rl);
 
-  test_point3f_eq(l.p1(), tl.p1());
-  test_point3f_eq(l.p2(), tl.p2());
+  test_point3f_eq(l.p1, tl.p1);
+  test_point3f_eq(l.p2, tl.p2);
 
   rl.reverse();
   test_point3f_eq(rl.p1(), _rps->at(1));

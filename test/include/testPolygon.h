@@ -44,7 +44,7 @@ TEST_F(TestRefPointSet2f, refpolygonf_normalTestign) {
   EXPECT_FLOAT_EQ(polygon.perimeter(),
                   std::sqrt(2.0f) + 3.0f + std::sqrt(5.0f));
 
-  EXPECT_EQ(polygon.type(), ns_geo::GeoType::REFPOLYGON);
+  EXPECT_EQ(polygon.type(), ns_geo::GeoType::REF_POLYGON);
 }
 
 TEST_F(TestRefPointSet2f, refpolygonf_typeTestign) {

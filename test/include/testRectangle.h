@@ -6,8 +6,8 @@
 TEST(Rectanglef, normalTesting) {
   ns_geo::Rectanglef rect(0.0f, 1.0f, 1.0f, 0.0f);
 
-  test_point2f_eq(rect.topLeft(), {0.0f, 1.0f});
-  test_point2f_eq(rect.bottomRight(), {1.0f, 0.0f});
+  test_point2f_eq(rect.topLeftPt, {0.0f, 1.0f});
+  test_point2f_eq(rect.bottomRightPt, {1.0f, 0.0f});
 
   auto points = rect.points();
   test_point2f_eq(points[0], {0.0f, 1.0f});
@@ -46,10 +46,10 @@ TEST_F(TestRefPointSet2f, refrectangle_normalTesting) {
 
   EXPECT_EQ(_rps, rect.refPointSet());
 
-  EXPECT_EQ(0, rect.topLeftID());
-  EXPECT_EQ(1, rect.bottomRightID());
+  EXPECT_EQ(0, rect.topLeftPID);
+  EXPECT_EQ(1, rect.bottomRightPID);
 
-  EXPECT_EQ(rect.type(), ns_geo::GeoType::REFRECTANGLE);
+  EXPECT_EQ(rect.type(), ns_geo::GeoType::REF_RECTANGLE);
 }
 
 TEST_F(TestRefPointSet2f, refrectangle_typeTesting) {

@@ -14,10 +14,10 @@
 namespace ns_geo {
 #pragma region Polygon
 
-  template <typename _Ty = float>
-  class Polygon : public PointSet2<_Ty>, protected Geometry {
+  template <typename Ty = float>
+  class Polygon : public PointSet2<Ty>, protected Geometry {
   public:
-    using value_type = _Ty;
+    using value_type = Ty;
     using pointset_type = PointSet2<value_type>;
     /**
      * @brief using pointset_type's constructors
@@ -25,7 +25,7 @@ namespace ns_geo {
     using pointset_type::pointset_type;
     using self_type = Polygon<value_type>;
 
-    inline float perimeter() const {
+    [[nodiscard]] inline float perimeter() const {
       float len = 0.0;
       for (auto iter = this->cbegin(); iter != --this->cend();)
         len += distance(*iter, *(iter++));
@@ -33,27 +33,27 @@ namespace ns_geo {
       return len;
     }
 
-    inline float area() const {
+    [[nodiscard]] inline float area() const {
       float S = 0.0;
       auto size = this->size();
       for (int i = 0; i != size; ++i) {
         auto &pi = this->at(i % size);
         auto &pii = this->at((i + 1) % size);
-        S += (pi.x() * pii.y() - pii.x() * pi.y());
+        S += (pi.x * pii.y - pii.x * pi.y);
       }
-      S = 0.5 * std::abs(S);
+      S = 0.5f * std::abs(S);
       return S;
     }
 
-    inline virtual ns_geo::GeoType type() const override {
+    [[nodiscard]] inline ns_geo::GeoType type() const override {
       return GeoType::POLYGON;
     }
   };
   /**
    * @brief overload operator "<<" for Polygon<_Ty>
    */
-  template <typename _Ty>
-  std::ostream &operator<<(std::ostream &os, const Polygon<_Ty> &polygon) {
+  template <typename Ty>
+  std::ostream &operator<<(std::ostream &os, const Polygon<Ty> &polygon) {
     os << '{';
     for (auto iter = polygon.cbegin(); iter != --polygon.cend(); ++iter)
       os << *iter << ", ";
@@ -64,10 +64,10 @@ namespace ns_geo {
 
 #pragma region RefPolygon
 
-  template <typename _Ty = float>
+  template <typename Ty = float>
   class RefPolygon : public std::vector<uint>, protected Geometry {
   public:
-    using value_type = _Ty;
+    using value_type = Ty;
     using id_type = uint;
     using refpoint_type = RefPoint2<value_type>;
     using pointidset_type = std::vector<id_type>;
@@ -88,14 +88,13 @@ namespace ns_geo {
                const refpointset_type *const rps)
         : pointidset_type(pidls), _rps(rps) {}
 
-    RefPolygon() = delete;
 
   public:
-    inline const refpointset_type *const refPointSet() const {
+    inline const refpointset_type *refPointSet() const {
       return this->_rps;
     };
 
-    operator Polygon<value_type>() {
+    explicit operator Polygon<value_type>() {
       Polygon<value_type> polygon;
       for (int i = 0; i != this->size(); ++i)
         polygon.push_back(this->indexAt(i));
@@ -103,7 +102,7 @@ namespace ns_geo {
     }
 
     /**
-     * @brief get the 'index'st reference point in the polygon
+     * @brief get the 'index's reference point in the polygon
      *
      * @param index the index of the reference point's id in the polygon
      * @return const refpoint_type&
@@ -122,9 +121,9 @@ namespace ns_geo {
       return this->_rps->at(id);
     }
 
-    inline const std::vector<uint> &pids() const { return *this; }
+    [[nodiscard]] inline const std::vector<uint> &pids() const { return *this; }
 
-    inline float perimeter() const {
+    [[nodiscard]] inline float perimeter() const {
       float len = 0.0;
       int i = 0;
       for (auto iter = this->cbegin(); iter != --this->cend();) {
@@ -136,35 +135,35 @@ namespace ns_geo {
       return len;
     }
 
-    inline float area() const {
+    [[nodiscard]] inline float area() const {
       float S = 0.0;
       auto size = this->size();
       for (int i = 0; i != size; ++i) {
         auto &pi = _rps->at(this->at(i % size));
         auto &pii = _rps->at(this->at((i + 1) % size));
-        S += (pi.x() * pii.y() - pii.x() * pi.y());
+        S += (pi.x * pii.y - pii.x * pi.y);
       }
-      S = 0.5 * std::abs(S);
+      S = 0.5f * std::abs(S);
       return S;
     }
 
-    inline virtual ns_geo::GeoType type() const override {
-      return GeoType::REFPOLYGON;
+    [[nodiscard]] inline ns_geo::GeoType type() const override {
+      return GeoType::REF_POLYGON;
     }
   };
   /**
    * @brief overload operator "<<" for RefPolygon<_Ty>
    */
-  template <typename _Ty>
-  std::ostream &operator<<(std::ostream &os, const RefPolygon<_Ty> &polygon) {
+  template <typename Ty>
+  std::ostream &operator<<(std::ostream &os, const RefPolygon<Ty> &polygon) {
     auto rps = polygon.refPointSet();
     os << '{';
     for (auto iter = polygon.cbegin(); iter != --polygon.cend(); ++iter) {
       auto &p = rps->at(*iter);
-      os << p.id() << ": [" << p.x() << ", " << p.y() << ']' << ", ";
+      os << p.id << ": [" << p.x << ", " << p.y << ']' << ", ";
     }
     auto &p = rps->at(polygon.back());
-    os << p.id() << ": [" << p.x() << ", " << p.y() << "]}";
+    os << p.id << ": [" << p.x << ", " << p.y << "]}";
     return os;
   }
 #pragma endregion

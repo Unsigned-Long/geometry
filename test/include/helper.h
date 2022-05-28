@@ -16,32 +16,30 @@
 #pragma region help mathods
 
 void test_point2f_eq(const ns_geo::Point2f &p1, const ns_geo::Point2f &p2) {
-  EXPECT_FLOAT_EQ(p1.x(), p2.x());
-  EXPECT_FLOAT_EQ(p1.y(), p2.y());
-  return;
+  EXPECT_FLOAT_EQ(p1.x, p2.x);
+  EXPECT_FLOAT_EQ(p1.y, p2.y);
 }
 
 void test_point3f_eq(const ns_geo::Point3f &p1, const ns_geo::Point3f &p2) {
-  EXPECT_FLOAT_EQ(p1.x(), p2.x());
-  EXPECT_FLOAT_EQ(p1.y(), p2.y());
-  EXPECT_FLOAT_EQ(p1.z(), p2.z());
-  return;
+  EXPECT_FLOAT_EQ(p1.x, p2.x);
+  EXPECT_FLOAT_EQ(p1.y, p2.y);
+  EXPECT_FLOAT_EQ(p1.z, p2.z);
 }
 
 void test_refpoint2f_eq(const ns_geo::RefPoint2f &p1,
                         const ns_geo::RefPoint2f &p2) {
-  EXPECT_EQ(p1.id(), p2.id());
-  EXPECT_FLOAT_EQ(p1.x(), p2.x());
-  EXPECT_FLOAT_EQ(p1.y(), p2.y());
+  EXPECT_EQ(p1.id, p2.id);
+  EXPECT_FLOAT_EQ(p1.x, p2.x);
+  EXPECT_FLOAT_EQ(p1.y, p2.y);
   return;
 }
 
 void test_refpoint3f_eq(const ns_geo::RefPoint3f &p1,
                         const ns_geo::RefPoint3f &p2) {
-  EXPECT_EQ(p1.id(), p2.id());
-  EXPECT_FLOAT_EQ(p1.x(), p2.x());
-  EXPECT_FLOAT_EQ(p1.y(), p2.y());
-  EXPECT_FLOAT_EQ(p1.z(), p2.z());
+  EXPECT_EQ(p1.id, p2.id);
+  EXPECT_FLOAT_EQ(p1.x, p2.x);
+  EXPECT_FLOAT_EQ(p1.y, p2.y);
+  EXPECT_FLOAT_EQ(p1.z, p2.z);
   return;
 }
 
@@ -50,17 +48,16 @@ void test_refpoint3f_eq(const ns_geo::RefPoint3f &p1,
 #pragma region help classes
 
 class TestRefPointSet2f : public testing::Test {
- protected:
+protected:
   virtual void SetUp() override {
-    ns_geo::PointSet2f ps{{0.0f, 2.0f},  {1.0f, 1.0f},  {2.0f, -1.0f},
-                          {-1.0f, 0.0f}, {3.0f, -2.0f}, {0.0f, -1.0f}};
+    ns_geo::PointSet2f ps{{0.0f, 2.0f}, {1.0f, 1.0f}, {2.0f, -1.0f}, {-1.0f, 0.0f}, {3.0f, -2.0f}, {0.0f, -1.0f}};
     _rps = new ns_geo::RefPointSet2f();
-    _rps->insert({0, ns_geo::RefPoint2f(0, 0.0f, 2.0f)});
-    _rps->insert({1, ns_geo::RefPoint2f(1, 1.0f, 1.0f)});
-    _rps->insert({2, ns_geo::RefPoint2f(2, 2.0f, -1.0f)});
-    _rps->insert({3, ns_geo::RefPoint2f(3, -1.0f, 0.0f)});
-    _rps->insert({4, ns_geo::RefPoint2f(4, 3.0f, -2.0f)});
-    _rps->insert({5, ns_geo::RefPoint2f(5, 0.0f, -1.0f)});
+    _rps->insert(ns_geo::RefPoint2f(0, 0.0f, 2.0f));
+    _rps->insert(ns_geo::RefPoint2f(1, 1.0f, 1.0f));
+    _rps->insert(ns_geo::RefPoint2f(2, 2.0f, -1.0f));
+    _rps->insert(ns_geo::RefPoint2f(3, -1.0f, 0.0f));
+    _rps->insert(ns_geo::RefPoint2f(4, 3.0f, -2.0f));
+    _rps->insert(ns_geo::RefPoint2f(5, 0.0f, -1.0f));
   }
 
   void TearDown() override { delete _rps; }
@@ -69,18 +66,16 @@ class TestRefPointSet2f : public testing::Test {
 };
 
 class TestRefPointSet3f : public testing::Test {
- protected:
+protected:
   virtual void SetUp() override {
-    ns_geo::PointSet3f ps{{0.0f, 2.0f, 1.0f},  {1.0f, 1.0f, 1.0f},
-                          {2.0f, -1.0f, 1.0f}, {-1.0f, 0.0f, 1.0f},
-                          {3.0f, -2.0f, 1.0f}, {0.0f, -1.0f, 1.0f}};
+    ns_geo::PointSet3f ps{{0.0f, 2.0f, 1.0f}, {1.0f, 1.0f, 1.0f}, {2.0f, -1.0f, 1.0f}, {-1.0f, 0.0f, 1.0f}, {3.0f, -2.0f, 1.0f}, {0.0f, -1.0f, 1.0f}};
     _rps = new ns_geo::RefPointSet3f();
-    _rps->insert({0, ns_geo::RefPoint3f(0, 0.0f, 2.0f, 1.0f)});
-    _rps->insert({1, ns_geo::RefPoint3f(1, 1.0f, 1.0f, 1.0f)});
-    _rps->insert({2, ns_geo::RefPoint3f(2, 2.0f, -1.0f, 1.0f)});
-    _rps->insert({3, ns_geo::RefPoint3f(3, -1.0f, 0.0f, 1.0f)});
-    _rps->insert({4, ns_geo::RefPoint3f(4, 3.0f, -2.0f, 1.0f)});
-    _rps->insert({5, ns_geo::RefPoint3f(5, 0.0f, -1.0f, 1.0f)});
+    _rps->insert(ns_geo::RefPoint3f(0, 0.0f, 2.0f, 1.0f));
+    _rps->insert(ns_geo::RefPoint3f(1, 1.0f, 1.0f, 1.0f));
+    _rps->insert(ns_geo::RefPoint3f(2, 2.0f, -1.0f, 1.0f));
+    _rps->insert(ns_geo::RefPoint3f(3, -1.0f, 0.0f, 1.0f));
+    _rps->insert(ns_geo::RefPoint3f(4, 3.0f, -2.0f, 1.0f));
+    _rps->insert(ns_geo::RefPoint3f(5, 0.0f, -1.0f, 1.0f));
   }
 
   void TearDown() override { delete _rps; }
@@ -89,7 +84,7 @@ class TestRefPointSet3f : public testing::Test {
 };
 
 class TestPointSet : public testing::Test {
- protected:
+protected:
   virtual void SetUp() override {
     _ps2f = new ns_geo::PointSet2f();
     _ps2f->push_back({0.0f, 2.0f});

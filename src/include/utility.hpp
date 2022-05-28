@@ -177,30 +177,6 @@ namespace ns_geo {
   using RefLineString3f = RefLineString3<float>;
   using RefLineString3i = RefLineString3<int>;
 
-  template <typename _PointType>
-  class KdTree2;
-  using KdTree2i = KdTree2<Point2i>;
-  using KdTree2f = KdTree2<Point2f>;
-  using KdTree2d = KdTree2<Point2d>;
-
-  template <typename _PointType>
-  class KdTree3;
-  using KdTree3i = KdTree3<Point3i>;
-  using KdTree3f = KdTree3<Point3f>;
-  using KdTree3d = KdTree3<Point3d>;
-
-  template <typename _PointType>
-  class RefKdTree2;
-  using RefKdTree2i = RefKdTree2<RefPoint2i>;
-  using RefKdTree2f = RefKdTree2<RefPoint2f>;
-  using RefKdTree2d = RefKdTree2<RefPoint2d>;
-
-  template <typename _PointType>
-  class RefKdTree3;
-  using RefKdTree3i = RefKdTree3<RefPoint3i>;
-  using RefKdTree3f = RefKdTree3<RefPoint3f>;
-  using RefKdTree3d = RefKdTree3<RefPoint3d>;
-
 #pragma endregion
 
 #pragma region helpers
@@ -216,7 +192,7 @@ namespace ns_geo {
    */
   template <typename _Ty>
   std::array<_Ty, 2> stride(const Point2<_Ty> &from, const Point2<_Ty> &to) {
-    return std::array<_Ty, 2>{to.x() - from.x(), to.y() - from.y()};
+    return std::array<_Ty, 2>{to.x - from.x, to.y - from.y};
   }
 
   /**
@@ -229,8 +205,8 @@ namespace ns_geo {
    */
   template <typename _Ty>
   std::array<_Ty, 3> stride(const Point3<_Ty> &from, const Point3<_Ty> &to) {
-    return std::array<_Ty, 3>{to.x() - from.x(), to.y() - from.y(),
-                              to.z() - from.z()};
+    return std::array<_Ty, 3>{to.x - from.x, to.y - from.y,
+                              to.z - from.z};
   }
 #pragma endregion
 
@@ -246,13 +222,13 @@ namespace ns_geo {
   template <typename _Ty>
   float distance(const Point2<_Ty> &p1, const Point2<_Ty> &p2) {
     return static_cast<float>(
-        std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2)));
+        std::sqrt(std::pow(p1.x - p2.x, 2) + std::pow(p1.y - p2.y, 2)));
   }
 
   template <typename _Ty>
   float distance(const Point2<_Ty> &p1, const Point2<_Ty> &p2, float p) {
     return static_cast<float>(std::pow(
-        std::pow(p1.x() - p2.x(), p) + std::pow(p1.y() - p2.y(), p), 1.0f / p));
+        std::pow(p1.x - p2.x, p) + std::pow(p1.y - p2.y, p), 1.0f / p));
   }
 
   /**
@@ -265,9 +241,9 @@ namespace ns_geo {
    */
   template <typename _Ty>
   float distance(const Point3<_Ty> &p1, const Point3<_Ty> &p2) {
-    return static_cast<float>(std::sqrt(std::pow(p1.x() - p2.x(), 2) +
-                                        std::pow(p1.y() - p2.y(), 2) +
-                                        std::pow(p1.z() - p2.z(), 2)));
+    return static_cast<float>(std::sqrt(std::pow(p1.x - p2.x, 2) +
+                                        std::pow(p1.y - p2.y, 2) +
+                                        std::pow(p1.z - p2.z, 2)));
   }
 
   /**
@@ -281,9 +257,9 @@ namespace ns_geo {
    */
   template <typename _Ty>
   float distance(const Point3<_Ty> &p1, const Point3<_Ty> &p2, float p) {
-    return static_cast<float>(std::pow(std::pow(p1.x() - p2.x(), p) +
-                                           std::pow(p1.y() - p2.y(), p) +
-                                           std::pow(p1.z() - p2.z(), p),
+    return static_cast<float>(std::pow(std::pow(p1.x - p2.x, p) +
+                                           std::pow(p1.y - p2.y, p) +
+                                           std::pow(p1.z - p2.z, p),
                                        1.0f / p));
   }
 
@@ -297,10 +273,10 @@ namespace ns_geo {
    */
   template <typename _Ty>
   float distance(const Point2<_Ty> &p, const Line2<_Ty> &l) {
-    auto vec1 = stride(l.p1(), l.p2());
-    auto vec2 = stride(l.p1(), p);
+    auto vec1 = stride(l.p1, l.p2);
+    auto vec2 = stride(l.p1, p);
     float z = vec1[0] * vec2[1] - vec1[1] * vec2[0];
-    float dis = std::abs(z) / distance(l.p1(), l.p2());
+    float dis = std::abs(z) / distance(l.p1, l.p2);
     return dis;
   }
 
@@ -314,16 +290,16 @@ namespace ns_geo {
    */
   template <typename _Ty>
   float distance(const Point3<_Ty> &p, const Line3<_Ty> &l) {
-    float vec1_x = l.p2().x() - l.p1().x();
-    float vec1_y = l.p2().y() - l.p1().y();
-    float vec1_z = l.p2().z() - l.p1().z();
-    float vec2_x = p.x() - l.p1().x();
-    float vec2_y = p.y() - l.p1().y();
-    float vec2_z = p.z() - l.p1().z();
+    float vec1_x = l.p2.x - l.p1.x;
+    float vec1_y = l.p2.y - l.p1.y;
+    float vec1_z = l.p2.z - l.p1.z;
+    float vec2_x = p.x - l.p1.x;
+    float vec2_y = p.y - l.p1.y;
+    float vec2_z = p.z - l.p1.z;
     auto val1 = std::pow(vec1_y * vec2_z - vec1_z * vec2_y, 2);
     auto val2 = std::pow(vec2_x * vec1_z - vec1_x * vec2_z, 2);
     auto val3 = std::pow(vec1_x * vec2_y - vec1_y * vec2_x, 2);
-    float dis = std::sqrt(val1 + val2 + val3) / distance(l.p1(), l.p2());
+    float dis = std::sqrt(val1 + val2 + val3) / distance(l.p1, l.p2);
     return dis;
   }
 #pragma endregion
@@ -424,8 +400,8 @@ namespace ns_geo {
      */
     template <typename _Ty>
     float azimuth(const Point2<_Ty> &from, const Point2<_Ty> &to) {
-      float detaX = to.x() - from.x();
-      float detaY = to.y() - from.y();
+      float detaX = to.x - from.x;
+      float detaY = to.y - from.y;
       float angle = std::atan2(detaX, detaY);
       if (detaX < 0.0)
         angle += 2 * M_PI;
@@ -442,7 +418,7 @@ namespace ns_geo {
      */
     template <typename _Ty>
     float azimuth(const Point3<_Ty> &from, const Point3<_Ty> &to) {
-      return RHandRule::azimuth(Point2<_Ty>(from.x(), from.y()), Point2<_Ty>(to.x(), to.y()));
+      return RHandRule::azimuth(Point2<_Ty>(from.x, from.y), Point2<_Ty>(to.x, to.y));
     }
 
     /**
@@ -455,8 +431,8 @@ namespace ns_geo {
      */
     template <typename _Ty>
     float zenith(const Point3<_Ty> &from, const Point3<_Ty> &to) {
-      float prjDis = distance(Point2<_Ty>(from.x(), from.y()), Point2<_Ty>(to.x(), to.y()));
-      float detaZ = to.z() - from.z();
+      float prjDis = distance(Point2<_Ty>(from.x, from.y), Point2<_Ty>(to.x, to.y));
+      float detaZ = to.z - from.z;
       float angle = std::atan2(prjDis, detaZ);
       if (angle < 0.0)
         angle += M_PI;
@@ -474,8 +450,8 @@ namespace ns_geo {
      */
     template <typename _Ty>
     bool palleft(const Point2<_Ty> &p, const Line2<_Ty> &l) {
-      auto v1 = stride(l.p1(), l.p2());
-      auto v2 = stride(l.p1(), p);
+      auto v1 = stride(l.p1, l.p2);
+      auto v2 = stride(l.p1, p);
       return static_cast<float>(v1[0] * v2[1] - v1[1] * v2[0]) > 0.0;
     }
 
@@ -490,8 +466,8 @@ namespace ns_geo {
      */
     template <typename _Ty>
     bool palright(const Point2<_Ty> &p, const Line2<_Ty> &l) {
-      auto v1 = stride(l.p1(), l.p2());
-      auto v2 = stride(l.p1(), p);
+      auto v1 = stride(l.p1, l.p2);
+      auto v2 = stride(l.p1, p);
       return static_cast<float>(v1[0] * v2[1] - v1[1] * v2[0]) < 0.0;
     }
 
@@ -507,8 +483,8 @@ namespace ns_geo {
     template <typename _Ty>
     Point2<_Ty> polarCoorMap(const Point2<_Ty> &center, float distance, float azimuth) {
       Point2<_Ty> pos;
-      pos.x() = center.x() + distance * std::sin(azimuth);
-      pos.y() = center.y() + distance * std::cos(azimuth);
+      pos.x = center.x + distance * std::sin(azimuth);
+      pos.y = center.y + distance * std::cos(azimuth);
       return pos;
     }
 
@@ -527,9 +503,9 @@ namespace ns_geo {
     Point3<_Ty> polarCoorMap(const Point3<_Ty> &center, float distance, float azimuth, float zenith) {
       Point3<_Ty> pos;
       float prjDis = distance * std::sin(zenith);
-      pos.x() = center.x() + prjDis * std::sin(azimuth);
-      pos.y() = center.y() + prjDis * std::cos(azimuth);
-      pos.z() = center.z() + distance * std::cos(zenith);
+      pos.x = center.x + prjDis * std::sin(azimuth);
+      pos.y = center.y + prjDis * std::cos(azimuth);
+      pos.z = center.z + distance * std::cos(zenith);
       return pos;
     }
   } // namespace RHandRule
@@ -545,8 +521,8 @@ namespace ns_geo {
      */
     template <typename _Ty>
     float azimuth(const Point2<_Ty> &from, const Point2<_Ty> &to) {
-      float detaX = to.x() - from.x();
-      float detaY = to.y() - from.y();
+      float detaX = to.x - from.x;
+      float detaY = to.y - from.y;
       float angle = std::atan2(detaY, detaX);
       if (detaY < 0.0)
         angle += 2 * M_PI;
@@ -563,7 +539,7 @@ namespace ns_geo {
      */
     template <typename _Ty>
     float azimuth(const Point3<_Ty> &from, const Point3<_Ty> &to) {
-      return LHandRule::azimuth(Point2<_Ty>(from.x(), from.y()), Point2<_Ty>(to.x(), to.y()));
+      return LHandRule::azimuth(Point2<_Ty>(from.x, from.y), Point2<_Ty>(to.x, to.y));
     }
 
     /**
@@ -590,8 +566,8 @@ namespace ns_geo {
      */
     template <typename _Ty>
     bool palleft(const Point2<_Ty> &p, const Line2<_Ty> &l) {
-      auto v1 = stride(l.p1(), l.p2());
-      auto v2 = stride(l.p1(), p);
+      auto v1 = stride(l.p1, l.p2);
+      auto v2 = stride(l.p1, p);
       return static_cast<float>(v1[0] * v2[1] - v1[1] * v2[0]) < 0.0;
     }
 
@@ -606,8 +582,8 @@ namespace ns_geo {
      */
     template <typename _Ty>
     bool palright(const Point2<_Ty> &p, const Line2<_Ty> &l) {
-      auto v1 = stride(l.p1(), l.p2());
-      auto v2 = stride(l.p1(), p);
+      auto v1 = stride(l.p1, l.p2);
+      auto v2 = stride(l.p1, p);
       return static_cast<float>(v1[0] * v2[1] - v1[1] * v2[0]) > 0.0;
     }
 
@@ -623,8 +599,8 @@ namespace ns_geo {
     template <typename _Ty>
     Point2<_Ty> polarCoorMap(const Point2<_Ty> &center, float distance, float azimuth) {
       Point2<_Ty> pos;
-      pos.x() = center.x() + distance * std::cos(azimuth);
-      pos.y() = center.y() + distance * std::sin(azimuth);
+      pos.x = center.x + distance * std::cos(azimuth);
+      pos.y = center.y + distance * std::sin(azimuth);
       return pos;
     }
 
@@ -643,9 +619,9 @@ namespace ns_geo {
     Point3<_Ty> polarCoorMap(const Point3<_Ty> &center, float distance, float azimuth, float zenith) {
       Point3<_Ty> pos;
       float prjDis = distance * std::sin(zenith);
-      pos.x() = center.x() + prjDis * std::cos(azimuth);
-      pos.y() = center.y() + prjDis * std::sin(azimuth);
-      pos.z() = center.z() + distance * std::cos(zenith);
+      pos.x = center.x + prjDis * std::cos(azimuth);
+      pos.y = center.y + prjDis * std::sin(azimuth);
+      pos.z = center.z + distance * std::cos(zenith);
       return pos;
     }
 

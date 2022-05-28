@@ -14,15 +14,15 @@
 
 TEST(Point2f, normalTesting) {
   const ns_geo::Point2f p1(1.0f, 2.0f);
-  EXPECT_FLOAT_EQ(1.0f, p1.x());
-  EXPECT_FLOAT_EQ(2.0f, p1.y());
+  EXPECT_FLOAT_EQ(1.0f, p1.x);
+  EXPECT_FLOAT_EQ(2.0f, p1.y);
 
   ns_geo::Point2f p2(3.0f, 4.0f);
-  EXPECT_FLOAT_EQ(3.0f, p2.x());
-  EXPECT_FLOAT_EQ(4.0f, p2.y());
+  EXPECT_FLOAT_EQ(3.0f, p2.x);
+  EXPECT_FLOAT_EQ(4.0f, p2.y);
 
-  p2.x() = 10.0f;
-  EXPECT_FLOAT_EQ(10.0f, p2.x());
+  p2.x = 10.0f;
+  EXPECT_FLOAT_EQ(10.0f, p2.x);
 
   auto ary = static_cast<ns_geo::Point2f::ary_type>(p2);
   EXPECT_FLOAT_EQ(10.0f, ary[0]);
@@ -30,10 +30,10 @@ TEST(Point2f, normalTesting) {
 
   auto ps = ns_geo::Point2f(1.0f, 2.0f);
   ps.transpose();
-  EXPECT_FLOAT_EQ(ps.x(), 2.0f);
-  EXPECT_FLOAT_EQ(ps.y(), 1.0f);
+  EXPECT_FLOAT_EQ(ps.x, 2.0f);
+  EXPECT_FLOAT_EQ(ps.y, 1.0f);
 
-  EXPECT_EQ(ns_geo::GeoType::POINT2D, p1.type());
+  EXPECT_EQ(ns_geo::GeoType::POINT2, p1.type());
 }
 
 TEST(Point2f, typeTesting) {
@@ -45,24 +45,24 @@ TEST(Point2f, typeTesting) {
 
 TEST(Point3f, normalTesting) {
   const ns_geo::Point3f p1(1.0f, 2.0f, 3.0f);
-  EXPECT_FLOAT_EQ(1.0f, p1.x());
-  EXPECT_FLOAT_EQ(2.0f, p1.y());
-  EXPECT_FLOAT_EQ(3.0f, p1.z());
+  EXPECT_FLOAT_EQ(1.0f, p1.x);
+  EXPECT_FLOAT_EQ(2.0f, p1.y);
+  EXPECT_FLOAT_EQ(3.0f, p1.z);
 
   ns_geo::Point3f p2(3.0f, 4.0f, 5.0f);
-  EXPECT_FLOAT_EQ(3.0f, p2.x());
-  EXPECT_FLOAT_EQ(4.0f, p2.y());
-  EXPECT_FLOAT_EQ(5.0f, p2.z());
+  EXPECT_FLOAT_EQ(3.0f, p2.x);
+  EXPECT_FLOAT_EQ(4.0f, p2.y);
+  EXPECT_FLOAT_EQ(5.0f, p2.z);
 
-  p2.x() = 10.0f;
-  EXPECT_FLOAT_EQ(10.0f, p2.x());
+  p2.x = 10.0f;
+  EXPECT_FLOAT_EQ(10.0f, p2.x);
 
   auto ary = static_cast<ns_geo::Point3f::ary_type>(p2);
   EXPECT_FLOAT_EQ(10.0f, ary[0]);
   EXPECT_FLOAT_EQ(4.0f, ary[1]);
   EXPECT_FLOAT_EQ(5.0f, ary[2]);
 
-  EXPECT_EQ(ns_geo::GeoType::POINT3D, p1.type());
+  EXPECT_EQ(ns_geo::GeoType::POINT3, p1.type());
 }
 
 TEST(Point3f, typeTesting) {
@@ -96,7 +96,7 @@ TEST(PointSet2f, writeAndRead) {
 }
 
 TEST(PointSet2f, randomGenerator) {
-  auto foo = [](const ns_geo::Point2f &p) -> bool { return p.x() > 0.5f; };
+  auto foo = [](const ns_geo::Point2f &p) -> bool { return p.x > 0.5f; };
 
   auto ps = ns_geo::PointSet2f::randomGenerator(10, 0.0f, 10.0f, 0.0f, 10.0f, foo);
 
@@ -138,7 +138,7 @@ TEST(PointSet3f, writeAndRead) {
 }
 
 TEST(PointSet3f, randomGenerator) {
-  auto foo = [](const ns_geo::Point3f &p) -> bool { return p.x() > 0.5f; };
+  auto foo = [](const ns_geo::Point3f &p) -> bool { return p.x > 0.5f; };
 
   auto ps = ns_geo::PointSet3f::randomGenerator(10, 0.0f, 10.0f, 0.0f, 10.0f,
                                                 0.0f, 10.0f, foo);
@@ -160,18 +160,18 @@ TEST(PointSet3f, typeTesting) {
 TEST(RefPoint2f, normalTesting) {
   const ns_geo::RefPoint2d p1(0, ns_geo::RefPoint2d::ary_type{0.0f, 0.0f});
 
-  EXPECT_EQ(0, p1.id());
-  EXPECT_FLOAT_EQ(0.0f, p1.x());
-  EXPECT_FLOAT_EQ(0.0f, p1.y());
+  EXPECT_EQ(0, p1.id);
+  EXPECT_FLOAT_EQ(0.0f, p1.x);
+  EXPECT_FLOAT_EQ(0.0f, p1.y);
 
   double ary[2] = {1.0f, 2.0f};
   ns_geo::RefPoint2d p2(1, ary);
 
-  EXPECT_EQ(1, p2.id());
-  EXPECT_FLOAT_EQ(1.0f, p2.x());
-  EXPECT_FLOAT_EQ(2.0f, p2.y());
+  EXPECT_EQ(1, p2.id);
+  EXPECT_FLOAT_EQ(1.0f, p2.x);
+  EXPECT_FLOAT_EQ(2.0f, p2.y);
 
-  EXPECT_EQ(ns_geo::GeoType::REFPOINT2D, p2.type());
+  EXPECT_EQ(ns_geo::GeoType::REF_POINT2, p2.type());
 }
 
 TEST(RefPoint2f, typeTesting) {
@@ -187,20 +187,20 @@ TEST(RefPoint3f, normalTesting) {
   const ns_geo::RefPoint3d p1(0,
                               ns_geo::RefPoint3d::ary_type{0.0f, 0.0f, 0.0f});
 
-  EXPECT_EQ(0, p1.id());
-  EXPECT_FLOAT_EQ(0.0f, p1.x());
-  EXPECT_FLOAT_EQ(0.0f, p1.y());
-  EXPECT_FLOAT_EQ(0.0f, p1.z());
+  EXPECT_EQ(0, p1.id);
+  EXPECT_FLOAT_EQ(0.0f, p1.x);
+  EXPECT_FLOAT_EQ(0.0f, p1.y);
+  EXPECT_FLOAT_EQ(0.0f, p1.z);
 
   double ary[3] = {1.0f, 2.0f, 3.0f};
   ns_geo::RefPoint3d p2(1, ary);
 
-  EXPECT_EQ(1, p2.id());
-  EXPECT_FLOAT_EQ(1.0f, p2.x());
-  EXPECT_FLOAT_EQ(2.0f, p2.y());
-  EXPECT_FLOAT_EQ(3.0f, p2.z());
+  EXPECT_EQ(1, p2.id);
+  EXPECT_FLOAT_EQ(1.0f, p2.x);
+  EXPECT_FLOAT_EQ(2.0f, p2.y);
+  EXPECT_FLOAT_EQ(3.0f, p2.z);
 
-  EXPECT_EQ(ns_geo::GeoType::REFPOINT3D, p2.type());
+  EXPECT_EQ(ns_geo::GeoType::REF_POINT3, p2.type());
 }
 
 TEST(RefPoint3f, typeTesting) {
@@ -225,7 +225,7 @@ TEST(RefPointSet2f, normalTesting) {
 }
 
 TEST(RefPointSet2f, randomGenerator) {
-  auto foo = [](const ns_geo::RefPoint2f &p) -> bool { return p.x() > 0.5f; };
+  auto foo = [](const ns_geo::RefPoint2f &p) -> bool { return p.x > 0.5f; };
 
   auto ps =
       ns_geo::RefPointSet2f::randomGenerator(10, 0.0f, 10.0f, 0.0f, 10.0f, foo);
@@ -273,7 +273,7 @@ TEST(RefPointSet3f, normalTesting) {
 }
 
 TEST(RefPointSet3f, randomGenerator) {
-  auto foo = [](const ns_geo::RefPoint3f &p) -> bool { return p.x() > 0.5f; };
+  auto foo = [](const ns_geo::RefPoint3f &p) -> bool { return p.x > 0.5f; };
 
   auto ps = ns_geo::RefPointSet3f::randomGenerator(10, 0.0f, 10.0f, 0.0f, 10.0f,
                                                    0.0f, 10.0f, foo);

@@ -6,7 +6,7 @@
 TEST_F(TestPointSet, LineString2f_normalTesting) {
   auto ls = ns_geo::LineString2f({_ps2f->at(0), _ps2f->at(1), _ps2f->at(2)});
 
-  EXPECT_EQ(ls.type(), ns_geo::GeoType::LINESTRING2D);
+  EXPECT_EQ(ls.type(), ns_geo::GeoType::LINESTRING2);
   EXPECT_FLOAT_EQ(ls.length(), ns_geo::distance(ls[0], ls[1]) +
                                    ns_geo::distance(ls[1], ls[2]));
 }
@@ -22,7 +22,7 @@ TEST_F(TestPointSet, LineString2f_typeTesting) {
 TEST_F(TestPointSet, LineString3f_normalTesting) {
   auto ls = ns_geo::LineString3f({_ps3f->at(0), _ps3f->at(1), _ps3f->at(2)});
 
-  EXPECT_EQ(ls.type(), ns_geo::GeoType::LINESTRING3D);
+  EXPECT_EQ(ls.type(), ns_geo::GeoType::LINESTRING3);
   EXPECT_FLOAT_EQ(ls.length(), ns_geo::distance(ls[0], ls[1]) +
                                    ns_geo::distance(ls[1], ls[2]));
 }
@@ -38,7 +38,7 @@ TEST_F(TestPointSet, LineString3f_typeTesting) {
 TEST_F(TestRefPointSet2f, RefLineString2f_normalTesting) {
   auto rls = _rps->createRefLineString2({0, 1, 2});
 
-  EXPECT_EQ(rls.type(), ns_geo::GeoType::REFLINESTRING2D);
+  EXPECT_EQ(rls.type(), ns_geo::GeoType::REF_LINESTRING2);
   EXPECT_EQ(_rps, rls.refPointSet());
   std::cout << rls.indexAt(0).type() << std::endl;
   std::cout << _rps->at(0).type() << std::endl;
@@ -77,7 +77,7 @@ TEST_F(TestRefPointSet2f, RefLineString2f_typeTesting) {
 TEST_F(TestRefPointSet3f, RefLineString3f_normalTesting) {
   auto rls = _rps->createRefLineString3({0, 1, 2});
 
-  EXPECT_EQ(rls.type(), ns_geo::GeoType::REFLINESTRING3D);
+  EXPECT_EQ(rls.type(), ns_geo::GeoType::REF_LINESTRING3);
   EXPECT_EQ(_rps, rls.refPointSet());
 
   test_refpoint3f_eq(rls.indexAt(0), _rps->at(0));

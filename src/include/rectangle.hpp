@@ -17,19 +17,19 @@ namespace ns_geo {
   /**
    * @brief a sample template class to describe the 2-dime rectangles
    */
-  template <typename _Ty = float>
+  template <typename Ty = float>
   class Rectangle : protected Geometry {
   public:
-    using value_type = _Ty;
+    using value_type = Ty;
     using point_type = ns_geo::Point2<value_type>;
     using ary_type = std::array<point_type, 2>;
     using self_type = Rectangle<value_type>;
 
-  private:
+  public:
     // top left point
-    point_type _tplp;
+    point_type topLeftPt;
     // lower right point
-    point_type _bmrp;
+    point_type bottomRightPt;
 
   public:
     /**
@@ -37,54 +37,46 @@ namespace ns_geo {
      */
     Rectangle() = default;
     Rectangle(const point_type &topLeft, const point_type &bottomRight)
-        : _tplp(topLeft), _bmrp(bottomRight) {}
-    Rectangle(const point_type points[2]) : _tplp(points[0]), _bmrp(points[1]) {}
-    Rectangle(const ary_type &points) : _tplp(points[0]), _bmrp(points[1]) {}
+        : topLeftPt(topLeft), bottomRightPt(bottomRight) {}
+    explicit Rectangle(const point_type points[2]) : topLeftPt(points[0]), bottomRightPt(points[1]) {}
+    explicit Rectangle(const ary_type &points) : topLeftPt(points[0]), bottomRightPt(points[1]) {}
     Rectangle(value_type tlx, value_type tly, value_type lrx, value_type lry)
-        : _tplp(tlx, tly), _bmrp(lrx, lry) {}
+        : topLeftPt(tlx, tly), bottomRightPt(lrx, lry) {}
 
-    inline ary_type points() const { return ary_type{this->_tplp, this->_bmrp}; }
+    inline ary_type points() const { return ary_type{this->topLeftPt, this->bottomRightPt}; }
 
-    inline const point_type &topLeft() const { return this->_tplp; }
-
-    inline point_type &topLeft() { return this->_tplp; }
-
-    inline const point_type &bottomRight() const { return this->_bmrp; }
-
-    inline point_type &bottomRight() { return this->_bmrp; }
-
-    inline float area() const {
-      return std::abs(this->_tplp.x() - this->_bmrp.x()) *
-             std::abs(this->_tplp.y() - this->_bmrp.y());
+    [[nodiscard]] inline float area() const {
+      return std::abs(this->topLeftPt.x - this->bottomRightPt.x) *
+             std::abs(this->topLeftPt.y - this->bottomRightPt.y);
     }
 
-    inline float perimeter() const {
-      return 2.0 * (std::abs(this->_tplp.x() - this->_bmrp.x()) +
-                    std::abs(this->_tplp.y() - this->_bmrp.y()));
+    [[nodiscard]] inline float perimeter() const {
+      return 2.0 * (std::abs(this->topLeftPt.x - this->bottomRightPt.x) +
+                    std::abs(this->topLeftPt.y - this->bottomRightPt.y));
     }
 
-    inline virtual ns_geo::GeoType type() const override {
+    [[nodiscard]] inline ns_geo::GeoType type() const override {
       return GeoType::RECTANGLE;
     }
   };
   /**
    * @brief overload operator "<<" for Rectangle<_Ty>
    */
-  template <typename _Ty = float>
-  std::ostream &operator<<(std::ostream &os, const Rectangle<_Ty> &rect) {
+  template <typename Ty = float>
+  std::ostream &operator<<(std::ostream &os, const Rectangle<Ty> &rect) {
     os << '{';
-    os << rect.topLeft() << ", ";
-    os << rect.bottomRight() << '}';
+    os << rect.topLeftPt << ", ";
+    os << rect.bottomRightPt << '}';
     return os;
   }
 #pragma endregion
 
 #pragma region RefRectangle
 
-  template <typename _Ty = float>
+  template <typename Ty = float>
   class RefRectangle : protected Geometry {
   public:
-    using value_type = _Ty;
+    using value_type = Ty;
     using id_type = uint;
     using refpoint_type = ns_geo::RefPoint2<value_type>;
     using refpointset_type = RefPointSet2<value_type>;
@@ -94,11 +86,11 @@ namespace ns_geo {
   public:
     friend class RefPointSet2<value_type>;
 
-  private:
+  public:
     // top left point's id
-    id_type _tplpid;
+    id_type topLeftPID;
     // lower right point's id
-    id_type _bmrpid;
+    id_type bottomRightPID;
     // thr reference point set's pointer
     const refpointset_type *const _rps;
 
@@ -108,59 +100,54 @@ namespace ns_geo {
      */
     RefRectangle(id_type topLeftID, id_type bottomRightID,
                  const refpointset_type *const refpointset)
-        : _tplpid(topLeftID), _bmrpid(bottomRightID), _rps(refpointset) {}
+        : topLeftPID(topLeftID), bottomRightPID(bottomRightID), _rps(refpointset) {}
 
-    RefRectangle() = delete;
 
   public:
-    inline const refpointset_type *const refPointSet() const {
+    inline const refpointset_type *refPointSet() const {
       return this->_rps;
     };
 
-    operator Rectangle<value_type>() {
+    explicit operator Rectangle<value_type>() {
       return Rectangle<value_type>(this->topLeft(), this->bottomRight());
     }
 
     inline ary_type refPoints() const {
-      return ary_type{_rps->at(this->_tplpid), _rps->at(this->_bmrpid)};
+      return ary_type{_rps->at(this->topLeftPID), _rps->at(this->bottomRightPID)};
     }
 
     inline const refpoint_type &topLeft() const {
-      return _rps->at(this->_tplpid);
+      return _rps->at(this->topLeftPID);
     }
 
     inline const refpoint_type &bottomRight() const {
-      return _rps->at(this->_bmrpid);
+      return _rps->at(this->bottomRightPID);
     }
 
-    inline const id_type &topLeftID() const { return this->_tplpid; }
-
-    inline const id_type &bottomRightID() const { return this->_bmrpid; }
-
-    inline float area() const {
-      return std::abs(this->topLeft().x() - this->bottomRight().x()) *
-             std::abs(this->topLeft().y() - this->bottomRight().y());
+    [[nodiscard]] inline float area() const {
+      return std::abs(this->topLeft().x - this->bottomRight().x) *
+             std::abs(this->topLeft().y - this->bottomRight().y);
     }
 
-    inline float perimeter() const {
-      return 2.0 * (std::abs(this->topLeft().x() - this->bottomRight().x()) +
-                    std::abs(this->topLeft().y() - this->bottomRight().y()));
+    [[nodiscard]] inline float perimeter() const {
+      return 2.0 * (std::abs(this->topLeft().x - this->bottomRight().x) +
+                    std::abs(this->topLeft().y - this->bottomRight().y));
     }
 
-    inline virtual ns_geo::GeoType type() const override {
-      return GeoType::REFRECTANGLE;
+    [[nodiscard]] inline ns_geo::GeoType type() const override {
+      return GeoType::REF_RECTANGLE;
     }
   };
   /**
    * @brief overload operator "<<" for RefRectangle<_Ty>
    */
-  template <typename _Ty = float>
-  std::ostream &operator<<(std::ostream &os, const RefRectangle<_Ty> &rect) {
+  template <typename Ty = float>
+  std::ostream &operator<<(std::ostream &os, const RefRectangle<Ty> &rect) {
     auto p1 = rect.topLeft();
     auto p2 = rect.bottomRight();
     os << '{';
-    os << p1.id() << ": [" << p1.x() << ", " << p1.y() << ']' << ", ";
-    os << p2.id() << ": [" << p2.x() << ", " << p2.y() << "]}";
+    os << p1.id << ": [" << p1.x << ", " << p1.y << ']' << ", ";
+    os << p2.id << ": [" << p2.x << ", " << p2.y << "]}";
     return os;
   }
 #pragma endregion

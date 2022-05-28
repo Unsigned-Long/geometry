@@ -18,56 +18,56 @@ namespace ns_geo {
    * @brief the types of the geometry
    */
   enum class GeoType {
-    // for geometry widthout reference
-    POINT2D,
-    POINT3D,
-    LINE2D,
-    LINE3D,
-    LINESTRING2D,
-    LINESTRING3D,
+    // for geometry without reference
+    POINT2,
+    POINT3,
+    LINE2,
+    LINE3,
+    LINESTRING2,
+    LINESTRING3,
     POLYGON,
     RECTANGLE,
-    TRIANGLE2D,
-    TRIANGLE3D,
+    TRIANGLE2,
+    TRIANGLE3,
     // for geometry with reference
-    REFPOINT2D,
-    REFPOINT3D,
-    REFLINE2D,
-    REFLINE3D,
-    REFLINESTRING2D,
-    REFLINESTRING3D,
-    REFPOLYGON,
-    REFRECTANGLE,
-    REFTRIANGLE2D,
-    REFTRIANGLE3D
+    REF_POINT2,
+    REF_POINT3,
+    REF_LINE2,
+    REF_LINE3,
+    REF_LINESTRING2,
+    REF_LINESTRING3,
+    REF_POLYGON,
+    REF_RECTANGLE,
+    REF_TRIANGLE2,
+    REF_TRIANGLE3
   };
 
   /**
    * @brief overload the operator '<<' for 'GeoType'
    *
    * @param os the ostream
-   * @param geoty the GeoType object
+   * @param geoType the GeoType object
    * @return std::ostream&
    */
-  static std::ostream &operator<<(std::ostream &os, GeoType geoty) {
-    switch (geoty) {
-    case GeoType::POINT2D:
-      os << "POINT2D";
+  static std::ostream &operator<<(std::ostream &os, GeoType geoType) {
+    switch (geoType) {
+    case GeoType::POINT2:
+      os << "POINT2";
       break;
-    case GeoType::POINT3D:
-      os << "POINT3D";
+    case GeoType::POINT3:
+      os << "POINT3";
       break;
-    case GeoType::LINE2D:
-      os << "LINE2D";
+    case GeoType::LINE2:
+      os << "LINE2";
       break;
-    case GeoType::LINE3D:
-      os << "LINE3D";
+    case GeoType::LINE3:
+      os << "LINE3";
       break;
-    case GeoType::LINESTRING2D:
-      os << "LINESTRING2D";
+    case GeoType::LINESTRING2:
+      os << "LINESTRING2";
       break;
-    case GeoType::LINESTRING3D:
-      os << "LINESTRING3D";
+    case GeoType::LINESTRING3:
+      os << "LINESTRING3";
       break;
     case GeoType::POLYGON:
       os << "POLYGON";
@@ -75,41 +75,41 @@ namespace ns_geo {
     case GeoType::RECTANGLE:
       os << "RECTANGLE";
       break;
-    case GeoType::TRIANGLE2D:
-      os << "TRIANGLE2D";
+    case GeoType::TRIANGLE2:
+      os << "TRIANGLE2";
       break;
-    case GeoType::TRIANGLE3D:
-      os << "TRIANGLE3D";
+    case GeoType::TRIANGLE3:
+      os << "TRIANGLE3";
       break;
-    case GeoType::REFPOINT2D:
-      os << "REFPOINT2D";
+    case GeoType::REF_POINT2:
+      os << "REF-POINT2";
       break;
-    case GeoType::REFPOINT3D:
-      os << "REFPOINT3D";
+    case GeoType::REF_POINT3:
+      os << "REF-POINT3";
       break;
-    case GeoType::REFLINE2D:
-      os << "REFLINE2D";
+    case GeoType::REF_LINE2:
+      os << "REF-LINE2";
       break;
-    case GeoType::REFLINE3D:
-      os << "REFLINE3D";
+    case GeoType::REF_LINE3:
+      os << "REF-LINE3";
       break;
-    case GeoType::REFLINESTRING2D:
-      os << "REFLINESTRING2D";
+    case GeoType::REF_LINESTRING2:
+      os << "REF-LINESTRING2";
       break;
-    case GeoType::REFLINESTRING3D:
-      os << "REFLINESTRING3D";
+    case GeoType::REF_LINESTRING3:
+      os << "REF-LINESTRING3";
       break;
-    case GeoType::REFPOLYGON:
-      os << "REFPOLYGON";
+    case GeoType::REF_POLYGON:
+      os << "REF-POLYGON";
       break;
-    case GeoType::REFRECTANGLE:
-      os << "REFRECTANGLE";
+    case GeoType::REF_RECTANGLE:
+      os << "REF-RECTANGLE";
       break;
-    case GeoType::REFTRIANGLE2D:
-      os << "REFTRIANGLE2D";
+    case GeoType::REF_TRIANGLE2:
+      os << "REF-TRIANGLE2";
       break;
-    case GeoType::REFTRIANGLE3D:
-      os << "REFTRIANGLE3D";
+    case GeoType::REF_TRIANGLE3:
+      os << "REF-TRIANGLE3";
       break;
     default:
       break;
@@ -124,14 +124,14 @@ namespace ns_geo {
    */
   class Geometry {
   public:
-    virtual ~Geometry() {}
+    virtual ~Geometry() = default;
 
     /**
      * @brief the type of the geometry
      *
      * @return GeoType
      */
-    virtual GeoType type() const = 0;
+    [[nodiscard]] virtual GeoType type() const = 0;
   };
 
 #pragma region Point2
@@ -139,40 +139,34 @@ namespace ns_geo {
   /**
    * @brief a sample template class to describe the 2-dime points
    */
-  template <typename _Ty = float>
+  template <typename Ty = float>
   class Point2 : protected Geometry {
   public:
-    using value_type = _Ty;
-    using ary_type = std::array<_Ty, 2>;
+    using value_type = Ty;
+    using ary_type = std::array<Ty, 2>;
     using self_type = Point2<value_type>;
 
-  private:
-    value_type _x;
-    value_type _y;
+  public:
+    value_type x;
+    value_type y;
 
   public:
     /**
      * @brief constructors
      */
     Point2() = default;
-    Point2(value_type x, value_type y) : _x(x), _y(y) {}
-    Point2(const ary_type &p) : _x(p[0]), _y(p[1]) {}
-    Point2(const value_type p[2]) : _x(p[0]), _y(p[1]) {}
+    Point2(value_type x, value_type y) : x(x), y(y) {}
+    explicit Point2(const ary_type &p) : x(p[0]), y(p[1]) {}
+    explicit Point2(const value_type p[2]) : x(p[0]), y(p[1]) {}
 
-    operator ary_type() const { return ary_type{this->_x, this->_y}; }
-
-    inline value_type &x() { return this->_x; }
-    inline value_type &y() { return this->_y; }
-
-    inline const value_type &x() const { return this->_x; }
-    inline const value_type &y() const { return this->_y; }
+    explicit operator ary_type() const { return ary_type{this->x, this->y}; }
 
     /**
      * @brief Exchange the X and Y coordinates of the point based on current point
      *
      * @return self_type
      */
-    inline self_type transposed() const { return self_type(this->_y, this->_x); }
+    inline self_type transposed() const { return self_type(this->y, this->x); }
 
     /**
      * @brief Exchange the X and Y coordinates of the point
@@ -180,22 +174,22 @@ namespace ns_geo {
      * @return self_type&
      */
     inline self_type &transpose() {
-      auto temp = this->_x;
-      this->_x = this->_y;
-      this->_y = temp;
+      auto temp = this->x;
+      this->x = this->y;
+      this->y = temp;
       return *this;
     }
 
-    inline virtual ns_geo::GeoType type() const override {
-      return GeoType::POINT2D;
+    [[nodiscard]] inline ns_geo::GeoType type() const override {
+      return GeoType::POINT2;
     }
   };
   /**
    * @brief overload operator "<<" for Point2<_Ty>
    */
-  template <typename _Ty>
-  std::ostream &operator<<(std::ostream &os, const Point2<_Ty> &p) {
-    os << '[' << p.x() << ", " << p.y() << ']';
+  template <typename Ty>
+  std::ostream &operator<<(std::ostream &os, const Point2<Ty> &p) {
+    os << '[' << p.x << ", " << p.y << ']';
     return os;
   }
 
@@ -206,47 +200,39 @@ namespace ns_geo {
   /**
    * @brief a sample template class to describe the 3-dime points
    */
-  template <typename _Ty = float>
+  template <typename Ty = float>
   class Point3 : protected Geometry {
   public:
-    using value_type = _Ty;
-    using ary_type = std::array<_Ty, 3>;
+    using value_type = Ty;
+    using ary_type = std::array<Ty, 3>;
     using self_type = Point3<value_type>;
 
-  private:
-    value_type _x;
-    value_type _y;
-    value_type _z;
+  public:
+    value_type x;
+    value_type y;
+    value_type z;
 
   public:
     /**
      * @brief constructors
      */
     Point3() = default;
-    Point3(value_type x, value_type y, value_type z) : _x(x), _y(y), _z(z) {}
-    Point3(const ary_type &p) : _x(p[0]), _y(p[1]), _z(p[2]) {}
-    Point3(const value_type p[3]) : _x(p[0]), _y(p[1]), _z(p[2]) {}
+    Point3(value_type x, value_type y, value_type z) : x(x), y(y), z(z) {}
+    explicit Point3(const ary_type &p) : x(p[0]), y(p[1]), z(p[2]) {}
+    explicit Point3(const value_type p[3]) : x(p[0]), y(p[1]), z(p[2]) {}
 
-    operator ary_type() const { return ary_type{this->_x, this->_y, this->_z}; }
+    explicit operator ary_type() const { return ary_type{this->x, this->y, this->z}; }
 
-    inline value_type &x() { return this->_x; }
-    inline value_type &y() { return this->_y; }
-    inline value_type &z() { return this->_z; }
-
-    inline const value_type &x() const { return this->_x; }
-    inline const value_type &y() const { return this->_y; }
-    inline const value_type &z() const { return this->_z; }
-
-    inline virtual ns_geo::GeoType type() const override {
-      return GeoType::POINT3D;
+    [[nodiscard]] inline ns_geo::GeoType type() const override {
+      return GeoType::POINT3;
     }
   };
   /**
    * @brief overload operator "<<" for Point3
    */
-  template <typename _Ty>
-  std::ostream &operator<<(std::ostream &os, const Point3<_Ty> &p) {
-    os << '[' << p.x() << ", " << p.y() << ", " << p.z() << ']';
+  template <typename Ty>
+  std::ostream &operator<<(std::ostream &os, const Point3<Ty> &p) {
+    os << '[' << p.x << ", " << p.y << ", " << p.z << ']';
     return os;
   }
 #pragma endregion
@@ -256,12 +242,11 @@ namespace ns_geo {
   /**
    * @brief Container for storage point2<_Ty>
    *
-   * @tparam _Ty
    */
-  template <typename _Ty>
-  class PointSet2 : public std::vector<Point2<_Ty>> {
+  template <typename Ty>
+  class PointSet2 : public std::vector<Point2<Ty>> {
   public:
-    using value_type = _Ty;
+    using value_type = Ty;
     using point_type = Point2<value_type>;
     using container_type = std::vector<point_type>;
     /**
@@ -279,8 +264,7 @@ namespace ns_geo {
      * @param filePath the path of the file
      * @param mode the ios mode
      */
-    void write(const std::string &filePath,
-               std::ios_base::openmode mode = std::ios::out | std::ios::binary) const {
+    void write(const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary) const {
       std::ofstream file(filePath, mode);
       if (!file.is_open())
         throw std::ios_base::failure("File Open Failed");
@@ -289,8 +273,7 @@ namespace ns_geo {
           file.write((const char *)(&p), sizeof(point_type));
       } else
         for (const auto &point : *this)
-          file << point.x() << ',' << point.y() << '\n';
-      return;
+          file << point.x << ',' << point.y << '\n';
     }
     /**
      * @brief read points from the file
@@ -326,8 +309,8 @@ namespace ns_geo {
           if (str.empty())
             continue;
           auto iter = std::find(str.cbegin(), str.cend(), ',');
-          point.x() = static_cast<value_type>(std::stod(std::string(str.cbegin(), iter)));
-          point.y() = static_cast<value_type>(std::stod(std::string(++iter, str.cend())));
+          point.x = static_cast<value_type>(std::stod(std::string(str.cbegin(), iter)));
+          point.y = static_cast<value_type>(std::stod(std::string(++iter, str.cend())));
           this->push_back(point);
         }
       }
@@ -341,20 +324,20 @@ namespace ns_geo {
      * @param x_max the max x value
      * @param y_min the min y value
      * @param y_max the max y value
-     * @param slor the selector
+     * @param select the selector
      * @return self_type
      */
     static self_type randomGenerator(std::size_t num,
-                                     _Ty x_min, _Ty x_max,
-                                     _Ty y_min, _Ty y_max,
-                                     const selector &slor = nullptr) {
+                                     Ty x_min, Ty x_max,
+                                     Ty y_min, Ty y_max,
+                                     const selector &select = nullptr) {
       std::uniform_real_distribution<> u_x(static_cast<float>(x_min), static_cast<float>(x_max));
       std::uniform_real_distribution<> u_y(static_cast<float>(y_min), static_cast<float>(y_max));
       self_type ps(num);
       int count = 0;
       while (count != num) {
-        point_type p(static_cast<_Ty>(u_x(engine)), static_cast<_Ty>(u_y(engine)));
-        if (slor == nullptr || slor(p))
+        point_type p(static_cast<Ty>(u_x(engine)), static_cast<Ty>(u_y(engine)));
+        if (select == nullptr || select(p))
           ps.at(count++) = p;
       }
       return ps;
@@ -367,12 +350,11 @@ namespace ns_geo {
   /**
    * @brief Container for storage point3<_Ty>
    *
-   * @tparam _Ty
    */
-  template <typename _Ty>
-  class PointSet3 : public std::vector<Point3<_Ty>> {
+  template <typename Ty>
+  class PointSet3 : public std::vector<Point3<Ty>> {
   public:
-    using value_type = _Ty;
+    using value_type = Ty;
     using point_type = Point3<value_type>;
     using container_type = std::vector<point_type>;
     /**
@@ -400,8 +382,7 @@ namespace ns_geo {
           file.write((const char *)(&p), sizeof(point_type));
       } else
         for (const auto &point : *this)
-          file << point.x() << ',' << point.y() << ',' << point.z() << '\n';
-      return;
+          file << point.x << ',' << point.y << ',' << point.z << '\n';
     }
 
     /**
@@ -438,10 +419,10 @@ namespace ns_geo {
           if (str.empty())
             continue;
           auto iter = std::find(str.cbegin(), str.cend(), ',');
-          point.x() = static_cast<value_type>(std::stod(std::string(str.cbegin(), iter)));
+          point.x = static_cast<value_type>(std::stod(std::string(str.cbegin(), iter)));
           auto iter2 = std::find(++iter, str.cend(), ',');
-          point.y() = static_cast<value_type>(std::stod(std::string(iter, iter2)));
-          point.z() = static_cast<value_type>(std::stod(std::string(++iter2, str.cend())));
+          point.y = static_cast<value_type>(std::stod(std::string(iter, iter2)));
+          point.z = static_cast<value_type>(std::stod(std::string(++iter2, str.cend())));
           this->push_back(point);
         }
       }
@@ -457,14 +438,14 @@ namespace ns_geo {
      * @param y_max the max y value
      * @param z_min the min z value
      * @param z_max the max z value
-     * @param slor the selector
+     * @param select the selector
      * @return self_type
      */
     static self_type randomGenerator(std::size_t num,
-                                     _Ty x_min, _Ty x_max,
-                                     _Ty y_min, _Ty y_max,
-                                     _Ty z_min, _Ty z_max,
-                                     const selector &slor = nullptr) {
+                                     Ty x_min, Ty x_max,
+                                     Ty y_min, Ty y_max,
+                                     Ty z_min, Ty z_max,
+                                     const selector &select = nullptr) {
       std::uniform_real_distribution<> u_x(static_cast<float>(x_min),
                                            static_cast<float>(x_max));
       std::uniform_real_distribution<> u_y(static_cast<float>(y_min),
@@ -474,10 +455,10 @@ namespace ns_geo {
       self_type ps(num);
       int count = 0;
       while (count != num) {
-        point_type p(static_cast<_Ty>(u_x(engine)),
-                     static_cast<_Ty>(u_y(engine)),
-                     static_cast<_Ty>(u_z(engine)));
-        if (slor == nullptr || slor(p))
+        point_type p(static_cast<Ty>(u_x(engine)),
+                     static_cast<Ty>(u_y(engine)),
+                     static_cast<Ty>(u_z(engine)));
+        if (select == nullptr || select(p))
           ps.at(count++) = p;
       }
       return ps;
@@ -486,16 +467,16 @@ namespace ns_geo {
 #pragma endregion
 
 #pragma region RefPoint2
-  template <typename _Ty = float>
-  class RefPoint2 : public Point2<_Ty> {
+  template <typename Ty = float>
+  class RefPoint2 : public Point2<Ty> {
   public:
     using id_type = uint;
-    using value_type = _Ty;
-    using ary_type = std::array<_Ty, 2>;
+    using value_type = Ty;
+    using ary_type = std::array<Ty, 2>;
     using self_type = RefPoint2<value_type>;
 
-  private:
-    id_type _id;
+  public:
+    id_type id{};
 
   public:
     /**
@@ -503,38 +484,36 @@ namespace ns_geo {
      */
     RefPoint2() = default;
     RefPoint2(id_type id, value_type x, value_type y)
-        : _id(id), Point2<_Ty>(x, y) {}
-    RefPoint2(id_type id, const ary_type &p) : _id(id), Point2<_Ty>(p[0], p[1]) {}
+        : id(id), Point2<Ty>(x, y) {}
+    RefPoint2(id_type id, const ary_type &p) : id(id), Point2<Ty>(p[0], p[1]) {}
     RefPoint2(id_type id, const value_type p[2])
-        : _id(id), Point2<_Ty>(p[0], p[1]) {}
+        : id(id), Point2<Ty>(p[0], p[1]) {}
 
-    inline const id_type &id() const { return this->_id; }
-
-    inline virtual ns_geo::GeoType type() const override {
-      return GeoType::REFPOINT2D;
+    [[nodiscard]] inline ns_geo::GeoType type() const override {
+      return GeoType::REF_POINT2;
     }
   };
   /**
    * @brief overload operator "<<" for RefPoint2<_Ty>
    */
-  template <typename _Ty>
-  std::ostream &operator<<(std::ostream &os, const RefPoint2<_Ty> &p) {
-    os << '{' << p.id() << ": " << '[' << p.x() << ", " << p.y() << ']' << '}';
+  template <typename Ty>
+  std::ostream &operator<<(std::ostream &os, const RefPoint2<Ty> &p) {
+    os << '{' << p.id << ": " << '[' << p.x << ", " << p.y << ']' << '}';
     return os;
   }
 #pragma endregion
 
 #pragma region RefPoint3
-  template <typename _Ty = float>
-  class RefPoint3 : public Point3<_Ty> {
+  template <typename Ty = float>
+  class RefPoint3 : public Point3<Ty> {
   public:
     using id_type = uint;
-    using value_type = _Ty;
-    using ary_type = std::array<_Ty, 3>;
+    using value_type = Ty;
+    using ary_type = std::array<Ty, 3>;
     using self_type = RefPoint3<value_type>;
 
-  private:
-    id_type _id;
+  public:
+    id_type id{};
 
   public:
     /**
@@ -542,25 +521,22 @@ namespace ns_geo {
      */
     RefPoint3() = default;
     RefPoint3(id_type id, value_type x, value_type y, value_type z)
-        : _id(id), Point3<_Ty>(x, y, z) {}
+        : id(id), Point3<Ty>(x, y, z) {}
     RefPoint3(id_type id, const ary_type &p)
-        : _id(id), Point3<_Ty>(p[0], p[1], p[2]) {}
+        : id(id), Point3<Ty>(p[0], p[1], p[2]) {}
     RefPoint3(id_type id, const value_type p[3])
-        : _id(id), Point3<_Ty>(p[0], p[1], p[2]) {}
+        : id(id), Point3<Ty>(p[0], p[1], p[2]) {}
 
-    inline const id_type &id() const { return this->_id; }
-
-    inline virtual ns_geo::GeoType type() const override {
-      return GeoType::REFPOINT3D;
+    [[nodiscard]] inline ns_geo::GeoType type() const override {
+      return GeoType::REF_POINT3;
     }
   };
   /**
    * @brief overload operator "<<" for RefPoint3<_Ty>
    */
-  template <typename _Ty>
-  std::ostream &operator<<(std::ostream &os, const RefPoint3<_Ty> &p) {
-    os << '{' << p.id() << ": " << '['
-       << p.x() << ", " << p.y() << ", " << p.z()
+  template <typename Ty>
+  std::ostream &operator<<(std::ostream &os, const RefPoint3<Ty> &p) {
+    os << '{' << p.id << ": " << '[' << p.x << ", " << p.y << ", " << p.z
        << ']' << '}';
     return os;
   }
@@ -569,16 +545,15 @@ namespace ns_geo {
 
 #pragma region RefPointSet2
 
-  template <typename _Ty, typename _Hash = std::hash<uint>,
-            typename _Pred = std::equal_to<uint>>
-  class RefPointSet2
-      : public std::unordered_map<uint, RefPoint2<_Ty>, _Hash, _Pred> {
+  template <typename Ty, typename Hash = std::hash<uint>,
+            typename Pred = std::equal_to<uint>>
+  class RefPointSet2 : public std::unordered_map<uint, RefPoint2<Ty>, Hash, Pred> {
   public:
-    using value_type = _Ty;
+    using value_type = Ty;
     using id_type = uint;
     using refpoint_type = RefPoint2<value_type>;
     using container_type =
-        std::unordered_map<id_type, refpoint_type, _Hash, _Pred>;
+        std::unordered_map<id_type, refpoint_type, Hash, Pred>;
     /**
      * @brief using container_type's constructors
      */
@@ -595,7 +570,7 @@ namespace ns_geo {
      * @return auto
      */
     auto insert(const refpoint_type &p) {
-      return container_type::insert(std::make_pair(p.id(), p));
+      return container_type::insert(std::make_pair(p.id, p));
     }
     /**
      * @brief write points to the file
@@ -603,18 +578,16 @@ namespace ns_geo {
      * @param filePath the path of the file
      * @param mode the ios mode
      */
-    void write(const std::string &filePath,
-               std::ios_base::openmode mode = std::ios::out | std::ios::binary) const {
+    void write(const std::string &filePath, std::ios_base::openmode mode = std::ios::out | std::ios::binary) const {
       std::ofstream file(filePath, mode);
       if (!file.is_open())
         throw std::ios_base::failure("File Open Failed");
       if (std::ios::binary == (mode & std::ios::binary))
-        for (const auto &[id, refp] : *this)
-          file.write((const char *)(&refp), sizeof(refpoint_type));
+        for (const auto &[id, refPt] : *this)
+          file.write((const char *)(&refPt), sizeof(refpoint_type));
       else
-        for (const auto &[id, refp] : *this)
-          file << id << ',' << refp.x() << ',' << refp.y() << '\n';
-      return;
+        for (const auto &[id, refPt] : *this)
+          file << id << ',' << refPt.x << ',' << refPt.y << '\n';
     }
     /**
      * @brief read points from the file
@@ -628,7 +601,7 @@ namespace ns_geo {
       if (!file.is_open())
         throw std::ios_base::failure("File Open Failed");
       if (std::ios::binary == (mode & std::ios::binary)) {
-        refpoint_type refp;
+        refpoint_type refPt;
         file.seekg(0, std::ios::end);
         auto size = file.tellg() / sizeof(refpoint_type);
         file.seekg(0, std::ios::beg);
@@ -637,24 +610,24 @@ namespace ns_geo {
         }
         int count = 0;
         while (!file.eof() && count < size) {
-          file.read((char *)(&refp), sizeof(refpoint_type));
-          this->insert(refp);
+          file.read((char *)(&refPt), sizeof(refpoint_type));
+          this->insert(refPt);
           ++count;
         }
       } else {
-        refpoint_type refp;
+        refpoint_type refPt;
         std::string str;
         while (!file.eof()) {
           std::getline(file, str);
           if (str.empty())
             continue;
           auto iter = std::find(str.cbegin(), str.cend(), ',');
-          const_cast<id_type &>(refp.id()) = static_cast<id_type>(std::stoi(std::string(str.cbegin(), iter)));
+          const_cast<id_type &>(refPt.id) = static_cast<id_type>(std::stoi(std::string(str.cbegin(), iter)));
           auto iter2 = std::find(++iter, str.cend(), ',');
-          refp.x() = static_cast<value_type>(std::stod(std::string(iter, iter2)));
-          refp.y() = static_cast<value_type>(
+          refPt.x = static_cast<value_type>(std::stod(std::string(iter, iter2)));
+          refPt.y = static_cast<value_type>(
               std::stod(std::string(++iter2, str.cend())));
-          this->insert(refp);
+          this->insert(refPt);
         }
       }
     }
@@ -697,21 +670,21 @@ namespace ns_geo {
     /**
      * @brief Create a RefPolygon<_Ty> object
      *
-     * @param pidls the id list for points
+     * @param pidList the id list for points
      * @return RefPolygon<value_type>
      */
-    RefPolygon<value_type> createRefPolygon(const std::initializer_list<id_type> &pidls) const {
-      return RefPolygon<value_type>(pidls, this);
+    RefPolygon<value_type> createRefPolygon(const std::initializer_list<id_type> &pidList) const {
+      return RefPolygon<value_type>(pidList, this);
     }
 
     /**
      * @brief Create a RefLineString2<_Ty> object
      *
-     * @param pidls the id list for points
+     * @param pidList the id list for points
      * @return RefLineString2<value_type>
      */
-    RefLineString2<value_type> createRefLineString2(const std::initializer_list<id_type> &pidls) const {
-      return RefLineString2<value_type>(pidls, this);
+    RefLineString2<value_type> createRefLineString2(const std::initializer_list<id_type> &pidList) const {
+      return RefLineString2<value_type>(pidList, this);
     }
 
     /**
@@ -722,13 +695,13 @@ namespace ns_geo {
      * @param x_max the max x value
      * @param y_min the min y value
      * @param y_max the max y value
-     * @param slor the selector
+     * @param select the selector
      * @return self_type
      */
     static self_type randomGenerator(std::size_t num,
-                                     _Ty x_min, _Ty x_max,
-                                     _Ty y_min, _Ty y_max,
-                                     const selector &slor = nullptr) {
+                                     Ty x_min, Ty x_max,
+                                     Ty y_min, Ty y_max,
+                                     const selector &select = nullptr) {
       std::uniform_real_distribution<> u_x(static_cast<float>(x_min),
                                            static_cast<float>(x_max));
       std::uniform_real_distribution<> u_y(static_cast<float>(y_min),
@@ -736,14 +709,14 @@ namespace ns_geo {
       self_type ps;
       int count = 0;
       while (count != num) {
-        refpoint_type p(count, static_cast<_Ty>(u_x(engine)), static_cast<_Ty>(u_y(engine)));
-        if (slor == nullptr || slor(p))
+        refpoint_type p(count, static_cast<Ty>(u_x(engine)), static_cast<Ty>(u_y(engine)));
+        if (select == nullptr || select(p))
           ps.insert(p), ++count;
       }
       return ps;
     }
 
-  private:
+  public:
     /**
      * @brief dangerous function has been deleted
      */
@@ -753,16 +726,16 @@ namespace ns_geo {
 #pragma endregion
 
 #pragma region RefPointSet3
-  template <typename _Ty, typename _Hash = std::hash<uint>,
-            typename _Pred = std::equal_to<uint>>
+  template <typename Ty, typename Hash = std::hash<uint>,
+            typename Pred = std::equal_to<uint>>
   class RefPointSet3
-      : public std::unordered_map<uint, RefPoint3<_Ty>, _Hash, _Pred> {
+      : public std::unordered_map<uint, RefPoint3<Ty>, Hash, Pred> {
   public:
-    using value_type = _Ty;
+    using value_type = Ty;
     using id_type = uint;
     using refpoint_type = RefPoint3<value_type>;
     using container_type =
-        std::unordered_map<id_type, refpoint_type, _Hash, _Pred>;
+        std::unordered_map<id_type, refpoint_type, Hash, Pred>;
     /**
      * @brief using container_type's constructors
      */
@@ -780,7 +753,7 @@ namespace ns_geo {
      * @return auto
      */
     auto insert(const refpoint_type &p) {
-      return container_type::insert(std::make_pair(p.id(), p));
+      return container_type::insert(std::make_pair(p.id, p));
     }
     /**
      * @brief write points to the file
@@ -794,13 +767,12 @@ namespace ns_geo {
       if (!file.is_open())
         throw std::ios_base::failure("File Open Failed");
       if (std::ios::binary == (mode & std::ios::binary)) {
-        for (const auto &[id, refp] : *this)
-          file.write((const char *)(&refp), sizeof(refpoint_type));
+        for (const auto &[id, refPt] : *this)
+          file.write((const char *)(&refPt), sizeof(refpoint_type));
       } else
-        for (const auto &[id, refp] : *this)
-          file << refp.id() << ',' << refp.x() << ','
-               << refp.y() << ',' << refp.z() << '\n';
-      return;
+        for (const auto &[id, refPt] : *this)
+          file << refPt.id << ',' << refPt.x << ','
+               << refPt.y << ',' << refPt.z << '\n';
     }
     /**
      * @brief read points from the file
@@ -814,7 +786,7 @@ namespace ns_geo {
       if (!file.is_open())
         throw std::ios_base::failure("File Open Failed");
       if (std::ios::binary == (mode & std::ios::binary)) {
-        refpoint_type refp;
+        refpoint_type refPt;
         file.seekg(0, std::ios::end);
         auto size = file.tellg() / sizeof(refpoint_type);
         file.seekg(0, std::ios::beg);
@@ -823,25 +795,25 @@ namespace ns_geo {
         }
         int count = 0;
         while (!file.eof() && count < size) {
-          file.read((char *)(&refp), sizeof(refpoint_type));
-          this->insert(refp);
+          file.read((char *)(&refPt), sizeof(refpoint_type));
+          this->insert(refPt);
           ++count;
         }
       } else {
-        refpoint_type refp;
+        refpoint_type refPt;
         std::string str;
         while (!file.eof()) {
           std::getline(file, str);
           if (str.empty())
             continue;
           auto iter = std::find(str.cbegin(), str.cend(), ',');
-          const_cast<uint &>(refp.id()) = static_cast<uint>(std::stoi(std::string(str.cbegin(), iter)));
+          const_cast<uint &>(refPt.id) = static_cast<uint>(std::stoi(std::string(str.cbegin(), iter)));
           auto iter2 = std::find(++iter, str.cend(), ',');
-          refp.x() = static_cast<value_type>(std::stod(std::string(iter, iter2)));
+          refPt.x = static_cast<value_type>(std::stod(std::string(iter, iter2)));
           auto iter3 = std::find(++iter2, str.cend(), ',');
-          refp.y() = static_cast<value_type>(std::stod(std::string(iter2, iter3)));
-          refp.z() = static_cast<value_type>(std::stod(std::string(++iter3, str.cend())));
-          this->insert(refp);
+          refPt.y = static_cast<value_type>(std::stod(std::string(iter2, iter3)));
+          refPt.z = static_cast<value_type>(std::stod(std::string(++iter3, str.cend())));
+          this->insert(refPt);
         }
       }
     }
@@ -874,12 +846,12 @@ namespace ns_geo {
     /**
      * @brief Create a RefLineString3<_Ty> object
      *
-     * @param pidls the id list for points
+     * @param pidList the id list for points
      * @return RefLineString3<value_type>
      */
     RefLineString3<value_type> createRefLineString3(
-        const std::initializer_list<id_type> &pidls) const {
-      return RefLineString3<value_type>(pidls, this);
+        const std::initializer_list<id_type> &pidList) const {
+      return RefLineString3<value_type>(pidList, this);
     }
 
     /**
@@ -892,14 +864,14 @@ namespace ns_geo {
      * @param y_max the max y value
      * @param z_min the min z value
      * @param z_max the max z value
-     * @param slor the selector
+     * @param select the selector
      * @return self_type
      */
     static self_type randomGenerator(std::size_t num,
-                                     _Ty x_min, _Ty x_max,
-                                     _Ty y_min, _Ty y_max,
-                                     _Ty z_min, _Ty z_max,
-                                     const selector &slor = nullptr) {
+                                     Ty x_min, Ty x_max,
+                                     Ty y_min, Ty y_max,
+                                     Ty z_min, Ty z_max,
+                                     const selector &select = nullptr) {
       std::uniform_real_distribution<> u_x(static_cast<float>(x_min),
                                            static_cast<float>(x_max));
       std::uniform_real_distribution<> u_y(static_cast<float>(y_min),
@@ -910,17 +882,17 @@ namespace ns_geo {
       self_type ps;
       int count = 0;
       while (count != num) {
-        refpoint_type p(count, static_cast<_Ty>(u_x(engine)),
-                        static_cast<_Ty>(u_y(engine)),
-                        static_cast<_Ty>(u_z(engine)));
+        refpoint_type p(count, static_cast<Ty>(u_x(engine)),
+                        static_cast<Ty>(u_y(engine)),
+                        static_cast<Ty>(u_z(engine)));
 
-        if (slor == nullptr || slor(p))
+        if (select == nullptr || select(p))
           ps.insert(p), ++count;
       }
       return ps;
     }
 
-  private:
+  public:
     /**
      * @brief dangerous function has been deleted
      */
