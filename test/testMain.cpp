@@ -15,6 +15,7 @@
 #include "testPolygon.h"
 #include "testRectangle.h"
 #include "testTriangle.h"
+#include "testOstream.h"
 
 int main(int argc, char *argv[])
 {
