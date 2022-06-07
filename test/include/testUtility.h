@@ -16,8 +16,6 @@ TEST_F(TestPointSet, utility_2DIME) {
 
   EXPECT_FLOAT_EQ(ns_geo::distance(p1, p2), ns_geo::distance(p2, p1));
   EXPECT_FLOAT_EQ(ns_geo::distance(p1, p2), std::sqrt(2.0f));
-  EXPECT_FLOAT_EQ(ns_geo::distance(p1, p2, 2.0f), std::sqrt(2.0f));
-  EXPECT_FLOAT_EQ(ns_geo::distance(p1, p2, 1.0f), 0.0f);
 
   EXPECT_FLOAT_EQ(ns_geo::distance({0.0f, 0.0f}, line), std::sqrt(2.0f));
 }
@@ -61,8 +59,6 @@ TEST_F(TestPointSet, utility_3DIME) {
 
   EXPECT_FLOAT_EQ(ns_geo::distance(p1, p2), ns_geo::distance(p2, p1));
   EXPECT_FLOAT_EQ(ns_geo::distance(p1, p2), std::sqrt(2.0f));
-  EXPECT_FLOAT_EQ(ns_geo::distance(p1, p2, 2.0f), std::sqrt(2.0f));
-  EXPECT_FLOAT_EQ(ns_geo::distance(p1, p2, 1.0f), 0.0f);
 
   EXPECT_FLOAT_EQ(ns_geo::distance({0.0f, 0.0f, 0.0f}, line), std::sqrt(3.0f));
 }

@@ -205,8 +205,7 @@ namespace ns_geo {
    */
   template <typename _Ty>
   std::array<_Ty, 3> stride(const Point3<_Ty> &from, const Point3<_Ty> &to) {
-    return std::array<_Ty, 3>{to.x - from.x, to.y - from.y,
-                              to.z - from.z};
+    return std::array<_Ty, 3>{to.x - from.x, to.y - from.y, to.z - from.z};
   }
 #pragma endregion
 
@@ -221,14 +220,8 @@ namespace ns_geo {
    */
   template <typename _Ty>
   float distance(const Point2<_Ty> &p1, const Point2<_Ty> &p2) {
-    return static_cast<float>(
-        std::sqrt(std::pow(p1.x - p2.x, 2) + std::pow(p1.y - p2.y, 2)));
-  }
-
-  template <typename _Ty>
-  float distance(const Point2<_Ty> &p1, const Point2<_Ty> &p2, float p) {
-    return static_cast<float>(std::pow(
-        std::pow(p1.x - p2.x, p) + std::pow(p1.y - p2.y, p), 1.0f / p));
+    float deltaX = p1.x - p2.x, deltaY = p1.y - p2.y;
+    return static_cast<float>(std::sqrt(deltaX * deltaX + deltaY * deltaY));
   }
 
   /**
@@ -241,26 +234,8 @@ namespace ns_geo {
    */
   template <typename _Ty>
   float distance(const Point3<_Ty> &p1, const Point3<_Ty> &p2) {
-    return static_cast<float>(std::sqrt(std::pow(p1.x - p2.x, 2) +
-                                        std::pow(p1.y - p2.y, 2) +
-                                        std::pow(p1.z - p2.z, 2)));
-  }
-
-  /**
-   * @brief Calculate the distance between two points
-   *
-   * @tparam _Ty the type of value
-   * @param p1 one of two points
-   * @param p2 one of two points
-   * @param p the power num
-   * @return float the distance between two points
-   */
-  template <typename _Ty>
-  float distance(const Point3<_Ty> &p1, const Point3<_Ty> &p2, float p) {
-    return static_cast<float>(std::pow(std::pow(p1.x - p2.x, p) +
-                                           std::pow(p1.y - p2.y, p) +
-                                           std::pow(p1.z - p2.z, p),
-                                       1.0f / p));
+    float deltaX = p1.x - p2.x, deltaY = p1.y - p2.y, deltaZ = p1.z - p2.z;
+    return static_cast<float>(std::sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ));
   }
 
   /**
@@ -296,10 +271,10 @@ namespace ns_geo {
     float vec2_x = p.x - l.p1.x;
     float vec2_y = p.y - l.p1.y;
     float vec2_z = p.z - l.p1.z;
-    auto val1 = std::pow(vec1_y * vec2_z - vec1_z * vec2_y, 2);
-    auto val2 = std::pow(vec2_x * vec1_z - vec1_x * vec2_z, 2);
-    auto val3 = std::pow(vec1_x * vec2_y - vec1_y * vec2_x, 2);
-    float dis = std::sqrt(val1 + val2 + val3) / distance(l.p1, l.p2);
+    float delta_1 = vec1_y * vec2_z - vec1_z * vec2_y;
+    float delta_2 = vec2_x * vec1_z - vec1_x * vec2_z;
+    float delta_3 = vec1_x * vec2_y - vec1_y * vec2_x;
+    float dis = std::sqrt(delta_1 * delta_1 + delta_2 * delta_2 + delta_3 * delta_3) / distance(l.p1, l.p2);
     return dis;
   }
 #pragma endregion
