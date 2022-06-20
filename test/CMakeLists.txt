@@ -1,6 +1,6 @@
 find_package(GTest REQUIRED)
 
-include_directories(${CMAKE_SOURCE_DIR}/src include ${GTEST_INCLUDE_DIRS})
+include_directories(${CMAKE_SOURCE_DIR}/src ./include ${GTEST_INCLUDE_DIRS})
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 

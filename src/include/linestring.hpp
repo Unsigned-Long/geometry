@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LINESTRING_HPP
+#define LINESTRING_HPP
 
 /**
  * @file linestring.hpp
@@ -273,3 +274,5 @@ namespace ns_geo {
   }
 #pragma endregion
 } // namespace ns_geo
+
+#endif

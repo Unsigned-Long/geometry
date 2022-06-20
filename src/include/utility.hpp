@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTILITY_HPP
+#define UTILITY_HPP
 
 /**
  * @file utility.hpp
@@ -140,6 +141,12 @@ namespace ns_geo {
   using RefTriangle3d = RefTriangle3<double>;
   using RefTriangle3f = RefTriangle3<float>;
   using RefTriangle3i = RefTriangle3<int>;
+
+  template <typename _Ty>
+  class Circle;
+  using Circled = Circle<double>;
+  using Circlef = Circle<float>;
+  using Circlei = Circle<int>;
 
   template <typename _Ty>
   class Polygon;
@@ -604,3 +611,5 @@ namespace ns_geo {
 
 #pragma endregion
 } // namespace ns_geo
+
+#endif

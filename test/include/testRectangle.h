@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TEST_RECTANGLE_H
+#define TEST_RECTANGLE_H
 
 #include "include/rectangle.hpp"
 #include "helper.h"
@@ -64,3 +65,5 @@ TEST_F(TestRefPointSet2f, refrectangle_typeTesting) {
   testing::StaticAssertTypeEq<ns_geo::RefRectanglef,
                               ns_geo::RefRectanglef::self_type>();
 }
+
+#endif

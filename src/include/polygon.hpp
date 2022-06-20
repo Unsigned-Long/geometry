@@ -1,4 +1,5 @@
-#pragma once
+#ifndef POLYGON_HPP
+#define POLYGON_HPP
 
 /**
  * @file polygon.hpp
@@ -168,3 +169,5 @@ namespace ns_geo {
   }
 #pragma endregion
 } // namespace ns_geo
+
+#endif

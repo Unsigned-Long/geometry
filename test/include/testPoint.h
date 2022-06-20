@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TEST_POINT_H
+#define TEST_POINT_H
 
 /**
  * @file testPoint.h
@@ -307,3 +308,4 @@ TEST(RefPointSet3f, writeAndRead) {
   for (int i = 0; i != 4; ++i)
     test_refpoint3f_eq(rps1.at(i), rps2.at(i));
 }
+#endif

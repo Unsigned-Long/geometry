@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RECTANGLE_HPP
+#define RECTANGLE_HPP
 
 /**
  * @file rectangle.hpp
@@ -152,3 +153,5 @@ namespace ns_geo {
   }
 #pragma endregion
 } // namespace ns_geo
+
+#endif

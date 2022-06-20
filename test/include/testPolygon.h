@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TEST_POLYGON_H
+#define TEST_POLYGON_H
 
 #include "include/polygon.hpp"
 #include "helper.h"
@@ -59,3 +60,5 @@ TEST_F(TestRefPointSet2f, refpolygonf_typeTestign) {
   testing::StaticAssertTypeEq<ns_geo::RefPolygonf,
                               ns_geo::RefPolygonf::self_type>();
 }
+
+#endif

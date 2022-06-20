@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TSET_UTILITY_H
+#define TSET_UTILITY_H
 
 #include "include/line.hpp"
 #include "include/point.hpp"
@@ -104,3 +105,4 @@ TEST_F(TestPointSet, utility_LHandRule) {
       ns_geo::LHandRule::polarCoorMap(p3, std::sqrt(2.0f), M_PI_4, M_PI_2),
       {1.0f, 3.0f, 1.0f});
 }
+#endif

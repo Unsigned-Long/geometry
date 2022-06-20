@@ -1,11 +1,13 @@
-#pragma once
+#ifndef TEST_OSTREAM_H
+#define TEST_OSTREAM_H
 
-#include "artwork/geometry/line.hpp"
-#include "artwork/geometry/linestring.hpp"
-#include "artwork/geometry/point.hpp"
-#include "artwork/geometry/polygon.hpp"
-#include "artwork/geometry/rectangle.hpp"
-#include "artwork/geometry/triangle.hpp"
+#include "include/circle.hpp"
+#include "include/line.hpp"
+#include "include/linestring.hpp"
+#include "include/point.hpp"
+#include "include/polygon.hpp"
+#include "include/rectangle.hpp"
+#include "include/triangle.hpp"
 
 #include "artwork/logger/logger.h"
 
@@ -30,6 +32,8 @@ TEST(ostream, geo_ostream) {
   LOG_VAR(tri2f);
   ns_geo::Triangle3f tri3f(p3f, p3f, p3f);
   LOG_VAR(tri3f);
+  ns_geo::Circlef cir({1.0, 1.0}, 1.0);
+  LOG_VAR(cir);
 
   ns_geo::RefPoint2f rp2f(0, 1, 2);
   LOG_VAR(rp2f);
@@ -51,3 +55,5 @@ TEST(ostream, geo_ostream) {
   LOG_VAR(rps3f.createRefTriangle3(0, 0, 0));
   ASSERT_TRUE(std::cout.good());
 }
+
+#endif

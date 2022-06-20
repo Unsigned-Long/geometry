@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TEST_LINESTRING_H
+#define TEST_LINESTRING_H
 
 #include "include/linestring.hpp"
 #include "helper.h"
@@ -110,3 +111,5 @@ TEST_F(TestRefPointSet3f, RefLineString3f_typeTesting) {
   testing::StaticAssertTypeEq<ns_geo::RefLineString3f,
                               ns_geo::RefLineString3f::self_type>();
 }
+
+#endif

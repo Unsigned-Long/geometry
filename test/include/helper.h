@@ -1,4 +1,5 @@
-#pragma once
+#ifndef HELPER_H
+#define HELPER_H
 
 /**
  * @file helper.h
@@ -113,3 +114,5 @@ protected:
 };
 
 #pragma endregion
+
+#endif

@@ -16,6 +16,7 @@
 #include "testRectangle.h"
 #include "testTriangle.h"
 #include "testOstream.h"
+#include "testCircle.h"
 
 int main(int argc, char *argv[])
 {

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef POINT_HPP
+#define POINT_HPP
 
 /**
  * @file point.hpp
@@ -29,6 +30,7 @@ namespace ns_geo {
     RECTANGLE,
     TRIANGLE2,
     TRIANGLE3,
+    CIRCLE,
     // for geometry with reference
     REF_POINT2,
     REF_POINT3,
@@ -80,6 +82,9 @@ namespace ns_geo {
       break;
     case GeoType::TRIANGLE3:
       os << "TRIANGLE3";
+      break;
+    case GeoType::CIRCLE:
+      os << "CIRCLE";
       break;
     case GeoType::REF_POINT2:
       os << "REF-POINT2";
@@ -901,3 +906,5 @@ namespace ns_geo {
 
 #pragma endregion
 } // namespace ns_geo
+
+#endif

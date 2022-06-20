@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TEST_TRIANGLE_H
+#define TEST_TRIANGLE_H
 
 #include "include/triangle.hpp"
 #include "helper.h"
@@ -35,13 +36,13 @@ TEST(Triangle2f, normalTesting) {
   auto cir = tri.circumCircle();
   auto ins = tri.inscribedCircle();
 
-  test_point2f_eq(cir.first, {0.5f, 0.5f});
-  EXPECT_FLOAT_EQ(cir.second, 0.5f * std::sqrt(2.0f));
+  test_point2f_eq(cir.cen, {0.5f, 0.5f});
+  EXPECT_FLOAT_EQ(cir.rad, 0.5f * std::sqrt(2.0f));
 
-  test_point2f_eq(ins.first,
+  test_point2f_eq(ins.cen,
                   {(0.5f * std::sqrt(2.0f)) / (1.0f + std::sqrt(2.0f)),
                    (0.5f * std::sqrt(2.0f)) / (1.0f + std::sqrt(2.0f))});
-  EXPECT_FLOAT_EQ(ins.second,
+  EXPECT_FLOAT_EQ(ins.rad,
                   (0.5f * std::sqrt(2.0f)) / (1.0f + std::sqrt(2.0f)));
 
   EXPECT_EQ(tri.type(), ns_geo::GeoType::TRIANGLE2);
@@ -198,3 +199,4 @@ TEST_F(TestRefPointSet3f, refTriangle3f_typeTesting) {
   testing::StaticAssertTypeEq<ns_geo::RefTriangle3f,
                               ns_geo::RefTriangle3f::self_type>();
 }
+#endif
