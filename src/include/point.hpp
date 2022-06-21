@@ -12,6 +12,7 @@
  */
 
 #include "utility.hpp"
+#include <functional>
 
 namespace ns_geo {
 #pragma region geometry
@@ -260,7 +261,7 @@ namespace ns_geo {
     using container_type::container_type;
     using self_type = PointSet2<value_type>;
 
-    using selector = bool (*)(const point_type &);
+    using selector = std::function<bool(const point_type &)>;
 
   public:
     /**
@@ -368,7 +369,7 @@ namespace ns_geo {
     using container_type::container_type;
     using self_type = PointSet3<value_type>;
 
-    using selector = bool (*)(const point_type &);
+    using selector = std::function<bool(const point_type &)>;
 
   public:
     /**
@@ -563,7 +564,7 @@ namespace ns_geo {
      * @brief using container_type's constructors
      */
     using container_type::container_type;
-    using selector = bool (*)(const refpoint_type &);
+    using selector = std::function<bool(const refpoint_type &)>;
 
     using self_type = RefPointSet2<value_type>;
 
@@ -746,7 +747,7 @@ namespace ns_geo {
      */
     using container_type::container_type;
 
-    using selector = bool (*)(const refpoint_type &);
+    using selector = std::function<bool(const refpoint_type &)>;
 
     using self_type = RefPointSet3<value_type>;
 
