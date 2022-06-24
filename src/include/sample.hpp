@@ -18,11 +18,11 @@ namespace ns_geo {
    * @attention range: [start, end](step) i.e. for [1, 5](2) -> pool: {1, 3, 5}
    * @return std::vector<std::size_t>
    */
-  std::vector<std::size_t> samplingWoutReplace(std::default_random_engine &engine,
-                                               std::size_t num,
-                                               std::size_t start,
-                                               std::size_t end,
-                                               std::size_t step = 1) {
+  static std::vector<std::size_t> samplingWoutReplace(std::default_random_engine &engine,
+                                                      std::size_t num,
+                                                      std::size_t start,
+                                                      std::size_t end,
+                                                      std::size_t step = 1) {
     // create the pool for sampling
     std::vector<std::size_t> idxPool((end - start) / step + 1);
     for (int i = 0; i != idxPool.size(); ++i) {
@@ -91,11 +91,11 @@ namespace ns_geo {
    * @attention range: [start, end](step) i.e. for [1, 5](2) -> pool: {1, 3, 5}
    * @return std::vector<std::size_t>
    */
-  std::vector<std::size_t> samplingWithReplace(std::default_random_engine &engine,
-                                               std::size_t num,
-                                               std::size_t start,
-                                               std::size_t end,
-                                               std::size_t step = 1) {
+  static std::vector<std::size_t> samplingWithReplace(std::default_random_engine &engine,
+                                                      std::size_t num,
+                                                      std::size_t start,
+                                                      std::size_t end,
+                                                      std::size_t step = 1) {
     // create the pool for sampling
     std::vector<std::size_t> idxPool((end - start) / step + 1);
     for (int i = 0; i != idxPool.size(); ++i) {
