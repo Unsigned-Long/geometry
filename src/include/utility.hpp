@@ -142,11 +142,9 @@ namespace ns_geo {
   using RefTriangle3f = RefTriangle3<float>;
   using RefTriangle3i = RefTriangle3<int>;
 
-  template <typename _Ty>
   class Circle;
-  using Circled = Circle<double>;
-  using Circlef = Circle<float>;
-  using Circlei = Circle<int>;
+
+  class SLine2;
 
   template <typename _Ty>
   class Polygon;

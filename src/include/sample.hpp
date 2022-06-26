@@ -1,5 +1,5 @@
-#ifndef SAMPLING_H
-#define SMAPLING_H
+#ifndef SAMPLE_HPP
+#define SAMPLE_HPP
 
 #include <iostream>
 #include <random>

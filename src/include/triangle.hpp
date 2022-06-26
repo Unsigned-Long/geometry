@@ -82,7 +82,7 @@ namespace ns_geo {
      *
      * @return std::pair<Point2f, float> the center and the radius
      */
-    [[nodiscard]] ns_geo::Circle<value_type> circumCircle() const {
+    [[nodiscard]] ns_geo::Circle circumCircle() const {
       auto x1 = p1.x, y1 = p1.y;
       auto x2 = p2.x, y2 = p2.y;
       auto x3 = p3.x, y3 = p3.y;
@@ -94,7 +94,7 @@ namespace ns_geo {
                 (2.0 * ((y3 - y1) * (x2 - x1) - (y2 - y1) * (x3 - x1)));
       float r = std::sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b));
       // return std::make_pair(Point2f(a, b), r);
-      return ns_geo::Circle<value_type>({a, b}, r);
+      return ns_geo::Circle({a, b}, r);
     }
 
     /**
@@ -102,13 +102,13 @@ namespace ns_geo {
      *
      * @return std::pair<Point2f, float> the center and the radius
      */
-    [[nodiscard]] ns_geo::Circle<value_type> inscribedCircle() const {
+    [[nodiscard]] ns_geo::Circle inscribedCircle() const {
       float a = distance(p3, p2), b = distance(p1, p3),
             c = distance(p1, p2);
       float temp = 1.0f / (a + b + c);
       float x = (a * p1.x + b * p2.x + c * p3.x) * temp;
       float y = (a * p1.y + b * p2.y + c * p3.y) * temp;
-      return ns_geo::Circle<value_type>(Point2f(x, y), distance(Point2f(x, y), Line2f(p1, p2)));
+      return ns_geo::Circle(Point2d(x, y), distance(Point2d(x, y), Line2d({p1.x, p1.y}, {p2.x, p2.y})));
     }
 
     [[nodiscard]] inline ns_geo::GeoType type() const override {
@@ -301,7 +301,7 @@ namespace ns_geo {
      *
      * @return std::pair<Point2f, float> the center and the radius
      */
-    [[nodiscard]] ns_geo::Circle<value_type> circumCircle() const {
+    [[nodiscard]] ns_geo::Circle circumCircle() const {
       auto &p1 = this->p1(), p2 = this->p2(), p3 = this->p3();
       auto x1 = p1.x, y1 = p1.y;
       auto x2 = p2.x, y2 = p2.y;
@@ -313,7 +313,7 @@ namespace ns_geo {
                  (x3 - x1) * (x2 * x2 - x1 * x1 + y2 * y2 - y1 * y1)) /
                 (2.0 * ((y3 - y1) * (x2 - x1) - (y2 - y1) * (x3 - x1)));
       float r = std::sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b));
-      return ns_geo::Circle<value_type>(Point2f(a, b), r);
+      return ns_geo::Circle(Point2d(a, b), r);
     }
 
     /**
@@ -321,13 +321,13 @@ namespace ns_geo {
      *
      * @return std::pair<Point2f, float> the center and the radius
      */
-    [[nodiscard]] ns_geo::Circle<value_type> inscribedCircle() const {
+    [[nodiscard]] ns_geo::Circle inscribedCircle() const {
       auto &p1 = this->p1(), p2 = this->p2(), p3 = this->p3();
       float a = distance(p3, p2), b = distance(p1, p3), c = distance(p1, p2);
       float temp = 1.0f / (a + b + c);
       float x = (a * p1.x + b * p2.x + c * p3.x) * temp;
       float y = (a * p1.y + b * p2.y + c * p3.y) * temp;
-      return ns_geo::Circle<value_type>(Point2f(x, y), distance(Point2f(x, y), Line2f(p1, p2)));
+      return ns_geo::Circle(Point2d(x, y), distance(Point2d(x, y), Line2d({p1.x, p1.y}, {p2.x, p2.y})));
     }
 
     [[nodiscard]] inline ns_geo::GeoType type() const override {

@@ -7,6 +7,7 @@
 #include "include/point.hpp"
 #include "include/polygon.hpp"
 #include "include/rectangle.hpp"
+#include "include/sline.hpp"
 #include "include/triangle.hpp"
 
 #include "artwork/logger/logger.h"
@@ -32,8 +33,11 @@ TEST(ostream, geo_ostream) {
   LOG_VAR(tri2f);
   ns_geo::Triangle3f tri3f(p3f, p3f, p3f);
   LOG_VAR(tri3f);
-  ns_geo::Circlef cir({1.0, 1.0}, 1.0);
+  ns_geo::Circle cir({1.0, 1.0}, 1.0);
   LOG_VAR(cir);
+
+  ns_geo::SLine2 l({0, 0}, {1, 1});
+  LOG_VAR(l);
 
   ns_geo::RefPoint2f rp2f(0, 1, 2);
   LOG_VAR(rp2f);

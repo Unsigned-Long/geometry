@@ -36,10 +36,10 @@ TEST(Triangle2f, normalTesting) {
   auto cir = tri.circumCircle();
   auto ins = tri.inscribedCircle();
 
-  test_point2f_eq(cir.cen, {0.5f, 0.5f});
+  test_point2d_eq(cir.cen, {0.5f, 0.5f});
   EXPECT_FLOAT_EQ(cir.rad, 0.5f * std::sqrt(2.0f));
 
-  test_point2f_eq(ins.cen,
+  test_point2d_eq(ins.cen,
                   {(0.5f * std::sqrt(2.0f)) / (1.0f + std::sqrt(2.0f)),
                    (0.5f * std::sqrt(2.0f)) / (1.0f + std::sqrt(2.0f))});
   EXPECT_FLOAT_EQ(ins.rad,

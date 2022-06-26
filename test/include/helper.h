@@ -44,6 +44,34 @@ void test_refpoint3f_eq(const ns_geo::RefPoint3f &p1,
   return;
 }
 
+void test_point2d_eq(const ns_geo::Point2d &p1, const ns_geo::Point2d &p2) {
+  EXPECT_DOUBLE_EQ(p1.x, p2.x);
+  EXPECT_DOUBLE_EQ(p1.y, p2.y);
+}
+
+void test_point3d_eq(const ns_geo::Point3d &p1, const ns_geo::Point3d &p2) {
+  EXPECT_DOUBLE_EQ(p1.x, p2.x);
+  EXPECT_DOUBLE_EQ(p1.y, p2.y);
+  EXPECT_DOUBLE_EQ(p1.z, p2.z);
+}
+
+void test_refpoint2d_eq(const ns_geo::RefPoint2d &p1,
+                        const ns_geo::RefPoint2d &p2) {
+  EXPECT_EQ(p1.id, p2.id);
+  EXPECT_DOUBLE_EQ(p1.x, p2.x);
+  EXPECT_DOUBLE_EQ(p1.y, p2.y);
+  return;
+}
+
+void test_refpoint3d_eq(const ns_geo::RefPoint3d &p1,
+                        const ns_geo::RefPoint3d &p2) {
+  EXPECT_EQ(p1.id, p2.id);
+  EXPECT_DOUBLE_EQ(p1.x, p2.x);
+  EXPECT_DOUBLE_EQ(p1.y, p2.y);
+  EXPECT_DOUBLE_EQ(p1.z, p2.z);
+  return;
+}
+
 #pragma endregion
 
 #pragma region help classes

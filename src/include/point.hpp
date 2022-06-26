@@ -25,6 +25,7 @@ namespace ns_geo {
     POINT3,
     LINE2,
     LINE3,
+    SLINE2,
     LINESTRING2,
     LINESTRING3,
     POLYGON,
@@ -65,6 +66,9 @@ namespace ns_geo {
       break;
     case GeoType::LINE3:
       os << "LINE3";
+      break;
+    case GeoType::SLINE2:
+      os << "SLINE2";
       break;
     case GeoType::LINESTRING2:
       os << "LINESTRING2";
